@@ -69,18 +69,21 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* 2. Quick Links */}
+{/* 2. Quick Links */}
           <div>
             <h3 className="font-bold text-lg mb-6 text-white border-b border-brand-600 inline-block pb-1">
                 {t('quickLinks')}
             </h3>
             <ul className="space-y-3 text-neutral-400 text-sm">
+              {/* ✨ NUESTRO ENLACE AL TEAM ✨ */}
+              <li><Link href={`${prefix}/team`} className="hover:text-brand-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-brand-500 rounded-full"></span>{tNav('team')}</Link></li>
+              
               <li><Link href={`${prefix}/sobre-cancer`} className="hover:text-brand-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-brand-500 rounded-full"></span>{tNav('aboutCancer')}</Link></li>
               <li><Link href={`${prefix}/warriors`} className="hover:text-brand-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-brand-500 rounded-full"></span>{tNav('warriors')}</Link></li>
               <li><Link href={`${prefix}/voluntarios`} className="hover:text-brand-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-brand-500 rounded-full"></span>{tNav('volunteers')}</Link></li>
             </ul>
           </div>
-
+          
           {/* 3. Contact Info */}
           <div>
             <h3 className="font-bold text-lg mb-6 text-white border-b border-brand-600 inline-block pb-1">

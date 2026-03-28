@@ -25,6 +25,7 @@
     "shareJourney": "Share your Journey",
     "moodBoost": "Warrior Mood Boost",
     "mensHealth": "Men's Health Week",
+    "team": "Our Team",
     "kidneyCancer": "World Kidney Cancer Day"
   },
 "warriorsPage": {
@@ -162,7 +163,7 @@
   "impact": {
     "title": "Our Impact in",
     "titleHighlight": "Numbers",
-    "donated": "Donated in 2024",
+    "donated": "Donated in 2025",
     "dreamsFulfilled": "Dreams Fulfilled",
     "warriorsSupported": "Warriors Supported",
     "activeVolunteers": "Team Members"
@@ -1438,17 +1439,33 @@
         "title": "Make a wish come true for Elena",
         "description": "Elena has been fighting ovarian cancer for 3 years. Her dream is to gather her extended family for a reunion dinner."
       }
+
+    }
     },
-    "teamPage": {
+      "teamPage": {
     "title": "Our Team",
     "subtitle": "Meet the dedicated hearts working behind the scenes to fulfill dreams.",
     "members": {
-      "1": { "name": "Andrea", "role": "Founder / President", "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400" },
-      "2": { "name": "Name Surname", "role": "Vice President", "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400" },
-      "3": { "name": "Name Surname", "role": "Coordinator", "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400" },
-      "4": { "name": "Name Surname", "role": "Volunteer", "image": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400" }
+      "1": { 
+        "name": "Andreea Pantiru", 
+        "role": "President & Founder", 
+        "image": "/andreea.jpg", 
+        "description": "Member of the Board, leads and represents the organization and coordinates its activities, partnerships, and programs."
+      },
+      "2": { 
+        "name": "Florentina Marincan", 
+        "role": "Vice President", 
+        "image": "/florentina.jpg", 
+        "description": "Member of the Board, contributes to the organization’s direction and key decisions." 
+      },
+      "3": { 
+        "name": "Mihai Bara", 
+        "role": "Executive Director", 
+        "image": "/mihai.jpg", 
+        "description": "Member of the Board, supporting the organization’s work and ongoing initiatives."
+      }
     }
-  }
+  
   },
       "connectSurvivor": {
     "title": "Connect with a Survivor",

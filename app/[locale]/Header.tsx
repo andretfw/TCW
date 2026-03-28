@@ -60,10 +60,11 @@ export default function Header({ locale }: { locale: string }) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // ✅ MENÚ TRADUCIDO AL 100%
+// ✅ MENÚ TRADUCIDO AL 100%
   // Ahora usamos t('clave') en lugar de texto en inglés
   const menuItems = [
     { href: `${prefix}/`, label: t('home'), dropdown: null },
+    { href: `${prefix}/team`, label: t('team'), dropdown: null }, // ✨ ¡AQUÍ ESTÁ NUESTRO BOTÓN DE TEAM! ✨
     {
       label: t('aboutCancer'),
       dropdown: [
@@ -74,6 +75,7 @@ export default function Header({ locale }: { locale: string }) {
         { href: `${prefix}/calendario-cancer`, label: t('awarenessCalendar') },
       ]
     },
+    
     {
       label: t('getInvolved'), // Traducido
       dropdown: [

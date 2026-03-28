@@ -16,25 +16,35 @@
       "static/chunks/main-app.js",
       "static/chunks/app/layout.js"
     ],
-    "/[locale]/support-dream/page": [
+    "/[locale]/team/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/[locale]/support-dream/page.js"
+      "static/chunks/app/[locale]/team/page.js"
+    ],
+    "/[locale]/involucrate/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/involucrate/page.js"
     ],
     "/[locale]/donar/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/[locale]/donar/page.js"
     ],
+    "/[locale]/sobre-cancer/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/sobre-cancer/page.js"
+    ],
+    "/[locale]/sobre-cancer/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/sobre-cancer/[id]/page.js"
+    ],
     "/[locale]/warriors/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/[locale]/warriors/page.js"
-    ],
-    "/[locale]/team/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/[locale]/team/page.js"
     ]
   }
 }

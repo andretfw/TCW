@@ -25,6 +25,7 @@
     "shareJourney": "Comparte tu Historia",
     "moodBoost": "Ánima a Warriors",
     "mensHealth": "Semana de la Salud Masculina",
+    "team": "Nuestro Equipo",
     "kidneyCancer": "Cáncer de Riñón"
   },
 "warriorsPage": {
@@ -161,7 +162,7 @@
   "impact": {
     "title": "Nuestro Impacto en",
     "titleHighlight": "Números",
-    "donated": "Donado en 2024",
+    "donated": "Donado en 2025",
     "dreamsFulfilled": "Sueños Cumplidos",
     "warriorsSupported": "Warriors Apoyados",
     "activeVolunteers": "Miembros del Equipo"
@@ -1975,14 +1976,13 @@
       }
     }
   },
-  "teamPage": {
+"teamPage": {
     "title": "Nuestro Equipo",
     "subtitle": "Conoce a los corazones dedicados que trabajan entre bastidores para cumplir sueños.",
     "members": {
-      "1": { "name": "Andrea", "role": "Fundadora / Presidenta", "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400" },
-      "2": { "name": "Nombre Apellido", "role": "Vicepresidente/a", "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400" },
-      "3": { "name": "Nombre Apellido", "role": "Coordinador/a", "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400" },
-      "4": { "name": "Nombre Apellido", "role": "Voluntario/a", "image": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400" }
+      "1": { "name": "Andreea Pantiru", "role": "Presidenta y Fundadora", "image": "/andreea.jpg", "description": "Miembro de la Junta, dirige y representa a la organización y coordina sus actividades, asociaciones y programas." },
+      "2": { "name": "Florentina Marincan", "role": "Vicepresidenta", "image": "/florentina.jpg", "description": "Miembro de la Junta, contribuye a la dirección de la organización y a las decisiones clave." },
+      "3": { "name": "Mihai Bara", "role": "Director Ejecutivo", "image": "/mihai.jpg", "description": "Miembro de la Junta, apoya el trabajo de la organización y las iniciativas en curso." }
     }
   }
 }

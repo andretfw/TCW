@@ -25,6 +25,7 @@
     "shareJourney": "Împărtășește Povestea Ta",
     "moodBoost": "Încurajare pentru Luptători",
     "mensHealth": "Săptămâna Sănătății Bărbaților",
+    "team": "Echipa Noastră",
     "kidneyCancer": "Ziua Mondială a Cancerului Renal"
   },
 "warriorsPage": {
@@ -162,7 +163,7 @@
   "impact": {
     "title": "Impactul Nostru în",
     "titleHighlight": "Cifre",
-    "donated": "Donat în 2024",
+    "donated": "Donat în 2025",
     "dreamsFulfilled": "Vise Împlinite",
     "warriorsSupported": "Luptători Sprijiniți",
     "activeVolunteers": "Membrii Echipei"
@@ -1972,14 +1973,14 @@
       }
     }
   },
-  "teamPage": {
+
+"teamPage": {
     "title": "Echipa Noastră",
-    "subtitle": "Cunoaște inimile dedicate care lucrează în culise pentru a împlini vise.",
+    "subtitle": "Cunoaște inimile dedicate care lucrează în culise pentru a îndeplini visuri.",
     "members": {
-      "1": { "name": "Andrea", "role": "Fondator / Președinte", "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400" },
-      "2": { "name": "Nume Prenume", "role": "Vicepreședinte", "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400" },
-      "3": { "name": "Nume Prenume", "role": "Coordonator", "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400" },
-      "4": { "name": "Nume Prenume", "role": "Voluntar", "image": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400" }
+      "1": { "name": "Andreea Pantiru", "role": "Președinte & Fondator", "image": "/andreea.jpg", "description": "Coordonează Tutti Cancer Warriors, reprezintă organizația și gestionează activitățile, parteneriatele și programele." },
+      "2": { "name": "Florentina Marincan", "role": "Vicepreședinte", "image": "/florentina.jpg", "description": "Membru al Consiliului Director, contribuie la direcția organizației și la deciziile importante." },
+      "3": { "name": "Mihai Bara", "role": "Director Executiv", "image": "/mihai.jpg", "description": "Membru al Consiliului Director, susține activitatea organizației și inițiativele în desfășurare." }
     }
   }
 }
