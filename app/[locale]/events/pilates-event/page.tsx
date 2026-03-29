@@ -78,7 +78,7 @@ export default function PilatesEventPage() {
                 <Quote className="w-32 h-32 rotate-180" />
               </div>
               <h2 className="relative z-10 text-3xl md:text-5xl font-bold text-neutral-800 leading-tight">
-                "{t('quote')}"
+                &quot;{t('quote')}&quot;
               </h2>
               <div className="mt-8 flex items-center gap-4">
                 <div className="w-12 h-12 bg-brand-100 rounded-full flex items-center justify-center text-brand-600">

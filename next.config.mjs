@@ -15,6 +15,8 @@ const nextConfig = {
     domains: ['images.unsplash.com', 'unsplash.com'],
   },
 
+  
+
   // 2. Truco para Deploy: Ignoramos errores estrictos de TypeScript y ESLint
   typescript: {
     ignoreBuildErrors: true,
