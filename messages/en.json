@@ -1,8 +1,8 @@
 {
   "metadata": {
-  "description": "We fulfill dreams and give hope to warriors fighting cancer every day. Join our mission."
-},
-"nav": {
+    "description": "We fulfill dreams and give hope to warriors fighting cancer every day. Join our mission."
+  },
+  "nav": {
     "home": "Home",
     "aboutCancer": "About Cancer",
     "warriors": "Warriors",
@@ -28,13 +28,13 @@
     "team": "Our Team",
     "kidneyCancer": "World Kidney Cancer Day"
   },
-"warriorsPage": {
+  "warriorsPage": {
     "title": "Restoring Hope,",
     "titleHighlight": "One Dream at a Time",
     "subtitle": "Behind every diagnosis, there is a human spirit refusing to break. Witness the power of your kindness in the lives of these brave warriors.",
     "stats": {
       "dreams": "Dreams Fulfilled",
-      "investment": "Funds Raised", 
+      "investment": "Funds Raised",
       "team": "Team Members"
     },
     "readStory": "Read Story",
@@ -107,45 +107,150 @@
       }
     }
   },
-    "aboutCancer": {
+  "aboutCancer": {
     "title": "Learn about Cancer",
     "subtitle": "Comprehensive information on types, symptoms, and early detection.",
     "types": {
-      "breast": { "title": "Breast Cancer", "shortDesc": "Early detection and self-exams." },
-      "lung": { "title": "Lung Cancer", "shortDesc": "Risk factors and respiratory health." },
-      "colorectal": { "title": "Colorectal Cancer", "shortDesc": "Importance of colonoscopy." },
-      "prostate": { "title": "Prostate Cancer", "shortDesc": "Men's health and PSA levels." },
-      "skin": { "title": "Skin Cancer", "shortDesc": "Melanoma and sun protection." },
-      "kidney": { "title": "Kidney Cancer", "shortDesc": "Silent symptoms and treatment." },
-      "leukemia": { "title": "Leukemia", "shortDesc": "Blood and bone marrow cancer." },
-      "liver": { "title": "Liver Cancer", "shortDesc": "Hepatitis and liver health." },
-      "pancreatic": { "title": "Pancreatic Cancer", "shortDesc": "Diagnosis and breakthroughs." },
-      "ovarian": { "title": "Ovarian Cancer", "shortDesc": "Subtle signs in women." },
-      "childhood": { "title": "Childhood Cancer", "shortDesc": "Supporting little warriors." },
-      "brain": { "title": "Brain Tumors", "shortDesc": "Tumor types and therapy." },
-      "bladder": { "title": "Bladder Cancer", "shortDesc": "Warning signs to watch." },
-      "cervical": { "title": "Cervical Cancer", "shortDesc": "HPV vaccine and Pap smears." },
-      "stomach": { "title": "Stomach Cancer", "shortDesc": "Diet and gastric health." },
-      "testicular": { "title": "Testicular Cancer", "shortDesc": "Self-exams for young men." },
-      "thyroid": { "title": "Thyroid Cancer", "shortDesc": "Neck lumps and hormones." },
-      "uterine": { "title": "Uterine Cancer", "shortDesc": "Endometrial health and bleeding." },
-      "lymphoma": { "title": "Lymphoma", "shortDesc": "Hodgkin and Non-Hodgkin." },
-      "myeloma": { "title": "Multiple Myeloma", "shortDesc": "Plasma cell cancer." },
-      "esophageal": { "title": "Esophageal Cancer", "shortDesc": "Swallowing issues and reflux." },
-      "head-neck": { "title": "Head & Neck", "shortDesc": "Mouth, nose, and throat." },
-      "bone": { "title": "Bone Cancer", "shortDesc": "Bone pain and sarcomas." },
-      "sarcoma": { "title": "Soft Tissue Sarcoma", "shortDesc": "Muscle and fat tumors." },
-      "gallbladder": { "title": "Gallbladder Cancer", "shortDesc": "Abdominal pain and digestion." },
-      "bile-duct": { "title": "Bile Duct Cancer", "shortDesc": "Cholangiocarcinoma info." },
-      "anal": { "title": "Anal Cancer", "shortDesc": "HPV and early detection." },
-      "penile": { "title": "Penile Cancer", "shortDesc": "Skin changes and prevention." },
-      "vaginal": { "title": "Vaginal Cancer", "shortDesc": "Rare but important symptoms." },
-      "vulvar": { "title": "Vulvar Cancer", "shortDesc": "Itching and skin changes." },
-      "eye": { "title": "Eye Cancer", "shortDesc": "Ocular melanoma types." },
-      "oral": { "title": "Oral Cancer", "shortDesc": "Mouth sores that won't heal." },
-      "throat": { "title": "Throat Cancer", "shortDesc": "Voice changes and pain." },
-      "small-intestine": { "title": "Small Intestine", "shortDesc": "Digestion and abdominal pain." },
-      "thymus": { "title": "Thymus Cancer", "shortDesc": "Chest gland and myasthenia." }
+      "breast": {
+        "title": "Breast Cancer",
+        "shortDesc": "Early detection and self-exams."
+      },
+      "lung": {
+        "title": "Lung Cancer",
+        "shortDesc": "Risk factors and respiratory health."
+      },
+      "colorectal": {
+        "title": "Colorectal Cancer",
+        "shortDesc": "Importance of colonoscopy."
+      },
+      "prostate": {
+        "title": "Prostate Cancer",
+        "shortDesc": "Men's health and PSA levels."
+      },
+      "skin": {
+        "title": "Skin Cancer",
+        "shortDesc": "Melanoma and sun protection."
+      },
+      "kidney": {
+        "title": "Kidney Cancer",
+        "shortDesc": "Silent symptoms and treatment."
+      },
+      "leukemia": {
+        "title": "Leukemia",
+        "shortDesc": "Blood and bone marrow cancer."
+      },
+      "liver": {
+        "title": "Liver Cancer",
+        "shortDesc": "Hepatitis and liver health."
+      },
+      "pancreatic": {
+        "title": "Pancreatic Cancer",
+        "shortDesc": "Diagnosis and breakthroughs."
+      },
+      "ovarian": {
+        "title": "Ovarian Cancer",
+        "shortDesc": "Subtle signs in women."
+      },
+      "childhood": {
+        "title": "Childhood Cancer",
+        "shortDesc": "Supporting little warriors."
+      },
+      "brain": {
+        "title": "Brain Tumors",
+        "shortDesc": "Tumor types and therapy."
+      },
+      "bladder": {
+        "title": "Bladder Cancer",
+        "shortDesc": "Warning signs to watch."
+      },
+      "cervical": {
+        "title": "Cervical Cancer",
+        "shortDesc": "HPV vaccine and Pap smears."
+      },
+      "stomach": {
+        "title": "Stomach Cancer",
+        "shortDesc": "Diet and gastric health."
+      },
+      "testicular": {
+        "title": "Testicular Cancer",
+        "shortDesc": "Self-exams for young men."
+      },
+      "thyroid": {
+        "title": "Thyroid Cancer",
+        "shortDesc": "Neck lumps and hormones."
+      },
+      "uterine": {
+        "title": "Uterine Cancer",
+        "shortDesc": "Endometrial health and bleeding."
+      },
+      "lymphoma": {
+        "title": "Lymphoma",
+        "shortDesc": "Hodgkin and Non-Hodgkin."
+      },
+      "myeloma": {
+        "title": "Multiple Myeloma",
+        "shortDesc": "Plasma cell cancer."
+      },
+      "esophageal": {
+        "title": "Esophageal Cancer",
+        "shortDesc": "Swallowing issues and reflux."
+      },
+      "head-neck": {
+        "title": "Head & Neck",
+        "shortDesc": "Mouth, nose, and throat."
+      },
+      "bone": {
+        "title": "Bone Cancer",
+        "shortDesc": "Bone pain and sarcomas."
+      },
+      "sarcoma": {
+        "title": "Soft Tissue Sarcoma",
+        "shortDesc": "Muscle and fat tumors."
+      },
+      "gallbladder": {
+        "title": "Gallbladder Cancer",
+        "shortDesc": "Abdominal pain and digestion."
+      },
+      "bile-duct": {
+        "title": "Bile Duct Cancer",
+        "shortDesc": "Cholangiocarcinoma info."
+      },
+      "anal": {
+        "title": "Anal Cancer",
+        "shortDesc": "HPV and early detection."
+      },
+      "penile": {
+        "title": "Penile Cancer",
+        "shortDesc": "Skin changes and prevention."
+      },
+      "vaginal": {
+        "title": "Vaginal Cancer",
+        "shortDesc": "Rare but important symptoms."
+      },
+      "vulvar": {
+        "title": "Vulvar Cancer",
+        "shortDesc": "Itching and skin changes."
+      },
+      "eye": {
+        "title": "Eye Cancer",
+        "shortDesc": "Ocular melanoma types."
+      },
+      "oral": {
+        "title": "Oral Cancer",
+        "shortDesc": "Mouth sores that won't heal."
+      },
+      "throat": {
+        "title": "Throat Cancer",
+        "shortDesc": "Voice changes and pain."
+      },
+      "small-intestine": {
+        "title": "Small Intestine",
+        "shortDesc": "Digestion and abdominal pain."
+      },
+      "thymus": {
+        "title": "Thymus Cancer",
+        "shortDesc": "Chest gland and myasthenia."
+      }
     }
   },
   "common": {
@@ -195,11 +300,23 @@
       },
       "treatmentsTitle": "Treatments & Care",
       "treatmentsIntro": "Breast cancer treatment is highly personalized and depends on the stage, location, and biological characteristics of the tumor.",
-      "treatment1": { "title": "Surgery", "desc": "Can be breast-conserving (lumpectomy) or mastectomy, depending on tumor extent." },
-      "treatment2": { "title": "Systemic Therapies", "desc": "Includes chemotherapy, hormone therapy, and biologically targeted therapies." },
+      "treatment1": {
+        "title": "Surgery",
+        "desc": "Can be breast-conserving (lumpectomy) or mastectomy, depending on tumor extent."
+      },
+      "treatment2": {
+        "title": "Systemic Therapies",
+        "desc": "Includes chemotherapy, hormone therapy, and biologically targeted therapies."
+      },
       "statsTitle": "Global Impact",
-      "stat1": { "value": "2.3M", "label": "Annual diagnoses" },
-      "stat2": { "value": "90%", "label": "5-year survival rate (early detection)" },
+      "stat1": {
+        "value": "2.3M",
+        "label": "Annual diagnoses"
+      },
+      "stat2": {
+        "value": "90%",
+        "label": "5-year survival rate (early detection)"
+      },
       "ctaSidebarTitle": "Support our cause?",
       "appointmentTitle": "Doctor's appointment?",
       "appointmentText": "We have prepared a list of essential questions to ask your oncologist.",
@@ -221,11 +338,23 @@
       },
       "treatmentsTitle": "Treatment Options",
       "treatmentsIntro": "Options vary dramatically based on cell type, cancer stage, and overall patient health.",
-      "treatment1": { "title": "Targeted Therapy & Immunotherapy", "desc": "Modern treatments that attack specific abnormalities or boost the immune system." },
-      "treatment2": { "title": "Surgery & Radiation", "desc": "To remove the tumor (if localized) or shrink it with high-powered energy beams." },
+      "treatment1": {
+        "title": "Targeted Therapy & Immunotherapy",
+        "desc": "Modern treatments that attack specific abnormalities or boost the immune system."
+      },
+      "treatment2": {
+        "title": "Surgery & Radiation",
+        "desc": "To remove the tumor (if localized) or shrink it with high-powered energy beams."
+      },
       "statsTitle": "Key Stats",
-      "stat1": { "value": "1st", "label": "Leading cause of cancer death" },
-      "stat2": { "value": "2.2M", "label": "Global cases annually" },
+      "stat1": {
+        "value": "1st",
+        "label": "Leading cause of cancer death"
+      },
+      "stat2": {
+        "value": "2.2M",
+        "label": "Global cases annually"
+      },
       "ctaSidebarTitle": "Support Research",
       "appointmentTitle": "Symptoms concerns?",
       "appointmentText": "Prepare for your specialist visit.",
@@ -247,11 +376,23 @@
       },
       "treatmentsTitle": "Therapeutic Approach",
       "treatmentsIntro": "Treatment depends largely on the stage of cancer, though surgery is common for localized tumors.",
-      "treatment1": { "title": "Surgery (Colectomy)", "desc": "Removal of the affected part of the colon and nearby lymph nodes." },
-      "treatment2": { "title": "Adjuvant Chemotherapy", "desc": "Often used after surgery to kill any remaining cancer cells." },
+      "treatment1": {
+        "title": "Surgery (Colectomy)",
+        "desc": "Removal of the affected part of the colon and nearby lymph nodes."
+      },
+      "treatment2": {
+        "title": "Adjuvant Chemotherapy",
+        "desc": "Often used after surgery to kill any remaining cancer cells."
+      },
       "statsTitle": "Statistics",
-      "stat1": { "value": "3rd", "label": "Most common cancer globally" },
-      "stat2": { "value": "90%+", "label": "Curable if detected locally" },
+      "stat1": {
+        "value": "3rd",
+        "label": "Most common cancer globally"
+      },
+      "stat2": {
+        "value": "90%+",
+        "label": "Curable if detected locally"
+      },
       "ctaSidebarTitle": "Prevention Saves Lives",
       "appointmentTitle": "Need a screening?",
       "appointmentText": "Talk to your doctor about when to start testing.",
@@ -273,11 +414,23 @@
       },
       "treatmentsTitle": "Management Options",
       "treatmentsIntro": "Treatment ranges from active surveillance (for low-risk cancers) to more aggressive interventions.",
-      "treatment1": { "title": "Active Surveillance", "desc": "Closely monitoring the cancer without immediate treatment if it grows very slowly." },
-      "treatment2": { "title": "Surgery & Radiation", "desc": "Radical prostatectomy (removing the gland) or using radiation beams." },
+      "treatment1": {
+        "title": "Active Surveillance",
+        "desc": "Closely monitoring the cancer without immediate treatment if it grows very slowly."
+      },
+      "treatment2": {
+        "title": "Surgery & Radiation",
+        "desc": "Radical prostatectomy (removing the gland) or using radiation beams."
+      },
       "statsTitle": "Prevalence",
-      "stat1": { "value": "1 in 8", "label": "Men diagnosed in their lifetime" },
-      "stat2": { "value": "98%", "label": "5-year survival rate" },
+      "stat1": {
+        "value": "1 in 8",
+        "label": "Men diagnosed in their lifetime"
+      },
+      "stat2": {
+        "value": "98%",
+        "label": "5-year survival rate"
+      },
       "ctaSidebarTitle": "Men's Health",
       "appointmentTitle": "Prostate check?",
       "appointmentText": "Discuss PSA benefits and risks with your urologist.",
@@ -299,11 +452,23 @@
       },
       "treatmentsTitle": "Modern Treatments",
       "treatmentsIntro": "Surgery is the main treatment for early-stage melanomas. Advanced cases require systemic therapies.",
-      "treatment1": { "title": "Surgical Excision", "desc": "Removing the melanoma and a margin of healthy skin around it." },
-      "treatment2": { "title": "Immunotherapy & Targeted Therapy", "desc": "Drugs that boost the immune system or target specific genetic mutations." },
+      "treatment1": {
+        "title": "Surgical Excision",
+        "desc": "Removing the melanoma and a margin of healthy skin around it."
+      },
+      "treatment2": {
+        "title": "Immunotherapy & Targeted Therapy",
+        "desc": "Drugs that boost the immune system or target specific genetic mutations."
+      },
       "statsTitle": "Detection",
-      "stat1": { "value": "Top 5", "label": "Most common cancers" },
-      "stat2": { "value": "99%", "label": "Curable if detected very early" },
+      "stat1": {
+        "value": "Top 5",
+        "label": "Most common cancers"
+      },
+      "stat2": {
+        "value": "99%",
+        "label": "Curable if detected very early"
+      },
       "ctaSidebarTitle": "Sun Safety",
       "appointmentTitle": "Mole concerns?",
       "appointmentText": "Don't wait. See a dermatologist immediately.",
@@ -325,11 +490,23 @@
       },
       "treatmentsTitle": "Therapeutic Approach",
       "treatmentsIntro": "Treatment depends on whether the cancer has invaded the bladder muscle wall.",
-      "treatment1": { "title": "Transurethral Resection (TURBT)", "desc": "Surgery through the urethra to remove superficial tumors." },
-      "treatment2": { "title": "Cystectomy & Intravesical Therapy", "desc": "Bladder removal or using BCG directly into the bladder." },
+      "treatment1": {
+        "title": "Transurethral Resection (TURBT)",
+        "desc": "Surgery through the urethra to remove superficial tumors."
+      },
+      "treatment2": {
+        "title": "Cystectomy & Intravesical Therapy",
+        "desc": "Bladder removal or using BCG directly into the bladder."
+      },
       "statsTitle": "Data",
-      "stat1": { "value": "4x", "label": "More common in men than women" },
-      "stat2": { "value": "77%", "label": "Average survival rate" },
+      "stat1": {
+        "value": "4x",
+        "label": "More common in men than women"
+      },
+      "stat2": {
+        "value": "77%",
+        "label": "Average survival rate"
+      },
       "ctaSidebarTitle": "Help Warriors",
       "appointmentTitle": "Urology Consult",
       "appointmentText": "Prepare doubts about urinary symptoms.",
@@ -351,11 +528,23 @@
       },
       "treatmentsTitle": "Hematology Treatments",
       "treatmentsIntro": "Treatment is highly specific based on the exact lymphoma subtype and its aggressiveness.",
-      "treatment1": { "title": "Chemotherapy & Targeted Therapy", "desc": "Using drugs to kill cancer cells or block their growth." },
-      "treatment2": { "title": "Stem Cell Transplant", "desc": "To replace diseased bone marrow with healthy cells." },
+      "treatment1": {
+        "title": "Chemotherapy & Targeted Therapy",
+        "desc": "Using drugs to kill cancer cells or block their growth."
+      },
+      "treatment2": {
+        "title": "Stem Cell Transplant",
+        "desc": "To replace diseased bone marrow with healthy cells."
+      },
       "statsTitle": "Variety",
-      "stat1": { "value": "80+", "label": "Different subtypes of lymphoma" },
-      "stat2": { "value": "High", "label": "Cure rate in Hodgkin" },
+      "stat1": {
+        "value": "80+",
+        "label": "Different subtypes of lymphoma"
+      },
+      "stat2": {
+        "value": "High",
+        "label": "Cure rate in Hodgkin"
+      },
       "ctaSidebarTitle": "Join the Fight",
       "appointmentTitle": "Hematologist",
       "appointmentText": "Key questions for your blood specialist.",
@@ -377,11 +566,23 @@
       },
       "treatmentsTitle": "Therapeutic Options",
       "treatmentsIntro": "Surgery is the main treatment for most kidney cancers.",
-      "treatment1": { "title": "Nephrectomy (Partial or Radical)", "desc": "Removal of the tumor or the entire affected kidney." },
-      "treatment2": { "title": "Targeted Therapy & Immunotherapy", "desc": "Frequently used for advanced or metastatic kidney cancer." },
+      "treatment1": {
+        "title": "Nephrectomy (Partial or Radical)",
+        "desc": "Removal of the tumor or the entire affected kidney."
+      },
+      "treatment2": {
+        "title": "Targeted Therapy & Immunotherapy",
+        "desc": "Frequently used for advanced or metastatic kidney cancer."
+      },
       "statsTitle": "Key Fact",
-      "stat1": { "value": "Top 10", "label": "Most common cancers" },
-      "stat2": { "value": "75%", "label": "5-year survival rate (global)" },
+      "stat1": {
+        "value": "Top 10",
+        "label": "Most common cancers"
+      },
+      "stat2": {
+        "value": "75%",
+        "label": "5-year survival rate (global)"
+      },
       "ctaSidebarTitle": "Renal Support",
       "appointmentTitle": "Recent diagnosis?",
       "appointmentText": "Understand your options before deciding.",
@@ -403,11 +604,23 @@
       },
       "treatmentsTitle": "Gynecologic Treatments",
       "treatmentsIntro": "Surgery is the standard and often curative treatment in early stages.",
-      "treatment1": { "title": "Hysterectomy", "desc": "Surgery to remove the uterus, often along with tubes and ovaries." },
-      "treatment2": { "title": "Pelvic Radiation Therapy", "desc": "Use of external or internal radiation (brachytherapy) to kill remaining cells." },
+      "treatment1": {
+        "title": "Hysterectomy",
+        "desc": "Surgery to remove the uterus, often along with tubes and ovaries."
+      },
+      "treatment2": {
+        "title": "Pelvic Radiation Therapy",
+        "desc": "Use of external or internal radiation (brachytherapy) to kill remaining cells."
+      },
       "statsTitle": "Prognosis",
-      "stat1": { "value": "4th", "label": "Most common cancer in women" },
-      "stat2": { "value": "81%", "label": "High overall survival rate" },
+      "stat1": {
+        "value": "4th",
+        "label": "Most common cancer in women"
+      },
+      "stat2": {
+        "value": "81%",
+        "label": "High overall survival rate"
+      },
       "ctaSidebarTitle": "Women's Health",
       "appointmentTitle": "Gynecologic Oncologist",
       "appointmentText": "Crucial questions about your reproductive health.",
@@ -429,11 +642,23 @@
       },
       "treatmentsTitle": "Therapeutic Challenges",
       "treatmentsIntro": "Treatment is complex and relies heavily on the health of the remaining liver.",
-      "treatment1": { "title": "Surgical Resection or Transplant", "desc": "Tumor removal (if liver works well) or liver replacement." },
-      "treatment2": { "title": "Ablation & Embolization Therapy", "desc": "Techniques to destroy tumors directly without major surgery." },
+      "treatment1": {
+        "title": "Surgical Resection or Transplant",
+        "desc": "Tumor removal (if liver works well) or liver replacement."
+      },
+      "treatment2": {
+        "title": "Ablation & Embolization Therapy",
+        "desc": "Techniques to destroy tumors directly without major surgery."
+      },
       "statsTitle": "Global Impact",
-      "stat1": { "value": "6th", "label": "Most diagnosed cancer" },
-      "stat2": { "value": "3rd", "label": "Leading cause of cancer death" },
+      "stat1": {
+        "value": "6th",
+        "label": "Most diagnosed cancer"
+      },
+      "stat2": {
+        "value": "3rd",
+        "label": "Leading cause of cancer death"
+      },
       "ctaSidebarTitle": "Liver Support",
       "appointmentTitle": "Liver concerns?",
       "appointmentText": "Consult a hepatologist or oncologist.",
@@ -455,11 +680,23 @@
       },
       "treatmentsTitle": "Management Options",
       "treatmentsIntro": "Surgery is the only potential curative option but is possible in only a minority of cases.",
-      "treatment1": { "title": "Whipple Procedure (Surgery)", "desc": "Complex operation to remove the head of the pancreas and nearby organs." },
-      "treatment2": { "title": "Chemotherapy (e.g., FOLFIRINOX)", "desc": "Potent regimens to shrink tumors or control advanced disease." },
+      "treatment1": {
+        "title": "Whipple Procedure (Surgery)",
+        "desc": "Complex operation to remove the head of the pancreas and nearby organs."
+      },
+      "treatment2": {
+        "title": "Chemotherapy (e.g., FOLFIRINOX)",
+        "desc": "Potent regimens to shrink tumors or control advanced disease."
+      },
       "statsTitle": "Urgency",
-      "stat1": { "value": "Low", "label": "Early detection rate" },
-      "stat2": { "value": "11%", "label": "5-year survival (slowly improving)" },
+      "stat1": {
+        "value": "Low",
+        "label": "Early detection rate"
+      },
+      "stat2": {
+        "value": "11%",
+        "label": "5-year survival (slowly improving)"
+      },
       "ctaSidebarTitle": "Vital Research",
       "appointmentTitle": "Specialist Consult",
       "appointmentText": "Find centers with high pancreatic volume.",
@@ -481,11 +718,23 @@
       },
       "treatmentsTitle": "Effective Treatments",
       "treatmentsIntro": "Standard approach involves surgery often followed by hormone therapy.",
-      "treatment1": { "title": "Thyroidectomy", "desc": "Total or partial removal of the thyroid gland." },
-      "treatment2": { "title": "Radioactive Iodine Therapy", "desc": "Using radioactive iodine post-surgery to destroy any remaining thyroid tissue." },
+      "treatment1": {
+        "title": "Thyroidectomy",
+        "desc": "Total or partial removal of the thyroid gland."
+      },
+      "treatment2": {
+        "title": "Radioactive Iodine Therapy",
+        "desc": "Using radioactive iodine post-surgery to destroy any remaining thyroid tissue."
+      },
       "statsTitle": "Hope",
-      "stat1": { "value": "3x", "label": "More common in women" },
-      "stat2": { "value": "98%", "label": "5-year survival rate" },
+      "stat1": {
+        "value": "3x",
+        "label": "More common in women"
+      },
+      "stat2": {
+        "value": "98%",
+        "label": "5-year survival rate"
+      },
       "ctaSidebarTitle": "Endocrine Support",
       "appointmentTitle": "Neck nodule?",
       "appointmentText": "Questions for your endocrinologist.",
@@ -507,11 +756,23 @@
       },
       "treatmentsTitle": "Multimodal Approach",
       "treatmentsIntro": "Often requires a combination of therapies for best results.",
-      "treatment1": { "title": "Esophagectomy", "desc": "Surgery to remove the affected part of the esophagus and reconnect the stomach." },
-      "treatment2": { "title": "Chemoradiotherapy", "desc": "Combined use of chemo and radiation, often before surgery." },
+      "treatment1": {
+        "title": "Esophagectomy",
+        "desc": "Surgery to remove the affected part of the esophagus and reconnect the stomach."
+      },
+      "treatment2": {
+        "title": "Chemoradiotherapy",
+        "desc": "Combined use of chemo and radiation, often before surgery."
+      },
       "statsTitle": "Data",
-      "stat1": { "value": "7th", "label": "Most common cancer globally" },
-      "stat2": { "value": "20%", "label": "Global 5-year survival" },
+      "stat1": {
+        "value": "7th",
+        "label": "Most common cancer globally"
+      },
+      "stat2": {
+        "value": "20%",
+        "label": "Global 5-year survival"
+      },
       "ctaSidebarTitle": "Digestive Help",
       "appointmentTitle": "Esophageal Consult",
       "appointmentText": "Questions about swallowing and treatment.",
@@ -533,11 +794,23 @@
       },
       "treatmentsTitle": "Treatments",
       "treatmentsIntro": "Surgery is the main curative option, often combined with other therapies.",
-      "treatment1": { "title": "Gastrectomy (Total or Subtotal)", "desc": "Removal of all or part of the stomach and nearby lymph nodes." },
-      "treatment2": { "title": "Perioperative Chemotherapy", "desc": "Given before and/or after surgery to improve outcomes." },
+      "treatment1": {
+        "title": "Gastrectomy (Total or Subtotal)",
+        "desc": "Removal of all or part of the stomach and nearby lymph nodes."
+      },
+      "treatment2": {
+        "title": "Perioperative Chemotherapy",
+        "desc": "Given before and/or after surgery to improve outcomes."
+      },
       "statsTitle": "Impact",
-      "stat1": { "value": "5th", "label": "Most common cancer worldwide" },
-      "stat2": { "value": "31%", "label": "5-year survival" },
+      "stat1": {
+        "value": "5th",
+        "label": "Most common cancer worldwide"
+      },
+      "stat2": {
+        "value": "31%",
+        "label": "5-year survival"
+      },
       "ctaSidebarTitle": "Nutrition & Health",
       "appointmentTitle": "Stomach issues?",
       "appointmentText": "Speak with a gastroenterologist.",
@@ -559,11 +832,23 @@
       },
       "treatmentsTitle": "Disease Management",
       "treatmentsIntro": "Although generally not curable, it is treatable for many years with modern therapies.",
-      "treatment1": { "title": "Targeted Therapy & Immunomodulators", "desc": "Drugs like proteasome inhibitors that specifically attack myeloma cells." },
-      "treatment2": { "title": "Autologous Stem Cell Transplant", "desc": "Using patient's own stem cells to rescue marrow after high-dose chemo." },
+      "treatment1": {
+        "title": "Targeted Therapy & Immunomodulators",
+        "desc": "Drugs like proteasome inhibitors that specifically attack myeloma cells."
+      },
+      "treatment2": {
+        "title": "Autologous Stem Cell Transplant",
+        "desc": "Using patient's own stem cells to rescue marrow after high-dose chemo."
+      },
       "statsTitle": "Hematology",
-      "stat1": { "value": "2nd", "label": "Most common blood cancer" },
-      "stat2": { "value": "55%", "label": "Average 5-year survival" },
+      "stat1": {
+        "value": "2nd",
+        "label": "Most common blood cancer"
+      },
+      "stat2": {
+        "value": "55%",
+        "label": "Average 5-year survival"
+      },
       "ctaSidebarTitle": "Patient Support",
       "appointmentTitle": "Hematologist",
       "appointmentText": "Questions about long-term management.",
@@ -585,11 +870,23 @@
       },
       "treatmentsTitle": "Combined Treatment",
       "treatmentsIntro": "Usually involves a combination of aggressive surgery and chemotherapy.",
-      "treatment1": { "title": "Debulking Surgery", "desc": "Removal of as much visible tumor as possible from the abdomen." },
-      "treatment2": { "title": "Platinum-Based Chemotherapy", "desc": "The standard of care after surgery for most patients." },
+      "treatment1": {
+        "title": "Debulking Surgery",
+        "desc": "Removal of as much visible tumor as possible from the abdomen."
+      },
+      "treatment2": {
+        "title": "Platinum-Based Chemotherapy",
+        "desc": "The standard of care after surgery for most patients."
+      },
       "statsTitle": "Challenge",
-      "stat1": { "value": "8th", "label": "Most common cancer in women" },
-      "stat2": { "value": "49%", "label": "Global survival rate" },
+      "stat1": {
+        "value": "8th",
+        "label": "Most common cancer in women"
+      },
+      "stat2": {
+        "value": "49%",
+        "label": "Global survival rate"
+      },
       "ctaSidebarTitle": "Ovarian Awareness",
       "appointmentTitle": "Persistent symptoms?",
       "appointmentText": "Consult a gynecologic oncologist.",
@@ -611,11 +908,23 @@
       },
       "treatmentsTitle": "Therapeutic Options",
       "treatmentsIntro": "Treatment is very effective when cancer is detected in early stages.",
-      "treatment1": { "title": "Surgery (Conization or Hysterectomy)", "desc": "From removing cervical tissue to removing the uterus." },
-      "treatment2": { "title": "Concurrent Chemoradiation", "desc": "Simultaneous use of chemo and radiation for more advanced stages." },
+      "treatment1": {
+        "title": "Surgery (Conization or Hysterectomy)",
+        "desc": "From removing cervical tissue to removing the uterus."
+      },
+      "treatment2": {
+        "title": "Concurrent Chemoradiation",
+        "desc": "Simultaneous use of chemo and radiation for more advanced stages."
+      },
       "statsTitle": "Prevention",
-      "stat1": { "value": "99%", "label": "Cases associated with HPV" },
-      "stat2": { "value": "66%", "label": "Global survival (varies greatly by stage)" },
+      "stat1": {
+        "value": "99%",
+        "label": "Cases associated with HPV"
+      },
+      "stat2": {
+        "value": "66%",
+        "label": "Global survival (varies greatly by stage)"
+      },
       "ctaSidebarTitle": "Vaccinate & Screen",
       "appointmentTitle": "Cervical Health",
       "appointmentText": "Questions about HPV and screening.",
@@ -637,11 +946,23 @@
       },
       "treatmentsTitle": "Complex Treatments",
       "treatmentsIntro": "Treatment requires a multidisciplinary team of neurosurgeons and oncologists.",
-      "treatment1": { "title": "Neurosurgery (Craniotomy)", "desc": "Main treatment to remove as much tumor as safely possible." },
-      "treatment2": { "title": "Stereotactic Radiosurgery (e.g., Gamma Knife)", "desc": "Using highly focused radiation to treat tumors without incision." },
+      "treatment1": {
+        "title": "Neurosurgery (Craniotomy)",
+        "desc": "Main treatment to remove as much tumor as safely possible."
+      },
+      "treatment2": {
+        "title": "Stereotactic Radiosurgery (e.g., Gamma Knife)",
+        "desc": "Using highly focused radiation to treat tumors without incision."
+      },
       "statsTitle": "Data",
-      "stat1": { "value": "120+", "label": "Different tumor types" },
-      "stat2": { "value": "36%", "label": "Avg 5-year survival (varies widely by type)" },
+      "stat1": {
+        "value": "120+",
+        "label": "Different tumor types"
+      },
+      "stat2": {
+        "value": "36%",
+        "label": "Avg 5-year survival (varies widely by type)"
+      },
       "ctaSidebarTitle": "Neurological Support",
       "appointmentTitle": "Neuro symptoms?",
       "appointmentText": "Consult a neurologist.",
@@ -663,11 +984,23 @@
       },
       "treatmentsTitle": "High Cure Rate",
       "treatmentsIntro": "Even when spread, testicular cancer is one of the most curable types of cancer.",
-      "treatment1": { "title": "Radical Inguinal Orchiectomy", "desc": "Surgery to remove the affected testicle through a groin incision." },
-      "treatment2": { "title": "Cisplatin-Based Chemotherapy", "desc": "Highly effective for disease that has spread beyond the testicle." },
+      "treatment1": {
+        "title": "Radical Inguinal Orchiectomy",
+        "desc": "Surgery to remove the affected testicle through a groin incision."
+      },
+      "treatment2": {
+        "title": "Cisplatin-Based Chemotherapy",
+        "desc": "Highly effective for disease that has spread beyond the testicle."
+      },
       "statsTitle": "Hope",
-      "stat1": { "value": "95%", "label": "Overall cure rate" },
-      "stat2": { "value": "1%", "label": "Of all male cancers" },
+      "stat1": {
+        "value": "95%",
+        "label": "Overall cure rate"
+      },
+      "stat2": {
+        "value": "1%",
+        "label": "Of all male cancers"
+      },
       "ctaSidebarTitle": "Young Health",
       "appointmentTitle": "Urologist",
       "appointmentText": "Don't ignore changes. Consult soon.",
@@ -679,14 +1012,33 @@
       "overviewTitle": "Overview",
       "overviewText": "Childhood cancer includes various types of tumors occurring in children and adolescents. While rare, medical advances have led to high survival rates. Common types include leukemia, brain tumors, and lymphomas.",
       "symptomsTitle": "Common Symptoms",
-      "symptoms": { "symptom1": "Constant fatigue", "symptom2": "Easy bruising", "symptom3": "Localized pain", "symptom4": "Unexplained fever", "symptom5": "Weight loss", "symptom6": "Lumps or swelling" },
+      "symptoms": {
+        "symptom1": "Constant fatigue",
+        "symptom2": "Easy bruising",
+        "symptom3": "Localized pain",
+        "symptom4": "Unexplained fever",
+        "symptom5": "Weight loss",
+        "symptom6": "Lumps or swelling"
+      },
       "treatmentsTitle": "Treatments",
       "treatmentsIntro": "Treatment is adapted to age and cancer type:",
-      "treatment1": { "title": "Chemotherapy", "desc": "Medications to destroy cancer cells." },
-      "treatment2": { "title": "Radiation Therapy", "desc": "High-energy rays to eliminate tumors." },
+      "treatment1": {
+        "title": "Chemotherapy",
+        "desc": "Medications to destroy cancer cells."
+      },
+      "treatment2": {
+        "title": "Radiation Therapy",
+        "desc": "High-energy rays to eliminate tumors."
+      },
       "statsTitle": "Hope",
-      "stat1": { "value": "80%+", "label": "Overall Survival" },
-      "stat2": { "value": "Research", "label": "Medical Priority" },
+      "stat1": {
+        "value": "80%+",
+        "label": "Overall Survival"
+      },
+      "stat2": {
+        "value": "Research",
+        "label": "Medical Priority"
+      },
       "ctaSidebarTitle": "Help a Child",
       "appointmentTitle": "Family Support",
       "appointmentText": "You are not alone. Contact us for guidance.",
@@ -698,14 +1050,33 @@
       "overviewTitle": "Overview",
       "overviewText": "Multiple myeloma affects plasma cells, a type of white blood cell that helps fight infections. These cancer cells accumulate in the bone marrow and can damage bones and affect healthy blood cell production.",
       "symptomsTitle": "Symptoms",
-      "symptoms": { "symptom1": "Bone pain", "symptom2": "Extreme fatigue", "symptom3": "Frequent infections", "symptom4": "Excessive thirst", "symptom5": "Nausea", "symptom6": "Muscle weakness" },
+      "symptoms": {
+        "symptom1": "Bone pain",
+        "symptom2": "Extreme fatigue",
+        "symptom3": "Frequent infections",
+        "symptom4": "Excessive thirst",
+        "symptom5": "Nausea",
+        "symptom6": "Muscle weakness"
+      },
       "treatmentsTitle": "Treatments",
       "treatmentsIntro": "Options to manage the disease:",
-      "treatment1": { "title": "Targeted Therapy", "desc": "Drugs attacking specific proteins." },
-      "treatment2": { "title": "Bone Marrow Transplant", "desc": "Replacing diseased cells with healthy ones." },
+      "treatment1": {
+        "title": "Targeted Therapy",
+        "desc": "Drugs attacking specific proteins."
+      },
+      "treatment2": {
+        "title": "Bone Marrow Transplant",
+        "desc": "Replacing diseased cells with healthy ones."
+      },
       "statsTitle": "Facts",
-      "stat1": { "value": "Variable", "label": "Prognosis" },
-      "stat2": { "value": "65+", "label": "Common Age" },
+      "stat1": {
+        "value": "Variable",
+        "label": "Prognosis"
+      },
+      "stat2": {
+        "value": "65+",
+        "label": "Common Age"
+      },
       "ctaSidebarTitle": "Support the Cause",
       "appointmentTitle": "Questions?",
       "appointmentText": "Our experts can guide you.",
@@ -717,14 +1088,33 @@
       "overviewTitle": "Overview",
       "overviewText": "Sarcomas are a diverse group of cancers originating in bones or soft tissues (muscles, fat, blood vessels). There are over 70 different subtypes, and treatment depends on the exact location.",
       "symptomsTitle": "Warning Signs",
-      "symptoms": { "symptom1": "Painless lump", "symptom2": "Bone pain", "symptom3": "Swelling", "symptom4": "Limping", "symptom5": "Limited movement", "symptom6": "Abdominal pain" },
+      "symptoms": {
+        "symptom1": "Painless lump",
+        "symptom2": "Bone pain",
+        "symptom3": "Swelling",
+        "symptom4": "Limping",
+        "symptom5": "Limited movement",
+        "symptom6": "Abdominal pain"
+      },
       "treatmentsTitle": "Treatments",
       "treatmentsIntro": "Multidisciplinary approach:",
-      "treatment1": { "title": "Surgery", "desc": "Tumor removal with safe margins." },
-      "treatment2": { "title": "Radiation", "desc": "To shrink tumor before surgery." },
+      "treatment1": {
+        "title": "Surgery",
+        "desc": "Tumor removal with safe margins."
+      },
+      "treatment2": {
+        "title": "Radiation",
+        "desc": "To shrink tumor before surgery."
+      },
       "statsTitle": "Info",
-      "stat1": { "value": "70+", "label": "Subtypes" },
-      "stat2": { "value": "Rare", "label": "Frequency" },
+      "stat1": {
+        "value": "70+",
+        "label": "Subtypes"
+      },
+      "stat2": {
+        "value": "Rare",
+        "label": "Frequency"
+      },
       "ctaSidebarTitle": "Join Us",
       "appointmentTitle": "Assistance",
       "appointmentText": "We are here to help through the process.",
@@ -736,14 +1126,33 @@
       "overviewTitle": "Overview",
       "overviewText": "This rare cancer forms in the bile ducts, the thin tubes carrying digestive bile. It is often detected when causing jaundice (yellow skin) or abdominal pain.",
       "symptomsTitle": "Symptoms",
-      "symptoms": { "symptom1": "Jaundice (yellowing)", "symptom2": "Intense itching", "symptom3": "Pale stools", "symptom4": "Dark urine", "symptom5": "Abdominal pain", "symptom6": "Fever" },
+      "symptoms": {
+        "symptom1": "Jaundice (yellowing)",
+        "symptom2": "Intense itching",
+        "symptom3": "Pale stools",
+        "symptom4": "Dark urine",
+        "symptom5": "Abdominal pain",
+        "symptom6": "Fever"
+      },
       "treatmentsTitle": "Treatments",
       "treatmentsIntro": "Requires specialized care:",
-      "treatment1": { "title": "Surgery", "desc": "Removal of affected ducts." },
-      "treatment2": { "title": "Biliary Stent", "desc": "To unblock bile flow." },
+      "treatment1": {
+        "title": "Surgery",
+        "desc": "Removal of affected ducts."
+      },
+      "treatment2": {
+        "title": "Biliary Stent",
+        "desc": "To unblock bile flow."
+      },
       "statsTitle": "Data",
-      "stat1": { "value": "Difficult", "label": "Detection" },
-      "stat2": { "value": "50-70", "label": "Avg Age" },
+      "stat1": {
+        "value": "Difficult",
+        "label": "Detection"
+      },
+      "stat2": {
+        "value": "50-70",
+        "label": "Avg Age"
+      },
       "ctaSidebarTitle": "Donate Now",
       "appointmentTitle": "Consultation",
       "appointmentText": "Speak with a specialist today.",
@@ -755,14 +1164,33 @@
       "overviewTitle": "Overview",
       "overviewText": "Cancer in the eye can affect the outer parts (eyelids) or inner parts (uveal melanoma, retinoblastoma in kids). Eye exams are key for early detection.",
       "symptomsTitle": "Visual Symptoms",
-      "symptoms": { "symptom1": "Blurred vision", "symptom2": "Dark spots", "symptom3": "Light flashes", "symptom4": "Loss of peripheral vision", "symptom5": "Pupil shape change", "symptom6": "Red eye" },
+      "symptoms": {
+        "symptom1": "Blurred vision",
+        "symptom2": "Dark spots",
+        "symptom3": "Light flashes",
+        "symptom4": "Loss of peripheral vision",
+        "symptom5": "Pupil shape change",
+        "symptom6": "Red eye"
+      },
       "treatmentsTitle": "Treatments",
       "treatmentsIntro": "Preserving vision is priority:",
-      "treatment1": { "title": "Brachytherapy", "desc": "Temporary radioactive plaque." },
-      "treatment2": { "title": "Laser", "desc": "To destroy small tumors." },
+      "treatment1": {
+        "title": "Brachytherapy",
+        "desc": "Temporary radioactive plaque."
+      },
+      "treatment2": {
+        "title": "Laser",
+        "desc": "To destroy small tumors."
+      },
       "statsTitle": "Vision",
-      "stat1": { "value": "80%", "label": "Local Control" },
-      "stat2": { "value": "Low", "label": "Incidence" },
+      "stat1": {
+        "value": "80%",
+        "label": "Local Control"
+      },
+      "stat2": {
+        "value": "Low",
+        "label": "Incidence"
+      },
       "ctaSidebarTitle": "Help",
       "appointmentTitle": "Check-up",
       "appointmentText": "Protect your sight.",
@@ -774,14 +1202,33 @@
       "overviewTitle": "Overview",
       "overviewText": "Oral cancer develops in the tissues of the mouth or throat. Tobacco and alcohol are major risk factors, as well as HPV in some cases.",
       "symptomsTitle": "Symptoms",
-      "symptoms": { "symptom1": "Sores that won't heal", "symptom2": "White/red patches", "symptom3": "Loose teeth", "symptom4": "Pain swallowing", "symptom5": "Neck lump", "symptom6": "Ear pain" },
+      "symptoms": {
+        "symptom1": "Sores that won't heal",
+        "symptom2": "White/red patches",
+        "symptom3": "Loose teeth",
+        "symptom4": "Pain swallowing",
+        "symptom5": "Neck lump",
+        "symptom6": "Ear pain"
+      },
       "treatmentsTitle": "Treatments",
       "treatmentsIntro": "Curative and aesthetic approach:",
-      "treatment1": { "title": "Surgery", "desc": "Tumor removal." },
-      "treatment2": { "title": "Radiation", "desc": "Post-op or main therapy." },
+      "treatment1": {
+        "title": "Surgery",
+        "desc": "Tumor removal."
+      },
+      "treatment2": {
+        "title": "Radiation",
+        "desc": "Post-op or main therapy."
+      },
       "statsTitle": "Prevention",
-      "stat1": { "value": "High", "label": "Tobacco Risk" },
-      "stat2": { "value": "60%", "label": "5y Survival" },
+      "stat1": {
+        "value": "High",
+        "label": "Tobacco Risk"
+      },
+      "stat2": {
+        "value": "60%",
+        "label": "5y Survival"
+      },
       "ctaSidebarTitle": "Collaborate",
       "appointmentTitle": "Dentist",
       "appointmentText": "Regular check-ups save lives.",
@@ -793,14 +1240,33 @@
       "overviewTitle": "Overview",
       "overviewText": "This cancer affects the pharynx (throat tube) or larynx (voice box). It can impact speech and swallowing, making rehabilitation a key part of treatment.",
       "symptomsTitle": "Symptoms",
-      "symptoms": { "symptom1": "Voice changes", "symptom2": "Persistent hoarseness", "symptom3": "Constant cough", "symptom4": "Ear pain", "symptom5": "Swallowing difficulty", "symptom6": "Neck lump" },
+      "symptoms": {
+        "symptom1": "Voice changes",
+        "symptom2": "Persistent hoarseness",
+        "symptom3": "Constant cough",
+        "symptom4": "Ear pain",
+        "symptom5": "Swallowing difficulty",
+        "symptom6": "Neck lump"
+      },
       "treatmentsTitle": "Treatments",
       "treatmentsIntro": "Function recovery:",
-      "treatment1": { "title": "Radiation", "desc": "To preserve voice." },
-      "treatment2": { "title": "Speech Therapy", "desc": "Post-treatment rehab." },
+      "treatment1": {
+        "title": "Radiation",
+        "desc": "To preserve voice."
+      },
+      "treatment2": {
+        "title": "Speech Therapy",
+        "desc": "Post-treatment rehab."
+      },
       "statsTitle": "Voice",
-      "stat1": { "value": "HPV", "label": "Growing Factor" },
-      "stat2": { "value": "Variable", "label": "Prognosis" },
+      "stat1": {
+        "value": "HPV",
+        "label": "Growing Factor"
+      },
+      "stat2": {
+        "value": "Variable",
+        "label": "Prognosis"
+      },
       "ctaSidebarTitle": "Support",
       "appointmentTitle": "Consult",
       "appointmentText": "Head & Neck specialists.",
@@ -812,14 +1278,33 @@
       "overviewTitle": "Overview",
       "overviewText": "The thymus is a small organ in the chest producing white blood cells. Tumors here (thymomas) are rare and often linked to autoimmune diseases like myasthenia gravis.",
       "symptomsTitle": "Symptoms",
-      "symptoms": { "symptom1": "Persistent cough", "symptom2": "Chest pain", "symptom3": "Breathing difficulty", "symptom4": "Muscle weakness", "symptom5": "Drooping eyelids", "symptom6": "Double vision" },
+      "symptoms": {
+        "symptom1": "Persistent cough",
+        "symptom2": "Chest pain",
+        "symptom3": "Breathing difficulty",
+        "symptom4": "Muscle weakness",
+        "symptom5": "Drooping eyelids",
+        "symptom6": "Double vision"
+      },
       "treatmentsTitle": "Treatments",
       "treatmentsIntro": "Specialized management:",
-      "treatment1": { "title": "Thymectomy", "desc": "Surgery to remove thymus." },
-      "treatment2": { "title": "Chemotherapy", "desc": "If surgery isn't an option." },
+      "treatment1": {
+        "title": "Thymectomy",
+        "desc": "Surgery to remove thymus."
+      },
+      "treatment2": {
+        "title": "Chemotherapy",
+        "desc": "If surgery isn't an option."
+      },
       "statsTitle": "Rarity",
-      "stat1": { "value": "Rare", "label": "Incidence" },
-      "stat2": { "value": "Slow", "label": "Growth" },
+      "stat1": {
+        "value": "Rare",
+        "label": "Incidence"
+      },
+      "stat2": {
+        "value": "Slow",
+        "label": "Growth"
+      },
       "ctaSidebarTitle": "Research",
       "appointmentTitle": "Questions",
       "appointmentText": "Contact us for info.",
@@ -841,11 +1326,23 @@
       },
       "treatmentsTitle": "Therapeutic Challenges",
       "treatmentsIntro": "Surgery is the best option if the cancer hasn't spread.",
-      "treatment1": { "title": "Extended Cholecystectomy", "desc": "Removing gallbladder, part of liver, and nearby lymph nodes." },
-      "treatment2": { "title": "Palliative Treatment", "desc": "Procedures like stenting to relieve jaundice and pain." },
+      "treatment1": {
+        "title": "Extended Cholecystectomy",
+        "desc": "Removing gallbladder, part of liver, and nearby lymph nodes."
+      },
+      "treatment2": {
+        "title": "Palliative Treatment",
+        "desc": "Procedures like stenting to relieve jaundice and pain."
+      },
       "statsTitle": "Fact",
-      "stat1": { "value": "Rare", "label": "Overall frequency" },
-      "stat2": { "value": "19%", "label": "Global 5-year survival" },
+      "stat1": {
+        "value": "Rare",
+        "label": "Overall frequency"
+      },
+      "stat2": {
+        "value": "19%",
+        "label": "Global 5-year survival"
+      },
       "ctaSidebarTitle": "Help",
       "appointmentTitle": "Digestive Consult",
       "appointmentText": "Questions for the specialist.",
@@ -867,11 +1364,23 @@
       },
       "treatmentsTitle": "Treatment Options",
       "treatmentsIntro": "Treatment depends on location and stage, focusing on preserving function when possible.",
-      "treatment1": { "title": "Surgery (Excision or Vulvectomy)", "desc": "Removal of cancerous tissue and a margin of healthy tissue." },
-      "treatment2": { "title": "Radiation & Chemotherapy", "desc": "Often used together for more advanced tumors." },
+      "treatment1": {
+        "title": "Surgery (Excision or Vulvectomy)",
+        "desc": "Removal of cancerous tissue and a margin of healthy tissue."
+      },
+      "treatment2": {
+        "title": "Radiation & Chemotherapy",
+        "desc": "Often used together for more advanced tumors."
+      },
       "statsTitle": "Info",
-      "stat1": { "value": "Rare", "label": "Incidence compared to others" },
-      "stat2": { "value": "70%", "label": "5-year survival (Vulvar)" },
+      "stat1": {
+        "value": "Rare",
+        "label": "Incidence compared to others"
+      },
+      "stat2": {
+        "value": "70%",
+        "label": "5-year survival (Vulvar)"
+      },
       "ctaSidebarTitle": "Intimate Health",
       "appointmentTitle": "Gynecologist",
       "appointmentText": "Don't ignore persistent symptoms.",
@@ -893,11 +1402,23 @@
       },
       "treatmentsTitle": "Tumor Management",
       "treatmentsIntro": "Treatment depends on size, location, symptoms, and patient age.",
-      "treatment1": { "title": "Active Observation", "desc": "Regular monitoring with scans for small, asymptomatic tumors." },
-      "treatment2": { "title": "Surgery & Radiation", "desc": "Surgical removal if causing symptoms, or radiation if surgery is risky." },
+      "treatment1": {
+        "title": "Active Observation",
+        "desc": "Regular monitoring with scans for small, asymptomatic tumors."
+      },
+      "treatment2": {
+        "title": "Surgery & Radiation",
+        "desc": "Surgical removal if causing symptoms, or radiation if surgery is risky."
+      },
       "statsTitle": "Fact",
-      "stat1": { "value": "30%", "label": "Of all brain tumors" },
-      "stat2": { "value": "High", "label": "Success rate in benign cases" },
+      "stat1": {
+        "value": "30%",
+        "label": "Of all brain tumors"
+      },
+      "stat2": {
+        "value": "High",
+        "label": "Success rate in benign cases"
+      },
       "ctaSidebarTitle": "Support",
       "appointmentTitle": "Neurosurgeon",
       "appointmentText": "Discuss management options.",
@@ -919,11 +1440,23 @@
       },
       "treatmentsTitle": "Multimodal Treatment",
       "treatmentsIntro": "Almost always involves combination of chemo, surgery, and/or radiation.",
-      "treatment1": { "title": "Intensive Chemotherapy", "desc": "Usually the first step to shrink tumor and treat metastasis." },
-      "treatment2": { "title": "Limb-Salvage Surgery", "desc": "Removing tumor while preserving the arm or leg whenever possible." },
+      "treatment1": {
+        "title": "Intensive Chemotherapy",
+        "desc": "Usually the first step to shrink tumor and treat metastasis."
+      },
+      "treatment2": {
+        "title": "Limb-Salvage Surgery",
+        "desc": "Removing tumor while preserving the arm or leg whenever possible."
+      },
       "statsTitle": "Hope",
-      "stat1": { "value": "Youth", "label": "Most affected population" },
-      "stat2": { "value": "75%", "label": "Cure in localized disease" },
+      "stat1": {
+        "value": "Youth",
+        "label": "Most affected population"
+      },
+      "stat2": {
+        "value": "75%",
+        "label": "Cure in localized disease"
+      },
       "ctaSidebarTitle": "Pediatric Help",
       "appointmentTitle": "Pediatric Oncologist",
       "appointmentText": "Support for families and patients.",
@@ -945,11 +1478,23 @@
       },
       "treatmentsTitle": "Treatments",
       "treatmentsIntro": "Goal is eliminating cancer while preserving as much function and appearance as possible.",
-      "treatment1": { "title": "Surgery (e.g., Mohs Surgery)", "desc": "Precise removal of tumor layer by layer to save healthy tissue." },
-      "treatment2": { "title": "Radiation & Topical Therapy", "desc": "For very early stage cancers or as adjunct to surgery." },
+      "treatment1": {
+        "title": "Surgery (e.g., Mohs Surgery)",
+        "desc": "Precise removal of tumor layer by layer to save healthy tissue."
+      },
+      "treatment2": {
+        "title": "Radiation & Topical Therapy",
+        "desc": "For very early stage cancers or as adjunct to surgery."
+      },
       "statsTitle": "Fact",
-      "stat1": { "value": "<1%", "label": "Of male cancers" },
-      "stat2": { "value": "65%", "label": "Overall survival" },
+      "stat1": {
+        "value": "<1%",
+        "label": "Of male cancers"
+      },
+      "stat2": {
+        "value": "65%",
+        "label": "Overall survival"
+      },
       "ctaSidebarTitle": "Intimate Health",
       "appointmentTitle": "Urologist",
       "appointmentText": "Consult any skin change.",
@@ -971,11 +1516,23 @@
       },
       "treatmentsTitle": "Standard Treatment",
       "treatmentsIntro": "Main treatment is usually a combination of radiation and chemotherapy, which often avoids need for major surgery.",
-      "treatment1": { "title": "Concurrent Chemoradiation", "desc": "The 'gold standard', often curing cancer without operation." },
-      "treatment2": { "title": "Salvage Surgery", "desc": "Used if cancer doesn't respond to chemoradiation or recurs." },
+      "treatment1": {
+        "title": "Concurrent Chemoradiation",
+        "desc": "The 'gold standard', often curing cancer without operation."
+      },
+      "treatment2": {
+        "title": "Salvage Surgery",
+        "desc": "Used if cancer doesn't respond to chemoradiation or recurs."
+      },
       "statsTitle": "HPV",
-      "stat1": { "value": "90%", "label": "Cases linked to HPV" },
-      "stat2": { "value": "69%", "label": "Global 5-year survival" },
+      "stat1": {
+        "value": "90%",
+        "label": "Cases linked to HPV"
+      },
+      "stat2": {
+        "value": "69%",
+        "label": "Global 5-year survival"
+      },
       "ctaSidebarTitle": "Prevention & Support",
       "appointmentTitle": "Proctologist/Oncologist",
       "appointmentText": "Don't assume it's hemorrhoids. Consult.",
@@ -997,11 +1554,23 @@
       },
       "treatmentsTitle": "Risk-based Treatment",
       "treatmentsIntro": "Treatment is based on risk group (low, intermediate, high).",
-      "treatment1": { "title": "Observation or Moderate Surgery", "desc": "For low-risk tumors, sometimes only watching or simple surgery is needed." },
-      "treatment2": { "title": "Intensive Multimodal Therapy", "desc": "For high risk: high-dose chemo, surgery, radiation, and immunotherapy (e.g., dinutuximab)." },
+      "treatment1": {
+        "title": "Observation or Moderate Surgery",
+        "desc": "For low-risk tumors, sometimes only watching or simple surgery is needed."
+      },
+      "treatment2": {
+        "title": "Intensive Multimodal Therapy",
+        "desc": "For high risk: high-dose chemo, surgery, radiation, and immunotherapy (e.g., dinutuximab)."
+      },
       "statsTitle": "Childhood",
-      "stat1": { "value": "6%", "label": "Of childhood cancers" },
-      "stat2": { "value": "80%", "label": "General survival (varies greatly by risk)" },
+      "stat1": {
+        "value": "6%",
+        "label": "Of childhood cancers"
+      },
+      "stat2": {
+        "value": "80%",
+        "label": "General survival (varies greatly by risk)"
+      },
       "ctaSidebarTitle": "Family Support",
       "appointmentTitle": "Pediatric Oncology",
       "appointmentText": "Support for understanding diagnosis and risk.",
@@ -1023,11 +1592,23 @@
       },
       "treatmentsTitle": "Saving Sight and Life",
       "treatmentsIntro": "Goal is eliminating cancer and, if possible, preserving vision.",
-      "treatment1": { "title": "Focal Therapies (Laser, Cryotherapy)", "desc": "Applied directly to eye to destroy small tumors." },
-      "treatment2": { "title": "Chemotherapy (Systemic or Intra-arterial)", "desc": "To shrink tumor, sometimes injected directly into eye artery." },
+      "treatment1": {
+        "title": "Focal Therapies (Laser, Cryotherapy)",
+        "desc": "Applied directly to eye to destroy small tumors."
+      },
+      "treatment2": {
+        "title": "Chemotherapy (Systemic or Intra-arterial)",
+        "desc": "To shrink tumor, sometimes injected directly into eye artery."
+      },
       "statsTitle": "Prognosis",
-      "stat1": { "value": "95%+", "label": "High cure rate in developed nations" },
-      "stat2": { "value": "<5", "label": "Typical diagnosis age" },
+      "stat1": {
+        "value": "95%+",
+        "label": "High cure rate in developed nations"
+      },
+      "stat2": {
+        "value": "<5",
+        "label": "Typical diagnosis age"
+      },
       "ctaSidebarTitle": "Child Eye Health",
       "appointmentTitle": "Pediatric Ophthalmologist",
       "appointmentText": "Check any change in your child's eyes.",
@@ -1049,11 +1630,23 @@
       },
       "treatmentsTitle": "Functional Approach",
       "treatmentsIntro": "Treatment seeks to eliminate cancer while preserving critical functions like speaking and swallowing.",
-      "treatment1": { "title": "Surgery", "desc": "Removal of tumor and sometimes neck lymph nodes." },
-      "treatment2": { "title": "Radiotherapy & Chemotherapy", "desc": "Often used combined as main treatment or after surgery." },
+      "treatment1": {
+        "title": "Surgery",
+        "desc": "Removal of tumor and sometimes neck lymph nodes."
+      },
+      "treatment2": {
+        "title": "Radiotherapy & Chemotherapy",
+        "desc": "Often used combined as main treatment or after surgery."
+      },
       "statsTitle": "Impact",
-      "stat1": { "value": "4%", "label": "Of all cancers" },
-      "stat2": { "value": "HPV", "label": "Rising cause in younger people" },
+      "stat1": {
+        "value": "4%",
+        "label": "Of all cancers"
+      },
+      "stat2": {
+        "value": "HPV",
+        "label": "Rising cause in younger people"
+      },
       "ctaSidebarTitle": "Integral Help",
       "appointmentTitle": "ENT Specialist",
       "appointmentText": "Consult persistent mouth or throat changes.",
@@ -1075,11 +1668,23 @@
       },
       "treatmentsTitle": "Blood Treatments",
       "treatmentsIntro": "Treatment depends on leukemia type (myeloid vs lymphoid, acute vs chronic) and age.",
-      "treatment1": { "title": "Chemotherapy (Induction/Consolidation)", "desc": "Main treatment, using potent drugs to kill leukemia cells." },
-      "treatment2": { "title": "Bone Marrow/Stem Cell Transplant", "desc": "Replacing diseased marrow with healthy cells from a donor." },
+      "treatment1": {
+        "title": "Chemotherapy (Induction/Consolidation)",
+        "desc": "Main treatment, using potent drugs to kill leukemia cells."
+      },
+      "treatment2": {
+        "title": "Bone Marrow/Stem Cell Transplant",
+        "desc": "Replacing diseased marrow with healthy cells from a donor."
+      },
       "statsTitle": "Fact",
-      "stat1": { "value": "1st", "label": "Most common cancer in children" },
-      "stat2": { "value": "65%", "label": "Avg 5-year survival (varies greatly)" },
+      "stat1": {
+        "value": "1st",
+        "label": "Most common cancer in children"
+      },
+      "stat2": {
+        "value": "65%",
+        "label": "Avg 5-year survival (varies greatly)"
+      },
       "ctaSidebarTitle": "Hematologic Support",
       "appointmentTitle": "Hematologist",
       "appointmentText": "Understand your specific leukemia type.",
@@ -1101,11 +1706,23 @@
       },
       "treatmentsTitle": "Main Treatment",
       "treatmentsIntro": "Due to sensitive location, surgery is rarely the main treatment.",
-      "treatment1": { "title": "Intensity-Modulated Radiotherapy (IMRT)", "desc": "Main treatment, directing high radiation doses to tumor." },
-      "treatment2": { "title": "Concurrent or Induction Chemotherapy", "desc": "Used along with radiation to boost effectiveness in advanced stages." },
+      "treatment1": {
+        "title": "Intensity-Modulated Radiotherapy (IMRT)",
+        "desc": "Main treatment, directing high radiation doses to tumor."
+      },
+      "treatment2": {
+        "title": "Concurrent or Induction Chemotherapy",
+        "desc": "Used along with radiation to boost effectiveness in advanced stages."
+      },
       "statsTitle": "Viral Fact",
-      "stat1": { "value": "EBV", "label": "Strong viral association" },
-      "stat2": { "value": "62%", "label": "Global 5-year survival" },
+      "stat1": {
+        "value": "EBV",
+        "label": "Strong viral association"
+      },
+      "stat2": {
+        "value": "62%",
+        "label": "Global 5-year survival"
+      },
       "ctaSidebarTitle": "ENT Help",
       "appointmentTitle": "Specialist",
       "appointmentText": "Consult persistent nasal or ear symptoms.",
@@ -1127,11 +1744,23 @@
       },
       "treatmentsTitle": "Orthopedic Approach",
       "treatmentsIntro": "Treatment depends on type of bone sarcoma, location, and stage.",
-      "treatment1": { "title": "Limb-Salvage Surgery", "desc": "Removing tumor and reconstructing bone with grafts or prosthetics, avoiding amputation." },
-      "treatment2": { "title": "Neoadjuvant & Adjuvant Chemotherapy", "desc": "Often used before surgery (to shrink tumor) and after (to kill remaining cells)." },
+      "treatment1": {
+        "title": "Limb-Salvage Surgery",
+        "desc": "Removing tumor and reconstructing bone with grafts or prosthetics, avoiding amputation."
+      },
+      "treatment2": {
+        "title": "Neoadjuvant & Adjuvant Chemotherapy",
+        "desc": "Often used before surgery (to shrink tumor) and after (to kill remaining cells)."
+      },
       "statsTitle": "Rarity",
-      "stat1": { "value": "<1%", "label": "Of all cancers" },
-      "stat2": { "value": "67%", "label": "General 5-year survival" },
+      "stat1": {
+        "value": "<1%",
+        "label": "Of all cancers"
+      },
+      "stat2": {
+        "value": "67%",
+        "label": "General 5-year survival"
+      },
       "ctaSidebarTitle": "Sarcoma Support",
       "appointmentTitle": "Orthopedic Oncologist",
       "appointmentText": "Specialists in bone tumors.",
@@ -1153,11 +1782,23 @@
       },
       "treatmentsTitle": "Difficult Treatment",
       "treatmentsIntro": "Often diagnosed in advanced stages, making treatment a challenge.",
-      "treatment1": { "title": "Surgery (e.g., Pleurectomy)", "desc": "In early stages, to remove affected lining and try to reduce tumor." },
-      "treatment2": { "title": "Chemotherapy & Immunotherapy", "desc": "Standard treatments to slow disease and improve quality of life." },
+      "treatment1": {
+        "title": "Surgery (e.g., Pleurectomy)",
+        "desc": "In early stages, to remove affected lining and try to reduce tumor."
+      },
+      "treatment2": {
+        "title": "Chemotherapy & Immunotherapy",
+        "desc": "Standard treatments to slow disease and improve quality of life."
+      },
       "statsTitle": "Risk Factor",
-      "stat1": { "value": "Asbestos", "label": "Main known cause" },
-      "stat2": { "value": "10%", "label": "5-year survival (difficult prognosis)" },
+      "stat1": {
+        "value": "Asbestos",
+        "label": "Main known cause"
+      },
+      "stat2": {
+        "value": "10%",
+        "label": "5-year survival (difficult prognosis)"
+      },
       "ctaSidebarTitle": "Legal & Medical Aid",
       "appointmentTitle": "Mesothelioma Specialist",
       "appointmentText": "Find centers with experience in this disease.",
@@ -1179,11 +1820,23 @@
       },
       "treatmentsTitle": "Treatments",
       "treatmentsIntro": "Main treatment is surgery, but depends on specific tumor type and location.",
-      "treatment1": { "title": "Surgical Resection", "desc": "Removal of segment of small intestine containing tumor." },
-      "treatment2": { "title": "Chemotherapy or Targeted Therapies", "desc": "Used for specific types like lymphomas or GISTs." },
+      "treatment1": {
+        "title": "Surgical Resection",
+        "desc": "Removal of segment of small intestine containing tumor."
+      },
+      "treatment2": {
+        "title": "Chemotherapy or Targeted Therapies",
+        "desc": "Used for specific types like lymphomas or GISTs."
+      },
       "statsTitle": "Rarity",
-      "stat1": { "value": "<1%", "label": "Of GI cancers" },
-      "stat2": { "value": "68%", "label": "Global 5-year survival" },
+      "stat1": {
+        "value": "<1%",
+        "label": "Of GI cancers"
+      },
+      "stat2": {
+        "value": "68%",
+        "label": "Global 5-year survival"
+      },
       "ctaSidebarTitle": "Digestive Support",
       "appointmentTitle": "Gastroenterologist",
       "appointmentText": "Consult persistent abdominal symptoms.",
@@ -1205,11 +1858,23 @@
       },
       "treatmentsTitle": "Surgical Approach",
       "treatmentsIntro": "Surgery is most common treatment, often combined with radiation in advanced stages.",
-      "treatment1": { "title": "Vulvectomy (Partial or Radical)", "desc": "Removal of part or all of vulva, depending on cancer extent." },
-      "treatment2": { "title": "Sentinel Node Biopsy", "desc": "Procedure to check if cancer has spread to nearby lymph nodes." },
+      "treatment1": {
+        "title": "Vulvectomy (Partial or Radical)",
+        "desc": "Removal of part or all of vulva, depending on cancer extent."
+      },
+      "treatment2": {
+        "title": "Sentinel Node Biopsy",
+        "desc": "Procedure to check if cancer has spread to nearby lymph nodes."
+      },
       "statsTitle": "Data",
-      "stat1": { "value": "70+", "label": "Avg diagnosis age" },
-      "stat2": { "value": "71%", "label": "5-year survival" },
+      "stat1": {
+        "value": "70+",
+        "label": "Avg diagnosis age"
+      },
+      "stat2": {
+        "value": "71%",
+        "label": "5-year survival"
+      },
       "ctaSidebarTitle": "Women's Health",
       "appointmentTitle": "Gynecologic Oncologist",
       "appointmentText": "Any persistent vulvar change needs checking.",
@@ -1231,11 +1896,23 @@
       },
       "treatmentsTitle": "Function Preservation",
       "treatmentsIntro": "Goal is curing cancer while trying to preserve voice and swallowing ability.",
-      "treatment1": { "title": "Radiotherapy", "desc": "Often main treatment for small tumors, to save voice." },
-      "treatment2": { "title": "Surgery (Laryngectomy)", "desc": "Partial or total removal of larynx, needed in advanced cases." },
+      "treatment1": {
+        "title": "Radiotherapy",
+        "desc": "Often main treatment for small tumors, to save voice."
+      },
+      "treatment2": {
+        "title": "Surgery (Laryngectomy)",
+        "desc": "Partial or total removal of larynx, needed in advanced cases."
+      },
       "statsTitle": "Risk",
-      "stat1": { "value": "Tobacco", "label": "Main risk factor" },
-      "stat2": { "value": "60%", "label": "Global 5-year survival" },
+      "stat1": {
+        "value": "Tobacco",
+        "label": "Main risk factor"
+      },
+      "stat2": {
+        "value": "60%",
+        "label": "Global 5-year survival"
+      },
       "ctaSidebarTitle": "ENT Help",
       "appointmentTitle": "Otolaryngologist",
       "appointmentText": "Consult if you have persistent hoarseness.",
@@ -1284,22 +1961,81 @@
     "triedButton": "I tried this tip",
     "triedSuccess": "Great job!",
     "moods": {
-      "anxious": { "label": "Feeling Anxious?", "support": "Feeling anxious is valid. Let’s pause together and breathe. You’ve already survived so much.", "tip": "Pause and breathe deeply. Inhale for 4, hold for 4, exhale for 6.", "quote": "“You are stronger than you think. Take it one day at a time.”" },
-      "sad": { "label": "Feeling Sad?", "support": "Sadness is part of healing. Give yourself space to feel without guilt.", "tip": "If you can, play a song that comforts you. Or sit with the feeling without judgment.", "quote": "“It’s okay to be sad and angry with your diagnosis, just don’t stay in that place. It WILL get better.”" },
-      "overwhelmed": { "label": "Feeling Overwhelmed?", "support": "Overwhelm happens. Focus on one small thing you can control right now.", "tip": "Name three small things you can control right now.", "quote": "“One day at a time. One foot in front of the other.”" },
-      "tired": { "label": "Feeling Tired?", "support": "Rest isn’t giving up. It’s a crucial part of recovery.", "tip": "Let your body pause. Even a 5-minute reset counts.", "quote": "“Rest when you need. Fight when you can.”" },
-      "angry": { "label": "Feeling Angry?", "support": "Your anger is real and justified. Let’s channel it safely today.", "tip": "If possible, release safely: shake out your hands, write it down, or go for a short walk.", "quote": "“The pain of today gives new meaning to the happiness of tomorrow.”" },
-      "lonely": { "label": "Feeling Lonely?", "support": "Loneliness can feel heavy, but you’re part of a warrior community that sees you.", "tip": "Reach out with one text, or revisit a favorite photo or memory.", "quote": "“Cancer is scary, but we are all in this fight together. No one fights alone.”" },
-      "hopeful": { "label": "Feeling Hopeful?", "support": "Hope lives in small moments. Let’s nurture it together today.", "tip": "Write down one thing you’re looking forward to.", "quote": "“You can’t control what happens in life, but you can control how you handle it.”" },
-      "scared": { "label": "Feeling Scared?", "support": "Fear shows how much you care about life. Let’s face it one breath at a time.", "tip": "Sit with the fear, name it, and breathe through it. If you can, tell someone you trust how you feel.", "quote": "“Be scared and do it anyway. Growth lives on the other side.”" },
-      "numb": { "label": "Feeling Numb?", "support": "Feeling numb is a natural response. Your emotions will return when they’re ready.", "tip": "Try to notice one physical sensation: the temperature of your hands, the feeling of your clothes.", "quote": "“It’s okay to pause. But don’t quit.”" },
-      "guilty": { "label": "Feeling Guilty?", "support": "You don’t have to carry guilt. None of this is your fault.", "tip": "Write one sentence of self-kindness, even if it feels weird.", "quote": "“You are not broken or defective, you’ve just been rearranged for the better.”" },
-      "grateful": { "label": "Feeling Grateful?", "support": "Gratitude doesn’t erase the pain, but it can soften it for a moment.", "tip": "Think of one small thing or person you’re grateful for today.", "quote": "“This life can be delicate… but God is weaving a beautiful story that is your life.”" },
-      "motivated": { "label": "Feeling Motivated?", "support": "Let’s use this spark of motivation. One small action today is a big win.", "tip": "Choose one tiny task today that makes you feel in control.", "quote": "“Never forget how brave you are. The mind is powerful.”" }
+      "anxious": {
+        "label": "Feeling Anxious?",
+        "support": "Feeling anxious is valid. Let’s pause together and breathe. You’ve already survived so much.",
+        "tip": "Pause and breathe deeply. Inhale for 4, hold for 4, exhale for 6.",
+        "quote": "“You are stronger than you think. Take it one day at a time.”"
+      },
+      "sad": {
+        "label": "Feeling Sad?",
+        "support": "Sadness is part of healing. Give yourself space to feel without guilt.",
+        "tip": "If you can, play a song that comforts you. Or sit with the feeling without judgment.",
+        "quote": "“It’s okay to be sad and angry with your diagnosis, just don’t stay in that place. It WILL get better.”"
+      },
+      "overwhelmed": {
+        "label": "Feeling Overwhelmed?",
+        "support": "Overwhelm happens. Focus on one small thing you can control right now.",
+        "tip": "Name three small things you can control right now.",
+        "quote": "“One day at a time. One foot in front of the other.”"
+      },
+      "tired": {
+        "label": "Feeling Tired?",
+        "support": "Rest isn’t giving up. It’s a crucial part of recovery.",
+        "tip": "Let your body pause. Even a 5-minute reset counts.",
+        "quote": "“Rest when you need. Fight when you can.”"
+      },
+      "angry": {
+        "label": "Feeling Angry?",
+        "support": "Your anger is real and justified. Let’s channel it safely today.",
+        "tip": "If possible, release safely: shake out your hands, write it down, or go for a short walk.",
+        "quote": "“The pain of today gives new meaning to the happiness of tomorrow.”"
+      },
+      "lonely": {
+        "label": "Feeling Lonely?",
+        "support": "Loneliness can feel heavy, but you’re part of a warrior community that sees you.",
+        "tip": "Reach out with one text, or revisit a favorite photo or memory.",
+        "quote": "“Cancer is scary, but we are all in this fight together. No one fights alone.”"
+      },
+      "hopeful": {
+        "label": "Feeling Hopeful?",
+        "support": "Hope lives in small moments. Let’s nurture it together today.",
+        "tip": "Write down one thing you’re looking forward to.",
+        "quote": "“You can’t control what happens in life, but you can control how you handle it.”"
+      },
+      "scared": {
+        "label": "Feeling Scared?",
+        "support": "Fear shows how much you care about life. Let’s face it one breath at a time.",
+        "tip": "Sit with the fear, name it, and breathe through it. If you can, tell someone you trust how you feel.",
+        "quote": "“Be scared and do it anyway. Growth lives on the other side.”"
+      },
+      "numb": {
+        "label": "Feeling Numb?",
+        "support": "Feeling numb is a natural response. Your emotions will return when they’re ready.",
+        "tip": "Try to notice one physical sensation: the temperature of your hands, the feeling of your clothes.",
+        "quote": "“It’s okay to pause. But don’t quit.”"
+      },
+      "guilty": {
+        "label": "Feeling Guilty?",
+        "support": "You don’t have to carry guilt. None of this is your fault.",
+        "tip": "Write one sentence of self-kindness, even if it feels weird.",
+        "quote": "“You are not broken or defective, you’ve just been rearranged for the better.”"
+      },
+      "grateful": {
+        "label": "Feeling Grateful?",
+        "support": "Gratitude doesn’t erase the pain, but it can soften it for a moment.",
+        "tip": "Think of one small thing or person you’re grateful for today.",
+        "quote": "“This life can be delicate… but God is weaving a beautiful story that is your life.”"
+      },
+      "motivated": {
+        "label": "Feeling Motivated?",
+        "support": "Let’s use this spark of motivation. One small action today is a big win.",
+        "tip": "Choose one tiny task today that makes you feel in control.",
+        "quote": "“Never forget how brave you are. The mind is powerful.”"
+      }
     }
   },
-
-"footer": {
+  "footer": {
     "description": "Together against cancer. We fulfill dreams and give hope to warriors fighting every day.",
     "copyright": "All rights reserved.",
     "privacy": "Privacy Policy",
@@ -1310,17 +2046,18 @@
     "quickLinks": "Quick Links",
     "contact": "Contact",
     "address": "Bucharest, Romania",
+    "partnersTitle": "Our Sponsors & Partners",
+    "recentAwards": "Recent Awards",
     "supportTitle": "Support Us",
     "supportText": "Your donation helps us fulfill dreams and support warriors daily."
   },
-
   "legal": {
-"terms": {
+    "terms": {
       "title": "Tutti Cancer Warriors Grant Policy",
       "lastUpdated": "Effective Date: 3rd February 2025 | Policy Version: 1.0",
       "content": "<h3>Mission Statement</h3><p>Tutti Cancer Warriors (TCW), a nonprofit organization established and registered in Romania, is dedicated to bringing hope and healing to cancer warriors worldwide. Through our €500 grant program, we support the emotional and mental well-being of cancer warriors by helping fulfill a personal wish that aids in their healing journey. Our actions align with both our charitable mission and Romanian law.</p><h3>Grant Purpose</h3><p>The TCW Grant provides €500 to cancer warriors for a personal wish (e.g., a meaningful experience, item, or activity) that nurtures emotional or mental healing. This grant does not cover medical expenses.</p><h3>Eligible Countries</h3><p>Grants are available to residents of the following countries:</p><ul><li><strong>European Union Member States:</strong> Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden.</li><li><strong>European Economic Area Countries:</strong> Switzerland, Norway, Iceland.</li><li><strong>Other Countries:</strong> United Kingdom, United States, Canada, Australia, New Zealand, Japan, South Korea, Singapore.</li><li><strong>Exclusions:</strong> Countries under EU or international sanctions (e.g., Russia, North Korea). Eligibility is subject to Romanian regulations on cross-border donations and may be adjusted based on legal or sanctions updates.</li></ul><h3>Eligibility Criteria</h3><p>To qualify, applicants must:</p><ul><li>Be a cancer warrior (currently in treatment or in remission for up to 5 years) and at least 18 years old at the time of application.</li><li>Live in an eligible country.</li><li>Submit an application detailing their cancer diagnosis and a personal wish supporting their emotional or mental well-being.</li><li>Agree to provide proof of fund usage (e.g., receipts, photos) within 9 months of receiving the grant.</li><li>Provide evidence of their cancer status (e.g., medical note, support group referral) if requested by TCW for verification or audit purposes.</li></ul><h3>Application and Grant Process</h3><p><strong>Application Submission:</strong> Applicants submit their application through google form including: Name, age, country, and cancer diagnosis (type and status); A 200-300 word explanation of their wish and its healing benefit; Supporting evidence (e.g., medical note, referral, etc).</p><p><strong>Review and Approval:</strong> TCW reviews applications within 6 weeks, assessing eligibility and alignment with the grant’s purpose. If needed, TCW may request additional evidence of cancer status during this stage. If approved, the applicant will receive confirmation and a grant agreement to sign.</p><p><strong>Fundraising and Disbursement:</strong> TCW raises €500 per recipient through general donations or public campaigns (with the recipient’s consent to share their story). Funds are transferred via bank transfer within 30 days of reaching the €500 target, compliant with Romanian financial laws. Recipients must submit proof of usage within 9 months of receiving the grant (extensions available for medical reasons).</p><h3>Terms and Conditions</h3><ul><li><strong>Fund Usage:</strong> The €500 must be spent on the approved wish. Misuse can lead to repayment requests, which will be reviewed by TCW.</li><li><strong>Publicity:</strong> Recipients choose to share their story, name, or photos for TCW fundraising purposes. Anonymity is available upon request. TCW will seek input from the recipient regarding any publicity materials.</li><li><strong>Tax Responsibility:</strong> Recipients are solely responsible for reporting the grant to their local tax authorities and paying any applicable taxes. TCW does not provide tax advice or deductions from the grant.</li><li><strong>Non-Transferable:</strong> The grant is for the named recipient only. If unused (e.g., due to death), the funds will return to TCW for another warrior.</li><li><strong>Administrative Costs:</strong> TCW covers operational expenses separately, so the full €500 will go directly to the recipient.</li></ul><h3>Compliance with Romanian Law</h3><p><strong>Legal Basis:</strong> TCW is established as a nonprofit under <strong>Government Ordinance No. 26/2000</strong>, ensuring that all grants align with its non-patrimonial purpose to support cancer warriors, in accordance with the organization’s Statute.</p><p><strong>Financial Accountability:</strong> Funds are tracked according to <strong>Law No. 82/1991</strong> (Romanian accounting law) and <strong>Law No. 227/2015</strong> (Fiscal Code), with records of applications, agreements, and proofs kept for 5 years for audits by the Ministry of Justice or tax authorities.</p><h3>Verification Process</h3><p>Eligibility requires proof of a cancer diagnosis, like a doctor’s note, pathology report, or treatment document (e.g., bill or prescription) with your name. If records are hard to grab, a signed statement from a healthcare provider or social worker works too. Proof is needed upfront to ensure every grant goes to a real cancer warrior and meets audit standards. All documents are kept confidential.</p><p><strong>Data Protection:</strong> TCW processes personal data in accordance with <strong>EU GDPR</strong> (Regulation 2016/679). Applicants consent to the use of their data for grant processing and potential audits. All personal data will be securely stored and deleted after 5 years, in line with Romanian fiscal retention rules.</p><p><strong>Cross-Border Rules:</strong> TCW complies with EU regulations for fund transfers and avoids countries under sanctions, as per Romanian and international law.</p><h3>Dispute Resolution</h3><p><strong>Mediation:</strong> Disputes will first be addressed through mediation, either in Romania or virtually for international recipients.</p><p><strong>Jurisdiction:</strong> Any unresolved disputes shall be governed by Romanian law. Legal proceedings will be held in the courts of Bucharest, as stipulated under Romanian civil procedure law, unless otherwise specified in the grant agreement or as required by applicable law.</p><h3>Grant Termination</h3><p>TCW may terminate a grant for misuse or failure to provide proof of usage, after notifying the recipient and attempting mediation. Repayment may be requested, though it may be waived for hardship (e.g., severe illness).</p><p><strong>Ineligibility for Future Grants:</strong> If a grant is terminated, the recipient may be ineligible for future grants for 2 years, subject to review.</p><h3>Force Majeure</h3><p>TCW is not liable for delays due to uncontrollable events (e.g., natural disasters, government actions). Recipients affected by such events (e.g., treatment disruptions) may receive deadline extensions.</p>"
     },
-       "privacy": {
+    "privacy": {
       "title": "Privacy and Data Protection Policy",
       "lastUpdated": "Effective Date: 07.02.2025",
       "content": "<h3>1. Introduction</h3><p>At Tutti Cancer Warriors (“we,” “us,” “our”), we are committed to protecting your privacy and ensuring that your personal data is handled in a safe and responsible manner. This Privacy and Data Protection Policy (“Policy”) explains how we collect, use, disclose, and safeguard your personal information when you interact with our website and participate in our peer support program. By using our website, applying for support, or participating in any of our programs, you consent to the practices described in this Policy.</p><h3>2. Information We Collect</h3><p>We may collect the following types of personal information from you:</p><ul><li><strong>Contact Information:</strong> Name, email address, phone number, and other contact details.</li><li><strong>Demographic Information:</strong> Age, location, and relevant health-related information.</li><li><strong>Communication Data:</strong> Messages, interactions, and any other communication shared with us or others in the program.</li><li><strong>Technical Data:</strong> Information about your device and browsing behavior, including IP address, browser type, and usage patterns on our website (through cookies).</li></ul><h3>3. How We Use Your Information</h3><p>We use the information we collect for the following purposes:</p><ul><li>To facilitate your participation in our peer support program, including connecting you with a survivor or warrior.</li><li>To respond to your inquiries and provide support, resources, and information.</li><li>To process and manage your donations, applications for grants, or other requests.</li><li>To communicate with you about updates, events, and news related to our organization.</li><li>To comply with legal obligations and protect our legal interests.</li></ul><h3>4. Legal Basis for Processing Your Data</h3><p>We process your personal data based on the following legal grounds:</p><ul><li><strong>Consent:</strong> We process personal data when you provide explicit consent, such as for communication in the peer support program.</li><li><strong>Contractual Necessity:</strong> We process personal data to fulfill our contractual obligations to provide services, grants, and other support.</li><li><strong>Legal Obligations:</strong> We process personal data as required to comply with applicable laws, such as data protection and tax regulations.</li><li><strong>Legitimate Interests:</strong> We process data for legitimate interests, including improving our services and marketing communications, provided that these interests do not override your rights and freedoms.</li></ul><h3>5. Data Sharing and Disclosure</h3><p>We do not share your personal data with third parties, except for the following reasons:</p><ul><li><strong>To Facilitate Peer Support:</strong> We may share your contact details with your assigned peer support Volunteer (Survivor) to enable communication and support.</li><li><strong>Service Providers:</strong> We may share data with trusted third-party providers who help us manage our website, facilitate the peer support program, or process donations (e.g., PayPal, banks).</li><li><strong>Legal Compliance:</strong> We may disclose your personal data if required to comply with legal obligations, respond to a legal request, or protect our rights.</li></ul><h3>6. Data Security</h3><p>We take appropriate technical and organisational measures to protect your personal data from unauthorised access, disclosure, alteration, or destruction. These measures include secure storage of your data, encryption, and restricted access to personal information. However, no data transmission or storage system is 100% secure, and we cannot guarantee the absolute security of your information.</p><h3>7. Your Rights Regarding Your Data</h3><p>Under the General Data Protection Regulation (GDPR), you have the following rights regarding your personal data:</p><ul><li><strong>Access:</strong> You can request access to the personal data we hold about you.</li><li><strong>Correction:</strong> You can request corrections to any inaccurate or incomplete personal data.</li><li><strong>Deletion:</strong> You can request the deletion of your personal data under certain circumstances.</li><li><strong>Restriction:</strong> You can request restrictions on how we process your data.</li><li><strong>Data Portability:</strong> You can request that we provide your personal data in a structured, commonly used format.</li><li><strong>Objection:</strong> You can object to our processing of your personal data based on legitimate interests.</li><li><strong>Withdraw Consent:</strong> You can withdraw any consent you have given us for the processing of your data at any time.</li></ul><p>To exercise your rights, please contact us using the details provided at the end of this Policy.</p><h3>8. Data Retention</h3><p>We retain your personal data for as long as necessary to fulfill the purposes outlined in this Policy, including complying with legal obligations, resolving disputes, and enforcing agreements. When personal data is no longer needed, it will be securely deleted or anonymised.</p><h3>9. Cookies and Tracking Technologies</h3><p>Our website uses cookies and similar technologies to enhance your experience. These technologies may collect information such as your IP address, browser type, and website usage patterns. <strong>Cookies:</strong> Small files stored on your device that help us track website usage, remember your preferences, and provide a personalized experience. <strong>Analytics:</strong> We use tools like Google Analytics to analyze website traffic and usage patterns to improve our services. You can control cookie preferences through your browser settings. However, please note that disabling cookies may affect the functionality of our website.</p><h3>10. International Data Transfers</h3><p>If you are located outside of Romania or the European Economic Area (EEA), please be aware that your data may be transferred to and processed in Romania or other countries where we operate or have service providers. We ensure that such transfers comply with applicable data protection laws.</p><h3>11. Children’s Privacy</h3><p>Our services are not intended for children under the age of 16, and we do not knowingly collect personal data from minors. If we learn that we have inadvertently collected data from a child under 16, we will take steps to delete such data as quickly as possible.</p><h3>12. Changes to This Policy</h3><p>We may update this Policy from time to time to reflect changes in our practices, legal requirements, or other factors. Any updates will be posted on our website with the updated date. We encourage you to review this Policy periodically to stay informed.</p><h3>13. Contact Us</h3><p>If you have any questions about this Privacy and Data Protection Policy or wish to exercise your rights, please contact us at:<br><strong>Tutti Cancer Warriors</strong><br>Email: <a href='mailto:tcw@tutticancerwarriors.org'>tcw@tutticancerwarriors.org</a><br>Website: <a href='http://www.tutticancerwarriors.org'>http://www.tutticancerwarriors.org</a></p>"
@@ -1379,7 +2116,11 @@
     "impactTitle": "Our Impact",
     "warriorsHelped": "Warriors Helped",
     "dreamsFulfilled": "Dreams Fulfilled",
-    "activeVolunteers": "Active Volunteers"
+    "activeVolunteers": "Active Volunteers",
+    "fundraiseTitle": "Start your own fundraiser",
+    "fundraiseDesc": "Support cancer warriors by starting your own fundraising campaign through Better Giving.",
+    "taxTitle": "Redirect your 3.5% Tax (Romania Only)",
+    "taxDesc": "If you pay taxes in Romania, you can redirect 3.5% of your income tax to Tutti Cancer Warriors at no extra cost to you."
   },
   "volunteer": {
     "title": "Volunteer with TCW",
@@ -1421,7 +2162,7 @@
     "ctaText": "Contact us to register or to learn more about becoming a peer supporter.",
     "ctaButton": "Contact Program"
   },
-"supportDream": {
+  "supportDream": {
     "title": "Support a Dream",
     "subtitle": "Help us fund the dreams of our next warriors. Your contribution goes directly to making these moments possible.",
     "goal": "Goal",
@@ -1439,35 +2180,25 @@
         "title": "Make a wish come true for Elena",
         "description": "Elena has been fighting ovarian cancer for 3 years. Her dream is to gather her extended family for a reunion dinner."
       }
-
     }
-    },
-      "teamPage": {
+  },
+  "teamPage": {
     "title": "Our Team",
     "subtitle": "Meet the dedicated hearts working behind the scenes to fulfill dreams.",
     "members": {
-      "1": { 
-        "name": "Andreea Pantiru", 
-        "role": "President & Founder", 
-        "image": "/andreea.jpg", 
-        "description": "Member of the Board, leads and represents the organization and coordinates its activities, partnerships, and programs."
-      },
-      "2": { 
-        "name": "Florentina Marincan", 
-        "role": "Vice President", 
-        "image": "/florentina.jpg", 
-        "description": "Member of the Board, contributes to the organization’s direction and key decisions." 
-      },
-      "3": { 
-        "name": "Mihai Bara", 
-        "role": "Executive Director", 
-        "image": "/mihai.jpg", 
-        "description": "Member of the Board, supporting the organization’s work and ongoing initiatives."
-      }
+      "1": { "name": "Andreea Pantiru", "role": "President & Founder", "image": "/andreea.jpg", "description": "Member of the Board, leads and represents the organization and coordinates its activities, partnerships, and programs." },
+      "2": { "name": "Florentina Marincan", "role": "Vice President", "image": "/florentina.jpg", "description": "Member of the Board, contributes to the organization’s direction and key decisions." },
+      "3": { "name": "Mihai Bara", "role": "Executive Director", "image": "/mihai.jpg", "description": "Member of the Board, supporting the organization’s work and ongoing initiatives." }
+    },
+    "hoverHint": "Hover over me ↪",
+    "cta": {
+      "title": "Support Our Warriors",
+      "description": "Behind every fulfilled dream, there is a community of supporters. You can be part of this beautiful journey to support those battling cancer.",
+      "buttonInvolved": "Get Involved",
+      "buttonDonate": "Donate Now"
     }
-  
   },
-      "connectSurvivor": {
+  "connectSurvivor": {
     "title": "Connect with a Survivor",
     "subtitle": "Talking to someone who has been there can change everything.",
     "step1Title": "Register",
@@ -1540,21 +2271,21 @@
     "tag": "Dream Fulfilled ✨",
     "readMore": "Read More Stories"
   },
-"warriorsList": {
-      "anetra": {
-        "dream": "Mental Health Retreat",
-        "story": "Diagnosed with Stage 3C Triple-Negative Breast Cancer while battling heart issues, Anetra is a true fighter. Known as the 'Big Momma' of her family, she balances caregiving with her own recovery."
-      },
-      "janelle": {
-        "dream": "Attend YSC Summit",
-        "story": "Living with cancer for 16 years, Janelle is a metastatic thriver. Despite cancer spreading to her brain, she aims to connect with others and share hope at the summit."
-      },
-      "jeanelle": {
-        "dream": "Wellness Kit for Survivors",
-        "story": "Misdiagnosed for being 'too young', she battled Stage 3 TNBC. Now a yoga instructor, she wants to create safe wellness spaces for overlooked survivors in her community."
-      }
+  "warriorsList": {
+    "anetra": {
+      "dream": "Mental Health Retreat",
+      "story": "Diagnosed with Stage 3C Triple-Negative Breast Cancer while battling heart issues, Anetra is a true fighter. Known as the 'Big Momma' of her family, she balances caregiving with her own recovery."
     },
-      "testimonial": {
+    "janelle": {
+      "dream": "Attend YSC Summit",
+      "story": "Living with cancer for 16 years, Janelle is a metastatic thriver. Despite cancer spreading to her brain, she aims to connect with others and share hope at the summit."
+    },
+    "jeanelle": {
+      "dream": "Wellness Kit for Survivors",
+      "story": "Misdiagnosed for being 'too young', she battled Stage 3 TNBC. Now a yoga instructor, she wants to create safe wellness spaces for overlooked survivors in her community."
+    }
+  },
+  "testimonial": {
     "quote": "Fulfilling my dream gave me the strength to keep fighting. I didn't just survive, I <bold>lived again</bold>.",
     "author": "— An Anonymous Warrior"
   },
@@ -1563,7 +2294,7 @@
     "subtitle": "Every donation, every hour of volunteering, every word of support counts. Together we are stronger.",
     "button": "Make a Difference Today"
   },
-"aboutCancerPage": {
+  "aboutCancerPage": {
     "heroTag": "Knowledge is Power",
     "title": "Learn about <highlight>Cancer</highlight>",
     "subtitle": "Comprehensive information about cancer types, symptoms, early detection, and treatments. We're here to support you every step of the way.",
@@ -1572,41 +2303,146 @@
     "medicalInfo": "Medical Info",
     "readMore": "Read more",
     "types": {
-      "breast": { "title": "Breast Cancer", "shortDesc": "Early detection saves lives." },
-      "lung": { "title": "Lung Cancer", "shortDesc": "Understanding risk factors is key." },
-      "colorectal": { "title": "Colorectal Cancer", "shortDesc": "Screening prevents development." },
-      "prostate": { "title": "Prostate Cancer", "shortDesc": "Men's health and prevention." },
-      "skin": { "title": "Skin Cancer", "shortDesc": "Protect your skin, protect your life." },
-      "kidney": { "title": "Kidney Cancer", "shortDesc": "Silent symptoms to watch for." },
-      "leukemia": { "title": "Leukemia", "shortDesc": "Cancer of the blood cells." },
-      "liver": { "title": "Liver Cancer", "shortDesc": "Liver health matters." },
-      "pancreatic": { "title": "Pancreatic Cancer", "shortDesc": "Hard to detect, crucial to treat." },
-      "ovarian": { "title": "Ovarian Cancer", "shortDesc": "Know the subtle signs." },
-      "childhood": { "title": "Childhood Cancer", "shortDesc": "Supporting our little warriors." },
-      "brain": { "title": "Brain Tumor", "shortDesc": "Affecting the control center." },
-      "bladder": { "title": "Bladder Cancer", "shortDesc": "Watch for urinary changes." },
-      "cervical": { "title": "Cervical Cancer", "shortDesc": "Preventable with vaccines and tests." },
-      "stomach": { "title": "Stomach Cancer", "shortDesc": "Digestive health and signals." },
-      "testicular": { "title": "Testicular Cancer", "shortDesc": "Self-exam is vital." },
-      "thyroid": { "title": "Thyroid Cancer", "shortDesc": "Small gland, big impact." },
-      "uterine": { "title": "Uterine Cancer", "shortDesc": "Knowing your body is power." },
-      "lymphoma": { "title": "Lymphoma", "shortDesc": "Affecting the immune system." },
-      "myeloma": { "title": "Multiple Myeloma", "shortDesc": "Plasma cell cancer." },
-      "esophageal": { "title": "Esophageal Cancer", "shortDesc": "Swallowing difficulties and risks." },
-      "head-neck": { "title": "Head & Neck", "shortDesc": "Mouth, throat, and glands." },
-      "bone": { "title": "Bone Cancer", "shortDesc": "Bone pain and treatments." },
-      "sarcoma": { "title": "Sarcoma", "shortDesc": "Soft tissues of the body." },
-      "gallbladder": { "title": "Gallbladder Cancer", "shortDesc": "Rare but important." },
-      "bile-duct": { "title": "Bile Duct Cancer", "shortDesc": "Affecting digestion." },
-      "anal": { "title": "Anal Cancer", "shortDesc": "Breaking the stigma." },
-      "penile": { "title": "Penile Cancer", "shortDesc": "Male intimate health." },
-      "vaginal": { "title": "Vaginal Cancer", "shortDesc": "Gynecological detection." },
-      "vulvar": { "title": "Vulvar Cancer", "shortDesc": "External signs to watch." },
-      "eye": { "title": "Eye Cancer", "shortDesc": "Melanoma and retinoblastoma." },
-      "oral": { "title": "Oral Cancer", "shortDesc": "Mouth, tongue, and gums." },
-      "throat": { "title": "Throat Cancer", "shortDesc": "Pharynx and larynx." },
-      "small-intestine": { "title": "Small Intestine", "shortDesc": "A less common cancer." },
-      "thymus": { "title": "Thymus Cancer", "shortDesc": "Chest gland." }
+      "breast": {
+        "title": "Breast Cancer",
+        "shortDesc": "Early detection saves lives."
+      },
+      "lung": {
+        "title": "Lung Cancer",
+        "shortDesc": "Understanding risk factors is key."
+      },
+      "colorectal": {
+        "title": "Colorectal Cancer",
+        "shortDesc": "Screening prevents development."
+      },
+      "prostate": {
+        "title": "Prostate Cancer",
+        "shortDesc": "Men's health and prevention."
+      },
+      "skin": {
+        "title": "Skin Cancer",
+        "shortDesc": "Protect your skin, protect your life."
+      },
+      "kidney": {
+        "title": "Kidney Cancer",
+        "shortDesc": "Silent symptoms to watch for."
+      },
+      "leukemia": {
+        "title": "Leukemia",
+        "shortDesc": "Cancer of the blood cells."
+      },
+      "liver": {
+        "title": "Liver Cancer",
+        "shortDesc": "Liver health matters."
+      },
+      "pancreatic": {
+        "title": "Pancreatic Cancer",
+        "shortDesc": "Hard to detect, crucial to treat."
+      },
+      "ovarian": {
+        "title": "Ovarian Cancer",
+        "shortDesc": "Know the subtle signs."
+      },
+      "childhood": {
+        "title": "Childhood Cancer",
+        "shortDesc": "Supporting our little warriors."
+      },
+      "brain": {
+        "title": "Brain Tumor",
+        "shortDesc": "Affecting the control center."
+      },
+      "bladder": {
+        "title": "Bladder Cancer",
+        "shortDesc": "Watch for urinary changes."
+      },
+      "cervical": {
+        "title": "Cervical Cancer",
+        "shortDesc": "Preventable with vaccines and tests."
+      },
+      "stomach": {
+        "title": "Stomach Cancer",
+        "shortDesc": "Digestive health and signals."
+      },
+      "testicular": {
+        "title": "Testicular Cancer",
+        "shortDesc": "Self-exam is vital."
+      },
+      "thyroid": {
+        "title": "Thyroid Cancer",
+        "shortDesc": "Small gland, big impact."
+      },
+      "uterine": {
+        "title": "Uterine Cancer",
+        "shortDesc": "Knowing your body is power."
+      },
+      "lymphoma": {
+        "title": "Lymphoma",
+        "shortDesc": "Affecting the immune system."
+      },
+      "myeloma": {
+        "title": "Multiple Myeloma",
+        "shortDesc": "Plasma cell cancer."
+      },
+      "esophageal": {
+        "title": "Esophageal Cancer",
+        "shortDesc": "Swallowing difficulties and risks."
+      },
+      "head-neck": {
+        "title": "Head & Neck",
+        "shortDesc": "Mouth, throat, and glands."
+      },
+      "bone": {
+        "title": "Bone Cancer",
+        "shortDesc": "Bone pain and treatments."
+      },
+      "sarcoma": {
+        "title": "Sarcoma",
+        "shortDesc": "Soft tissues of the body."
+      },
+      "gallbladder": {
+        "title": "Gallbladder Cancer",
+        "shortDesc": "Rare but important."
+      },
+      "bile-duct": {
+        "title": "Bile Duct Cancer",
+        "shortDesc": "Affecting digestion."
+      },
+      "anal": {
+        "title": "Anal Cancer",
+        "shortDesc": "Breaking the stigma."
+      },
+      "penile": {
+        "title": "Penile Cancer",
+        "shortDesc": "Male intimate health."
+      },
+      "vaginal": {
+        "title": "Vaginal Cancer",
+        "shortDesc": "Gynecological detection."
+      },
+      "vulvar": {
+        "title": "Vulvar Cancer",
+        "shortDesc": "External signs to watch."
+      },
+      "eye": {
+        "title": "Eye Cancer",
+        "shortDesc": "Melanoma and retinoblastoma."
+      },
+      "oral": {
+        "title": "Oral Cancer",
+        "shortDesc": "Mouth, tongue, and gums."
+      },
+      "throat": {
+        "title": "Throat Cancer",
+        "shortDesc": "Pharynx and larynx."
+      },
+      "small-intestine": {
+        "title": "Small Intestine",
+        "shortDesc": "A less common cancer."
+      },
+      "thymus": {
+        "title": "Thymus Cancer",
+        "shortDesc": "Chest gland."
+      }
     }
   },
   "diagnosisPage": {
@@ -1631,7 +2467,7 @@
     "btnSupport": "Get Support",
     "btnDownload": "Download Guide"
   },
-"questionsPage": {
+  "questionsPage": {
     "title": "Questions to Ask Your Doctor",
     "subtitle": "Getting a cancer diagnosis can feel overwhelming. Talking to your doctor can help you understand the process.",
     "videoTitle": "Coming Soon: Video Calls",
@@ -1642,10 +2478,22 @@
     "downloadDesc": "Take this list with you to your next appointment.",
     "btnDownload": "Download PDF",
     "tips": {
-      "1": { "title": "Stay Informed", "text": "Make sure you understand the details of your treatment." },
-      "2": { "title": "Choose What's Best", "text": "Ask questions to make the best decision possible." },
-      "3": { "title": "Don't Be Shy", "text": "If something isn't clear, ask again!" },
-      "4": { "title": "Family", "text": "Encourage your loved ones to ask questions too." }
+      "1": {
+        "title": "Stay Informed",
+        "text": "Make sure you understand the details of your treatment."
+      },
+      "2": {
+        "title": "Choose What's Best",
+        "text": "Ask questions to make the best decision possible."
+      },
+      "3": {
+        "title": "Don't Be Shy",
+        "text": "If something isn't clear, ask again!"
+      },
+      "4": {
+        "title": "Family",
+        "text": "Encourage your loved ones to ask questions too."
+      }
     },
     "sections": {
       "general": "General Questions",
@@ -1683,8 +2531,8 @@
       "trial4": "Can I leave if I change my mind?",
       "trial5": "Is it important for me or others to participate?"
     }
-  }, 
-"emotionalPage": {
+  },
+  "emotionalPage": {
     "title": "Emotional Well-Being for Cancer Warriors",
     "desc": "Caring for your emotional health is just as important as managing the physical side of cancer. This guide offers practical tools to help you stay mentally and emotionally strong throughout your journey.",
     "ctaTitle": "Download the Complete Guide",
@@ -1767,14 +2615,24 @@
       }
     }
   },
-"calendarPage": {
+  "calendarPage": {
     "title": "Awareness Calendar",
     "subtitle": "Each month is dedicated to raising awareness about different types of cancer. Join the fight.",
     "awarenessMonth": "Awareness Month",
     "keyDates": "Key Dates",
     "months": {
-      "jan": "January", "feb": "February", "mar": "March", "apr": "April", "may": "May", "jun": "June",
-      "jul": "July", "aug": "August", "sep": "September", "oct": "October", "nov": "November", "dec": "December"
+      "jan": "January",
+      "feb": "February",
+      "mar": "March",
+      "apr": "April",
+      "may": "May",
+      "jun": "June",
+      "jul": "July",
+      "aug": "August",
+      "sep": "September",
+      "oct": "October",
+      "nov": "November",
+      "dec": "December"
     },
     "events": {
       "cancerDay": "World Cancer Day",
@@ -1791,26 +2649,26 @@
       "pancreatic": "World Pancreatic Cancer Day"
     },
     "cancers": {
-       "cervical": "Cervical Cancer",
-       "gallbladder": "Gallbladder Cancer",
-       "colorectal": "Colorectal Cancer",
-       "kidney": "Kidney Cancer",
-       "testicular": "Testicular Cancer",
-       "skin": "Skin Cancer",
-       "brain": "Brain Tumor",
-       "mensHealth": "Men's Health",
-       "sarcoma": "Sarcoma",
-       "bone": "Bone Cancer",
-       "thyroid": "Thyroid Cancer",
-       "ovarian": "Ovarian Cancer",
-       "breast": "Breast Cancer",
-       "liver": "Liver Cancer",
-       "lung": "Lung Cancer",
-       "pancreatic": "Pancreatic Cancer",
-       "bladder": "Bladder Cancer"
+      "cervical": "Cervical Cancer",
+      "gallbladder": "Gallbladder Cancer",
+      "colorectal": "Colorectal Cancer",
+      "kidney": "Kidney Cancer",
+      "testicular": "Testicular Cancer",
+      "skin": "Skin Cancer",
+      "brain": "Brain Tumor",
+      "mensHealth": "Men's Health",
+      "sarcoma": "Sarcoma",
+      "bone": "Bone Cancer",
+      "thyroid": "Thyroid Cancer",
+      "ovarian": "Ovarian Cancer",
+      "breast": "Breast Cancer",
+      "liver": "Liver Cancer",
+      "lung": "Lung Cancer",
+      "pancreatic": "Pancreatic Cancer",
+      "bladder": "Bladder Cancer"
     }
   },
-"donatePage": {
+  "donatePage": {
     "title": "Donate Now",
     "subtitle": "Your support transforms lives. Every donation helps us fulfill dreams and provide hope to cancer warriors.",
     "betterGivingTitle": "Donate via Better Giving",
@@ -1832,7 +2690,7 @@
     "cryptoTitle": "Crypto Donations",
     "krakenVerified": "Verified Nonprofit on Kraken"
   },
-"connectSurvivorPage": {
+  "connectSurvivorPage": {
     "title": "Connect with a Survivor",
     "subtitle": "Talking to someone who has been there can change everything.",
     "step1Title": "Register",

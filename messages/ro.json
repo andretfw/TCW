@@ -1360,7 +1360,11 @@
     "impactTitle": "Impactul Nostru",
     "warriorsHelped": "Luptători Ajutați",
     "dreamsFulfilled": "Vise Împlinite",
-    "activeVolunteers": "Voluntari Activi"
+    "activeVolunteers": "Voluntari Activi",
+    "fundraiseTitle": "Începe propria strângere de fonduri",
+    "fundraiseDesc": "Sprijină războinicii împotriva cancerului inițiind propria campanie de strângere de fonduri prin Better Giving.",
+    "taxTitle": "Redirecționează 3.5% din impozit",
+    "taxDesc": "Dacă plătești impozite în România, poți redirecționa 3.5% din impozitul pe venit către Tutti Cancer Warriors fără niciun cost suplimentar."
   },
   "volunteer": {
     "title": "Voluntariat cu TCW",
@@ -1409,8 +1413,14 @@
     "quickLinks": "Link-uri Rapide",
     "contact": "Contact",
     "address": "București, România",
+    "partnersTitle": "Sponsorii și Partenerii Noștri",
     "supportTitle": "Susține-ne",
-    "supportText": "Donația ta ne ajută să îndeplinim visuri și să sprijinim luptătorii zilnic."
+    "recentAwards": "Premii Recente",
+    "supportText": "Donația ta ne ajută să îndeplinim visuri și să sprijinim luptătorii zilnic.",
+    "privacy": "Politică de Confidențialitate",
+      "terms": "Termeni și Condiții",
+      "peerPolicy": "Politica de Sprijin",
+      "financials": "Rapoarte Financiare"
   },
   "connectSurvivor": {
     "title": "Conectează-te cu un Supraviețuitor",
@@ -1533,7 +1543,11 @@
     "impactTitle": "Impactul Nostru",
     "warriorsHelped": "Luptători Ajutați",
     "dreamsFulfilled": "Vise Împlinite",
-    "activeVolunteers": "Voluntari Activi"
+    "activeVolunteers": "Voluntari Activi",
+    "fundraiseTitle": "Începe propria strângere de fonduri",
+    "fundraiseDesc": "Sprijină războinicii împotriva cancerului inițiind propria campanie de strângere de fonduri prin Better Giving.",
+    "taxTitle": "Redirecționează 3.5% din impozit",
+    "taxDesc": "Dacă plătești impozite în România, poți redirecționa 3.5% din impozitul pe venit către Tutti Cancer Warriors fără niciun cost suplimentar."
   },
   "volunteer": {
     "title": "Voluntariat cu TCW",
@@ -1973,14 +1987,20 @@
       }
     }
   },
-
-"teamPage": {
+  "teamPage": {
     "title": "Echipa Noastră",
     "subtitle": "Cunoaște inimile dedicate care lucrează în culise pentru a îndeplini visuri.",
     "members": {
       "1": { "name": "Andreea Pantiru", "role": "Președinte & Fondator", "image": "/andreea.jpg", "description": "Coordonează Tutti Cancer Warriors, reprezintă organizația și gestionează activitățile, parteneriatele și programele." },
       "2": { "name": "Florentina Marincan", "role": "Vicepreședinte", "image": "/florentina.jpg", "description": "Membru al Consiliului Director, contribuie la direcția organizației și la deciziile importante." },
       "3": { "name": "Mihai Bara", "role": "Director Executiv", "image": "/mihai.jpg", "description": "Membru al Consiliului Director, susține activitatea organizației și inițiativele în desfășurare." }
+    },
+    "hoverHint": "Treceți mouse-ul ↪",
+    "cta": {
+      "title": "Susține Războinicii Noștri",
+      "description": "În spatele fiecărui vis împlinit, se află o comunitate de susținători. Poți face parte din această călătorie frumoasă pentru a-i sprijini pe cei care luptă împotriva cancerului.",
+      "buttonInvolved": "Implică-te",
+      "buttonDonate": "Donează Acum"
     }
   }
-}
+  }

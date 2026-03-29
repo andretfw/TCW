@@ -40,7 +40,7 @@ export default function ConnectSurvivorPage() {
                 <div className="flex flex-col md:flex-row gap-6 justify-center">
                     {/* Botón externo al Google Form */}
                     <a 
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSeZUQy99dDIVPANAOwnA75LIeStuVYooZ3T1iqmM-K9pBvsjA/viewform"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSdhawxJOOIIf4LW9ZPNXIOpG8-XzVwMCrJ_hYa4NQgDKGnjMQ/viewform"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center justify-center gap-3 px-8 py-4 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all shadow-lg hover:shadow-indigo-200"

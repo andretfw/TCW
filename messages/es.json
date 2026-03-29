@@ -1359,7 +1359,11 @@
     "impactTitle": "Nuestro Impacto",
     "warriorsHelped": "Warriors Ayudados",
     "dreamsFulfilled": "Sueños Cumplidos",
-    "activeVolunteers": "Voluntarios Activos"
+    "activeVolunteers": "Voluntarios Activos",
+    "fundraiseTitle": "Inicia tu propia recaudación",
+    "fundraiseDesc": "Apoya a los guerreros del cáncer creando tu propia campaña de recaudación de fondos a través de Better Giving.",
+    "taxTitle": "Redirige tu 3.5% (Solo Rumanía)",
+    "taxDesc": "Si pagas impuestos en Rumanía, puedes redirigir el 3.5% de tus impuestos sobre la renta a Tutti Cancer Warriors sin coste adicional para ti."
   },
   "volunteer": {
     "title": "Voluntariado con TCW",
@@ -1467,9 +1471,11 @@
     "verified": "Verificado y Miembro de",
     "quickLinks": "Enlaces Rápidos",
     "contact": "Contacto",
+    "partnersTitle": "Nuestros Patrocinadores",
     "address": "Bucarest, Rumanía",
     "supportTitle": "Apóyanos",
-    "supportText": "Tu donación nos ayuda a cumplir sueños y apoyar a los guerreros cada día."
+    "supportText": "Tu donación nos ayuda a cumplir sueños y apoyar a los guerreros cada día." ,
+    "recentAwards": "Premios Recientes"
   },
   "legal": {
     "terms": {
@@ -1536,7 +1542,11 @@
     "impactTitle": "Nuestro Impacto",
     "warriorsHelped": "Warriors Ayudados",
     "dreamsFulfilled": "Sueños Cumplidos",
-    "activeVolunteers": "Voluntarios Activos"
+    "activeVolunteers": "Voluntarios Activos",
+    "fundraiseTitle": "Inicia tu propia recaudación",
+    "fundraiseDesc": "Apoya a los guerreros del cáncer creando tu propia campaña de recaudación de fondos a través de Better Giving.",
+    "taxTitle": "Redirige tu 3.5% (Solo Rumanía)",
+    "taxDesc": "Si pagas impuestos en Rumanía, puedes redirigir el 3.5% de tus impuestos sobre la renta a Tutti Cancer Warriors sin coste adicional para ti."
   },
   "volunteer": {
     "title": "Voluntariado con TCW",
@@ -1983,6 +1993,14 @@
       "1": { "name": "Andreea Pantiru", "role": "Presidenta y Fundadora", "image": "/andreea.jpg", "description": "Miembro de la Junta, dirige y representa a la organización y coordina sus actividades, asociaciones y programas." },
       "2": { "name": "Florentina Marincan", "role": "Vicepresidenta", "image": "/florentina.jpg", "description": "Miembro de la Junta, contribuye a la dirección de la organización y a las decisiones clave." },
       "3": { "name": "Mihai Bara", "role": "Director Ejecutivo", "image": "/mihai.jpg", "description": "Miembro de la Junta, apoya el trabajo de la organización y las iniciativas en curso." }
+},
+    "hoverHint": "Pasa el ratón ↪",
+    "cta": {
+      "title": "Apoya a Nuestros Warriors",
+      "description": "Detrás de cada sueño cumplido, hay una comunidad de apoyo. Puedes ser parte de este hermoso viaje para apoyar a quienes luchan contra el cáncer.",
+      "buttonInvolved": "Involúcrate",
+      "buttonDonate": "Donar Ahora"
     }
-  }
+    }
+  
 }
