@@ -1,8 +1,6 @@
 {
   "/[locale]/page": "app/[locale]/page.js",
+  "/[locale]/events/pilates-event/page": "app/[locale]/events/pilates-event/page.js",
   "/[locale]/warriors/page": "app/[locale]/warriors/page.js",
-  "/[locale]/donar/page": "app/[locale]/donar/page.js",
-  "/[locale]/team/page": "app/[locale]/team/page.js",
-  "/[locale]/sobre-cancer/page": "app/[locale]/sobre-cancer/page.js",
-  "/[locale]/involucrate/page": "app/[locale]/involucrate/page.js"
+  "/[locale]/world-kidney-cancer-day/page": "app/[locale]/world-kidney-cancer-day/page.js"
 }

@@ -1,8 +1,8 @@
 {
   "metadata": {
-  "description": "Îndeplinim vise și oferim speranță luptătorilor care se confruntă cu cancerul în fiecare zi."
-},
-"nav": {
+    "description": "Îndeplinim vise și oferim speranță luptătorilor care se confruntă cu cancerul în fiecare zi."
+  },
+  "nav": {
     "home": "Acasă",
     "aboutCancer": "Despre Cancer",
     "warriors": "Luptători",
@@ -26,15 +26,16 @@
     "moodBoost": "Încurajare pentru Luptători",
     "mensHealth": "Săptămâna Sănătății Bărbaților",
     "team": "Echipa Noastră",
-    "kidneyCancer": "Ziua Mondială a Cancerului Renal"
+    "kidneyCancer": "Ziua Mondială a Cancerului Renal",
+    "pilates": "Eveniment de Pilates"
   },
-"warriorsPage": {
+  "warriorsPage": {
     "title": "Redăm Speranța,",
     "titleHighlight": "Un Vis pe Rând",
     "subtitle": "În spatele fiecărui diagnostic există un spirit uman care refuză să cedeze. Fii martorul puterii bunătății tale în viețile acestor luptători curajoși.",
     "stats": {
       "dreams": "Vise Împlinite",
-      "investment": "Fonduri Strânse", 
+      "investment": "Fonduri Strânse",
       "team": "Membri ai Echipei"
     },
     "readStory": "Citește Povestea",
@@ -98,6 +99,13 @@
         "shortDesc": "Diagnosticată cu cancer ovarian în 2022, dorește să-și transforme vindecarea într-o resursă pentru comunitate.",
         "fullStory": "Diagnosticată cu cancer ovarian în septembrie 2022, după o intervenție chirurgicală, a completat cinci runde de chimioterapie până în martie 2023. Această călătorie i-a schimbat perspectiva, învățând-o să-și prioritizeze propria bunăstare și să trăiască cu recunoștință pentru copiii ei.\n\nIMPACTUL: Visul este de a cumpăra materiale pentru a organiza ateliere de artizanat pentru alte persoane cu diagnostic oncologic. Bursa îi permite să-și transforme vindecarea într-o resursă comunitară, oferind un mediu creativ și încurajând conexiunea."
       },
+      "wren": {
+        "name": "Wren",
+        "age": "Warrior",
+        "dream": "Să participe la Conferința Living Beyond Breast Cancer",
+        "shortDesc": "Diagnosticată în 2019 cu cancer de sân triplu negativ în stadiul 4.",
+        "fullStory": "Wren a fost diagnosticată în 2019 cu cancer de sân triplu negativ în stadiul 4. Prin intermediul Programului nostru de Sprijin pentru Visuri, a ales să participe la Conferința 'Living Beyond Breast Cancer' din Philadelphia, un spațiu pentru învățare, conectare și sprijin alături de alte persoane care trăiesc cu cancer metastatic."
+      },
       "penny": {
         "name": "Penny",
         "age": "49",
@@ -107,45 +115,150 @@
       }
     }
   },
-      "aboutCancer": {
+  "aboutCancer": {
     "title": "Află despre Cancer",
     "subtitle": "Informații complete despre tipuri, simptome și depistare precoce.",
     "types": {
-      "breast": { "title": "Cancer la Sân", "shortDesc": "Depistare precoce și autoexaminare." },
-      "lung": { "title": "Cancer Pulmonar", "shortDesc": "Factori de risc și sănătate respiratorie." },
-      "colorectal": { "title": "Cancer Colorectal", "shortDesc": "Importanța colonoscopiei." },
-      "prostate": { "title": "Cancer de Prostată", "shortDesc": "Sănătatea bărbaților și PSA." },
-      "skin": { "title": "Cancer de Piele", "shortDesc": "Melanom și protecție solară." },
-      "kidney": { "title": "Cancer Renal", "shortDesc": "Simptome tăcute și tratament." },
-      "leukemia": { "title": "Leucemie", "shortDesc": "Cancerul sângelui și măduvei." },
-      "liver": { "title": "Cancer Hepatic", "shortDesc": "Hepatită și sănătate hepatică." },
-      "pancreatic": { "title": "Cancer Pancreatic", "shortDesc": "Diagnostic și progrese." },
-      "ovarian": { "title": "Cancer Ovarian", "shortDesc": "Semne subtile la femei." },
-      "childhood": { "title": "Cancer la Copii", "shortDesc": "Sprijin pentru micii luptători." },
-      "brain": { "title": "Tumori Cerebrale", "shortDesc": "Tipuri de tumori și terapie." },
-      "bladder": { "title": "Cancer de Vezică", "shortDesc": "Semne de avertizare." },
-      "cervical": { "title": "Cancer Cervical", "shortDesc": "Vaccinul HPV și Papanicolau." },
-      "stomach": { "title": "Cancer Gastric", "shortDesc": "Dietă și sănătate gastrică." },
-      "testicular": { "title": "Cancer Testicular", "shortDesc": "Autoexaminare tineri." },
-      "thyroid": { "title": "Cancer Tiroidian", "shortDesc": "Noduli la gât și hormoni." },
-      "uterine": { "title": "Cancer Uterin", "shortDesc": "Sănătatea endometrială." },
-      "lymphoma": { "title": "Limfom", "shortDesc": "Hodgkin și Non-Hodgkin." },
-      "myeloma": { "title": "Mielom Multiplu", "shortDesc": "Cancerul celulelor plasmatice." },
-      "esophageal": { "title": "Cancer Esofagian", "shortDesc": "Dificultăți la înghițire." },
-      "head-neck": { "title": "Cap și Gât", "shortDesc": "Gură, nas și gât." },
-      "bone": { "title": "Cancer Osos", "shortDesc": "Dureri osoase și sarcoame." },
-      "sarcoma": { "title": "Sarcom Țesuturi Moi", "shortDesc": "Tumori musculare." },
-      "gallbladder": { "title": "Vezica Biliară", "shortDesc": "Dureri abdominale." },
-      "bile-duct": { "title": "Căi Biliare", "shortDesc": "Despre colangiocarcinom." },
-      "anal": { "title": "Cancer Anal", "shortDesc": "HPV și depistare." },
-      "penile": { "title": "Cancer Penian", "shortDesc": "Modificări ale pielii." },
-      "vaginal": { "title": "Cancer Vaginal", "shortDesc": "Simptome rare." },
-      "vulvar": { "title": "Cancer Vulvar", "shortDesc": "Mâncărime și piele." },
-      "eye": { "title": "Cancer Ocular", "shortDesc": "Melanom ocular." },
-      "oral": { "title": "Cancer Oral", "shortDesc": "Leziuni bucale persistente." },
-      "throat": { "title": "Cancer la Gât", "shortDesc": "Schimbări de voce." },
-      "small-intestine": { "title": "Intestin Subțire", "shortDesc": "Digestie și dureri." },
-      "thymus": { "title": "Cancer Timic", "shortDesc": "Glanda toracică." }
+      "breast": {
+        "title": "Cancer la Sân",
+        "shortDesc": "Depistare precoce și autoexaminare."
+      },
+      "lung": {
+        "title": "Cancer Pulmonar",
+        "shortDesc": "Factori de risc și sănătate respiratorie."
+      },
+      "colorectal": {
+        "title": "Cancer Colorectal",
+        "shortDesc": "Importanța colonoscopiei."
+      },
+      "prostate": {
+        "title": "Cancer de Prostată",
+        "shortDesc": "Sănătatea bărbaților și PSA."
+      },
+      "skin": {
+        "title": "Cancer de Piele",
+        "shortDesc": "Melanom și protecție solară."
+      },
+      "kidney": {
+        "title": "Cancer Renal",
+        "shortDesc": "Simptome tăcute și tratament."
+      },
+      "leukemia": {
+        "title": "Leucemie",
+        "shortDesc": "Cancerul sângelui și măduvei."
+      },
+      "liver": {
+        "title": "Cancer Hepatic",
+        "shortDesc": "Hepatită și sănătate hepatică."
+      },
+      "pancreatic": {
+        "title": "Cancer Pancreatic",
+        "shortDesc": "Diagnostic și progrese."
+      },
+      "ovarian": {
+        "title": "Cancer Ovarian",
+        "shortDesc": "Semne subtile la femei."
+      },
+      "childhood": {
+        "title": "Cancer la Copii",
+        "shortDesc": "Sprijin pentru micii luptători."
+      },
+      "brain": {
+        "title": "Tumori Cerebrale",
+        "shortDesc": "Tipuri de tumori și terapie."
+      },
+      "bladder": {
+        "title": "Cancer de Vezică",
+        "shortDesc": "Semne de avertizare."
+      },
+      "cervical": {
+        "title": "Cancer Cervical",
+        "shortDesc": "Vaccinul HPV și Papanicolau."
+      },
+      "stomach": {
+        "title": "Cancer Gastric",
+        "shortDesc": "Dietă și sănătate gastrică."
+      },
+      "testicular": {
+        "title": "Cancer Testicular",
+        "shortDesc": "Autoexaminare tineri."
+      },
+      "thyroid": {
+        "title": "Cancer Tiroidian",
+        "shortDesc": "Noduli la gât și hormoni."
+      },
+      "uterine": {
+        "title": "Cancer Uterin",
+        "shortDesc": "Sănătatea endometrială."
+      },
+      "lymphoma": {
+        "title": "Limfom",
+        "shortDesc": "Hodgkin și Non-Hodgkin."
+      },
+      "myeloma": {
+        "title": "Mielom Multiplu",
+        "shortDesc": "Cancerul celulelor plasmatice."
+      },
+      "esophageal": {
+        "title": "Cancer Esofagian",
+        "shortDesc": "Dificultăți la înghițire."
+      },
+      "head-neck": {
+        "title": "Cap și Gât",
+        "shortDesc": "Gură, nas și gât."
+      },
+      "bone": {
+        "title": "Cancer Osos",
+        "shortDesc": "Dureri osoase și sarcoame."
+      },
+      "sarcoma": {
+        "title": "Sarcom Țesuturi Moi",
+        "shortDesc": "Tumori musculare."
+      },
+      "gallbladder": {
+        "title": "Vezica Biliară",
+        "shortDesc": "Dureri abdominale."
+      },
+      "bile-duct": {
+        "title": "Căi Biliare",
+        "shortDesc": "Despre colangiocarcinom."
+      },
+      "anal": {
+        "title": "Cancer Anal",
+        "shortDesc": "HPV și depistare."
+      },
+      "penile": {
+        "title": "Cancer Penian",
+        "shortDesc": "Modificări ale pielii."
+      },
+      "vaginal": {
+        "title": "Cancer Vaginal",
+        "shortDesc": "Simptome rare."
+      },
+      "vulvar": {
+        "title": "Cancer Vulvar",
+        "shortDesc": "Mâncărime și piele."
+      },
+      "eye": {
+        "title": "Cancer Ocular",
+        "shortDesc": "Melanom ocular."
+      },
+      "oral": {
+        "title": "Cancer Oral",
+        "shortDesc": "Leziuni bucale persistente."
+      },
+      "throat": {
+        "title": "Cancer la Gât",
+        "shortDesc": "Schimbări de voce."
+      },
+      "small-intestine": {
+        "title": "Intestin Subțire",
+        "shortDesc": "Digestie și dureri."
+      },
+      "thymus": {
+        "title": "Cancer Timic",
+        "shortDesc": "Glanda toracică."
+      }
     }
   },
   "common": {
@@ -153,7 +266,7 @@
     "donateNow": "Donează Acum"
   },
   "hero": {
-    "badge": " 9 vise împlinite în 2025",
+    "badge": " 10 vise împlinite în 2025",
     "title1": "Împreună împotriva",
     "title2": "cancerului",
     "subtitle": "Împlinim vise și oferim speranță luptătorilor care se luptă în fiecare zi. Sprijinul tău transformă vieți.",
@@ -195,11 +308,23 @@
       },
       "treatmentsTitle": "Tratamente și Îngrijire",
       "treatmentsIntro": "Tratamentul cancerului de sân este extrem de personalizat și depinde de stadiul, locația și caracteristicile biologice ale tumorii.",
-      "treatment1": { "title": "Chirurgie", "desc": "Poate fi conservatoare (lumpectomie) sau mastectomie, în funcție de extinderea tumorii." },
-      "treatment2": { "title": "Terapii Sistemice", "desc": "Include chimioterapia, terapia hormonală și terapiile biologice țintite." },
+      "treatment1": {
+        "title": "Chirurgie",
+        "desc": "Poate fi conservatoare (lumpectomie) sau mastectomie, în funcție de extinderea tumorii."
+      },
+      "treatment2": {
+        "title": "Terapii Sistemice",
+        "desc": "Include chimioterapia, terapia hormonală și terapiile biologice țintite."
+      },
       "statsTitle": "Impact Global",
-      "stat1": { "value": "2.3M", "label": "Diagnostice anuale" },
-      "stat2": { "value": "90%", "label": "Rata de supraviețuire la 5 ani (detectare timpurie)" },
+      "stat1": {
+        "value": "2.3M",
+        "label": "Diagnostice anuale"
+      },
+      "stat2": {
+        "value": "90%",
+        "label": "Rata de supraviețuire la 5 ani (detectare timpurie)"
+      },
       "ctaSidebarTitle": "Susții cauza noastră?",
       "appointmentTitle": "Ai programare la medic?",
       "appointmentText": "Am pregătit o listă de întrebări esențiale pe care să le adresezi oncologului tău.",
@@ -221,11 +346,23 @@
       },
       "treatmentsTitle": "Tratamente",
       "treatmentsIntro": "Opțiunile variază în funcție de sănătatea generală și stadiul cancerului.",
-      "treatment1": { "title": "Radioterapie", "desc": "Folosește fascicule de energie de mare putere." },
-      "treatment2": { "title": "Imunoterapie", "desc": "Ajută sistemul imunitar să lupte împotriva cancerului." },
+      "treatment1": {
+        "title": "Radioterapie",
+        "desc": "Folosește fascicule de energie de mare putere."
+      },
+      "treatment2": {
+        "title": "Imunoterapie",
+        "desc": "Ajută sistemul imunitar să lupte împotriva cancerului."
+      },
       "statsTitle": "Impact",
-      "stat1": { "value": "1", "label": "Cauză principală de deces" },
-      "stat2": { "value": "2.2M", "label": "Cazuri globale" },
+      "stat1": {
+        "value": "1",
+        "label": "Cauză principală de deces"
+      },
+      "stat2": {
+        "value": "2.2M",
+        "label": "Cazuri globale"
+      },
       "ctaSidebarTitle": "Susține Cercetarea",
       "appointmentTitle": "Întrebări?",
       "appointmentText": "Pregătește-te pentru vizită.",
@@ -247,11 +384,23 @@
       },
       "treatmentsTitle": "Abordare Terapeutică",
       "treatmentsIntro": "Tratamentul depinde de stadiu, chirurgia fiind comună pentru tumori localizate.",
-      "treatment1": { "title": "Chirurgie (Colectomie)", "desc": "Eliminarea părții afectate a colonului." },
-      "treatment2": { "title": "Chimioterapie", "desc": "Adesea folosită după operație." },
+      "treatment1": {
+        "title": "Chirurgie (Colectomie)",
+        "desc": "Eliminarea părții afectate a colonului."
+      },
+      "treatment2": {
+        "title": "Chimioterapie",
+        "desc": "Adesea folosită după operație."
+      },
       "statsTitle": "Statistici",
-      "stat1": { "value": "Locul 3", "label": "Cel mai frecvent cancer" },
-      "stat2": { "value": "90%+", "label": "Vindecabil dacă e detectat local" },
+      "stat1": {
+        "value": "Locul 3",
+        "label": "Cel mai frecvent cancer"
+      },
+      "stat2": {
+        "value": "90%+",
+        "label": "Vindecabil dacă e detectat local"
+      },
       "ctaSidebarTitle": "Prevenția Salvează Vieți",
       "appointmentTitle": "Ai nevoie de screening?",
       "appointmentText": "Discută cu medicul tău.",
@@ -273,11 +422,23 @@
       },
       "treatmentsTitle": "Opțiuni de Gestionare",
       "treatmentsIntro": "Tratamentul variază de la supraveghere activă la intervenții mai agresive.",
-      "treatment1": { "title": "Supraveghere Activă", "desc": "Monitorizare atentă fără tratament imediat." },
-      "treatment2": { "title": "Chirurgie și Radioterapie", "desc": "Prostatectomie radicală sau radiații." },
+      "treatment1": {
+        "title": "Supraveghere Activă",
+        "desc": "Monitorizare atentă fără tratament imediat."
+      },
+      "treatment2": {
+        "title": "Chirurgie și Radioterapie",
+        "desc": "Prostatectomie radicală sau radiații."
+      },
       "statsTitle": "Prevalență",
-      "stat1": { "value": "1 din 8", "label": "Bărbați diagnosticați" },
-      "stat2": { "value": "98%", "label": "Supraviețuire la 5 ani" },
+      "stat1": {
+        "value": "1 din 8",
+        "label": "Bărbați diagnosticați"
+      },
+      "stat2": {
+        "value": "98%",
+        "label": "Supraviețuire la 5 ani"
+      },
       "ctaSidebarTitle": "Sănătatea Bărbaților",
       "appointmentTitle": "Control prostată?",
       "appointmentText": "Discută beneficiile PSA.",
@@ -299,11 +460,23 @@
       },
       "treatmentsTitle": "Tratamente Moderne",
       "treatmentsIntro": "Chirurgia este principalul tratament pentru stadiile incipiente.",
-      "treatment1": { "title": "Excizie Chirurgicală", "desc": "Eliminarea melanomului și a pielii sănătoase din jur." },
-      "treatment2": { "title": "Imunoterapie", "desc": "Medicamente care stimulează sistemul imunitar." },
+      "treatment1": {
+        "title": "Excizie Chirurgicală",
+        "desc": "Eliminarea melanomului și a pielii sănătoase din jur."
+      },
+      "treatment2": {
+        "title": "Imunoterapie",
+        "desc": "Medicamente care stimulează sistemul imunitar."
+      },
       "statsTitle": "Detectare",
-      "stat1": { "value": "Top 5", "label": "Cancere comune" },
-      "stat2": { "value": "99%", "label": "Vindecabil local" },
+      "stat1": {
+        "value": "Top 5",
+        "label": "Cancere comune"
+      },
+      "stat2": {
+        "value": "99%",
+        "label": "Vindecabil local"
+      },
       "ctaSidebarTitle": "Siguranța la Soare",
       "appointmentTitle": "Îngrijorat de o aluniță?",
       "appointmentText": "Nu aștepta. Mergi la dermatolog.",
@@ -325,11 +498,23 @@
       },
       "treatmentsTitle": "Abordare Terapeutică",
       "treatmentsIntro": "Tratamentul depinde dacă cancerul a invadat peretele muscular.",
-      "treatment1": { "title": "Rezecție Transuretrală", "desc": "Chirurgie prin uretră pentru tumori superficiale." },
-      "treatment2": { "title": "Cistectomie", "desc": "Eliminarea vezicii urinare." },
+      "treatment1": {
+        "title": "Rezecție Transuretrală",
+        "desc": "Chirurgie prin uretră pentru tumori superficiale."
+      },
+      "treatment2": {
+        "title": "Cistectomie",
+        "desc": "Eliminarea vezicii urinare."
+      },
       "statsTitle": "Date",
-      "stat1": { "value": "4x", "label": "Mai frecvent la bărbați" },
-      "stat2": { "value": "77%", "label": "Rată medie supraviețuire" },
+      "stat1": {
+        "value": "4x",
+        "label": "Mai frecvent la bărbați"
+      },
+      "stat2": {
+        "value": "77%",
+        "label": "Rată medie supraviețuire"
+      },
       "ctaSidebarTitle": "Ajută Luptătorii",
       "appointmentTitle": "Consult Urologie",
       "appointmentText": "Pregătește întrebări despre simptome.",
@@ -351,11 +536,23 @@
       },
       "treatmentsTitle": "Tratamente Hematologice",
       "treatmentsIntro": "Tratamentul este foarte specific în funcție de subtipul exact de limfom și agresivitatea acestuia.",
-      "treatment1": { "title": "Chimioterapie și Terapie Țintită", "desc": "Utilizarea medicamentelor pentru a distruge celulele canceroase sau a bloca creșterea lor." },
-      "treatment2": { "title": "Transplant de Celule Stem", "desc": "Pentru a înlocui măduva osoasă bolnavă cu celule sănătoase." },
+      "treatment1": {
+        "title": "Chimioterapie și Terapie Țintită",
+        "desc": "Utilizarea medicamentelor pentru a distruge celulele canceroase sau a bloca creșterea lor."
+      },
+      "treatment2": {
+        "title": "Transplant de Celule Stem",
+        "desc": "Pentru a înlocui măduva osoasă bolnavă cu celule sănătoase."
+      },
       "statsTitle": "Varietate",
-      "stat1": { "value": "80+", "label": "Subtipuri diferite de limfom" },
-      "stat2": { "value": "Mare", "label": "Rată de vindecare în Hodgkin" },
+      "stat1": {
+        "value": "80+",
+        "label": "Subtipuri diferite de limfom"
+      },
+      "stat2": {
+        "value": "Mare",
+        "label": "Rată de vindecare în Hodgkin"
+      },
       "ctaSidebarTitle": "Alătură-te Luptei",
       "appointmentTitle": "Hematolog",
       "appointmentText": "Întrebări cheie pentru specialistul tău în sânge.",
@@ -377,11 +574,23 @@
       },
       "treatmentsTitle": "Opțiuni Terapeutice",
       "treatmentsIntro": "Chirurgia este principalul tratament pentru majoritatea cancerelor renale.",
-      "treatment1": { "title": "Nefrectomie (Parțială sau Radicală)", "desc": "Eliminarea tumorii sau a întregului rinichi afectat." },
-      "treatment2": { "title": "Terapie Țintită și Imunoterapie", "desc": "Utilizate frecvent pentru cancer renal avansat sau metastatic." },
+      "treatment1": {
+        "title": "Nefrectomie (Parțială sau Radicală)",
+        "desc": "Eliminarea tumorii sau a întregului rinichi afectat."
+      },
+      "treatment2": {
+        "title": "Terapie Țintită și Imunoterapie",
+        "desc": "Utilizate frecvent pentru cancer renal avansat sau metastatic."
+      },
       "statsTitle": "Date Cheie",
-      "stat1": { "value": "Top 10", "label": "Cele mai comune cancere" },
-      "stat2": { "value": "75%", "label": "Supraviețuire la 5 ani (global)" },
+      "stat1": {
+        "value": "Top 10",
+        "label": "Cele mai comune cancere"
+      },
+      "stat2": {
+        "value": "75%",
+        "label": "Supraviețuire la 5 ani (global)"
+      },
       "ctaSidebarTitle": "Sprijin Renal",
       "appointmentTitle": "Diagnostic recent?",
       "appointmentText": "Înțelege opțiunile tale înainte de a decide.",
@@ -403,11 +612,23 @@
       },
       "treatmentsTitle": "Tratamente Ginecologice",
       "treatmentsIntro": "Chirurgia este tratamentul standard și adesea curativ în stadiile incipiente.",
-      "treatment1": { "title": "Histerectomie", "desc": "Chirurgie pentru a elimina uterul, adesea împreună cu trompele și ovarele." },
-      "treatment2": { "title": "Radioterapie Pelvină", "desc": "Utilizarea radiațiilor externe sau interne (brahiterapie) pentru a elimina celulele rămase." },
+      "treatment1": {
+        "title": "Histerectomie",
+        "desc": "Chirurgie pentru a elimina uterul, adesea împreună cu trompele și ovarele."
+      },
+      "treatment2": {
+        "title": "Radioterapie Pelvină",
+        "desc": "Utilizarea radiațiilor externe sau interne (brahiterapie) pentru a elimina celulele rămase."
+      },
       "statsTitle": "Prognoză",
-      "stat1": { "value": "Locul 4", "label": "Cel mai comun cancer la femei" },
-      "stat2": { "value": "81%", "label": "Rată mare de supraviețuire globală" },
+      "stat1": {
+        "value": "Locul 4",
+        "label": "Cel mai comun cancer la femei"
+      },
+      "stat2": {
+        "value": "81%",
+        "label": "Rată mare de supraviețuire globală"
+      },
       "ctaSidebarTitle": "Sănătatea Femeii",
       "appointmentTitle": "Ginecolog Oncolog",
       "appointmentText": "Întrebări cruciale despre sănătatea ta reproductivă.",
@@ -429,11 +650,23 @@
       },
       "treatmentsTitle": "Provocări Terapeutice",
       "treatmentsIntro": "Tratamentul este complex și depinde în mare măsură de sănătatea restului ficatului.",
-      "treatment1": { "title": "Rezecție Chirurgicală sau Transplant", "desc": "Eliminarea tumorii (dacă ficatul funcționează bine) sau înlocuirea ficatului." },
-      "treatment2": { "title": "Terapie de Ablație și Embolizare", "desc": "Tehnici pentru a distruge tumorile direct fără chirurgie majoră." },
+      "treatment1": {
+        "title": "Rezecție Chirurgicală sau Transplant",
+        "desc": "Eliminarea tumorii (dacă ficatul funcționează bine) sau înlocuirea ficatului."
+      },
+      "treatment2": {
+        "title": "Terapie de Ablație și Embolizare",
+        "desc": "Tehnici pentru a distruge tumorile direct fără chirurgie majoră."
+      },
       "statsTitle": "Impact Mondial",
-      "stat1": { "value": "Locul 6", "label": "Cancer cel mai diagnosticat" },
-      "stat2": { "value": "Locul 3", "label": "Cauză de deces prin cancer" },
+      "stat1": {
+        "value": "Locul 6",
+        "label": "Cancer cel mai diagnosticat"
+      },
+      "stat2": {
+        "value": "Locul 3",
+        "label": "Cauză de deces prin cancer"
+      },
       "ctaSidebarTitle": "Sprijin Hepatic",
       "appointmentTitle": "Dubii despre ficat?",
       "appointmentText": "Consultă un hepatolog sau oncolog.",
@@ -455,11 +688,23 @@
       },
       "treatmentsTitle": "Opțiuni de Gestionare",
       "treatmentsIntro": "Chirurgia este singura opțiune potențial curativă, dar este posibilă doar într-o minoritate de cazuri.",
-      "treatment1": { "title": "Procedura Whipple (Chirurgie)", "desc": "Operație complexă pentru a elimina capul pancreasului și organele din apropiere." },
-      "treatment2": { "title": "Chimioterapie (Ex: FOLFIRINOX)", "desc": "Scheme puternice pentru a reduce tumorile sau a controla boala avansată." },
+      "treatment1": {
+        "title": "Procedura Whipple (Chirurgie)",
+        "desc": "Operație complexă pentru a elimina capul pancreasului și organele din apropiere."
+      },
+      "treatment2": {
+        "title": "Chimioterapie (Ex: FOLFIRINOX)",
+        "desc": "Scheme puternice pentru a reduce tumorile sau a controla boala avansată."
+      },
       "statsTitle": "Urgență",
-      "stat1": { "value": "Mică", "label": "Rata de detecție timpurie" },
-      "stat2": { "value": "11%", "label": "Supraviețuire la 5 ani (crește lent)" },
+      "stat1": {
+        "value": "Mică",
+        "label": "Rata de detecție timpurie"
+      },
+      "stat2": {
+        "value": "11%",
+        "label": "Supraviețuire la 5 ani (crește lent)"
+      },
       "ctaSidebarTitle": "Cercetare Vitală",
       "appointmentTitle": "Consultație Specializată",
       "appointmentText": "Caută centre cu experiență mare în pancreas.",
@@ -481,11 +726,23 @@
       },
       "treatmentsTitle": "Tratamente Eficiente",
       "treatmentsIntro": "Abordarea standard implică chirurgie urmată adesea de terapie hormonală.",
-      "treatment1": { "title": "Tiroidectomie", "desc": "Eliminarea totală sau parțială a glandei tiroide." },
-      "treatment2": { "title": "Terapie cu Iod Radioactiv", "desc": "Utilizarea iodului radioactiv post-chirurgie pentru a distruge orice țesut tiroidian rămas." },
+      "treatment1": {
+        "title": "Tiroidectomie",
+        "desc": "Eliminarea totală sau parțială a glandei tiroide."
+      },
+      "treatment2": {
+        "title": "Terapie cu Iod Radioactiv",
+        "desc": "Utilizarea iodului radioactiv post-chirurgie pentru a distruge orice țesut tiroidian rămas."
+      },
       "statsTitle": "Speranță",
-      "stat1": { "value": "3x", "label": "Mai frecvent la femei" },
-      "stat2": { "value": "98%", "label": "Rata de supraviețuire la 5 ani" },
+      "stat1": {
+        "value": "3x",
+        "label": "Mai frecvent la femei"
+      },
+      "stat2": {
+        "value": "98%",
+        "label": "Rata de supraviețuire la 5 ani"
+      },
       "ctaSidebarTitle": "Sprijin Endocrin",
       "appointmentTitle": "Nodul la gât?",
       "appointmentText": "Întrebări pentru endocrinologul tău.",
@@ -507,11 +764,23 @@
       },
       "treatmentsTitle": "Abordare Multimodală",
       "treatmentsIntro": "Necesită adesea o combinație de terapii pentru a obține cele mai bune rezultate.",
-      "treatment1": { "title": "Esofagectomie", "desc": "Chirurgie pentru a elimina partea afectată a esofagului și a reconecta stomacul." },
-      "treatment2": { "title": "Chimio-Radioterapie", "desc": "Utilizarea combinată a chimioterapiei și radiațiilor, adesea înainte de operație." },
+      "treatment1": {
+        "title": "Esofagectomie",
+        "desc": "Chirurgie pentru a elimina partea afectată a esofagului și a reconecta stomacul."
+      },
+      "treatment2": {
+        "title": "Chimio-Radioterapie",
+        "desc": "Utilizarea combinată a chimioterapiei și radiațiilor, adesea înainte de operație."
+      },
       "statsTitle": "Date",
-      "stat1": { "value": "Locul 7", "label": "Cel mai comun cancer global" },
-      "stat2": { "value": "20%", "label": "Supraviețuire globală la 5 ani" },
+      "stat1": {
+        "value": "Locul 7",
+        "label": "Cel mai comun cancer global"
+      },
+      "stat2": {
+        "value": "20%",
+        "label": "Supraviețuire globală la 5 ani"
+      },
       "ctaSidebarTitle": "Ajutor Digestiv",
       "appointmentTitle": "Consultație Esofagiană",
       "appointmentText": "Întrebări despre înghițire și tratament.",
@@ -533,11 +802,23 @@
       },
       "treatmentsTitle": "Tratamente",
       "treatmentsIntro": "Chirurgia este principala opțiune curativă, adesea combinată cu alte terapii.",
-      "treatment1": { "title": "Gastrectomie (Totală sau Subtotală)", "desc": "Eliminarea totală sau parțială a stomacului și a ganglionilor limfatici din apropiere." },
-      "treatment2": { "title": "Chimioterapie Perioperatorie", "desc": "Administrată înainte și/sau după operație pentru a îmbunătăți rezultatele." },
+      "treatment1": {
+        "title": "Gastrectomie (Totală sau Subtotală)",
+        "desc": "Eliminarea totală sau parțială a stomacului și a ganglionilor limfatici din apropiere."
+      },
+      "treatment2": {
+        "title": "Chimioterapie Perioperatorie",
+        "desc": "Administrată înainte și/sau după operație pentru a îmbunătăți rezultatele."
+      },
       "statsTitle": "Impact",
-      "stat1": { "value": "Locul 5", "label": "Cel mai comun cancer mondial" },
-      "stat2": { "value": "31%", "label": "Supraviețuire la 5 ani" },
+      "stat1": {
+        "value": "Locul 5",
+        "label": "Cel mai comun cancer mondial"
+      },
+      "stat2": {
+        "value": "31%",
+        "label": "Supraviețuire la 5 ani"
+      },
       "ctaSidebarTitle": "Nutriție și Sănătate",
       "appointmentTitle": "Probleme stomacale?",
       "appointmentText": "Vorbește cu un gastroenterolog.",
@@ -559,11 +840,23 @@
       },
       "treatmentsTitle": "Gestionarea Bolii",
       "treatmentsIntro": "Deși în general nu este vindecabil, este tratabil mulți ani cu terapii moderne.",
-      "treatment1": { "title": "Terapie Țintită și Imunomodulatoare", "desc": "Medicamente precum inhibitorii de proteazom care atacă specific celulele mielomului." },
-      "treatment2": { "title": "Transplant de Celule Stem Autolog", "desc": "Utilizarea propriilor celule stem ale pacientului pentru a salva măduva după doze mari de chimio." },
+      "treatment1": {
+        "title": "Terapie Țintită și Imunomodulatoare",
+        "desc": "Medicamente precum inhibitorii de proteazom care atacă specific celulele mielomului."
+      },
+      "treatment2": {
+        "title": "Transplant de Celule Stem Autolog",
+        "desc": "Utilizarea propriilor celule stem ale pacientului pentru a salva măduva după doze mari de chimio."
+      },
       "statsTitle": "Hematologie",
-      "stat1": { "value": "Locul 2", "label": "Cel mai comun cancer de sânge" },
-      "stat2": { "value": "55%", "label": "Supraviețuire medie la 5 ani" },
+      "stat1": {
+        "value": "Locul 2",
+        "label": "Cel mai comun cancer de sânge"
+      },
+      "stat2": {
+        "value": "55%",
+        "label": "Supraviețuire medie la 5 ani"
+      },
       "ctaSidebarTitle": "Sprijin Pacienți",
       "appointmentTitle": "Hematolog",
       "appointmentText": "Întrebări despre gestionarea pe termen lung.",
@@ -585,11 +878,23 @@
       },
       "treatmentsTitle": "Tratament Combinat",
       "treatmentsIntro": "Implică de obicei o combinație de chirurgie agresivă și chimioterapie.",
-      "treatment1": { "title": "Chirurgie de Citorreduție", "desc": "Eliminarea celei mai mari cantități posibile de tumoră vizibilă din abdomen." },
-      "treatment2": { "title": "Chimioterapie pe Bază de Platină", "desc": "Standardul de îngrijire după operație pentru majoritatea pacientelor." },
+      "treatment1": {
+        "title": "Chirurgie de Citorreduție",
+        "desc": "Eliminarea celei mai mari cantități posibile de tumoră vizibilă din abdomen."
+      },
+      "treatment2": {
+        "title": "Chimioterapie pe Bază de Platină",
+        "desc": "Standardul de îngrijire după operație pentru majoritatea pacientelor."
+      },
       "statsTitle": "Provocare",
-      "stat1": { "value": "Locul 8", "label": "Cel mai comun cancer la femei" },
-      "stat2": { "value": "49%", "label": "Rată de supraviețuire globală" },
+      "stat1": {
+        "value": "Locul 8",
+        "label": "Cel mai comun cancer la femei"
+      },
+      "stat2": {
+        "value": "49%",
+        "label": "Rată de supraviețuire globală"
+      },
       "ctaSidebarTitle": "Conștientizare Ovariană",
       "appointmentTitle": "Simptome persistente?",
       "appointmentText": "Consultă un ginecolog oncolog.",
@@ -611,11 +916,23 @@
       },
       "treatmentsTitle": "Opțiuni Terapeutice",
       "treatmentsIntro": "Tratamentul este foarte eficient când cancerul este detectat în stadii incipiente.",
-      "treatment1": { "title": "Chirurgie (Conizație sau Histerectomie)", "desc": "De la eliminarea țesutului colului uterin până la eliminarea uterului." },
-      "treatment2": { "title": "Chimioradioterapie Concomitentă", "desc": "Utilizarea simultană a chimioterapiei și radiațiilor pentru stadii mai avansate." },
+      "treatment1": {
+        "title": "Chirurgie (Conizație sau Histerectomie)",
+        "desc": "De la eliminarea țesutului colului uterin până la eliminarea uterului."
+      },
+      "treatment2": {
+        "title": "Chimioradioterapie Concomitentă",
+        "desc": "Utilizarea simultană a chimioterapiei și radiațiilor pentru stadii mai avansate."
+      },
       "statsTitle": "Prevenție",
-      "stat1": { "value": "99%", "label": "Cazuri asociate cu HPV" },
-      "stat2": { "value": "66%", "label": "Supraviețuire globală (variază mult după stadiu)" },
+      "stat1": {
+        "value": "99%",
+        "label": "Cazuri asociate cu HPV"
+      },
+      "stat2": {
+        "value": "66%",
+        "label": "Supraviețuire globală (variază mult după stadiu)"
+      },
       "ctaSidebarTitle": "Vaccinează-te și Controlează-te",
       "appointmentTitle": "Sănătate Cervicală",
       "appointmentText": "Întrebări despre HPV și screening.",
@@ -637,11 +954,23 @@
       },
       "treatmentsTitle": "Tratamente Complex",
       "treatmentsIntro": "Tratamentul necesită o echipă multidisciplinară de neurochirurgi și oncologi.",
-      "treatment1": { "title": "Neurochirurgie (Craniotomie)", "desc": "Tratamentul principal pentru a elimina cât mai mult din tumoră în siguranță." },
-      "treatment2": { "title": "Radiochirurgie Stereotactică (Ex: Gamma Knife)", "desc": "Utilizarea radiațiilor foarte concentrate pentru a trata tumori fără incizie." },
+      "treatment1": {
+        "title": "Neurochirurgie (Craniotomie)",
+        "desc": "Tratamentul principal pentru a elimina cât mai mult din tumoră în siguranță."
+      },
+      "treatment2": {
+        "title": "Radiochirurgie Stereotactică (Ex: Gamma Knife)",
+        "desc": "Utilizarea radiațiilor foarte concentrate pentru a trata tumori fără incizie."
+      },
       "statsTitle": "Date",
-      "stat1": { "value": "120+", "label": "Tipuri diferite de tumori" },
-      "stat2": { "value": "36%", "label": "Supraviețuire medie la 5 ani (variază mult după tip)" },
+      "stat1": {
+        "value": "120+",
+        "label": "Tipuri diferite de tumori"
+      },
+      "stat2": {
+        "value": "36%",
+        "label": "Supraviețuire medie la 5 ani (variază mult după tip)"
+      },
       "ctaSidebarTitle": "Sprijin Neurologic",
       "appointmentTitle": "Simptome neurologice?",
       "appointmentText": "Consultă un neurolog.",
@@ -663,11 +992,23 @@
       },
       "treatmentsTitle": "Rată Mare de Vindecare",
       "treatmentsIntro": "Chiar și când se răspândește, cancerul testicular este unul dintre cele mai vindecabile tipuri de cancer.",
-      "treatment1": { "title": "Orhiectomie Inghinală Radicală", "desc": "Chirurgie pentru a elimina testiculul afectat printr-o incizie inghinală." },
-      "treatment2": { "title": "Chimioterapie pe Bază de Cisplatină", "desc": "Foarte eficientă pentru boala care s-a răspândit dincolo de testicul." },
+      "treatment1": {
+        "title": "Orhiectomie Inghinală Radicală",
+        "desc": "Chirurgie pentru a elimina testiculul afectat printr-o incizie inghinală."
+      },
+      "treatment2": {
+        "title": "Chimioterapie pe Bază de Cisplatină",
+        "desc": "Foarte eficientă pentru boala care s-a răspândit dincolo de testicul."
+      },
       "statsTitle": "Speranță",
-      "stat1": { "value": "95%", "label": "Rată generală de vindecare" },
-      "stat2": { "value": "1%", "label": "Din toate cancerele masculine" },
+      "stat1": {
+        "value": "95%",
+        "label": "Rată generală de vindecare"
+      },
+      "stat2": {
+        "value": "1%",
+        "label": "Din toate cancerele masculine"
+      },
       "ctaSidebarTitle": "Sănătate Tineri",
       "appointmentTitle": "Urolog",
       "appointmentText": "Nu ignora schimbările. Consultă rapid.",
@@ -679,14 +1020,33 @@
       "overviewTitle": "Rezumat",
       "overviewText": "Cancerul infantil include diverse tipuri de tumori care apar la copii și adolescenți. Deși este rar, progresele medicale au dus la rate mari de supraviețuire. Tipurile comune includ leucemia, tumorile cerebrale și limfoamele.",
       "symptomsTitle": "Simptome Comune",
-      "symptoms": { "symptom1": "Oboseală constantă", "symptom2": "Vânătăi ușoare", "symptom3": "Durere localizată", "symptom4": "Febră inexplicabilă", "symptom5": "Scădere în greutate", "symptom6": "Umflături sau noduli" },
+      "symptoms": {
+        "symptom1": "Oboseală constantă",
+        "symptom2": "Vânătăi ușoare",
+        "symptom3": "Durere localizată",
+        "symptom4": "Febră inexplicabilă",
+        "symptom5": "Scădere în greutate",
+        "symptom6": "Umflături sau noduli"
+      },
       "treatmentsTitle": "Tratamente",
       "treatmentsIntro": "Tratamentul este adaptat vârstei și tipului de cancer:",
-      "treatment1": { "title": "Chimioterapie", "desc": "Medicamente pentru distrugerea celulelor canceroase." },
-      "treatment2": { "title": "Radioterapie", "desc": "Raze de înaltă energie pentru eliminarea tumorilor." },
+      "treatment1": {
+        "title": "Chimioterapie",
+        "desc": "Medicamente pentru distrugerea celulelor canceroase."
+      },
+      "treatment2": {
+        "title": "Radioterapie",
+        "desc": "Raze de înaltă energie pentru eliminarea tumorilor."
+      },
       "statsTitle": "Speranță",
-      "stat1": { "value": "80%+", "label": "Supraviețuire Globală" },
-      "stat2": { "value": "Cercetare", "label": "Prioritate Medicală" },
+      "stat1": {
+        "value": "80%+",
+        "label": "Supraviețuire Globală"
+      },
+      "stat2": {
+        "value": "Cercetare",
+        "label": "Prioritate Medicală"
+      },
       "ctaSidebarTitle": "Ajută un Copil",
       "appointmentTitle": "Sprijin Familial",
       "appointmentText": "Nu sunteți singuri. Contactați-ne pentru îndrumare.",
@@ -698,14 +1058,33 @@
       "overviewTitle": "Rezumat",
       "overviewText": "Mielomul multiplu afectează celulele plasmatice, un tip de globule albe care ajută la combaterea infecțiilor. Aceste celule canceroase se acumulează în măduva osoasă și pot deteriora oasele și afecta producția de celule sanguine sănătoase.",
       "symptomsTitle": "Simptome",
-      "symptoms": { "symptom1": "Durere osoasă", "symptom2": "Oboseală extremă", "symptom3": "Infecții frecvente", "symptom4": "Sete excesivă", "symptom5": "Greață", "symptom6": "Slăbiciune musculară" },
+      "symptoms": {
+        "symptom1": "Durere osoasă",
+        "symptom2": "Oboseală extremă",
+        "symptom3": "Infecții frecvente",
+        "symptom4": "Sete excesivă",
+        "symptom5": "Greață",
+        "symptom6": "Slăbiciune musculară"
+      },
       "treatmentsTitle": "Tratamente",
       "treatmentsIntro": "Opțiuni pentru gestionarea bolii:",
-      "treatment1": { "title": "Terapie Țintită", "desc": "Medicamente care atacă proteine specifice." },
-      "treatment2": { "title": "Transplant Medular", "desc": "Înlocuirea celulelor bolnave cu unele sănătoase." },
+      "treatment1": {
+        "title": "Terapie Țintită",
+        "desc": "Medicamente care atacă proteine specifice."
+      },
+      "treatment2": {
+        "title": "Transplant Medular",
+        "desc": "Înlocuirea celulelor bolnave cu unele sănătoase."
+      },
       "statsTitle": "Date",
-      "stat1": { "value": "Variabil", "label": "Prognoză" },
-      "stat2": { "value": "65+", "label": "Vârstă Frecventă" },
+      "stat1": {
+        "value": "Variabil",
+        "label": "Prognoză"
+      },
+      "stat2": {
+        "value": "65+",
+        "label": "Vârstă Frecventă"
+      },
       "ctaSidebarTitle": "Susține Cauza",
       "appointmentTitle": "Întrebări?",
       "appointmentText": "Experții noștri te pot îndruma.",
@@ -717,14 +1096,33 @@
       "overviewTitle": "Rezumat",
       "overviewText": "Sarcoamele sunt un grup divers de cancere care se dezvoltă în oase sau țesuturi moi (mușchi, grăsime, vase de sânge). Există peste 70 de subtipuri diferite, iar tratamentul depinde de locația exactă.",
       "symptomsTitle": "Semne de Avertizare",
-      "symptoms": { "symptom1": "Nodul nedureros", "symptom2": "Durere osoasă", "symptom3": "Umflături", "symptom4": "Șchiopătat", "symptom5": "Mișcare limitată", "symptom6": "Durere abdominală" },
+      "symptoms": {
+        "symptom1": "Nodul nedureros",
+        "symptom2": "Durere osoasă",
+        "symptom3": "Umflături",
+        "symptom4": "Șchiopătat",
+        "symptom5": "Mișcare limitată",
+        "symptom6": "Durere abdominală"
+      },
       "treatmentsTitle": "Tratamente",
       "treatmentsIntro": "Abordare multidisciplinară:",
-      "treatment1": { "title": "Chirurgie", "desc": "Îndepărtarea tumorii cu margine de siguranță." },
-      "treatment2": { "title": "Radioterapie", "desc": "Pentru a micșora tumora înainte de operație." },
+      "treatment1": {
+        "title": "Chirurgie",
+        "desc": "Îndepărtarea tumorii cu margine de siguranță."
+      },
+      "treatment2": {
+        "title": "Radioterapie",
+        "desc": "Pentru a micșora tumora înainte de operație."
+      },
       "statsTitle": "Info",
-      "stat1": { "value": "70+", "label": "Subtipuri" },
-      "stat2": { "value": "Rar", "label": "Frecvență" },
+      "stat1": {
+        "value": "70+",
+        "label": "Subtipuri"
+      },
+      "stat2": {
+        "value": "Rar",
+        "label": "Frecvență"
+      },
       "ctaSidebarTitle": "Alătură-te",
       "appointmentTitle": "Asistență",
       "appointmentText": "Suntem aici să te ajutăm în acest proces.",
@@ -736,14 +1134,33 @@
       "overviewTitle": "Rezumat",
       "overviewText": "Acest cancer rar se formează în căile biliare, tuburile subțiri care transportă bila digestivă. Este adesea detectat când cauzează icter (piele galbenă) sau durere abdominală.",
       "symptomsTitle": "Simptome",
-      "symptoms": { "symptom1": "Icter (gălbeneală)", "symptom2": "Mâncărime intensă", "symptom3": "Scaune deschise", "symptom4": "Urină închisă", "symptom5": "Durere abdominală", "symptom6": "Febră" },
+      "symptoms": {
+        "symptom1": "Icter (gălbeneală)",
+        "symptom2": "Mâncărime intensă",
+        "symptom3": "Scaune deschise",
+        "symptom4": "Urină închisă",
+        "symptom5": "Durere abdominală",
+        "symptom6": "Febră"
+      },
       "treatmentsTitle": "Tratamente",
       "treatmentsIntro": "Necesită îngrijire specializată:",
-      "treatment1": { "title": "Chirurgie", "desc": "Îndepărtarea canalelor afectate." },
-      "treatment2": { "title": "Stent Biliar", "desc": "Pentru deblocarea fluxului biliar." },
+      "treatment1": {
+        "title": "Chirurgie",
+        "desc": "Îndepărtarea canalelor afectate."
+      },
+      "treatment2": {
+        "title": "Stent Biliar",
+        "desc": "Pentru deblocarea fluxului biliar."
+      },
       "statsTitle": "Date",
-      "stat1": { "value": "Dificil", "label": "Detectare" },
-      "stat2": { "value": "50-70", "label": "Vârsta Medie" },
+      "stat1": {
+        "value": "Dificil",
+        "label": "Detectare"
+      },
+      "stat2": {
+        "value": "50-70",
+        "label": "Vârsta Medie"
+      },
       "ctaSidebarTitle": "Donează Acum",
       "appointmentTitle": "Consultație",
       "appointmentText": "Vorbește cu un specialist azi.",
@@ -755,14 +1172,33 @@
       "overviewTitle": "Rezumat",
       "overviewText": "Cancerul ocular poate afecta partea externă (pleoape) sau internă (melanom uveal, retinoblastom la copii). Controalele oftalmologice sunt cheia pentru detectarea timpurie.",
       "symptomsTitle": "Simptome Vizuale",
-      "symptoms": { "symptom1": "Vedere încețoșată", "symptom2": "Pete întunecate", "symptom3": "Sclipiri de lumină", "symptom4": "Pierderea vederii periferice", "symptom5": "Schimbarea formei pupilei", "symptom6": "Ochi roșu" },
+      "symptoms": {
+        "symptom1": "Vedere încețoșată",
+        "symptom2": "Pete întunecate",
+        "symptom3": "Sclipiri de lumină",
+        "symptom4": "Pierderea vederii periferice",
+        "symptom5": "Schimbarea formei pupilei",
+        "symptom6": "Ochi roșu"
+      },
       "treatmentsTitle": "Tratamente",
       "treatmentsIntro": "Păstrarea vederii este prioritară:",
-      "treatment1": { "title": "Brahiterapie", "desc": "Placă radioactivă temporară pe ochi." },
-      "treatment2": { "title": "Laser", "desc": "Pentru distrugerea tumorilor mici." },
+      "treatment1": {
+        "title": "Brahiterapie",
+        "desc": "Placă radioactivă temporară pe ochi."
+      },
+      "treatment2": {
+        "title": "Laser",
+        "desc": "Pentru distrugerea tumorilor mici."
+      },
       "statsTitle": "Vedere",
-      "stat1": { "value": "80%", "label": "Control Local" },
-      "stat2": { "value": "Scăzută", "label": "Incidență" },
+      "stat1": {
+        "value": "80%",
+        "label": "Control Local"
+      },
+      "stat2": {
+        "value": "Scăzută",
+        "label": "Incidență"
+      },
       "ctaSidebarTitle": "Ajutor",
       "appointmentTitle": "Control",
       "appointmentText": "Protejează-ți vederea, este vitală.",
@@ -774,14 +1210,33 @@
       "overviewTitle": "Rezumat",
       "overviewText": "Cancerul oral se dezvoltă în țesuturile gurii sau gâtului. Tutunul și alcoolul sunt factori de risc majori, precum și virusul HPV în unele cazuri.",
       "symptomsTitle": "Simptome",
-      "symptoms": { "symptom1": "Răni care nu se vindecă", "symptom2": "Pete albe/roșii", "symptom3": "Dinți slăbiți", "symptom4": "Durere la înghițire", "symptom5": "Nodul la gât", "symptom6": "Durere de ureche" },
+      "symptoms": {
+        "symptom1": "Răni care nu se vindecă",
+        "symptom2": "Pete albe/roșii",
+        "symptom3": "Dinți slăbiți",
+        "symptom4": "Durere la înghițire",
+        "symptom5": "Nodul la gât",
+        "symptom6": "Durere de ureche"
+      },
       "treatmentsTitle": "Tratamente",
       "treatmentsIntro": "Abordare curativă și estetică:",
-      "treatment1": { "title": "Chirurgie", "desc": "Îndepărtarea tumorii." },
-      "treatment2": { "title": "Radioterapie", "desc": "Post-operatorie sau principală." },
+      "treatment1": {
+        "title": "Chirurgie",
+        "desc": "Îndepărtarea tumorii."
+      },
+      "treatment2": {
+        "title": "Radioterapie",
+        "desc": "Post-operatorie sau principală."
+      },
       "statsTitle": "Prevenție",
-      "stat1": { "value": "Ridicat", "label": "Risc Tutun" },
-      "stat2": { "value": "60%", "label": "Supraviețuire 5 ani" },
+      "stat1": {
+        "value": "Ridicat",
+        "label": "Risc Tutun"
+      },
+      "stat2": {
+        "value": "60%",
+        "label": "Supraviețuire 5 ani"
+      },
       "ctaSidebarTitle": "Colaborează",
       "appointmentTitle": "Stomatolog",
       "appointmentText": "Controalele periodice salvează vieți.",
@@ -793,14 +1248,33 @@
       "overviewTitle": "Rezumat",
       "overviewText": "Acest tip de cancer afectează faringele (tubul gâtului) sau laringele (cutia vocală). Poate afecta capacitatea de a vorbi și înghiți, reabilitarea fiind o parte cheie a tratamentului.",
       "symptomsTitle": "Simptome",
-      "symptoms": { "symptom1": "Schimbări de voce", "symptom2": "Răgușeală persistentă", "symptom3": "Tuse constantă", "symptom4": "Durere de ureche", "symptom5": "Dificultate la înghițire", "symptom6": "Nodul la gât" },
+      "symptoms": {
+        "symptom1": "Schimbări de voce",
+        "symptom2": "Răgușeală persistentă",
+        "symptom3": "Tuse constantă",
+        "symptom4": "Durere de ureche",
+        "symptom5": "Dificultate la înghițire",
+        "symptom6": "Nodul la gât"
+      },
       "treatmentsTitle": "Tratamente",
       "treatmentsIntro": "Recuperarea funcției:",
-      "treatment1": { "title": "Radioterapie", "desc": "Pentru păstrarea vocii." },
-      "treatment2": { "title": "Logopedie", "desc": "Reabilitare post-tratament." },
+      "treatment1": {
+        "title": "Radioterapie",
+        "desc": "Pentru păstrarea vocii."
+      },
+      "treatment2": {
+        "title": "Logopedie",
+        "desc": "Reabilitare post-tratament."
+      },
       "statsTitle": "Voce",
-      "stat1": { "value": "HPV", "label": "Factor în Creștere" },
-      "stat2": { "value": "Variabil", "label": "Prognoză" },
+      "stat1": {
+        "value": "HPV",
+        "label": "Factor în Creștere"
+      },
+      "stat2": {
+        "value": "Variabil",
+        "label": "Prognoză"
+      },
       "ctaSidebarTitle": "Susține",
       "appointmentTitle": "Consult",
       "appointmentText": "Specialiști ORL.",
@@ -812,14 +1286,33 @@
       "overviewTitle": "Rezumat",
       "overviewText": "Timusul este un organ mic în piept care produce globule albe. Tumorile aici (timom) sunt rare și adesea legate de boli autoimune precum miastenia gravis.",
       "symptomsTitle": "Simptome",
-      "symptoms": { "symptom1": "Tuse persistentă", "symptom2": "Durere în piept", "symptom3": "Dificultate la respirație", "symptom4": "Slăbiciune musculară", "symptom5": "Pleoape căzute", "symptom6": "Vedere dublă" },
+      "symptoms": {
+        "symptom1": "Tuse persistentă",
+        "symptom2": "Durere în piept",
+        "symptom3": "Dificultate la respirație",
+        "symptom4": "Slăbiciune musculară",
+        "symptom5": "Pleoape căzute",
+        "symptom6": "Vedere dublă"
+      },
       "treatmentsTitle": "Tratamente",
       "treatmentsIntro": "Gestionare specializată:",
-      "treatment1": { "title": "Timectomie", "desc": "Chirurgie pentru scoaterea timusului." },
-      "treatment2": { "title": "Chimioterapie", "desc": "Dacă operația nu este posibilă." },
+      "treatment1": {
+        "title": "Timectomie",
+        "desc": "Chirurgie pentru scoaterea timusului."
+      },
+      "treatment2": {
+        "title": "Chimioterapie",
+        "desc": "Dacă operația nu este posibilă."
+      },
       "statsTitle": "Raritate",
-      "stat1": { "value": "Rar", "label": "Incidență" },
-      "stat2": { "value": "Lentă", "label": "Creștere" },
+      "stat1": {
+        "value": "Rar",
+        "label": "Incidență"
+      },
+      "stat2": {
+        "value": "Lentă",
+        "label": "Creștere"
+      },
       "ctaSidebarTitle": "Cercetare",
       "appointmentTitle": "Întrebări",
       "appointmentText": "Contactează-ne pentru info.",
@@ -841,11 +1334,23 @@
       },
       "treatmentsTitle": "Provocări Terapeutice",
       "treatmentsIntro": "Chirurgia este cea mai bună opțiune dacă cancerul nu s-a răspândit.",
-      "treatment1": { "title": "Colecistectomie Extinsă", "desc": "Eliminarea vezicii biliare, a unei părți din ficat și a ganglionilor limfatici." },
-      "treatment2": { "title": "Tratament Paliativ", "desc": "Proceduri precum montarea de stenturi pentru a ameliora icterul și durerea." },
+      "treatment1": {
+        "title": "Colecistectomie Extinsă",
+        "desc": "Eliminarea vezicii biliare, a unei părți din ficat și a ganglionilor limfatici."
+      },
+      "treatment2": {
+        "title": "Tratament Paliativ",
+        "desc": "Proceduri precum montarea de stenturi pentru a ameliora icterul și durerea."
+      },
       "statsTitle": "Fapt",
-      "stat1": { "value": "Rar", "label": "Frecvență generală" },
-      "stat2": { "value": "19%", "label": "Supraviețuire globală la 5 ani" },
+      "stat1": {
+        "value": "Rar",
+        "label": "Frecvență generală"
+      },
+      "stat2": {
+        "value": "19%",
+        "label": "Supraviețuire globală la 5 ani"
+      },
       "ctaSidebarTitle": "Ajutor",
       "appointmentTitle": "Consult Digestiv",
       "appointmentText": "Întrebări pentru specialist.",
@@ -867,11 +1372,23 @@
       },
       "treatmentsTitle": "Opțiuni de Tratament",
       "treatmentsIntro": "Tratamentul depinde de locație și stadiu, concentrându-se pe prezervarea funcției când este posibil.",
-      "treatment1": { "title": "Chirurgie (Excizie sau Vulvectomie)", "desc": "Eliminarea țesutului canceros și a unei margini de țesut sănătos." },
-      "treatment2": { "title": "Radioterapie și Chimioterapie", "desc": "Adesea utilizate împreună pentru tumori mai avansate." },
+      "treatment1": {
+        "title": "Chirurgie (Excizie sau Vulvectomie)",
+        "desc": "Eliminarea țesutului canceros și a unei margini de țesut sănătos."
+      },
+      "treatment2": {
+        "title": "Radioterapie și Chimioterapie",
+        "desc": "Adesea utilizate împreună pentru tumori mai avansate."
+      },
       "statsTitle": "Info",
-      "stat1": { "value": "Rar", "label": "Incidență comparativ cu altele" },
-      "stat2": { "value": "70%", "label": "Supraviețuire la 5 ani (Vulvar)" },
+      "stat1": {
+        "value": "Rar",
+        "label": "Incidență comparativ cu altele"
+      },
+      "stat2": {
+        "value": "70%",
+        "label": "Supraviețuire la 5 ani (Vulvar)"
+      },
       "ctaSidebarTitle": "Sănătate Intimă",
       "appointmentTitle": "Ginecolog",
       "appointmentText": "Nu ignora simptomele persistente.",
@@ -893,11 +1410,23 @@
       },
       "treatmentsTitle": "Gestionarea Tumorii",
       "treatmentsIntro": "Tratamentul depinde de mărime, locație, simptome și vârsta pacientului.",
-      "treatment1": { "title": "Observație Activă", "desc": "Monitorizare regulată cu scanări pentru tumori mici și asimptomatice." },
-      "treatment2": { "title": "Chirurgie și Radioterapie", "desc": "Eliminare chirurgicală dacă provoacă simptome, sau radiații dacă chirurgia e riscantă." },
+      "treatment1": {
+        "title": "Observație Activă",
+        "desc": "Monitorizare regulată cu scanări pentru tumori mici și asimptomatice."
+      },
+      "treatment2": {
+        "title": "Chirurgie și Radioterapie",
+        "desc": "Eliminare chirurgicală dacă provoacă simptome, sau radiații dacă chirurgia e riscantă."
+      },
       "statsTitle": "Fapt",
-      "stat1": { "value": "30%", "label": "Din toate tumorile cerebrale" },
-      "stat2": { "value": "Mare", "label": "Rată de succes în cazuri benigne" },
+      "stat1": {
+        "value": "30%",
+        "label": "Din toate tumorile cerebrale"
+      },
+      "stat2": {
+        "value": "Mare",
+        "label": "Rată de succes în cazuri benigne"
+      },
       "ctaSidebarTitle": "Sprijin",
       "appointmentTitle": "Neurochirurg",
       "appointmentText": "Discută opțiunile de gestionare.",
@@ -919,11 +1448,23 @@
       },
       "treatmentsTitle": "Tratament Multimodal",
       "treatmentsIntro": "Implică aproape întotdeauna o combinație de chimioterapie, chirurgie și/sau radiații.",
-      "treatment1": { "title": "Chimioterapie Intensivă", "desc": "De obicei primul pas pentru a reduce tumora și a trata metastazele." },
-      "treatment2": { "title": "Chirurgie de Salvare a Membrului", "desc": "Eliminarea tumorii păstrând brațul sau piciorul ori de câte ori este posibil." },
+      "treatment1": {
+        "title": "Chimioterapie Intensivă",
+        "desc": "De obicei primul pas pentru a reduce tumora și a trata metastazele."
+      },
+      "treatment2": {
+        "title": "Chirurgie de Salvare a Membrului",
+        "desc": "Eliminarea tumorii păstrând brațul sau piciorul ori de câte ori este posibil."
+      },
       "statsTitle": "Speranță",
-      "stat1": { "value": "Tineri", "label": "Populația cea mai afectată" },
-      "stat2": { "value": "75%", "label": "Vindecare în boala localizată" },
+      "stat1": {
+        "value": "Tineri",
+        "label": "Populația cea mai afectată"
+      },
+      "stat2": {
+        "value": "75%",
+        "label": "Vindecare în boala localizată"
+      },
       "ctaSidebarTitle": "Ajutor Pediatric",
       "appointmentTitle": "Oncolog Pediatru",
       "appointmentText": "Sprijin pentru familii și pacienți.",
@@ -945,11 +1486,23 @@
       },
       "treatmentsTitle": "Tratamente",
       "treatmentsIntro": "Scopul este eliminarea cancerului păstrând cât mai mult posibil funcția și aspectul.",
-      "treatment1": { "title": "Chirurgie (Ex: Chirurgia Mohs)", "desc": "Eliminarea precisă a tumorii strat cu strat pentru a conserva țesut sănătos." },
-      "treatment2": { "title": "Radioterapie și Terapie Topică", "desc": "Pentru cancere în stadii foarte timpurii sau ca adjuvant la chirurgie." },
+      "treatment1": {
+        "title": "Chirurgie (Ex: Chirurgia Mohs)",
+        "desc": "Eliminarea precisă a tumorii strat cu strat pentru a conserva țesut sănătos."
+      },
+      "treatment2": {
+        "title": "Radioterapie și Terapie Topică",
+        "desc": "Pentru cancere în stadii foarte timpurii sau ca adjuvant la chirurgie."
+      },
       "statsTitle": "Fapt",
-      "stat1": { "value": "<1%", "label": "Din cancerele masculine" },
-      "stat2": { "value": "65%", "label": "Supraviețuire globală" },
+      "stat1": {
+        "value": "<1%",
+        "label": "Din cancerele masculine"
+      },
+      "stat2": {
+        "value": "65%",
+        "label": "Supraviețuire globală"
+      },
       "ctaSidebarTitle": "Sănătate Intimă",
       "appointmentTitle": "Urolog",
       "appointmentText": "Consultă orice schimbare a pielii.",
@@ -971,11 +1524,23 @@
       },
       "treatmentsTitle": "Tratament Standard",
       "treatmentsIntro": "Tratamentul principal este de obicei o combinație de radiații și chimioterapie, care adesea evită nevoia de chirurgie majoră.",
-      "treatment1": { "title": "Chimioradioterapie Concomitentă", "desc": "'Standardul de aur', care adesea vindecă cancerul fără operație." },
-      "treatment2": { "title": "Chirurgie de Salvare", "desc": "Utilizată dacă cancerul nu răspunde la chimioradioterapie sau recidivează." },
+      "treatment1": {
+        "title": "Chimioradioterapie Concomitentă",
+        "desc": "'Standardul de aur', care adesea vindecă cancerul fără operație."
+      },
+      "treatment2": {
+        "title": "Chirurgie de Salvare",
+        "desc": "Utilizată dacă cancerul nu răspunde la chimioradioterapie sau recidivează."
+      },
       "statsTitle": "HPV",
-      "stat1": { "value": "90%", "label": "Cazuri legate de HPV" },
-      "stat2": { "value": "69%", "label": "Supraviețuire globală la 5 ani" },
+      "stat1": {
+        "value": "90%",
+        "label": "Cazuri legate de HPV"
+      },
+      "stat2": {
+        "value": "69%",
+        "label": "Supraviețuire globală la 5 ani"
+      },
       "ctaSidebarTitle": "Prevenție și Sprijin",
       "appointmentTitle": "Proctolog/Oncolog",
       "appointmentText": "Nu presupune că sunt hemoroizi. Consultă.",
@@ -997,11 +1562,23 @@
       },
       "treatmentsTitle": "Tratament după Risc",
       "treatmentsIntro": "Tratamentul se bazează pe grupul de risc (scăzut, intermediar, înalt).",
-      "treatment1": { "title": "Observație sau Chirurgie Moderată", "desc": "Pentru tumori cu risc scăzut, uneori e nevoie doar de supraveghere sau chirurgie simplă." },
-      "treatment2": { "title": "Terapie Intensivă Multimodală", "desc": "Pentru risc înalt: chimio doze mari, chirurgie, radiații și imunoterapie (Ex: dinutuximab)." },
+      "treatment1": {
+        "title": "Observație sau Chirurgie Moderată",
+        "desc": "Pentru tumori cu risc scăzut, uneori e nevoie doar de supraveghere sau chirurgie simplă."
+      },
+      "treatment2": {
+        "title": "Terapie Intensivă Multimodală",
+        "desc": "Pentru risc înalt: chimio doze mari, chirurgie, radiații și imunoterapie (Ex: dinutuximab)."
+      },
       "statsTitle": "Copilărie",
-      "stat1": { "value": "6%", "label": "Din cancerele infantile" },
-      "stat2": { "value": "80%", "label": "Supraviețuire generală (variază mult după risc)" },
+      "stat1": {
+        "value": "6%",
+        "label": "Din cancerele infantile"
+      },
+      "stat2": {
+        "value": "80%",
+        "label": "Supraviețuire generală (variază mult după risc)"
+      },
       "ctaSidebarTitle": "Sprijin Familial",
       "appointmentTitle": "Oncologie Pediatrică",
       "appointmentText": "Sprijin pentru înțelegerea diagnosticului și riscului.",
@@ -1023,11 +1600,23 @@
       },
       "treatmentsTitle": "Salvarea Vederii și Vieții",
       "treatmentsIntro": "Scopul este eliminarea cancerului și, dacă este posibil, păstrarea vederii.",
-      "treatment1": { "title": "Terapii Focale (Laser, Crioterapie)", "desc": "Se aplică direct ochiului pentru a distruge tumori mici." },
-      "treatment2": { "title": "Chimioterapie (Sistemică sau Intraarterială)", "desc": "Pentru a reduce tumora, uneori injectată direct în artera ochiului." },
+      "treatment1": {
+        "title": "Terapii Focale (Laser, Crioterapie)",
+        "desc": "Se aplică direct ochiului pentru a distruge tumori mici."
+      },
+      "treatment2": {
+        "title": "Chimioterapie (Sistemică sau Intraarterială)",
+        "desc": "Pentru a reduce tumora, uneori injectată direct în artera ochiului."
+      },
       "statsTitle": "Prognoză",
-      "stat1": { "value": "95%+", "label": "Rată mare de vindecare în țări dezvoltate" },
-      "stat2": { "value": "<5", "label": "Vârsta tipică de diagnostic" },
+      "stat1": {
+        "value": "95%+",
+        "label": "Rată mare de vindecare în țări dezvoltate"
+      },
+      "stat2": {
+        "value": "<5",
+        "label": "Vârsta tipică de diagnostic"
+      },
       "ctaSidebarTitle": "Sănătate Oculară Copii",
       "appointmentTitle": "Oftalmolog Pediatru",
       "appointmentText": "Verifică orice schimbare la ochii copilului tău.",
@@ -1049,11 +1638,23 @@
       },
       "treatmentsTitle": "Abordare Funcțională",
       "treatmentsIntro": "Tratamentul caută să elimine cancerul păstrând funcții critice precum vorbirea și înghițirea.",
-      "treatment1": { "title": "Chirurgie", "desc": "Eliminarea tumorii și, uneori, a ganglionilor limfatici din gât." },
-      "treatment2": { "title": "Radioterapie și Chimioterapie", "desc": "Adesea utilizate combinat ca tratament principal sau după operație." },
+      "treatment1": {
+        "title": "Chirurgie",
+        "desc": "Eliminarea tumorii și, uneori, a ganglionilor limfatici din gât."
+      },
+      "treatment2": {
+        "title": "Radioterapie și Chimioterapie",
+        "desc": "Adesea utilizate combinat ca tratament principal sau după operație."
+      },
       "statsTitle": "Impact",
-      "stat1": { "value": "4%", "label": "Din toate cancerele" },
-      "stat2": { "value": "HPV", "label": "Cauză în creștere la tineri" },
+      "stat1": {
+        "value": "4%",
+        "label": "Din toate cancerele"
+      },
+      "stat2": {
+        "value": "HPV",
+        "label": "Cauză în creștere la tineri"
+      },
       "ctaSidebarTitle": "Ajutor Integral",
       "appointmentTitle": "Specialist ORL",
       "appointmentText": "Consultă schimbări persistente în gură sau gât.",
@@ -1075,11 +1676,23 @@
       },
       "treatmentsTitle": "Tratamente ale Sângelui",
       "treatmentsIntro": "Tratamentul depinde de tipul de leucemie (mieloidă vs. limfoidă, acută vs. cronică) și vârstă.",
-      "treatment1": { "title": "Chimioterapie (Inducție/Consolidare)", "desc": "Tratamentul principal, folosind medicamente puternice pentru a ucide celulele leucemice." },
-      "treatment2": { "title": "Transplant de Măduvă Osoasă/Celule Stem", "desc": "Înlocuirea măduvei bolnave cu celule sănătoase de la un donator." },
+      "treatment1": {
+        "title": "Chimioterapie (Inducție/Consolidare)",
+        "desc": "Tratamentul principal, folosind medicamente puternice pentru a ucide celulele leucemice."
+      },
+      "treatment2": {
+        "title": "Transplant de Măduvă Osoasă/Celule Stem",
+        "desc": "Înlocuirea măduvei bolnave cu celule sănătoase de la un donator."
+      },
       "statsTitle": "Fapt",
-      "stat1": { "value": "Locul 1", "label": "Cel mai comun cancer la copii" },
-      "stat2": { "value": "65%", "label": "Supraviețuire medie la 5 ani (variază mult)" },
+      "stat1": {
+        "value": "Locul 1",
+        "label": "Cel mai comun cancer la copii"
+      },
+      "stat2": {
+        "value": "65%",
+        "label": "Supraviețuire medie la 5 ani (variază mult)"
+      },
       "ctaSidebarTitle": "Sprijin Hematologic",
       "appointmentTitle": "Hematolog",
       "appointmentText": "Înțelege tipul tău specific de leucemie.",
@@ -1101,11 +1714,23 @@
       },
       "treatmentsTitle": "Tratament Principal",
       "treatmentsIntro": "Din cauza locației sensibile, chirurgia rara este tratamentul principal.",
-      "treatment1": { "title": "Radioterapie cu Intensitate Modulată (IMRT)", "desc": "Tratamentul principal, direcționând doze mari de radiații către tumoră." },
-      "treatment2": { "title": "Chimioterapie Concomitentă sau de Inducție", "desc": "Utilizată împreună cu radiația pentru a crește eficacitatea în stadii avansate." },
+      "treatment1": {
+        "title": "Radioterapie cu Intensitate Modulată (IMRT)",
+        "desc": "Tratamentul principal, direcționând doze mari de radiații către tumoră."
+      },
+      "treatment2": {
+        "title": "Chimioterapie Concomitentă sau de Inducție",
+        "desc": "Utilizată împreună cu radiația pentru a crește eficacitatea în stadii avansate."
+      },
       "statsTitle": "Dat Viral",
-      "stat1": { "value": "EBV", "label": "Asociere virală puternică" },
-      "stat2": { "value": "62%", "label": "Supraviețuire globală la 5 ani" },
+      "stat1": {
+        "value": "EBV",
+        "label": "Asociere virală puternică"
+      },
+      "stat2": {
+        "value": "62%",
+        "label": "Supraviețuire globală la 5 ani"
+      },
       "ctaSidebarTitle": "Ajutor ORL",
       "appointmentTitle": "Specialist",
       "appointmentText": "Consultă simptome nazale sau de ureche persistente.",
@@ -1127,11 +1752,23 @@
       },
       "treatmentsTitle": "Abordare Ortopedică",
       "treatmentsIntro": "Tratamentul depinde de tipul de sarcom osos, locație și stadiu.",
-      "treatment1": { "title": "Chirurgie de Salvare a Membrului", "desc": "Eliminarea tumorii și reconstrucția osului cu grefe sau proteze, evitând amputarea." },
-      "treatment2": { "title": "Chimioterapie Neoadjuvantă și Adjuvantă", "desc": "Adesea folosită înainte de operație (pentru a reduce tumora) și după (pentru a ucide celulele rămase)." },
+      "treatment1": {
+        "title": "Chirurgie de Salvare a Membrului",
+        "desc": "Eliminarea tumorii și reconstrucția osului cu grefe sau proteze, evitând amputarea."
+      },
+      "treatment2": {
+        "title": "Chimioterapie Neoadjuvantă și Adjuvantă",
+        "desc": "Adesea folosită înainte de operație (pentru a reduce tumora) și după (pentru a ucide celulele rămase)."
+      },
       "statsTitle": "Raritate",
-      "stat1": { "value": "<1%", "label": "Din toate cancerele" },
-      "stat2": { "value": "67%", "label": "Supraviețuire generală la 5 ani" },
+      "stat1": {
+        "value": "<1%",
+        "label": "Din toate cancerele"
+      },
+      "stat2": {
+        "value": "67%",
+        "label": "Supraviețuire generală la 5 ani"
+      },
       "ctaSidebarTitle": "Sprijin Sarcom",
       "appointmentTitle": "Oncolog Ortoped",
       "appointmentText": "Specialiști în tumori osoase.",
@@ -1153,11 +1790,23 @@
       },
       "treatmentsTitle": "Tratament Dificil",
       "treatmentsIntro": "Adesea este diagnosticat în stadii avansate, ceea ce face tratamentul o provocare.",
-      "treatment1": { "title": "Chirurgie (Ex: Pleurectomie)", "desc": "În stadii incipiente, pentru a elimina căptușeala afectată și a încerca reducerea tumorii." },
-      "treatment2": { "title": "Chimioterapie și Imunoterapie", "desc": "Tratamente standard pentru a încetini boala și a îmbunătăți calitatea vieții." },
+      "treatment1": {
+        "title": "Chirurgie (Ex: Pleurectomie)",
+        "desc": "În stadii incipiente, pentru a elimina căptușeala afectată și a încerca reducerea tumorii."
+      },
+      "treatment2": {
+        "title": "Chimioterapie și Imunoterapie",
+        "desc": "Tratamente standard pentru a încetini boala și a îmbunătăți calitatea vieții."
+      },
       "statsTitle": "Factor de Risc",
-      "stat1": { "value": "Azbest", "label": "Principala cauză cunoscută" },
-      "stat2": { "value": "10%", "label": "Supraviețuire la 5 ani (prognoză dificilă)" },
+      "stat1": {
+        "value": "Azbest",
+        "label": "Principala cauză cunoscută"
+      },
+      "stat2": {
+        "value": "10%",
+        "label": "Supraviețuire la 5 ani (prognoză dificilă)"
+      },
       "ctaSidebarTitle": "Ajutor Legal și Medical",
       "appointmentTitle": "Specialist Mezoteliom",
       "appointmentText": "Caută centre cu experiență în această boală.",
@@ -1179,11 +1828,23 @@
       },
       "treatmentsTitle": "Tratamente",
       "treatmentsIntro": "Tratamentul principal este chirurgia, dar depinde de tipul specific de tumoră și locație.",
-      "treatment1": { "title": "Rezecție Chirurgicală", "desc": "Eliminarea segmentului de intestin subțire care conține tumora." },
-      "treatment2": { "title": "Chimioterapie sau Terapii Țintite", "desc": "Utilizate pentru tipuri specifice precum limfoame sau tumori stromale gastrointestinale (GIST)." },
+      "treatment1": {
+        "title": "Rezecție Chirurgicală",
+        "desc": "Eliminarea segmentului de intestin subțire care conține tumora."
+      },
+      "treatment2": {
+        "title": "Chimioterapie sau Terapii Țintite",
+        "desc": "Utilizate pentru tipuri specifice precum limfoame sau tumori stromale gastrointestinale (GIST)."
+      },
       "statsTitle": "Raritate",
-      "stat1": { "value": "<1%", "label": "Din cancerele gastrointestinale" },
-      "stat2": { "value": "68%", "label": "Supraviețuire globală la 5 ani" },
+      "stat1": {
+        "value": "<1%",
+        "label": "Din cancerele gastrointestinale"
+      },
+      "stat2": {
+        "value": "68%",
+        "label": "Supraviețuire globală la 5 ani"
+      },
       "ctaSidebarTitle": "Sprijin Digestiv",
       "appointmentTitle": "Gastroenterolog",
       "appointmentText": "Consultă simptome abdominale persistente.",
@@ -1205,11 +1866,23 @@
       },
       "treatmentsTitle": "Abordare Chirurgicală",
       "treatmentsIntro": "Chirurgia este cel mai comun tratament, adesea combinată cu radiații în stadii avansate.",
-      "treatment1": { "title": "Vulvectomie (Parțială sau Radicală)", "desc": "Eliminarea unei părți sau a întregii vulve, în funcție de extinderea cancerului." },
-      "treatment2": { "title": "Biopsie de Ganglion Santinelă", "desc": "Procedură pentru a verifica dacă cancerul s-a răspândit la ganglionii limfatici apropiați." },
+      "treatment1": {
+        "title": "Vulvectomie (Parțială sau Radicală)",
+        "desc": "Eliminarea unei părți sau a întregii vulve, în funcție de extinderea cancerului."
+      },
+      "treatment2": {
+        "title": "Biopsie de Ganglion Santinelă",
+        "desc": "Procedură pentru a verifica dacă cancerul s-a răspândit la ganglionii limfatici apropiați."
+      },
       "statsTitle": "Date",
-      "stat1": { "value": "70+", "label": "Vârsta medie de diagnostic" },
-      "stat2": { "value": "71%", "label": "Supraviețuire la 5 ani" },
+      "stat1": {
+        "value": "70+",
+        "label": "Vârsta medie de diagnostic"
+      },
+      "stat2": {
+        "value": "71%",
+        "label": "Supraviețuire la 5 ani"
+      },
       "ctaSidebarTitle": "Sănătatea Femeii",
       "appointmentTitle": "Ginecolog Oncolog",
       "appointmentText": "Orice schimbare vulvară persistentă trebuie verificată.",
@@ -1231,11 +1904,23 @@
       },
       "treatmentsTitle": "Păstrarea Funcției",
       "treatmentsIntro": "Scopul este vindecarea cancerului încercând păstrarea vocii și capacității de a înghiți.",
-      "treatment1": { "title": "Radioterapie", "desc": "Adesea tratamentul principal pentru tumori mici, pentru a salva vocea." },
-      "treatment2": { "title": "Chirurgie (Laringectomie)", "desc": "Eliminare parțială sau totală a laringelui, necesară în cazuri avansate." },
+      "treatment1": {
+        "title": "Radioterapie",
+        "desc": "Adesea tratamentul principal pentru tumori mici, pentru a salva vocea."
+      },
+      "treatment2": {
+        "title": "Chirurgie (Laringectomie)",
+        "desc": "Eliminare parțială sau totală a laringelui, necesară în cazuri avansate."
+      },
       "statsTitle": "Risc",
-      "stat1": { "value": "Tutun", "label": "Principal factor de risc" },
-      "stat2": { "value": "60%", "label": "Supraviețuire globală la 5 ani" },
+      "stat1": {
+        "value": "Tutun",
+        "label": "Principal factor de risc"
+      },
+      "stat2": {
+        "value": "60%",
+        "label": "Supraviețuire globală la 5 ani"
+      },
       "ctaSidebarTitle": "Ajutor ORL",
       "appointmentTitle": "Otorinolaringolog",
       "appointmentText": "Consultă dacă ai răgușeală persistentă.",
@@ -1418,9 +2103,9 @@
     "recentAwards": "Premii Recente",
     "supportText": "Donația ta ne ajută să îndeplinim visuri și să sprijinim luptătorii zilnic.",
     "privacy": "Politică de Confidențialitate",
-      "terms": "Termeni și Condiții",
-      "peerPolicy": "Politica de Sprijin",
-      "financials": "Rapoarte Financiare"
+    "terms": "Termeni și Condiții",
+    "peerPolicy": "Politica de Sprijin",
+    "financials": "Rapoarte Financiare"
   },
   "connectSurvivor": {
     "title": "Conectează-te cu un Supraviețuitor",
@@ -1464,18 +2149,78 @@
     "triedButton": "Am încercat acest sfat",
     "triedSuccess": "Bravo!",
     "moods": {
-      "anxious": { "label": "Te simți anxios?", "support": "A te simți anxios este valid. Hai să luăm o pauză împreună și să respirăm. Ai supraviețuit deja la atât de multe.", "tip": "Oprește-te și respiră adânc. Inspiră 4, ține 4, expiră 6.", "quote": "“Ești mai puternic decât crezi. Ia-o zi cu zi.”" },
-      "sad": { "label": "Te simți trist?", "support": "Tristețea este parte din vindecare. Oferă-ți spațiu să simți fără vinovăție.", "tip": "Dacă poți, pune un cântec care te liniștește. Sau stai cu sentimentul fără a judeca.", "quote": "“Este în regulă să fii trist și furios din cauza diagnosticului, doar nu rămâne acolo. VA fi mai bine.”" },
-      "overwhelmed": { "label": "Te simți copleșit?", "support": "Copleșirea se întâmplă. Concentrează-te pe un lucru mic pe care îl poți controla chiar acum.", "tip": "Numește trei lucruri mici pe care le poți controla acum.", "quote": "“O zi pe rând. Un pas în fața celuilalt.”" },
-      "tired": { "label": "Te simți obosit?", "support": "Odihna nu înseamnă a renunța. Este o parte crucială a recuperării.", "tip": "Lasă-ți corpul să facă o pauză. Chiar și 5 minute contează.", "quote": "“Odihnește-te când ai nevoie. Luptă când poți.”" },
-      "angry": { "label": "Te simți furios?", "support": "Furia ta este reală și justificată. Hai să o canalizăm în siguranță astăzi.", "tip": "Dacă e posibil, elibereaz-o sigur: scutură-ți mâinile, scrie sau mergi la o plimbare.", "quote": "“Durerea de astăzi dă un nou sens fericirii de mâine.”" },
-      "lonely": { "label": "Te simți singur?", "support": "Singurătatea poate părea grea, dar ești parte dintr-o comunitate de luptători care te vede.", "tip": "Trimite un mesaj sau uită-te la o poză preferată.", "quote": "“Cancerul este înfricoșător, dar suntem toți împreună în această luptă. Nimeni nu luptă singur.”" },
-      "hopeful": { "label": "Te simți plin de speranță?", "support": "Speranța trăiește în momente mici. Hai să o hrănim împreună azi.", "tip": "Scrie un lucru pe care îl aștepți cu nerăbdare.", "quote": "“Nu poți controla ce se întâmplă în viață, dar poți controla cum gestionezi situația.”" },
-      "scared": { "label": "Te simți speriat?", "support": "Frica arată cât de mult îți pasă de viață. Hai să o înfruntăm o respirație pe rând.", "tip": "Stai cu frica, numește-o și respiră prin ea. Spune-i cuiva de încredere.", "quote": "“Fie-ți frică și fă-o oricum. Creșterea trăiește de cealaltă parte.”" },
-      "numb": { "label": "Te simți amorțit?", "support": "Senzația de amorțeală este un răspuns natural. Emoțiile tale vor reveni când vor fi pregătite.", "tip": "Încearcă să observi o senzație fizică: temperatura mâinilor, hainele.", "quote": "“Este în regulă să iei o pauză. Dar nu renunța.”" },
-      "guilty": { "label": "Te simți vinovat?", "support": "Nu trebuie să porți vinovăția. Nimic din toate astea nu e vina ta.", "tip": "Scrie o propoziție de bunătate față de tine, chiar dacă pare ciudat.", "quote": "“Nu ești stricat sau defect, doar ai fost rearanjat pentru mai bine.”" },
-      "grateful": { "label": "Te simți recunoscător?", "support": "Recunoștința nu șterge durerea, dar o poate atenua pentru un moment.", "tip": "Gândește-te la un lucru mic sau o persoană pentru care ești recunoscător azi.", "quote": "“Această viață poate fi delicată... dar Dumnezeu țese o poveste frumoasă care este viața ta.”" },
-      "motivated": { "label": "Te simți motivat?", "support": "Hai să folosim această scânteie. O acțiune mică azi este o victorie mare.", "tip": "Alege o sarcină minusculă azi care te face să te simți în control.", "quote": "“Nu uita niciodată cât ești de curajos. Mintea este puternică.”" }
+      "anxious": {
+        "label": "Te simți anxios?",
+        "support": "A te simți anxios este valid. Hai să luăm o pauză împreună și să respirăm. Ai supraviețuit deja la atât de multe.",
+        "tip": "Oprește-te și respiră adânc. Inspiră 4, ține 4, expiră 6.",
+        "quote": "“Ești mai puternic decât crezi. Ia-o zi cu zi.”"
+      },
+      "sad": {
+        "label": "Te simți trist?",
+        "support": "Tristețea este parte din vindecare. Oferă-ți spațiu să simți fără vinovăție.",
+        "tip": "Dacă poți, pune un cântec care te liniștește. Sau stai cu sentimentul fără a judeca.",
+        "quote": "“Este în regulă să fii trist și furios din cauza diagnosticului, doar nu rămâne acolo. VA fi mai bine.”"
+      },
+      "overwhelmed": {
+        "label": "Te simți copleșit?",
+        "support": "Copleșirea se întâmplă. Concentrează-te pe un lucru mic pe care îl poți controla chiar acum.",
+        "tip": "Numește trei lucruri mici pe care le poți controla acum.",
+        "quote": "“O zi pe rând. Un pas în fața celuilalt.”"
+      },
+      "tired": {
+        "label": "Te simți obosit?",
+        "support": "Odihna nu înseamnă a renunța. Este o parte crucială a recuperării.",
+        "tip": "Lasă-ți corpul să facă o pauză. Chiar și 5 minute contează.",
+        "quote": "“Odihnește-te când ai nevoie. Luptă când poți.”"
+      },
+      "angry": {
+        "label": "Te simți furios?",
+        "support": "Furia ta este reală și justificată. Hai să o canalizăm în siguranță astăzi.",
+        "tip": "Dacă e posibil, elibereaz-o sigur: scutură-ți mâinile, scrie sau mergi la o plimbare.",
+        "quote": "“Durerea de astăzi dă un nou sens fericirii de mâine.”"
+      },
+      "lonely": {
+        "label": "Te simți singur?",
+        "support": "Singurătatea poate părea grea, dar ești parte dintr-o comunitate de luptători care te vede.",
+        "tip": "Trimite un mesaj sau uită-te la o poză preferată.",
+        "quote": "“Cancerul este înfricoșător, dar suntem toți împreună în această luptă. Nimeni nu luptă singur.”"
+      },
+      "hopeful": {
+        "label": "Te simți plin de speranță?",
+        "support": "Speranța trăiește în momente mici. Hai să o hrănim împreună azi.",
+        "tip": "Scrie un lucru pe care îl aștepți cu nerăbdare.",
+        "quote": "“Nu poți controla ce se întâmplă în viață, dar poți controla cum gestionezi situația.”"
+      },
+      "scared": {
+        "label": "Te simți speriat?",
+        "support": "Frica arată cât de mult îți pasă de viață. Hai să o înfruntăm o respirație pe rând.",
+        "tip": "Stai cu frica, numește-o și respiră prin ea. Spune-i cuiva de încredere.",
+        "quote": "“Fie-ți frică și fă-o oricum. Creșterea trăiește de cealaltă parte.”"
+      },
+      "numb": {
+        "label": "Te simți amorțit?",
+        "support": "Senzația de amorțeală este un răspuns natural. Emoțiile tale vor reveni când vor fi pregătite.",
+        "tip": "Încearcă să observi o senzație fizică: temperatura mâinilor, hainele.",
+        "quote": "“Este în regulă să iei o pauză. Dar nu renunța.”"
+      },
+      "guilty": {
+        "label": "Te simți vinovat?",
+        "support": "Nu trebuie să porți vinovăția. Nimic din toate astea nu e vina ta.",
+        "tip": "Scrie o propoziție de bunătate față de tine, chiar dacă pare ciudat.",
+        "quote": "“Nu ești stricat sau defect, doar ai fost rearanjat pentru mai bine.”"
+      },
+      "grateful": {
+        "label": "Te simți recunoscător?",
+        "support": "Recunoștința nu șterge durerea, dar o poate atenua pentru un moment.",
+        "tip": "Gândește-te la un lucru mic sau o persoană pentru care ești recunoscător azi.",
+        "quote": "“Această viață poate fi delicată... dar Dumnezeu țese o poveste frumoasă care este viața ta.”"
+      },
+      "motivated": {
+        "label": "Te simți motivat?",
+        "support": "Hai să folosim această scânteie. O acțiune mică azi este o victorie mare.",
+        "tip": "Alege o sarcină minusculă azi care te face să te simți în control.",
+        "quote": "“Nu uita niciodată cât ești de curajos. Mintea este puternică.”"
+      }
     }
   },
   "legal": {
@@ -1662,21 +2407,21 @@
     "tag": "Vis Împlinit ✨",
     "readMore": "Citește Mai Multe Povești"
   },
-"warriorsList": {
-      "anetra": {
-        "dream": "Retragere pentru Sănătate Mintală",
-        "story": "Diagnosticată cu cancer mamar triplu negativ în stadiul 3C în timp ce se lupta cu probleme cardiace. Cunoscută ca 'Marea Mamă' a familiei, ea echilibrează îngrijirea altora cu propria recuperare."
-      },
-      "janelle": {
-        "dream": "Participare la Summit-ul YSC",
-        "story": "Trăind cu cancer de 16 ani, Janelle este o supraviețuitoare metastatică. Deși cancerul s-a răspândit la creier, ea își propune să se conecteze cu alții și să împărtășească speranță la summit."
-      },
-      "jeanelle": {
-        "dream": "Kit de Wellness pentru Supraviețuitori",
-        "story": "Diagnosticată greșit pentru că era 'prea tânără', a luptat cu cancer TNBC stadiul 3. Acum instructor de yoga, vrea să creeze spații sigure de wellness pentru supraviețuitorii trecuți cu vederea."
-      }
+  "warriorsList": {
+    "anetra": {
+      "dream": "Retragere pentru Sănătate Mintală",
+      "story": "Diagnosticată cu cancer mamar triplu negativ în stadiul 3C în timp ce se lupta cu probleme cardiace. Cunoscută ca 'Marea Mamă' a familiei, ea echilibrează îngrijirea altora cu propria recuperare."
     },
-      "testimonial": {
+    "janelle": {
+      "dream": "Participare la Summit-ul YSC",
+      "story": "Trăind cu cancer de 16 ani, Janelle este o supraviețuitoare metastatică. Deși cancerul s-a răspândit la creier, ea își propune să se conecteze cu alții și să împărtășească speranță la summit."
+    },
+    "jeanelle": {
+      "dream": "Kit de Wellness pentru Supraviețuitori",
+      "story": "Diagnosticată greșit pentru că era 'prea tânără', a luptat cu cancer TNBC stadiul 3. Acum instructor de yoga, vrea să creeze spații sigure de wellness pentru supraviețuitorii trecuți cu vederea."
+    }
+  },
+  "testimonial": {
     "quote": "Îndeplinirea visului mi-a dat puterea să continui lupta. Nu doar am supraviețuit, <bold>am trăit din nou</bold>.",
     "author": "— Un Luptător Anonim"
   },
@@ -1685,7 +2430,7 @@
     "subtitle": "Fiecare donație, fiecare oră de voluntariat, fiecare cuvânt de susținere contează. Împreună suntem mai puternici.",
     "button": "Fă o Diferență Astăzi"
   },
-"aboutCancerPage": {
+  "aboutCancerPage": {
     "heroTag": "Cunoașterea este Putere",
     "title": "Învață despre <highlight>Cancer</highlight>",
     "subtitle": "Informații complete despre tipurile de cancer, simptome, detectare timpurie și tratamente. Suntem aici să te sprijinim la fiecare pas.",
@@ -1694,44 +2439,149 @@
     "medicalInfo": "Info Medical",
     "readMore": "Citește mai mult",
     "types": {
-      "breast": { "title": "Cancer Mamar", "shortDesc": "Detectarea timpurie salvează vieți." },
-      "lung": { "title": "Cancer Pulmonar", "shortDesc": "Înțelegerea factorilor de risc." },
-      "colorectal": { "title": "Cancer Colorectal", "shortDesc": "Screeningul previne dezvoltarea." },
-      "prostate": { "title": "Cancer de Prostată", "shortDesc": "Sănătatea bărbaților și prevenție." },
-      "skin": { "title": "Cancer de Piele", "shortDesc": "Protejează-ți pielea, protejează viața." },
-      "kidney": { "title": "Cancer Renal", "shortDesc": "Simptome silențioase de urmărit." },
-      "leukemia": { "title": "Leucemie", "shortDesc": "Cancerul celulelor sanguine." },
-      "liver": { "title": "Cancer Hepatic", "shortDesc": "Sănătatea ficatului contează." },
-      "pancreatic": { "title": "Cancer Pancreatic", "shortDesc": "Greu de detectat, crucial de tratat." },
-      "ovarian": { "title": "Cancer Ovarian", "shortDesc": "Cunoaște semnele subtile." },
-      "childhood": { "title": "Cancer Infantil", "shortDesc": "Susținem micii noștri luptători." },
-      "brain": { "title": "Tumori Cerebrale", "shortDesc": "Afectând centrul de control." },
-      "bladder": { "title": "Cancer de Vezică", "shortDesc": "Atenție la schimbările urinare." },
-      "cervical": { "title": "Cancer Cervical", "shortDesc": "Prevenibil prin vaccinare și teste." },
-      "stomach": { "title": "Cancer Gastric", "shortDesc": "Sănătatea digestivă și semnale." },
-      "testicular": { "title": "Cancer Testicular", "shortDesc": "Autoexaminarea este vitală." },
-      "thyroid": { "title": "Cancer Tiroidian", "shortDesc": "Glandă mică, impact mare." },
-      "uterine": { "title": "Cancer Uterin", "shortDesc": "Cunoașterea corpului este putere." },
-      "lymphoma": { "title": "Limfom", "shortDesc": "Afectând sistemul imunitar." },
-      "myeloma": { "title": "Mielom Multiplu", "shortDesc": "Cancerul celulelor plasmatice." },
-      "esophageal": { "title": "Cancer Esofagian", "shortDesc": "Dificultăți la înghițire și riscuri." },
-      "head-neck": { "title": "Cap și Gât", "shortDesc": "Gură, gât și glande." },
-      "bone": { "title": "Cancer Osos", "shortDesc": "Dureri osoase și tratamente." },
-      "sarcoma": { "title": "Sarcom", "shortDesc": "Țesuturi moi ale corpului." },
-      "gallbladder": { "title": "Vezica Biliară", "shortDesc": "Rar dar important." },
-      "bile-duct": { "title": "Căi Biliare", "shortDesc": "Afectând digestia." },
-      "anal": { "title": "Cancer Anal", "shortDesc": "Rupând stigmatul." },
-      "penile": { "title": "Cancer Penian", "shortDesc": "Sănătatea intimă masculină." },
-      "vaginal": { "title": "Cancer Vaginal", "shortDesc": "Detectare ginecologică." },
-      "vulvar": { "title": "Cancer Vulvar", "shortDesc": "Semne externe de urmărit." },
-      "eye": { "title": "Cancer Ocular", "shortDesc": "Melanom și retinoblastom." },
-      "oral": { "title": "Cancer Oral", "shortDesc": "Gură, limbă și gingii." },
-      "throat": { "title": "Cancer de Gât", "shortDesc": "Faringe și laringe." },
-      "small-intestine": { "title": "Intestin Subțire", "shortDesc": "Un cancer mai puțin frecvent." },
-      "thymus": { "title": "Timus", "shortDesc": "Glanda din piept." }
+      "breast": {
+        "title": "Cancer Mamar",
+        "shortDesc": "Detectarea timpurie salvează vieți."
+      },
+      "lung": {
+        "title": "Cancer Pulmonar",
+        "shortDesc": "Înțelegerea factorilor de risc."
+      },
+      "colorectal": {
+        "title": "Cancer Colorectal",
+        "shortDesc": "Screeningul previne dezvoltarea."
+      },
+      "prostate": {
+        "title": "Cancer de Prostată",
+        "shortDesc": "Sănătatea bărbaților și prevenție."
+      },
+      "skin": {
+        "title": "Cancer de Piele",
+        "shortDesc": "Protejează-ți pielea, protejează viața."
+      },
+      "kidney": {
+        "title": "Cancer Renal",
+        "shortDesc": "Simptome silențioase de urmărit."
+      },
+      "leukemia": {
+        "title": "Leucemie",
+        "shortDesc": "Cancerul celulelor sanguine."
+      },
+      "liver": {
+        "title": "Cancer Hepatic",
+        "shortDesc": "Sănătatea ficatului contează."
+      },
+      "pancreatic": {
+        "title": "Cancer Pancreatic",
+        "shortDesc": "Greu de detectat, crucial de tratat."
+      },
+      "ovarian": {
+        "title": "Cancer Ovarian",
+        "shortDesc": "Cunoaște semnele subtile."
+      },
+      "childhood": {
+        "title": "Cancer Infantil",
+        "shortDesc": "Susținem micii noștri luptători."
+      },
+      "brain": {
+        "title": "Tumori Cerebrale",
+        "shortDesc": "Afectând centrul de control."
+      },
+      "bladder": {
+        "title": "Cancer de Vezică",
+        "shortDesc": "Atenție la schimbările urinare."
+      },
+      "cervical": {
+        "title": "Cancer Cervical",
+        "shortDesc": "Prevenibil prin vaccinare și teste."
+      },
+      "stomach": {
+        "title": "Cancer Gastric",
+        "shortDesc": "Sănătatea digestivă și semnale."
+      },
+      "testicular": {
+        "title": "Cancer Testicular",
+        "shortDesc": "Autoexaminarea este vitală."
+      },
+      "thyroid": {
+        "title": "Cancer Tiroidian",
+        "shortDesc": "Glandă mică, impact mare."
+      },
+      "uterine": {
+        "title": "Cancer Uterin",
+        "shortDesc": "Cunoașterea corpului este putere."
+      },
+      "lymphoma": {
+        "title": "Limfom",
+        "shortDesc": "Afectând sistemul imunitar."
+      },
+      "myeloma": {
+        "title": "Mielom Multiplu",
+        "shortDesc": "Cancerul celulelor plasmatice."
+      },
+      "esophageal": {
+        "title": "Cancer Esofagian",
+        "shortDesc": "Dificultăți la înghițire și riscuri."
+      },
+      "head-neck": {
+        "title": "Cap și Gât",
+        "shortDesc": "Gură, gât și glande."
+      },
+      "bone": {
+        "title": "Cancer Osos",
+        "shortDesc": "Dureri osoase și tratamente."
+      },
+      "sarcoma": {
+        "title": "Sarcom",
+        "shortDesc": "Țesuturi moi ale corpului."
+      },
+      "gallbladder": {
+        "title": "Vezica Biliară",
+        "shortDesc": "Rar dar important."
+      },
+      "bile-duct": {
+        "title": "Căi Biliare",
+        "shortDesc": "Afectând digestia."
+      },
+      "anal": {
+        "title": "Cancer Anal",
+        "shortDesc": "Rupând stigmatul."
+      },
+      "penile": {
+        "title": "Cancer Penian",
+        "shortDesc": "Sănătatea intimă masculină."
+      },
+      "vaginal": {
+        "title": "Cancer Vaginal",
+        "shortDesc": "Detectare ginecologică."
+      },
+      "vulvar": {
+        "title": "Cancer Vulvar",
+        "shortDesc": "Semne externe de urmărit."
+      },
+      "eye": {
+        "title": "Cancer Ocular",
+        "shortDesc": "Melanom și retinoblastom."
+      },
+      "oral": {
+        "title": "Cancer Oral",
+        "shortDesc": "Gură, limbă și gingii."
+      },
+      "throat": {
+        "title": "Cancer de Gât",
+        "shortDesc": "Faringe și laringe."
+      },
+      "small-intestine": {
+        "title": "Intestin Subțire",
+        "shortDesc": "Un cancer mai puțin frecvent."
+      },
+      "thymus": {
+        "title": "Timus",
+        "shortDesc": "Glanda din piept."
+      }
     }
   },
-"diagnosisPage": {
+  "diagnosisPage": {
     "title": "Înțelegerea Diagnosticului Tău",
     "heroDesc": "Primirea unui diagnostic de cancer poate fi copleșitoare. Suntem aici să te ajutăm să înțelegi termenii medicali, stadiile și următorii pași.",
     "whatIsCancerTitle": "Ce este Cancerul?",
@@ -1753,7 +2603,7 @@
     "btnSupport": "Obține Sprijin",
     "btnDownload": "Descarcă Ghidul"
   },
-    "questionsPage": {
+  "questionsPage": {
     "title": "Întrebări pentru Doctor",
     "subtitle": "A vorbi cu doctorul tău te poate ajuta să înțelegi ce se întâmplă.",
     "videoTitle": "În Curând: Apeluri Video",
@@ -1764,10 +2614,22 @@
     "downloadDesc": "Ia această listă cu tine la următoarea programare.",
     "btnDownload": "Descarcă PDF",
     "tips": {
-      "1": { "title": "Informează-te", "text": "Înțelege detaliile tratamentului." },
-      "2": { "title": "Alege ce e mai bun", "text": "Pune întrebări pentru a decide corect." },
-      "3": { "title": "Nu fi timid", "text": "Dacă ceva nu e clar, întreabă!" },
-      "4": { "title": "Familia", "text": "Încurajează familia să pună întrebări." }
+      "1": {
+        "title": "Informează-te",
+        "text": "Înțelege detaliile tratamentului."
+      },
+      "2": {
+        "title": "Alege ce e mai bun",
+        "text": "Pune întrebări pentru a decide corect."
+      },
+      "3": {
+        "title": "Nu fi timid",
+        "text": "Dacă ceva nu e clar, întreabă!"
+      },
+      "4": {
+        "title": "Familia",
+        "text": "Încurajează familia să pună întrebări."
+      }
     },
     "sections": {
       "general": "Întrebări Generale",
@@ -1806,7 +2668,7 @@
       "trial5": "Este important să particip?"
     }
   },
-"emotionalPage": {
+  "emotionalPage": {
     "title": "Bunăstare Emoțională pentru Luptători",
     "desc": "Îngrijirea sănătății emoționale este la fel de importantă ca gestionarea laturii fizice a cancerului. Acest ghid oferă instrumente practice pentru a rămâne puternic mental și emoțional pe parcursul călătoriei.",
     "ctaTitle": "Descarcă Ghidul Complet",
@@ -1889,14 +2751,24 @@
       }
     }
   },
-"calendarPage": {
+  "calendarPage": {
     "title": "Calendar de Conștientizare",
     "subtitle": "Fiecare lună este dedicată luptei împotriva cancerului.",
     "awarenessMonth": "Luna Conștientizării",
     "keyDates": "Date Cheie",
     "months": {
-      "jan": "Ianuarie", "feb": "Februarie", "mar": "Martie", "apr": "Aprilie", "may": "Mai", "jun": "Iunie",
-      "jul": "Iulie", "aug": "August", "sep": "Septembrie", "oct": "Octombrie", "nov": "Noiembrie", "dec": "Decembrie"
+      "jan": "Ianuarie",
+      "feb": "Februarie",
+      "mar": "Martie",
+      "apr": "Aprilie",
+      "may": "Mai",
+      "jun": "Iunie",
+      "jul": "Iulie",
+      "aug": "August",
+      "sep": "Septembrie",
+      "oct": "Octombrie",
+      "nov": "Noiembrie",
+      "dec": "Decembrie"
     },
     "events": {
       "cancerDay": "Ziua Mondială a Cancerului",
@@ -1913,26 +2785,26 @@
       "pancreatic": "Ziua Mondială Cancer Pancreatic"
     },
     "cancers": {
-       "cervical": "Cancer Cervical",
-       "gallbladder": "Cancer de Vezică Biliară",
-       "colorectal": "Cancer Colorectal",
-       "kidney": "Cancer Renal",
-       "testicular": "Cancer Testicular",
-       "skin": "Cancer de Piele",
-       "brain": "Tumoră Cerebrală",
-       "mensHealth": "Sănătatea Bărbaților",
-       "sarcoma": "Sarcom",
-       "bone": "Cancer Osos",
-       "thyroid": "Cancer Tiroidian",
-       "ovarian": "Cancer Ovarian",
-       "breast": "Cancer Mamar",
-       "liver": "Cancer Hepatic",
-       "lung": "Cancer Pulmonar",
-       "pancreatic": "Cancer Pancreatic",
-       "bladder": "Cancer de Vezică Urinară"
+      "cervical": "Cancer Cervical",
+      "gallbladder": "Cancer de Vezică Biliară",
+      "colorectal": "Cancer Colorectal",
+      "kidney": "Cancer Renal",
+      "testicular": "Cancer Testicular",
+      "skin": "Cancer de Piele",
+      "brain": "Tumoră Cerebrală",
+      "mensHealth": "Sănătatea Bărbaților",
+      "sarcoma": "Sarcom",
+      "bone": "Cancer Osos",
+      "thyroid": "Cancer Tiroidian",
+      "ovarian": "Cancer Ovarian",
+      "breast": "Cancer Mamar",
+      "liver": "Cancer Hepatic",
+      "lung": "Cancer Pulmonar",
+      "pancreatic": "Cancer Pancreatic",
+      "bladder": "Cancer de Vezică Urinară"
     }
   },
-    "connectSurvivorPage": {
+  "connectSurvivorPage": {
     "title": "Conectează-te cu un Supraviețuitor",
     "subtitle": "A vorbi cu cineva care a fost acolo contează enorm.",
     "step1Title": "Înregistrează-te",
@@ -1967,7 +2839,7 @@
     "cryptoTitle": "Donații Crypto",
     "krakenVerified": "ONG Verificat pe Kraken"
   },
-"supportDream": {
+  "supportDream": {
     "title": "Susține un Vis",
     "subtitle": "Ajută-ne să finanțăm visele viitorilor noștri luptători. Contribuția ta merge direct spre a face aceste momente posibile.",
     "goal": "Obiectiv",
@@ -1991,9 +2863,24 @@
     "title": "Echipa Noastră",
     "subtitle": "Cunoaște inimile dedicate care lucrează în culise pentru a îndeplini visuri.",
     "members": {
-      "1": { "name": "Andreea Pantiru", "role": "Președinte & Fondator", "image": "/andreea.jpg", "description": "Coordonează Tutti Cancer Warriors, reprezintă organizația și gestionează activitățile, parteneriatele și programele." },
-      "2": { "name": "Florentina Marincan", "role": "Vicepreședinte", "image": "/florentina.jpg", "description": "Membru al Consiliului Director, contribuie la direcția organizației și la deciziile importante." },
-      "3": { "name": "Mihai Bara", "role": "Director Executiv", "image": "/mihai.jpg", "description": "Membru al Consiliului Director, susține activitatea organizației și inițiativele în desfășurare." }
+      "1": {
+        "name": "Andreea Pantiru",
+        "role": "Președinte & Fondator",
+        "image": "/andreea.jpg",
+        "description": "Coordonează Tutti Cancer Warriors, reprezintă organizația și gestionează activitățile, parteneriatele și programele."
+      },
+      "2": {
+        "name": "Florentina Marincan",
+        "role": "Vicepreședinte",
+        "image": "/florentina.jpg",
+        "description": "Membru al Consiliului Director, contribuie la direcția organizației și la deciziile importante."
+      },
+      "3": {
+        "name": "Mihai Bara",
+        "role": "Director Executiv",
+        "image": "/mihai.jpg",
+        "description": "Membru al Consiliului Director, susține activitatea organizației și inițiativele în desfășurare."
+      }
     },
     "hoverHint": "Treceți mouse-ul ↪",
     "cta": {
@@ -2002,5 +2889,21 @@
       "buttonInvolved": "Implică-te",
       "buttonDonate": "Donează Acum"
     }
-  }
-  }
+  },
+"pilatesEvent": {
+    "badge": "Ziua Internațională a Femeii",
+    "title": "Forță în Solidaritate: Evenimentul Nostru de Pilates",
+    "quote": "Nu a fost doar un antrenament, a fost un moment de sprijin și conectare reală.",
+    "p1": "De Ziua Internațională a Femeii, ne-am mișcat pentru o cauză. Împreună cu GT Race Marbella, am găzduit o sesiune specială de Pilates în care fiecare bilet a devenit un sprijin direct pentru războinicii noștri.",
+    "p2": "Datorită fiecărei femei care a participat, acum putem ajuta mai mulți războinici în călătoria lor. Mulțumim partenerilor noștri și fiecărei femei care ni s-a alăturat. Împreună suntem mai puternice.",
+    "galleryTitle": "Momente de Solidaritate",
+    "gallerySubtitle": "O privire asupra unei dimineți pline de energie, zâmbete și scop.",
+    "stats": {
+      "women": "Femei Unite",
+      "purpose": "Scop Comun",
+      "impact": "Impact Direct"
+    },
+    "button": "Susține Războinicii Noștri",
+    "ctaTitle": "Fii parte din următorul nostru capitol de speranță."
+  }  
+}

@@ -26,7 +26,8 @@
     "moodBoost": "Warrior Mood Boost",
     "mensHealth": "Men's Health Week",
     "team": "Our Team",
-    "kidneyCancer": "World Kidney Cancer Day"
+    "kidneyCancer": "World Kidney Cancer Day",
+    "pilates": "Pilates Event"
   },
   "warriorsPage": {
     "title": "Restoring Hope,",
@@ -98,6 +99,13 @@
         "shortDesc": "Diagnosed with ovarian cancer in 2022, she aims to turn her healing into a community resource.",
         "fullStory": "Diagnosed with ovarian cancer in September 2022 following surgery, she completed five rounds of chemotherapy between November 2022 and March 2023. This journey shifted her perspective, teaching her to prioritize her own well-being and to live with deep gratitude for her children and each new day.\n\nTHE IMPACT: The dream is to purchase supplies to host handmade craft workshops for others navigating an oncological diagnosis. The grant empowers her to turn her personal healing into a community resource, providing a creative outlet for fellow warriors and fostering connection."
       },
+      "wren": {
+          "name": "Wren",
+          "age": "Warrior",
+          "dream": "Attend the Living Beyond Breast Cancer Conference",
+          "shortDesc": "Diagnosed in 2019 with stage 4 triple negative breast cancer.",
+          "fullStory": "Wren was diagnosed in 2019 with stage 4 triple negative breast cancer. Through our Dream Support Program, she chose to attend the Living Beyond Breast Cancer Conference in Philadelphia, a space for learning, connection, and support among others living with metastatic cancer."
+        },
       "penny": {
         "name": "Penny",
         "age": "49",
@@ -258,7 +266,7 @@
     "donateNow": "Donate Now"
   },
   "hero": {
-    "badge": " 9 dreams fulfilled in 2025",
+    "badge": " 10 dreams fulfilled in 2025",
     "title1": "Together against",
     "title2": "cancer",
     "subtitle": "We fulfill dreams and give hope to warriors fighting every day. Your support transforms lives.",
@@ -2702,5 +2710,21 @@
     "readyTitle": "Ready to connect?",
     "btnConnect": "Connect with a Survivor",
     "btnPolicy": "Read Policy & Guidelines"
-  }
+  },
+"pilatesEvent": {
+    "badge": "International Women's Day",
+    "title": "Strength in Solidarity: Our IWD Pilates Event",
+    "quote": "It wasn’t just a workout, it was a moment of real support and connection.",
+    "p1": "This International Women’s Day, we moved for a cause. Together with GT Race Marbella, we hosted a special Pilates session where every ticket became direct support for our cancer warriors.",
+    "p2": "Because of every woman who showed up, we’re now able to help more warriors on their journey. Thank you to our partners and to every woman who joined us. We’re stronger together.",
+    "galleryTitle": "Moments of Solidarity",
+    "gallerySubtitle": "A glimpse into a morning full of energy, smiles, and purpose.",
+    "stats": {
+      "women": "Women United",
+      "purpose": "Shared Purpose",
+      "impact": "Direct Impact"
+    },
+    "button": "Support Our Warriors",
+    "ctaTitle": "Be part of our next chapter of hope."
+  }  
 }

@@ -26,7 +26,8 @@
     "moodBoost": "Ánima a Warriors",
     "mensHealth": "Semana de la Salud Masculina",
     "team": "Nuestro Equipo",
-    "kidneyCancer": "Cáncer de Riñón"
+    "kidneyCancer": "Cáncer de Riñón",
+    "pilates": "Evento de Pilates"
   },
 "warriorsPage": {
     "title": "Restaurando la Esperanza,",
@@ -97,6 +98,13 @@
         "shortDesc": "Diagnosticada con cáncer de ovario en 2022, busca convertir su sanación en un recurso comunitario.",
         "fullStory": "Diagnosticada con cáncer de ovario en septiembre de 2022 tras una cirugía, completó cinco rondas de quimioterapia hasta marzo de 2023. Este viaje cambió su perspectiva, enseñándole a priorizar su propio bienestar y a vivir con profunda gratitud por sus hijos y cada nuevo día.\n\nEL IMPACTO: Su sueño es comprar materiales para organizar talleres de manualidades para otras personas con diagnóstico oncológico. La beca le permite convertir su sanación en un recurso comunitario, ofreciendo una salida creativa y fomentando la conexión entre guerreros."
       },
+      "wren": {
+          "name": "Wren",
+          "age": "Warrior",
+          "dream": "Asistir a la Conferencia Living Beyond Breast Cancer",
+          "shortDesc": "Diagnosticada en 2019 con cáncer de mama triple negativo en etapa 4.",
+          "fullStory": "Wren fue diagnosticada en 2019 con cáncer de mama triple negativo en etapa 4. A través de nuestro Programa de Apoyo a los Sueños, eligió asistir a la Conferencia 'Living Beyond Breast Cancer' en Filadelfia, un espacio para el aprendizaje, la conexión y el apoyo entre otras personas que viven con cáncer metastásico."
+        },
       "penny": {
         "name": "Penny",
         "age": "49",
@@ -152,7 +160,7 @@
     "donateNow": "Donar Ahora"
   },
   "hero": {
-    "badge": " 9 sueños cumplidos en 2025",
+    "badge": " 10 sueños cumplidos en 2025",
     "title1": "Juntos contra",
     "title2": "el cáncer",
     "subtitle": "Cumplimos sueños y damos esperanza a warriors que luchan cada día. Tu apoyo transforma vidas.",
@@ -2001,6 +2009,21 @@
       "buttonInvolved": "Involúcrate",
       "buttonDonate": "Donar Ahora"
     }
-    }
-  
+  },
+"pilatesEvent": {
+    "badge": "Día Internacional de la Mujer",
+    "title": "Fuerza en Solidaridad: Nuestro Evento de Pilates",
+    "quote": "No fue solo un entrenamiento, fue un momento de verdadero apoyo y conexión.",
+    "p1": "Este Día Internacional de la Mujer, nos movimos por una causa. Junto con GT Race Marbella, organizamos una sesión especial de Pilates donde cada entrada se convirtió en apoyo directo para nuestros warriors.",
+    "p2": "Gracias a cada mujer que asistió, ahora podemos ayudar a más warriors en su camino. Gracias a nuestros patrocinadores y a cada mujer que se unió. Juntas somos más fuertes.",
+    "galleryTitle": "Momentos de Solidaridad",
+    "gallerySubtitle": "Un vistazo a una mañana llena de energía, sonrisas y propósito.",
+    "stats": {
+      "women": "Mujeres Unidas",
+      "purpose": "Propósito Compartido",
+      "impact": "Impacto Directo"
+    },
+    "button": "Apoya a Nuestros Warriors",
+    "ctaTitle": "Sé parte de nuestro próximo capítulo de esperanza."
+  }  
 }

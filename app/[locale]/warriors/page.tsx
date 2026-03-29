@@ -97,6 +97,17 @@ export default function WarriorsPage() {
       image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=800', // Foto recurso: Nueva York
       position: 'object-center',
       color: 'bg-sky-100 text-sky-700',
+    },
+{
+      id: 'wren',
+      name: t('featured.wren.name'),
+      age: t('featured.wren.age'),
+      dream: t('featured.wren.dream'),
+      shortDesc: t('featured.wren.shortDesc'),
+      fullStory: t('featured.wren.fullStory'),
+      image: '/wren.jpg',
+      position: 'object-center',
+      color: 'bg-fuchsia-100 text-fuchsia-700',
     }
   ];
 
@@ -139,7 +150,7 @@ export default function WarriorsPage() {
                 </div>
                 <div className="text-left">
                     <div className="text-3xl font-bold text-neutral-900 tabular-nums">
-                        <AnimatedCounter end={9} />
+                        <AnimatedCounter end={10} />
                     </div>
                     <div className="text-sm text-neutral-500 font-medium uppercase tracking-wide">{t('stats.dreams')}</div>
                 </div>

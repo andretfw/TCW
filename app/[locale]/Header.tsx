@@ -105,6 +105,7 @@ export default function Header({ locale }: { locale: string }) {
       dropdown: [
         { href: `${prefix}/mens-health-week`, label: t('mensHealth') },
         { href: `${prefix}/world-kidney-cancer-day`, label: t('kidneyCancer') },
+        { href: `${prefix}/events/pilates-event`, label: t('pilates') },
       ]
     },
   ];
