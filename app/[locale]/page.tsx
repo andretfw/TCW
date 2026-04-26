@@ -93,7 +93,7 @@ export default function HomePage() {
               <div className="w-14 h-14 bg-brand-100 rounded-xl flex items-center justify-center text-brand-600 mb-4 group-hover:scale-110 transition-transform">
                 <TrendingUp className="w-7 h-7" />
               </div>
-              <div className="text-4xl font-bold text-brand-600 mb-2">4,500 €</div>
+              <div className="text-4xl font-bold text-brand-600 mb-2">5,000 €</div>
               <div className="text-neutral-600 font-medium">{t('impact.donated')}</div>
             </div>
 
@@ -101,7 +101,7 @@ export default function HomePage() {
               <div className="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 mb-4 group-hover:scale-110 transition-transform">
                 <Target className="w-7 h-7" />
               </div>
-              <div className="text-4xl font-bold text-purple-600 mb-2">9</div>
+              <div className="text-4xl font-bold text-purple-600 mb-2">10</div>
               <div className="text-neutral-600 font-medium">{t('impact.dreamsFulfilled')}</div>
             </div>
 
@@ -109,7 +109,7 @@ export default function HomePage() {
               <div className="w-14 h-14 bg-pink-100 rounded-xl flex items-center justify-center text-pink-600 mb-4 group-hover:scale-110 transition-transform">
                 <Heart className="w-7 h-7" fill="currentColor" />
               </div>
-              <div className="text-4xl font-bold text-pink-600 mb-2">9</div>
+              <div className="text-4xl font-bold text-pink-600 mb-2">10</div>
               <div className="text-neutral-600 font-medium">{t('impact.warriorsSupported')}</div>
             </div>
 
