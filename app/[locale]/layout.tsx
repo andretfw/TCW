@@ -1,24 +1,23 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server'; // Importamos getTranslations
-import { Metadata } from "next"; // Importamos Metadata de next (no type)
+import { getMessages, getTranslations } from 'next-intl/server';
+import { Metadata } from "next";
 import "../globals.css";
 import Header from './Header';
 import Footer from './Footer';
+import CookieBanner from '@/components/CookieBanner'; // 1. Importamos el banner
 
-// 1. Configuración dinámica del SEO (Google, WhatsApp, etc.)
+// 1. Configuración dinámica del SEO
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: 'metadata' });
- 
-  // Cambia esto por tu dominio real cuando lo tengas (ej: https://tutticancerwarriors.org)
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tutticancerwarriors.org';
 
   return {
     metadataBase: new URL(baseUrl),
     title: {
       template: '%s | Tutti Cancer Warriors',
-      default: 'Tutti Cancer Warriors - Born to Thrive', // Título por defecto
+      default: 'Tutti Cancer Warriors - Born to Thrive',
     },
-    description: t('description'), // Descripción traducida
+    description: t('description'),
     openGraph: {
       title: 'Tutti Cancer Warriors',
       description: t('description'),
@@ -26,7 +25,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
       siteName: 'Tutti Cancer Warriors',
       images: [
         {
-          url: '/TCW_LOGO.png', // La imagen 1200x630 que vas a crear en /public
+          url: '/TCW_LOGO.png',
           width: 800,
           height: 600,
           alt: 'Tutti Cancer Warriors NGO',
@@ -39,10 +38,10 @@ export async function generateMetadata({ params: { locale } }: { params: { local
       card: 'summary_large_image',
       title: 'Tutti Cancer Warriors',
       description: t('description'),
-      images: ['/og-image.png'], // La misma imagen
+      images: ['/og-image.png'],
     },
     icons: {
-      icon: '/favicon.ico', // Asegúrate de tener el icono también
+      icon: '/favicon.ico',
     },
   };
 }
@@ -61,7 +60,6 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className="bg-white antialiased">
         <NextIntlClientProvider messages={messages}>
-          {/* Pasamos locale al Header para controlar los enlaces */}
           <Header locale={locale} />
           
           <main className="min-h-screen">
@@ -69,6 +67,10 @@ export default async function LocaleLayout({
           </main>
           
           <Footer />
+          
+          {/* 2. Añadimos el Banner de Cookies aquí */}
+          <CookieBanner />
+          
         </NextIntlClientProvider>
       </body>
     </html>

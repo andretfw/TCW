@@ -29,6 +29,19 @@
     "kidneyCancer": "Cáncer de Riñón",
     "pilates": "Evento de Pilates"
   },
+  "cookies": {
+  "title": "¿Una galleta para seguir? 🍪",
+  "description": "Usamos cookies para que tu experiencia sea tan fuerte como un guerrero. Ayúdanos a mejorar aceptando nuestra política.",
+  "reject": "Rechazar todas",
+  "cancel": "Cancelar",
+  "settings": "Personalizar",
+  "accept": "Aceptar todas",
+  "save": "Guardar selección",
+  "essential": "Esenciales (Siempre activas)",
+  "analytics": "Analíticas e informes",
+  "marketing": "Marketing y RRSS",
+  "cookies_policy": "Política de Cookies"
+},
 "warriorsPage": {
     "title": "Restaurando la Esperanza,",
     "titleHighlight": "Un Sueño a la Vez",

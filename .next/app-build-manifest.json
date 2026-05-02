@@ -16,20 +16,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/layout.js"
     ],
-    "/[locale]/involucrate/page": [
+    "/[locale]/warriors/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/[locale]/involucrate/page.js"
-    ],
-    "/[locale]/donar/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/[locale]/donar/page.js"
-    ],
-    "/[locale]/dream-application/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/[locale]/dream-application/page.js"
+      "static/chunks/app/[locale]/warriors/page.js"
     ]
   }
 }

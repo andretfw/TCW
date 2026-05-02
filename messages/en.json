@@ -29,6 +29,19 @@
     "kidneyCancer": "World Kidney Cancer Day",
     "pilates": "Pilates Event"
   },
+  "cookies": {
+  "title": "A cookie to keep going? 🍪",
+  "description": "We use cookies to make your experience as strong as a warrior. Help us improve by accepting our policy.",
+  "reject": "Reject all",
+  "cancel": "Cancel",
+  "settings": "Customize",
+  "accept": "Accept all",
+  "save": "Save selection",
+  "essential": "Essential (Always active)",
+  "analytics": "Analytics & Reports",
+  "marketing": "Marketing & Social Media",
+  "cookies_policy": "Cookie Policy"
+},
   "warriorsPage": {
     "title": "Restoring Hope,",
     "titleHighlight": "One Dream at a Time",

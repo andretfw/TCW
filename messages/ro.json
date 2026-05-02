@@ -29,6 +29,19 @@
     "kidneyCancer": "Ziua Mondială a Cancerului Renal",
     "pilates": "Eveniment de Pilates"
   },
+  "cookies": {
+  "title": "O prăjitură pentru a continua? 🍪",
+  "description": "Folosim cookie-uri pentru a vă face experiența la fel de puternică ca a unui războinic. Ajutați-ne să ne îmbunătățim acceptând politica noastră.",
+  "reject": "Refuză tot",
+  "cancel": "Anulare",
+  "settings": "Personalizare",
+  "accept": "Acceptă tot",
+  "save": "Salvează selecția",
+  "essential": "Esențiale (Întotdeauna active)",
+  "analytics": "Analize și rapoarte",
+  "marketing": "Marketing și Social Media",
+  "cookies_policy": "Politica de Cookie-uri"
+},
   "warriorsPage": {
     "title": "Redăm Speranța,",
     "titleHighlight": "Un Vis pe Rând",

@@ -137,7 +137,7 @@ export default function WarriorsPage() {
                 <div className="text-left">
                     <div className="text-3xl font-bold text-neutral-900 tabular-nums">
                         {/* Aquí usamos el contador animado */}
-                        <AnimatedCounter end={4500} prefix="€" />
+                        <AnimatedCounter end={5000} prefix="€" />
                     </div>
                     <div className="text-sm text-neutral-500 font-medium uppercase tracking-wide">{t('stats.investment')}</div>
                 </div>

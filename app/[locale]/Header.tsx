@@ -83,7 +83,7 @@ export default function Header({ locale }: { locale: string }) {
         { href: `${prefix}/donar`, label: t('donate') },
         { href: `${prefix}/voluntarios`, label: t('volunteer') },
         { href: `${prefix}/peer-support`, label: t('peerSupport') },
-        { href: `${prefix}/support-dream`, label: t('supportDream') },
+        // { href: `${prefix}/support-dream`, label: t('supportDream') }, //
         { 
           href: 'https://paragraph.com/@tutticancerwarriors', 
           label: t('newsletter'), 
