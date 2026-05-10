@@ -55,12 +55,12 @@ export default function GetInvolvedPage() {
       shadow: 'shadow-emerald-100',
       external: true
     },
-    // ✨ NUEVO: Redirección del 3.5%
+    // Redirección del 3.5%
     {
       icon: Receipt,
       title: t('taxTitle'),
       description: t('taxDesc'),
-      link: `${prefix}/tax-redirect`, // Asegúrate de tener o crear esta página
+      link: `https://redirectioneaza.ro/tutticancerwarriors/`, // Enlace arreglado
       gradient: 'from-blue-400 to-indigo-500',
       shadow: 'shadow-blue-100',
       external: false

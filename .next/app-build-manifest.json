@@ -16,10 +16,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/layout.js"
     ],
-    "/[locale]/warriors/page": [
+    "/[locale]/sobre-cancer/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/[locale]/warriors/page.js"
+      "static/chunks/app/[locale]/sobre-cancer/page.js"
+    ],
+    "/[locale]/involucrate/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[locale]/involucrate/page.js"
     ]
   }
 }
