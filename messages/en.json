@@ -30,18 +30,18 @@
     "pilates": "Pilates Event"
   },
   "cookies": {
-  "title": "A cookie to keep going? 🍪",
-  "description": "We use cookies to make your experience as strong as a warrior. Help us improve by accepting our policy.",
-  "reject": "Reject all",
-  "cancel": "Cancel",
-  "settings": "Customize",
-  "accept": "Accept all",
-  "save": "Save selection",
-  "essential": "Essential (Always active)",
-  "analytics": "Analytics & Reports",
-  "marketing": "Marketing & Social Media",
-  "cookies_policy": "Cookie Policy"
-},
+    "title": "A cookie to keep going? 🍪",
+    "description": "We use cookies to make your experience as strong as a warrior. Help us improve by accepting our policy.",
+    "reject": "Reject all",
+    "cancel": "Cancel",
+    "settings": "Customize",
+    "accept": "Accept all",
+    "save": "Save selection",
+    "essential": "Essential (Always active)",
+    "analytics": "Analytics & Reports",
+    "marketing": "Marketing & Social Media",
+    "cookies_policy": "Cookie Policy"
+  },
   "warriorsPage": {
     "title": "Restoring Hope,",
     "titleHighlight": "One Dream at a Time",
@@ -113,12 +113,12 @@
         "fullStory": "Diagnosed with ovarian cancer in September 2022 following surgery, she completed five rounds of chemotherapy between November 2022 and March 2023. This journey shifted her perspective, teaching her to prioritize her own well-being and to live with deep gratitude for her children and each new day.\n\nTHE IMPACT: The dream is to purchase supplies to host handmade craft workshops for others navigating an oncological diagnosis. The grant empowers her to turn her personal healing into a community resource, providing a creative outlet for fellow warriors and fostering connection."
       },
       "wren": {
-          "name": "Wren",
-          "age": "Warrior",
-          "dream": "Attend the Living Beyond Breast Cancer Conference",
-          "shortDesc": "Diagnosed in 2019 with stage 4 triple negative breast cancer.",
-          "fullStory": "Wren was diagnosed in 2019 with stage 4 triple negative breast cancer. Through our Dream Support Program, she chose to attend the Living Beyond Breast Cancer Conference in Philadelphia, a space for learning, connection, and support among others living with metastatic cancer."
-        },
+        "name": "Wren",
+        "age": "Warrior",
+        "dream": "Attend the Living Beyond Breast Cancer Conference",
+        "shortDesc": "Diagnosed in 2019 with stage 4 triple negative breast cancer.",
+        "fullStory": "Wren was diagnosed in 2019 with stage 4 triple negative breast cancer. Through our Dream Support Program, she chose to attend the Living Beyond Breast Cancer Conference in Philadelphia, a space for learning, connection, and support among others living with metastatic cancer."
+      },
       "penny": {
         "name": "Penny",
         "age": "49",
@@ -2207,9 +2207,24 @@
     "title": "Our Team",
     "subtitle": "Meet the dedicated hearts working behind the scenes to fulfill dreams.",
     "members": {
-      "1": { "name": "Andreea Pantiru", "role": "President & Founder", "image": "/andreea.jpg", "description": "Member of the Board, leads and represents the organization and coordinates its activities, partnerships, and programs." },
-      "2": { "name": "Florentina Marincan", "role": "Vice President", "image": "/florentina.jpg", "description": "Member of the Board, contributes to the organization’s direction and key decisions." },
-      "3": { "name": "Mihai Bara", "role": "Executive Director", "image": "/mihai.jpg", "description": "Member of the Board, supporting the organization’s work and ongoing initiatives." }
+      "1": {
+        "name": "Andreea Pantiru",
+        "role": "President & Founder",
+        "image": "/andreea.jpg",
+        "description": "Member of the Board, leads and represents the organization and coordinates its activities, partnerships, and programs."
+      },
+      "2": {
+        "name": "Florentina Marincan",
+        "role": "Vice President",
+        "image": "/florentina.jpg",
+        "description": "Member of the Board, contributes to the organization’s direction and key decisions."
+      },
+      "3": {
+        "name": "Mihai Bara",
+        "role": "Executive Director",
+        "image": "/mihai.jpg",
+        "description": "Member of the Board, supporting the organization’s work and ongoing initiatives."
+      }
     },
     "hoverHint": "Hover over me ↪",
     "cta": {
@@ -2724,7 +2739,7 @@
     "btnConnect": "Connect with a Survivor",
     "btnPolicy": "Read Policy & Guidelines"
   },
-"pilatesEvent": {
+  "pilatesEvent": {
     "badge": "International Women's Day",
     "title": "Strength in Solidarity: Our IWD Pilates Event",
     "quote": "It wasn’t just a workout, it was a moment of real support and connection.",
@@ -2739,5 +2754,42 @@
     },
     "button": "Support Our Warriors",
     "ctaTitle": "Be part of our next chapter of hope."
-  }  
+  },
+  "grantPolicy": {
+    "title": "Tutti Cancer Warriors Grant Policy",
+    "header": {
+      "effectiveDate": "Effective Date: May 8, 2026",
+      "version": "Policy Version: 3.0"
+    },
+    "sections": {
+      "mission": "Mission Statement",
+      "scope": "Grant Purpose",
+      "legislation": "Compliance with Romanian Legislation",
+      "disputes": "Dispute Resolution and Termination"
+    },
+    "fullContent": {
+      "missionText": "Tutti Cancer Warriors (TCW), a non-profit organization registered in Romania, exists to bring hope and healing to cancer warriors worldwide. The purpose of the TCW Association is to create a solid support network and bring hope and joy to the lives of those affected by cancer, while promoting public awareness of the impact of this disease and prevention measures. Through our 500 € grant program, we support personal wishes that nurture emotional and mental well-being during the fight against cancer, ensuring that every step respects our charitable purpose and Romanian legislation.",
+      "scopeIntro": "The TCW Grant offers up to 500 € to cancer warriors for a personal wish (e.g., an unforgettable experience, an object, or an activity) that promotes emotional or mental healing.",
+      "wishesTitle": "Fulfilling Wishes:",
+      "wishesText": "We focus on identifying and fulfilling personal wishes that contribute to improving the emotional state of patients. This includes organizing recreational activities, travel, or wellness support.",
+      "nonTransferableTitle": "Non-transferable",
+      "nonTransferableText": "The grant is strictly for the named beneficiary.",
+      "adminCostsTitle": "Administrative Costs",
+      "adminCostsText": "TCW covers operational expenses separately; the full 500 € value goes toward fulfilling the wish.",
+      "legalBasisTitle": "Legal Basis",
+      "legalBasisText": "TCW is established under OG no. 26/2000, ensuring all grants respect its non-patrimonial purpose, according to the Statutes.",
+      "financeTitle": "Financial Responsibility",
+      "financeText": "Funds are tracked according to Law no. 82/1991, with records kept for 5 years for audit purposes.",
+      "auditTitle": "Verification Process",
+      "auditText": "TCW annually verifies at least 10% of beneficiaries (through medical evidence) to ensure program integrity.",
+      "gdprTitle": "Data Protection",
+      "gdprText": "Data is processed according to GDPR (EU Regulation 2016/679).",
+      "crossBorderTitle": "Cross-Border Rules",
+      "crossBorderText": "TCW complies with EU regulations on fund transfers and avoids sanctioned countries.",
+      "disputesText": "Any dispute will first be resolved through mediation. Unresolved disputes fall under the jurisdiction of the courts in Bucharest, according to Law 246/2005.",
+      "terminationText": "TCW may terminate a grant for misuse. Applicants whose grant is terminated become ineligible for future requests for a period of 2 years.",
+      "forceMajeureTitle": "Force Majeure",
+      "forceMajeureText": "TCW is not responsible for delays or failures to perform obligations due to events beyond its control (natural disasters, legislative changes, etc.)."
+    }
+  }
 }

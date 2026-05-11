@@ -16,10 +16,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/layout.js"
     ],
-    "/[locale]/sobre-cancer/page": [
+    "/[locale]/dream-application/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/[locale]/sobre-cancer/page.js"
+      "static/chunks/app/[locale]/dream-application/page.js"
     ],
     "/[locale]/involucrate/page": [
       "static/chunks/webpack.js",

@@ -30,18 +30,18 @@
     "pilates": "Eveniment de Pilates"
   },
   "cookies": {
-  "title": "O prăjitură pentru a continua? 🍪",
-  "description": "Folosim cookie-uri pentru a vă face experiența la fel de puternică ca a unui războinic. Ajutați-ne să ne îmbunătățim acceptând politica noastră.",
-  "reject": "Refuză tot",
-  "cancel": "Anulare",
-  "settings": "Personalizare",
-  "accept": "Acceptă tot",
-  "save": "Salvează selecția",
-  "essential": "Esențiale (Întotdeauna active)",
-  "analytics": "Analize și rapoarte",
-  "marketing": "Marketing și Social Media",
-  "cookies_policy": "Politica de Cookie-uri"
-},
+    "title": "O prăjitură pentru a continua? 🍪",
+    "description": "Folosim cookie-uri pentru a vă face experiența la fel de puternică ca a unui războinic. Ajutați-ne să ne îmbunătățim acceptând politica noastră.",
+    "reject": "Refuză tot",
+    "cancel": "Anulare",
+    "settings": "Personalizare",
+    "accept": "Acceptă tot",
+    "save": "Salvează selecția",
+    "essential": "Esențiale (Întotdeauna active)",
+    "analytics": "Analize și rapoarte",
+    "marketing": "Marketing și Social Media",
+    "cookies_policy": "Politica de Cookie-uri"
+  },
   "warriorsPage": {
     "title": "Redăm Speranța,",
     "titleHighlight": "Un Vis pe Rând",
@@ -2903,7 +2903,7 @@
       "buttonDonate": "Donează Acum"
     }
   },
-"pilatesEvent": {
+  "pilatesEvent": {
     "badge": "Ziua Internațională a Femeii",
     "title": "Forță în Solidaritate: Evenimentul Nostru de Pilates",
     "quote": "Nu a fost doar un antrenament, a fost un moment de sprijin și conectare reală.",
@@ -2918,5 +2918,42 @@
     },
     "button": "Susține Războinicii Noștri",
     "ctaTitle": "Fii parte din următorul nostru capitol de speranță."
-  }  
+  },
+  "grantPolicy": {
+    "title": "Politica de Granturi Tutti Cancer Warriors",
+    "header": {
+      "effectiveDate": "Data intrării în vigoare: 8 Mai 2026",
+      "version": "Versiunea politicii: 3.0"
+    },
+    "sections": {
+      "mission": "Declarația de Misiune",
+      "scope": "Scopul Grantului",
+      "legislation": "Conformitatea cu Legislația din România",
+      "disputes": "Soluționarea Litigiilor şi Rezilierea"
+    },
+    "fullContent": {
+      "missionText": "Tutti Cancer Warriors (TCW), o organizație non-profit înregistrată în România, există pentru a aduce speranță şi vindecare luptătorilor împotriva cancerului din întreaga lume. Scopul Asociației TCW este să creeze o rețea solidă de sprijin și să aducă speranță şi bucurie în viețile celor afectați de cancer, promovând în același timp conştientizarea în rândul publicului cu privire la impactul acestei boli şi la măsurile de prevenire. Prin programul nostru de granturi de 500 €, sprijinim dorințele personale care hrănesc starea de bine emoțională și mentală pe parcursul luptei cu cancerul, asigurându-ne că fiecare pas respectă scopul nostru caritabil şi legislația din România.",
+      "scopeIntro": "Grantul TCW oferă până la 500 € luptătorilor împotriva cancerului pentru o dorință personală (ex. o experiență de neuitat, un obiect sau o activitate) care promovează vindecarea emoțională sau mentală.",
+      "wishesTitle": "Îndeplinirea Dorințelor:",
+      "wishesText": "Ne concentrăm pe identificarea şi îndeplinirea dorințelor personale care contribuie la îmbunătățirea stării emoționale a pacienților. Aceasta include organizarea de activități recreative, călătorii sau sprijin pentru bunăstare.",
+      "nonTransferableTitle": "Netransferabil",
+      "nonTransferableText": "Grantul este strict pentru beneficiarul numit.",
+      "adminCostsTitle": "Costuri Administrative",
+      "adminCostsText": "TCW acoperă cheltuielile operaționale separat, întreaga valoare de 500 € merge către îndeplinirea dorinței.",
+      "legalBasisTitle": "Baza Legală",
+      "legalBasisText": "TCW este înființată în baza OG nr. 26/2000, asigurându-se că toate granturile respectă scopul său nepatrimonial, conform Statutului.",
+      "financeTitle": "Responsabilitate Financiară",
+      "financeText": "Fondurile sunt urmărite conform Legii nr. 82/1991, cu păstrarea registrelor timp de 5 ani pentru audit.",
+      "auditTitle": "Proces de Verificare",
+      "auditText": "TCW verifică anual cel puțin 10% dintre beneficiari (prin dovezi medicale) pentru integritatea programului.",
+      "gdprTitle": "Protecția Datelor",
+      "gdprText": "Datele sunt procesate conform GDPR (Regulamentul UE 2016/679).",
+      "crossBorderTitle": "Reguli Transfrontaliere",
+      "crossBorderText": "TCW respectă reglementările UE privind transferurile de fonduri şi evită țările sancționate.",
+      "disputesText": "Orice dispută va fi soluționată mai întâi prin mediere. Litigiile nesoluționate intră sub jurisdicția instanțelor din Bucureşti, conform Legii 246/2005.",
+      "terminationText": "TCW poate rezilia un grant pentru utilizare abuzivă. Solicitanții cărora li se reziliază grantul devin ineligibili pentru viitoare cereri pe o perioadă de 2 ani.",
+      "forceMajeureTitle": "Forţă Majoră",
+      "forceMajeureText": "TCW nu este responsabilă pentru întârzieri sau neîndeplinirea obligațiilor din cauza unor evenimente în afara controlului său (dezastre naturale, schimbări legislative, etc.)."
+    }
+  }
 }
