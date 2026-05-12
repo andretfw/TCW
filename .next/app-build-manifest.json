@@ -16,15 +16,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/layout.js"
     ],
-    "/[locale]/dream-application/page": [
+    "/[locale]/team/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/[locale]/dream-application/page.js"
+      "static/chunks/app/[locale]/team/page.js"
     ],
-    "/[locale]/involucrate/page": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/[locale]/involucrate/page.js"
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }
