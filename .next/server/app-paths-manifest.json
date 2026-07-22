@@ -1,8 +1,0 @@
-{
-  "/[locale]/dream-application/page": "app/[locale]/dream-application/page.js",
-  "/[locale]/terms/page": "app/[locale]/terms/page.js",
-  "/[locale]/peer-policy/page": "app/[locale]/peer-policy/page.js",
-  "/[locale]/privacy/page": "app/[locale]/privacy/page.js",
-  "/[locale]/page": "app/[locale]/page.js",
-  "/[locale]/events/pilates-event/page": "app/[locale]/events/pilates-event/page.js"
-}
