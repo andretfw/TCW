@@ -1,129 +1,115 @@
 'use client';
-import { useTranslations, useLocale } from 'next-intl';
+
 import Link from 'next/link';
-import { Heart, Users, Handshake, Star, ArrowRight, Gift, Receipt } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
+import { ArrowRight, Gift, Handshake, Heart, Receipt, Star, Users } from 'lucide-react';
+import { localizedPath } from '@/lib/routes';
 
 export default function GetInvolvedPage() {
   const t = useTranslations('getInvolved');
   const locale = useLocale();
-  const prefix = locale === 'es' ? '' : `/${locale}`;
 
   const ways = [
     {
       icon: Heart,
       title: t('donateTitle'),
       description: t('donateDesc'),
-      link: `${prefix}/donar`,
+      link: localizedPath(locale, 'donate'),
       gradient: 'from-rose-400 to-red-500',
       shadow: 'shadow-rose-100',
-      external: false
+      external: false,
     },
     {
       icon: Users,
       title: t('volunteerTitle'),
       description: t('volunteerDesc'),
-      link: `${prefix}/voluntarios`,
+      link: localizedPath(locale, 'volunteers'),
       gradient: 'from-violet-400 to-purple-500',
       shadow: 'shadow-purple-100',
-      external: false
+      external: false,
     },
     {
       icon: Handshake,
       title: t('peerTitle'),
       description: t('peerDesc'),
-      link: `${prefix}/peer-support`,
+      link: localizedPath(locale, 'peerSupport'),
       gradient: 'from-cyan-400 to-blue-500',
       shadow: 'shadow-cyan-100',
-      external: false
+      external: false,
     },
     {
       icon: Star,
       title: t('dreamTitle'),
       description: t('dreamDesc'),
-      link: `${prefix}/support-dream`,
+      link: localizedPath(locale, 'supportDream'),
       gradient: 'from-amber-400 to-orange-500',
       shadow: 'shadow-orange-100',
-      external: false
+      external: false,
     },
-    // ✨ NUEVO: Fundraise via Better Giving
     {
       icon: Gift,
       title: t('fundraiseTitle'),
       description: t('fundraiseDesc'),
-      link: 'https://better.giving/donate/1293778', // Reemplaza con el link real de Better Giving si es otro
+      link: 'https://better.giving/donate/1293778',
       gradient: 'from-emerald-400 to-green-500',
       shadow: 'shadow-emerald-100',
-      external: true
+      external: true,
     },
-    // Redirección del 3.5%
     {
       icon: Receipt,
       title: t('taxTitle'),
       description: t('taxDesc'),
-      link: `https://redirectioneaza.ro/tutticancerwarriors/`, // Enlace arreglado
+      link: 'https://redirectioneaza.ro/tutticancerwarriors/',
       gradient: 'from-blue-400 to-indigo-500',
       shadow: 'shadow-blue-100',
-      external: false
-    }
+      external: true,
+    },
   ];
 
   return (
-    <div className="pt-20 min-h-screen bg-white">
-      <section className="py-24 bg-gradient-to-br from-brand-50 to-white">
+    <div className="min-h-screen bg-white pt-20">
+      <section className="bg-gradient-to-br from-brand-50 to-white py-24">
         <div className="container mx-auto px-4 text-center">
-          <div className="inline-block p-4 rounded-full bg-brand-100 mb-6 animate-pulse">
-             <Heart className="w-12 h-12 text-brand-600" fill="currentColor" />
+          <div className="mb-6 inline-block animate-pulse rounded-full bg-brand-100 p-4">
+            <Heart className="h-12 w-12 text-brand-600" fill="currentColor" />
           </div>
-          <h1 className="text-6xl font-bold text-neutral-900 mb-6">
-            {t('title')}
-          </h1>
-          <p className="text-2xl text-neutral-600 max-w-2xl mx-auto leading-relaxed">
-            {t('subtitle')}
-          </p>
+          <h1 className="mb-6 text-6xl font-bold text-neutral-900">{t('title')}</h1>
+          <p className="mx-auto max-w-2xl text-2xl leading-relaxed text-neutral-600">{t('subtitle')}</p>
         </div>
       </section>
 
       <section className="pb-24">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {ways.map((way, idx) => {
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {ways.map((way, index) => {
               const Icon = way.icon;
-              
-              const CardContent = (
+              const cardClasses = `group relative flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-100 bg-white p-10 shadow-xl ${way.shadow} transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl`;
+              const cardContent = (
                 <>
-                  <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${way.gradient} opacity-10 rounded-bl-full group-hover:scale-150 transition-transform duration-500`} />
-                  
-                  <div className={`w-16 h-16 bg-gradient-to-br ${way.gradient} rounded-2xl flex items-center justify-center mb-8 text-white shadow-lg`}>
-                    <Icon className="w-8 h-8" />
+                  <div className={`absolute right-0 top-0 h-32 w-32 rounded-bl-full bg-gradient-to-br ${way.gradient} opacity-10 transition-transform duration-500 group-hover:scale-150`} />
+                  <div className={`mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${way.gradient} text-white shadow-lg`}>
+                    <Icon className="h-8 w-8" />
                   </div>
-                  
-                  <h3 className="text-3xl font-bold text-neutral-900 mb-4 group-hover:text-brand-600 transition-colors">
-                    {way.title}
-                  </h3>
-                  <p className="text-lg text-neutral-600 mb-8 leading-relaxed">
-                    {way.description}
-                  </p>
-                  
-                  <div className="flex items-center gap-3 font-bold text-lg group-hover:gap-5 transition-all mt-auto">
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-600 group-hover:from-brand-600 group-hover:to-purple-600">
-                        {t('learnMore')}
+                  <h3 className="mb-4 text-3xl font-bold text-neutral-900 transition-colors group-hover:text-brand-600">{way.title}</h3>
+                  <p className="mb-8 flex-grow text-lg leading-relaxed text-neutral-600">{way.description}</p>
+                  <div className="mt-auto flex items-center gap-3 text-lg font-bold transition-all group-hover:gap-5">
+                    <span className="bg-gradient-to-r from-neutral-900 to-neutral-600 bg-clip-text text-transparent group-hover:from-brand-600 group-hover:to-purple-600">
+                      {t('learnMore')}
                     </span>
-                    <div className={`p-2 rounded-full bg-neutral-100 group-hover:bg-brand-100 text-neutral-900 group-hover:text-brand-600`}>
-                        <ArrowRight className="w-5 h-5" />
+                    <div className="rounded-full bg-neutral-100 p-2 text-neutral-900 transition-colors group-hover:bg-brand-100 group-hover:text-brand-600">
+                      <ArrowRight className="h-5 w-5" />
                     </div>
                   </div>
                 </>
               );
 
-              const cardClasses = `group h-full flex flex-col relative overflow-hidden bg-white rounded-3xl p-10 border border-neutral-100 shadow-xl ${way.shadow} hover:shadow-2xl hover:-translate-y-2 transition-all duration-300`;
-
               return way.external ? (
-                <a key={idx} href={way.link} target="_blank" rel="noopener noreferrer" className={cardClasses}>
-                  {CardContent}
+                <a key={index} href={way.link} target="_blank" rel="noopener noreferrer" className={cardClasses}>
+                  {cardContent}
                 </a>
               ) : (
-                <Link key={idx} href={way.link} className={cardClasses}>
-                  {CardContent}
+                <Link key={index} href={way.link} className={cardClasses}>
+                  {cardContent}
                 </Link>
               );
             })}
