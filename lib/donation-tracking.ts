@@ -139,10 +139,11 @@ export async function getCampaignTotalEur(campaignId: string) {
     if (
       Number.isFinite(amountOriginal) &&
       amountOriginal > 0 &&
+      typeof currentRate === 'number' &&
       Number.isFinite(currentRate) &&
-      currentRate! > 0
+      currentRate > 0
     ) {
-      return total + amountOriginal * currentRate!;
+      return total + amountOriginal * currentRate;
     }
 
     return total + (Number.isFinite(storedEur) ? storedEur : 0);
