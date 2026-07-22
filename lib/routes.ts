@@ -85,6 +85,35 @@ export const INTERNAL_ROUTE_SLUGS: Record<RouteKey, string> = {
   financials: 'financials',
 };
 
+export const CANCER_SLUGS = {
+  es: {
+    breast: 'mama', lung: 'pulmon', colorectal: 'colorrectal', prostate: 'prostata', skin: 'piel', kidney: 'rinon',
+    leukemia: 'leucemia', liver: 'higado', pancreatic: 'pancreas', ovarian: 'ovario', childhood: 'infantil', brain: 'cerebro',
+    bladder: 'vejiga', cervical: 'cuello-uterino', stomach: 'estomago', testicular: 'testiculo', thyroid: 'tiroides', uterine: 'utero',
+    lymphoma: 'linfoma', myeloma: 'mieloma', esophageal: 'esofago', 'head-neck': 'cabeza-cuello', bone: 'hueso', sarcoma: 'sarcoma',
+    gallbladder: 'vesicula-biliar', 'bile-duct': 'vias-biliares', anal: 'anal', penile: 'pene', vaginal: 'vagina', vulvar: 'vulva',
+    eye: 'ojo', oral: 'boca', throat: 'garganta', 'small-intestine': 'intestino-delgado', thymus: 'timo',
+  },
+  en: {
+    breast: 'breast', lung: 'lung', colorectal: 'colorectal', prostate: 'prostate', skin: 'skin', kidney: 'kidney',
+    leukemia: 'leukemia', liver: 'liver', pancreatic: 'pancreatic', ovarian: 'ovarian', childhood: 'childhood', brain: 'brain',
+    bladder: 'bladder', cervical: 'cervical', stomach: 'stomach', testicular: 'testicular', thyroid: 'thyroid', uterine: 'uterine',
+    lymphoma: 'lymphoma', myeloma: 'myeloma', esophageal: 'esophageal', 'head-neck': 'head-neck', bone: 'bone', sarcoma: 'sarcoma',
+    gallbladder: 'gallbladder', 'bile-duct': 'bile-duct', anal: 'anal', penile: 'penile', vaginal: 'vaginal', vulvar: 'vulvar',
+    eye: 'eye', oral: 'oral', throat: 'throat', 'small-intestine': 'small-intestine', thymus: 'thymus',
+  },
+  ro: {
+    breast: 'san', lung: 'plaman', colorectal: 'colorectal', prostate: 'prostata', skin: 'piele', kidney: 'rinichi',
+    leukemia: 'leucemie', liver: 'ficat', pancreatic: 'pancreas', ovarian: 'ovarian', childhood: 'copii', brain: 'creier',
+    bladder: 'vezica', cervical: 'col-uterin', stomach: 'stomac', testicular: 'testicular', thyroid: 'tiroida', uterine: 'uter',
+    lymphoma: 'limfom', myeloma: 'mielom', esophageal: 'esofag', 'head-neck': 'cap-gat', bone: 'os', sarcoma: 'sarcom',
+    gallbladder: 'vezica-biliara', 'bile-duct': 'cai-biliare', anal: 'anal', penile: 'penis', vaginal: 'vaginal', vulvar: 'vulvar',
+    eye: 'ochi', oral: 'oral', throat: 'gat', 'small-intestine': 'intestin-subtire', thymus: 'timus',
+  },
+} as const;
+
+export type CancerId = keyof typeof CANCER_SLUGS.en;
+
 export function normalizeLocale(locale: string): SiteLocale {
   return SITE_LOCALES.includes(locale as SiteLocale) ? (locale as SiteLocale) : 'es';
 }
@@ -93,6 +122,18 @@ export function localizedPath(localeInput: string, route: RouteKey): string {
   const locale = normalizeLocale(localeInput);
   const slug = ROUTES[locale][route];
   return slug ? `/${locale}/${slug}` : `/${locale}`;
+}
+
+export function localizedCancerPath(localeInput: string, cancerId: string): string {
+  const locale = normalizeLocale(localeInput);
+  const slug = CANCER_SLUGS[locale][cancerId as CancerId] ?? cancerId;
+  return `${localizedPath(locale, 'aboutCancer')}/${slug}`;
+}
+
+export function cancerIdFromSlug(localeInput: string, slug: string): CancerId | undefined {
+  const locale = normalizeLocale(localeInput);
+  return (Object.keys(CANCER_SLUGS[locale]) as CancerId[]).find((id) => CANCER_SLUGS[locale][id] === slug)
+    ?? (Object.keys(CANCER_SLUGS.en) as CancerId[]).find((id) => id === slug);
 }
 
 export function resolveRouteKey(slug: string): RouteKey | undefined {
@@ -105,8 +146,17 @@ export function resolveRouteKey(slug: string): RouteKey | undefined {
 export function switchLocalePath(pathname: string, newLocaleInput: string): string {
   const newLocale = normalizeLocale(newLocaleInput);
   const segments = pathname.split(/[?#]/)[0].split('/').filter(Boolean);
-  if (SITE_LOCALES.includes(segments[0] as SiteLocale)) segments.shift();
+  const currentLocale = SITE_LOCALES.includes(segments[0] as SiteLocale)
+    ? (segments.shift() as SiteLocale)
+    : 'es';
   const currentSlug = segments.join('/');
+
+  const cancerLibrarySlug = ROUTES[currentLocale].aboutCancer;
+  if (segments[0] === cancerLibrarySlug && segments[1]) {
+    const cancerId = cancerIdFromSlug(currentLocale, segments[1]);
+    if (cancerId) return localizedCancerPath(newLocale, cancerId);
+  }
+
   const currentRoute = resolveRouteKey(currentSlug);
   return currentRoute ? localizedPath(newLocale, currentRoute) : currentSlug ? `/${newLocale}/${currentSlug}` : `/${newLocale}`;
 }
