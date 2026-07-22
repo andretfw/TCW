@@ -1,7 +1,15 @@
 import createMiddleware from 'next-intl/middleware';
 import {NextRequest, NextResponse} from 'next/server';
 import {locales} from './i18n';
-import {localizedPath, resolveRouteKey, SITE_LOCALES, type SiteLocale} from './lib/routes';
+import {
+  cancerIdFromSlug,
+  localizedCancerPath,
+  localizedPath,
+  resolveRouteKey,
+  ROUTES,
+  SITE_LOCALES,
+  type SiteLocale,
+} from './lib/routes';
 
 const intlMiddleware = createMiddleware({
   locales,
@@ -11,6 +19,7 @@ const intlMiddleware = createMiddleware({
     '/': '/',
     '/team': {es: '/equipo', en: '/team', ro: '/echipa'},
     '/sobre-cancer': {es: '/sobre-cancer', en: '/about-cancer', ro: '/despre-cancer'},
+    '/sobre-cancer/[id]': {es: '/sobre-cancer/[id]', en: '/about-cancer/[id]', ro: '/despre-cancer/[id]'},
     '/entender-diagnostico': {es: '/entender-diagnostico', en: '/understanding-diagnosis', ro: '/intelegerea-diagnosticului'},
     '/preguntas-doctor': {es: '/preguntas-doctor', en: '/questions-for-doctor', ro: '/intrebari-pentru-medic'},
     '/bienestar-emocional': {es: '/bienestar-emocional', en: '/emotional-wellbeing', ro: '/bunastare-emotionala'},
@@ -31,8 +40,8 @@ const intlMiddleware = createMiddleware({
     '/privacy': {es: '/privacidad', en: '/privacy', ro: '/confidentialitate'},
     '/terms': {es: '/terminos', en: '/terms', ro: '/termeni'},
     '/peer-policy': {es: '/politica-apoyo-entre-pares', en: '/peer-support-policy', ro: '/politica-sprijin-intre-pacienti'},
-    '/financials': {es: '/transparencia', en: '/financials', ro: '/transparenta-financiara'}
-  }
+    '/financials': {es: '/transparencia', en: '/financials', ro: '/transparenta-financiara'},
+  },
 });
 
 export default function middleware(request: NextRequest) {
@@ -41,15 +50,30 @@ export default function middleware(request: NextRequest) {
   const locale = segments[0] as SiteLocale | undefined;
 
   if (locale && SITE_LOCALES.includes(locale)) {
-    const slug = segments.slice(1).join('/');
-    const routeKey = resolveRouteKey(slug);
+    const pageSegments = segments.slice(1);
+    const localizedCancerRoot = ROUTES[locale].aboutCancer;
 
-    if (routeKey) {
-      const canonicalPath = localizedPath(locale, routeKey);
-      if (pathname !== canonicalPath) {
-        const url = request.nextUrl.clone();
-        url.pathname = canonicalPath;
-        return NextResponse.redirect(url, 308);
+    if (pageSegments[0] === localizedCancerRoot && pageSegments[1]) {
+      const cancerId = cancerIdFromSlug(locale, pageSegments[1]);
+      if (cancerId) {
+        const canonicalPath = localizedCancerPath(locale, cancerId);
+        if (pathname !== canonicalPath) {
+          const url = request.nextUrl.clone();
+          url.pathname = canonicalPath;
+          return NextResponse.redirect(url, 308);
+        }
+      }
+    } else {
+      const slug = pageSegments.join('/');
+      const routeKey = resolveRouteKey(slug);
+
+      if (routeKey) {
+        const canonicalPath = localizedPath(locale, routeKey);
+        if (pathname !== canonicalPath) {
+          const url = request.nextUrl.clone();
+          url.pathname = canonicalPath;
+          return NextResponse.redirect(url, 308);
+        }
       }
     }
   }
@@ -58,5 +82,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/(es|en|ro)/:path*', '/((?!_next|_vercel|.*\\..*).*)']
+  matcher: ['/', '/(es|en|ro)/:path*', '/((?!_next|_vercel|.*\\..*).*)'],
 };
