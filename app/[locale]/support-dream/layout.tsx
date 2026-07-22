@@ -1,4 +1,5 @@
 import type {Metadata} from 'next';
+import CampaignGoalReachedNotice from '@/components/CampaignGoalReachedNotice';
 import {localizedPath, type SiteLocale} from '@/lib/routes';
 
 const SITE_URL =
@@ -137,6 +138,7 @@ export default function SupportDreamLayout({
           __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
         }}
       />
+      <CampaignGoalReachedNotice />
       {children}
     </>
   );
