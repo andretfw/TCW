@@ -1,10 +1,10 @@
-import {NextIntlClientProvider} from 'next-intl';
 import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import '../globals.css';
 import Header from './Header';
 import Footer from './Footer';
 import CookieBanner from '@/components/CookieBanner';
+import IntlProvider from '@/components/IntlProvider';
 import {SITE_LOCALES, type SiteLocale} from '@/lib/routes';
 
 function isSupportedLocale(locale: string): locale is SiteLocale {
@@ -81,12 +81,12 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className="bg-white antialiased">
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <IntlProvider locale={locale} messages={messages}>
           <Header locale={locale} />
           <main className="min-h-screen">{children}</main>
           <Footer />
           <CookieBanner />
-        </NextIntlClientProvider>
+        </IntlProvider>
       </body>
     </html>
   );
