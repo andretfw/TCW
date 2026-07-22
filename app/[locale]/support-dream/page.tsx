@@ -24,6 +24,7 @@ type CampaignKey = keyof typeof ACTIVE_DREAM_CAMPAIGNS;
 type Locale = 'en' | 'ro' | 'es';
 
 const PAYPAL_BUTTON_ID = '6JXEDTNATW3PS';
+
 const CRYPTO_ADDRESSES = {
   btc: '3BuBreK55MS2fF9MfzMTXL4cG6GQDot3aD',
   ethKraken: '0x54b9694cebc596d8c712ab225347343e2a7bd7e6',
@@ -69,30 +70,27 @@ const copy = {
         description:
           'After almost 40 years of work and caring for her family, a routine check in March 2026 changed her life with a cancer diagnosis. She dreams of one peaceful weekend away with her husband—to rest, breathe and make a memory beyond cancer.',
         privacy: 'Her name and image are being kept private for now.',
-        statusNote: '',
         image:
-          'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1000&auto=format&fit=crop',
-        imageAlt: 'Peaceful countryside landscape',
+          'https://images.unsplash.com/photo-1771923892298-268417b66dc2?auto=format&fit=crop&q=80&w=1200',
+        imageAlt: 'Older couple walking together on a beach, seen from behind',
       },
       memoriesWithGrandchildren: {
         title: 'Help a Grandmother Make Memories With Her Twin Grandchildren',
         description:
           'Living with stage IV gastric cancer, she is an active grandmother who loves travelling, cooking and being close to family. A few days away with her teenage twin grandchildren would offer a breath beyond hospitals, tests and appointments—and create memories they can carry with them.',
         privacy: 'Her name and image are not published on this campaign.',
-        statusNote: '',
         image:
-          'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1000&auto=format&fit=crop',
-        imageAlt: 'Open landscape at sunset',
+          'https://images.unsplash.com/photo-1606474226448-4aa808468efc?auto=format&fit=crop&q=80&w=1200',
+        imageAlt: 'Grandmother and grandchildren walking together through a forest',
       },
       everydayComfort: {
         title: 'Help Make Everyday Life Gentler During Breast Cancer',
         description:
-          'Breast cancer and increasing pain have made travel and ordinary tasks difficult. Her wish is for practical, non-medical items that bring comfort, independence and small moments of joy at home.',
+          'Breast cancer and increasing pain have made travel and ordinary tasks difficult. Her wish includes an air fryer, books, potted plants, a soft blanket and other practical comforts that can make her days a little lighter at home.',
         privacy: 'At her request, her name, image and full story remain private.',
-        statusNote: 'Her final wish list is being confirmed.',
         image:
-          'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=1000&auto=format&fit=crop',
-        imageAlt: 'Warm and peaceful home interior',
+          'https://images.unsplash.com/photo-1713553680479-5b5949ca780f?auto=format&fit=crop&q=80&w=1200',
+        imageAlt: 'Woman reading beside flowers and houseplants with her face hidden',
       },
     },
   },
@@ -126,30 +124,27 @@ const copy = {
         description:
           'După aproape 40 de ani de muncă și grijă pentru familie, un control de rutină din martie 2026 i-a schimbat viața printr-un diagnostic oncologic. Își dorește un weekend liniștit alături de soțul ei—să se odihnească, să respire și să creeze o amintire dincolo de cancer.',
         privacy: 'Numele și imaginea ei sunt păstrate confidențiale pentru moment.',
-        statusNote: '',
         image:
-          'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1000&auto=format&fit=crop',
-        imageAlt: 'Peisaj liniștit de țară',
+          'https://images.unsplash.com/photo-1771923892298-268417b66dc2?auto=format&fit=crop&q=80&w=1200',
+        imageAlt: 'Cuplu în vârstă mergând împreună pe plajă, văzut din spate',
       },
       memoriesWithGrandchildren: {
         title: 'Ajută o bunică să creeze amintiri cu nepoții ei gemeni',
         description:
           'Trăiește cu neoplasm gastric în stadiul IV, dar rămâne o bunică activă, sociabilă, care iubește călătoriile, gătitul și timpul petrecut cu familia. Câteva zile alături de nepoții ei gemeni adolescenți le-ar oferi o pauză de la spitale, analize și programări—și amintiri care să rămână.',
         privacy: 'Numele și imaginea ei nu sunt publicate în această campanie.',
-        statusNote: '',
         image:
-          'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1000&auto=format&fit=crop',
-        imageAlt: 'Peisaj deschis la apus',
+          'https://images.unsplash.com/photo-1606474226448-4aa808468efc?auto=format&fit=crop&q=80&w=1200',
+        imageAlt: 'Bunică și nepoți mergând împreună prin pădure',
       },
       everydayComfort: {
         title: 'Ajut-o să-și facă viața de zi cu zi mai ușoară în timpul cancerului mamar',
         description:
-          'Cancerul mamar și durerile tot mai mari au făcut călătoriile și activitățile obișnuite dificile. Își dorește obiecte practice, non-medicale, care să-i ofere confort, mai multă independență și mici bucurii acasă.',
+          'Cancerul mamar și durerile tot mai mari au făcut călătoriile și activitățile obișnuite dificile. Își dorește un airfryer, cărți, plante în ghiveci, o pătură moale și alte lucruri practice care să-i facă zilele puțin mai ușoare acasă.',
         privacy: 'La cererea ei, numele, imaginea și povestea completă rămân confidențiale.',
-        statusNote: 'Lista finală a dorințelor este în curs de confirmare.',
         image:
-          'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=1000&auto=format&fit=crop',
-        imageAlt: 'Interior cald și liniștit',
+          'https://images.unsplash.com/photo-1713553680479-5b5949ca780f?auto=format&fit=crop&q=80&w=1200',
+        imageAlt: 'Femeie citind lângă flori și plante, cu chipul ascuns',
       },
     },
   },
@@ -183,30 +178,27 @@ const copy = {
         description:
           'Después de casi 40 años de trabajo y cuidado de su familia, una revisión rutinaria en marzo de 2026 cambió su vida con un diagnóstico de cáncer. Sueña con pasar un fin de semana tranquilo junto a su marido—descansar, respirar y crear un recuerdo más allá del cáncer.',
         privacy: 'Por ahora, su nombre y su imagen se mantienen en privado.',
-        statusNote: '',
         image:
-          'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1000&auto=format&fit=crop',
-        imageAlt: 'Paisaje rural tranquilo',
+          'https://images.unsplash.com/photo-1771923892298-268417b66dc2?auto=format&fit=crop&q=80&w=1200',
+        imageAlt: 'Pareja mayor caminando junta por la playa, vista desde atrás',
       },
       memoriesWithGrandchildren: {
         title: 'Ayuda a una abuela a crear recuerdos con sus nietos gemelos',
         description:
           'Vive con cáncer gástrico en estadio IV, pero sigue siendo una abuela activa y sociable que ama viajar, cocinar y estar cerca de su familia. Unos días con sus nietos gemelos adolescentes les darían un respiro de hospitales, pruebas y citas—y recuerdos duraderos.',
         privacy: 'Su nombre y su imagen no se publican en esta campaña.',
-        statusNote: '',
         image:
-          'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1000&auto=format&fit=crop',
-        imageAlt: 'Paisaje abierto al atardecer',
+          'https://images.unsplash.com/photo-1606474226448-4aa808468efc?auto=format&fit=crop&q=80&w=1200',
+        imageAlt: 'Abuela y nietos caminando juntos por un bosque',
       },
       everydayComfort: {
         title: 'Ayúdala a hacer más llevadera la vida diaria durante el cáncer de mama',
         description:
-          'El cáncer de mama y el dolor creciente han dificultado los viajes y las tareas cotidianas. Su deseo es recibir artículos prácticos y no médicos que le aporten comodidad, independencia y pequeños momentos de alegría en casa.',
+          'El cáncer de mama y el dolor creciente han dificultado los viajes y las tareas cotidianas. Desea una freidora de aire, libros, plantas en maceta, una manta suave y otros artículos prácticos que hagan sus días un poco más llevaderos en casa.',
         privacy: 'A petición suya, su nombre, imagen e historia completa permanecen privados.',
-        statusNote: 'La lista final de deseos está pendiente de confirmación.',
         image:
-          'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=1000&auto=format&fit=crop',
-        imageAlt: 'Interior cálido y tranquilo',
+          'https://images.unsplash.com/photo-1713553680479-5b5949ca780f?auto=format&fit=crop&q=80&w=1200',
+        imageAlt: 'Mujer leyendo junto a flores y plantas con el rostro oculto',
       },
     },
   },
@@ -246,9 +238,12 @@ export default function SupportDreamPage() {
             `/api/campaign-progress?campaignId=${encodeURIComponent(campaign.id)}`,
             {cache: 'no-store'},
           );
+
           if (!response.ok) return;
+
           const result = await response.json();
           const raisedEur = Number(result.raisedEur || 0);
+
           setRaisedByCampaign((current) => ({
             ...current,
             [campaign.id]: Number.isFinite(raisedEur) ? raisedEur : 0,
@@ -268,6 +263,7 @@ export default function SupportDreamPage() {
 
   const cryptoAddress = useMemo(() => {
     if (asset === 'btc') return CRYPTO_ADDRESSES.btc;
+
     return destination === 'metamask'
       ? CRYPTO_ADDRESSES.ethMetamask
       : CRYPTO_ADDRESSES.ethKraken;
@@ -314,22 +310,22 @@ export default function SupportDreamPage() {
   )}`;
 
   return (
-    <section className="pt-32 pb-24 bg-neutral-50 min-h-screen">
+    <section className="min-h-screen bg-neutral-50 pb-24 pt-32">
       <div className="container mx-auto px-4">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-bold mb-5">
-            <Sparkles className="w-4 h-4" />
+        <div className="mx-auto mb-12 max-w-3xl text-center">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-purple-50 px-4 py-2 text-sm font-bold text-purple-600">
+            <Sparkles className="h-4 w-4" />
             <span>Tutti Cancer Warriors</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-5">
+          <h1 className="mb-5 text-4xl font-bold text-neutral-900 md:text-5xl">
             {text.pageTitle}
           </h1>
-          <p className="text-lg text-neutral-600 leading-relaxed">
+          <p className="text-lg leading-relaxed text-neutral-600">
             {text.pageSubtitle}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 max-w-7xl mx-auto items-stretch">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-stretch gap-7 md:grid-cols-2 lg:grid-cols-3">
           {CAMPAIGN_ENTRIES.map(([key, campaign]) => {
             const card = text.campaigns[key];
             const raisedEur = raisedByCampaign[campaign.id] ?? 0;
@@ -341,39 +337,35 @@ export default function SupportDreamPage() {
             return (
               <article
                 key={campaign.id}
-                className="bg-white rounded-3xl overflow-hidden shadow-lg border border-neutral-100 flex flex-col h-full"
+                className="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-100 bg-white shadow-lg"
               >
-                <div className="h-48 overflow-hidden relative">
+                <div className="relative h-52 overflow-hidden">
                   <img
                     src={card.image}
                     alt={card.imageAlt}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
-                  <div className="absolute top-4 right-4 bg-white/95 backdrop-blur px-4 py-2 rounded-full text-sm font-bold text-brand-600 shadow-sm">
+                  <div className="absolute right-4 top-4 rounded-full bg-white/95 px-4 py-2 text-sm font-bold text-brand-600 shadow-sm backdrop-blur">
                     {text.goal}: €{campaign.goalEur}
                   </div>
                 </div>
 
-                <div className="p-5 flex flex-col flex-1">
-                  <h2 className="text-xl font-bold text-neutral-900 mb-3 leading-snug">
+                <div className="flex flex-1 flex-col p-5">
+                  <h2 className="mb-3 text-xl font-bold leading-snug text-neutral-900">
                     {card.title}
                   </h2>
-                  <p className="text-sm text-neutral-600 leading-relaxed mb-2 flex-1">
+                  <p className="mb-3 flex-1 text-sm leading-relaxed text-neutral-600">
                     {card.description}
                   </p>
-                  <p className="text-xs text-neutral-500 mb-2">{card.privacy}</p>
-                  {card.statusNote && (
-                    <p className="text-xs font-semibold text-amber-700 bg-amber-50 rounded-lg px-3 py-2 mb-4">
-                      {card.statusNote}
-                    </p>
-                  )}
+                  <p className="mb-5 text-xs text-neutral-500">{card.privacy}</p>
 
                   <div
-                    className="mb-5 mt-3"
+                    className="mb-5"
                     aria-label={`${raisedEur} euros raised of ${campaign.goalEur}`}
                   >
-                    <div className="flex items-center justify-between gap-3 mb-2 text-xs font-semibold">
+                    <div className="mb-2 flex items-center justify-between gap-3 text-xs font-semibold">
                       <span className="text-brand-600">
                         €{formatEur(raisedEur)} {text.raised}
                       </span>
@@ -381,22 +373,23 @@ export default function SupportDreamPage() {
                         {text.of} €{campaign.goalEur}
                       </span>
                     </div>
-                    <div className="h-2.5 w-full bg-neutral-200 rounded-full overflow-hidden">
+                    <div className="h-2.5 w-full overflow-hidden rounded-full bg-neutral-200">
                       <div
-                        className="h-full bg-gradient-to-r from-brand-600 to-purple-500 rounded-full transition-all duration-500"
+                        className="h-full rounded-full bg-gradient-to-r from-brand-600 to-purple-500 transition-all duration-500"
                         style={{width: `${progress}%`}}
                       />
                     </div>
-                    <div className="text-right text-[11px] text-neutral-500 mt-1.5">
+                    <div className="mt-1.5 text-right text-[11px] text-neutral-500">
                       {progress}%
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2.5">
+                  <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                     <form
                       action="https://www.paypal.com/donate"
                       method="post"
                       target="_blank"
+                      className="w-full"
                     >
                       <input
                         type="hidden"
@@ -416,12 +409,16 @@ export default function SupportDreamPage() {
                         name="notify_url"
                         value="https://tutticancerwarriors.org/api/paypal-ipn"
                       />
-                      <input type="hidden" name="return" value={paypalReturnUrl} />
+                      <input
+                        type="hidden"
+                        name="return"
+                        value={paypalReturnUrl}
+                      />
                       <button
                         type="submit"
-                        className="w-full py-3 px-3 bg-[#FFC439] hover:bg-[#F6B828] text-neutral-900 text-sm font-bold rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2"
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#FFC439] px-3 py-3 text-sm font-bold text-neutral-900 shadow-sm transition-colors hover:bg-[#F6B828]"
                       >
-                        <WalletCards className="w-4 h-4" />
+                        <WalletCards className="h-4 w-4" />
                         {text.paypal}
                       </button>
                     </form>
@@ -434,16 +431,16 @@ export default function SupportDreamPage() {
                         setVerificationMessage('');
                         setTxHash('');
                       }}
-                      className="py-3 px-3 bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold rounded-xl transition-colors shadow-md flex items-center justify-center gap-2"
+                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-3 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-brand-700"
                     >
-                      <Bitcoin className="w-4 h-4" />
+                      <Bitcoin className="h-4 w-4" />
                       {text.crypto}
                     </button>
                   </div>
 
-                  <div className="mt-4 flex items-start justify-center gap-2 text-xs text-neutral-500 text-center">
+                  <div className="mt-4 flex items-start justify-center gap-2 text-center text-xs text-neutral-500">
                     <Heart
-                      className="w-3.5 h-3.5 text-brand-500 shrink-0 mt-0.5"
+                      className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-500"
                       fill="currentColor"
                     />
                     <span>{text.attribution}</span>
@@ -456,33 +453,33 @@ export default function SupportDreamPage() {
       </div>
 
       {selectedCampaign && selectedCampaignText && (
-        <div className="fixed inset-0 z-[100] bg-black/65 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl max-h-[92vh] overflow-y-auto">
-            <div className="p-6 border-b border-neutral-100 flex items-start justify-between gap-4">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/65 p-4 backdrop-blur-sm">
+          <div className="max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-3xl bg-white shadow-2xl">
+            <div className="flex items-start justify-between gap-4 border-b border-neutral-100 p-6">
               <div>
                 <h2 className="text-2xl font-bold text-neutral-900">
                   {text.cryptoTitle}
                 </h2>
-                <p className="text-sm font-semibold text-brand-600 mt-2">
+                <p className="mt-2 text-sm font-semibold text-brand-600">
                   {selectedCampaignText.title}
                 </p>
-                <p className="text-sm text-neutral-600 mt-2 leading-relaxed">
+                <p className="mt-2 text-sm leading-relaxed text-neutral-600">
                   {text.cryptoHelp}
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setSelectedCampaignKey(null)}
-                className="p-2 rounded-full hover:bg-neutral-100 text-neutral-500"
+                className="rounded-full p-2 text-neutral-500 hover:bg-neutral-100"
                 aria-label={text.close}
               >
-                <X className="w-5 h-5" />
+                <X className="h-5 w-5" />
               </button>
             </div>
 
-            <div className="p-6 space-y-5">
+            <div className="space-y-5 p-6">
               <div>
-                <div className="text-sm font-bold text-neutral-700 mb-2">
+                <div className="mb-2 text-sm font-bold text-neutral-700">
                   {text.asset}
                 </div>
                 <div className="grid grid-cols-3 gap-2">
@@ -491,10 +488,10 @@ export default function SupportDreamPage() {
                       key={option}
                       type="button"
                       onClick={() => setAsset(option)}
-                      className={`py-2.5 rounded-xl text-sm font-bold border transition-colors ${
+                      className={`rounded-xl border py-2.5 text-sm font-bold transition-colors ${
                         asset === option
-                          ? 'bg-brand-600 text-white border-brand-600'
-                          : 'bg-white text-neutral-700 border-neutral-200 hover:border-brand-300'
+                          ? 'border-brand-600 bg-brand-600 text-white'
+                          : 'border-neutral-200 bg-white text-neutral-700 hover:border-brand-300'
                       }`}
                     >
                       {option.toUpperCase()}
@@ -505,7 +502,7 @@ export default function SupportDreamPage() {
 
               {asset !== 'btc' && (
                 <div>
-                  <div className="text-sm font-bold text-neutral-700 mb-2">
+                  <div className="mb-2 text-sm font-bold text-neutral-700">
                     {text.destination}
                   </div>
                   <div className="grid grid-cols-2 gap-2">
@@ -514,10 +511,10 @@ export default function SupportDreamPage() {
                         key={option}
                         type="button"
                         onClick={() => setDestination(option)}
-                        className={`py-2.5 rounded-xl text-sm font-bold border transition-colors ${
+                        className={`rounded-xl border py-2.5 text-sm font-bold transition-colors ${
                           destination === option
-                            ? 'bg-neutral-900 text-white border-neutral-900'
-                            : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-400'
+                            ? 'border-neutral-900 bg-neutral-900 text-white'
+                            : 'border-neutral-200 bg-white text-neutral-700 hover:border-neutral-400'
                         }`}
                       >
                         {option === 'kraken' ? text.kraken : text.metamask}
@@ -528,20 +525,20 @@ export default function SupportDreamPage() {
               )}
 
               <div>
-                <div className="text-sm font-bold text-neutral-700 mb-2">
+                <div className="mb-2 text-sm font-bold text-neutral-700">
                   {text.address}
                 </div>
-                <div className="flex items-center gap-2 p-3 bg-neutral-50 border border-neutral-200 rounded-xl">
-                  <code className="text-xs text-neutral-700 break-all flex-1">
+                <div className="flex items-center gap-2 rounded-xl border border-neutral-200 bg-neutral-50 p-3">
+                  <code className="flex-1 break-all text-xs text-neutral-700">
                     {cryptoAddress}
                   </code>
                   <button
                     type="button"
                     onClick={() => navigator.clipboard.writeText(cryptoAddress)}
-                    className="p-2 rounded-lg bg-white border border-neutral-200 hover:bg-neutral-100"
+                    className="rounded-lg border border-neutral-200 bg-white p-2 hover:bg-neutral-100"
                     aria-label={text.copyAddress}
                   >
-                    <Copy className="w-4 h-4" />
+                    <Copy className="h-4 w-4" />
                   </button>
                 </div>
               </div>
@@ -549,7 +546,7 @@ export default function SupportDreamPage() {
               <div>
                 <label
                   htmlFor="txHash"
-                  className="text-sm font-bold text-neutral-700 block mb-2"
+                  className="mb-2 block text-sm font-bold text-neutral-700"
                 >
                   {text.txHash}
                 </label>
@@ -558,20 +555,20 @@ export default function SupportDreamPage() {
                   value={txHash}
                   onChange={(event) => setTxHash(event.target.value)}
                   placeholder="0x… / transaction ID"
-                  className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-brand-300"
+                  className="w-full rounded-xl border border-neutral-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-300"
                 />
               </div>
 
               {verificationMessage && (
                 <div
-                  className={`p-3 rounded-xl text-sm flex items-start gap-2 ${
+                  className={`flex items-start gap-2 rounded-xl p-3 text-sm ${
                     verificationState === 'success'
                       ? 'bg-green-50 text-green-700'
                       : 'bg-red-50 text-red-700'
                   }`}
                 >
                   {verificationState === 'success' && (
-                    <CheckCircle2 className="w-5 h-5 shrink-0" />
+                    <CheckCircle2 className="h-5 w-5 shrink-0" />
                   )}
                   <span>{verificationMessage}</span>
                 </div>
@@ -581,7 +578,7 @@ export default function SupportDreamPage() {
                 type="button"
                 onClick={verifyCrypto}
                 disabled={!txHash.trim() || verificationState === 'loading'}
-                className="w-full py-3.5 px-5 bg-brand-600 hover:bg-brand-700 disabled:bg-neutral-300 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-colors"
+                className="w-full rounded-xl bg-brand-600 px-5 py-3.5 font-bold text-white transition-colors hover:bg-brand-700 disabled:cursor-not-allowed disabled:bg-neutral-300"
               >
                 {verificationState === 'loading' ? text.verifying : text.verify}
               </button>
