@@ -4,43 +4,18 @@ import {locales} from './i18n';
 export default createMiddleware({
   locales,
   defaultLocale: 'es',
-  localePrefix: 'always', // Forzamos el prefijo para evitar las discrepancias de Andrea
-  
+  localePrefix: 'always',
   pathnames: {
     '/': '/',
-    
-    // Páginas principales
-    '/donar': {
-      es: '/donar',
-      en: '/donate',
-      ro: '/doneaza'
-    },
-    '/involucrate': {
-      es: '/involucrate',
-      en: '/get-involved', // Punto 4 y 5 de Andrea
-      ro: '/implica-te'
-    },
     '/team': {
       es: '/equipo',
       en: '/team',
       ro: '/echipa'
     },
-    '/warriors': {
-      es: '/guerreros',
-      en: '/warriors',
-      ro: '/razboinici'
-    },
-
-    // Páginas de Salud y Bienestar (Captura 1)
-    '/bienestar-emocional': {
-      es: '/bienestar-emocional',
-      en: '/emotional-wellbeing',
-      ro: '/bunastare-emotionala'
-    },
-    '/calendario-cancer': {
-      es: '/calendario-cancer',
-      en: '/cancer-calendar',
-      ro: '/calendar-cancer'
+    '/sobre-cancer': {
+      es: '/sobre-cancer',
+      en: '/about-cancer',
+      ro: '/despre-cancer'
     },
     '/entender-diagnostico': {
       es: '/entender-diagnostico',
@@ -50,36 +25,82 @@ export default createMiddleware({
     '/preguntas-doctor': {
       es: '/preguntas-doctor',
       en: '/questions-for-doctor',
-      ro: '/intrebari-pentru-doctor'
+      ro: '/intrebari-pentru-medic'
     },
-    '/sobre-cancer': {
-      es: '/sobre-cancer',
-      en: '/about-cancer',
-      ro: '/despre-cancer'
+    '/bienestar-emocional': {
+      es: '/bienestar-emocional',
+      en: '/emotional-wellbeing',
+      ro: '/bunastare-emotionala'
     },
-
-    // Eventos y Dream (Captura 2)
-    '/events/pilates-event': {
-      es: '/eventos/evento-pilates', // Punto 7 de Andrea
-      en: '/events/pilates-event',
-      ro: '/evenimente/eveniment-pilates'
+    '/calendario-cancer': {
+      es: '/calendario-cancer',
+      en: '/cancer-awareness-calendar',
+      ro: '/calendar-oncologic'
+    },
+    '/involucrate': {
+      es: '/involucrate',
+      en: '/get-involved',
+      ro: '/implica-te'
+    },
+    '/donar': {
+      es: '/donar',
+      en: '/donate',
+      ro: '/doneaza'
+    },
+    '/voluntarios': {
+      es: '/voluntarios',
+      en: '/volunteers',
+      ro: '/voluntari'
+    },
+    '/peer-support': {
+      es: '/apoyo-entre-pares',
+      en: '/peer-support',
+      ro: '/sprijin-intre-pacienti'
     },
     '/support-dream': {
       es: '/apoya-un-sueno',
       en: '/support-a-dream',
       ro: '/sustine-un-vis'
     },
+    '/warriors': {
+      es: '/guerreros',
+      en: '/warriors',
+      ro: '/luptatori'
+    },
+    '/connect-survivor': {
+      es: '/conecta-con-un-superviviente',
+      en: '/connect-with-a-survivor',
+      ro: '/conecteaza-te-cu-un-supravietuitor'
+    },
     '/dream-application': {
       es: '/solicitud-sueno',
-      en: '/dream-application',
-      ro: '/cerere-vis'
+      en: '/dream-support-application',
+      ro: '/cerere-sprijin-vis'
     },
-
-    // Políticas y Legal
-    '/peer-policy': {
-      es: '/politica-companeros',
-      en: '/peer-policy', // La que Andrea dice que desapareció
-      ro: '/politica-pe-pair'
+    '/share-journey': {
+      es: '/comparte-tu-historia',
+      en: '/share-your-journey',
+      ro: '/impartaseste-ti-povestea'
+    },
+    '/warrior-mood-boost': {
+      es: '/animo-para-guerreros',
+      en: '/warrior-mood-boost',
+      ro: '/doza-de-incurajare'
+    },
+    '/mens-health-week': {
+      es: '/semana-salud-masculina',
+      en: '/mens-health-week',
+      ro: '/saptamana-sanatatii-barbatilor'
+    },
+    '/world-kidney-cancer-day': {
+      es: '/dia-mundial-cancer-rinon',
+      en: '/world-kidney-cancer-day',
+      ro: '/ziua-mondiala-cancer-renal'
+    },
+    '/events/pilates-event': {
+      es: '/eventos/evento-pilates',
+      en: '/events/pilates-event',
+      ro: '/evenimente/eveniment-pilates'
     },
     '/privacy': {
       es: '/privacidad',
@@ -91,27 +112,19 @@ export default createMiddleware({
       en: '/terms',
       ro: '/termeni'
     },
+    '/peer-policy': {
+      es: '/politica-apoyo-entre-pares',
+      en: '/peer-support-policy',
+      ro: '/politica-sprijin-intre-pacienti'
+    },
     '/financials': {
-      es: '/transparencia', // Punto 1 del textato viejo
+      es: '/transparencia',
       en: '/financials',
-      ro: '/financiare'
-    },
-
-    // Otros
-    '/connect-survivor': {
-      es: '/conecta-con-superviviente',
-      en: '/connect-with-a-survivor',
-      ro: '/conecteaza-te-cu-un-supravietuitor'
-    },
-    '/voluntarios': {
-      es: '/voluntarios',
-      en: '/volunteers',
-      ro: '/voluntari'
+      ro: '/transparenta-financiara'
     }
   }
 });
 
 export const config = {
-  // Matcher optimizado para ignorar estáticos y coger todas tus rutas
   matcher: ['/', '/(es|en|ro)/:path*', '/((?!_next|_vercel|.*\\..*).*)']
 };
