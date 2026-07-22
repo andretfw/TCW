@@ -10,7 +10,7 @@ import {
   Sun, User, Wind, Zap,
 } from 'lucide-react';
 import { getCancerData } from '@/lib/cancer-data';
-import { localizedPath } from '@/lib/routes';
+import { cancerIdFromSlug, localizedPath } from '@/lib/routes';
 
 const iconMap: Record<string, any> = {
   ribbon: Gem,
@@ -47,19 +47,12 @@ const iconMap: Record<string, any> = {
   'mic-2': Mic2,
 };
 
-const validIds = [
-  'breast', 'lung', 'colorectal', 'prostate', 'skin', 'kidney', 'leukemia', 'liver',
-  'pancreatic', 'ovarian', 'childhood', 'brain', 'bladder', 'cervical', 'stomach',
-  'testicular', 'thyroid', 'uterine', 'lymphoma', 'myeloma', 'esophageal', 'head-neck',
-  'bone', 'sarcoma', 'gallbladder', 'bile-duct', 'anal', 'penile', 'vaginal', 'vulvar',
-  'eye', 'oral', 'throat', 'small-intestine', 'thymus',
-];
-
 export default function CancerDetailPage({ params }: { params: { id: string; locale: string } }) {
-  if (!validIds.includes(params.id)) notFound();
+  const cancerId = cancerIdFromSlug(params.locale, params.id);
+  if (!cancerId) notFound();
 
-  const cancerData = getCancerData(params.id);
-  const t = useTranslations(`cancerDetails.${params.id}`);
+  const cancerData = getCancerData(cancerId);
+  const t = useTranslations(`cancerDetails.${cancerId}`);
   const tCommon = useTranslations('common');
 
   if (!cancerData) notFound();
@@ -70,7 +63,7 @@ export default function CancerDetailPage({ params }: { params: { id: string; loc
   return (
     <div className="min-h-screen bg-brand-50 pb-20">
       <div className="relative h-[50vh] w-full overflow-hidden md:h-[60vh]">
-        <Image src={cancerData.image} alt={params.id} fill className="object-cover" priority />
+        <Image src={cancerData.image} alt={cancerId} fill className="object-cover" priority />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-brand-900/50 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full p-6 text-white md:p-16">
           <div className="container mx-auto">
@@ -84,7 +77,7 @@ export default function CancerDetailPage({ params }: { params: { id: string; loc
             <div className="flex animate-fade-in-up items-end gap-4">
               <HeroIcon className="mb-1 hidden h-12 w-12 text-brand-300 sm:block md:h-16 md:w-16" />
               <h1 className="text-3xl font-bold capitalize leading-tight sm:text-4xl md:text-6xl">
-                {t('title') === `cancerDetails.${params.id}.title` ? params.id.replace('-', ' ') : t('title')}
+                {t('title') === `cancerDetails.${cancerId}.title` ? cancerId.replace('-', ' ') : t('title')}
               </h1>
             </div>
             <div className="mt-4 max-w-2xl animate-fade-in-up text-lg leading-relaxed text-brand-100 delay-100 md:text-2xl">
