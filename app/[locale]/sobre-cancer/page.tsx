@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Activity, ArrowRight } from 'lucide-react';
-import { localizedPath } from '@/lib/routes';
+import { localizedCancerPath } from '@/lib/routes';
 
 export default function CancerTypesPage({ params: { locale } }: { params: { locale: string } }) {
   const t = useTranslations('aboutCancerPage');
@@ -56,7 +56,6 @@ export default function CancerTypesPage({ params: { locale } }: { params: { loca
   ];
 
   const defaultImage = 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800';
-  const cancerLibraryPath = localizedPath(locale, 'aboutCancer');
 
   return (
     <div className="min-h-screen bg-neutral-50 pb-20 pt-24">
@@ -73,7 +72,7 @@ export default function CancerTypesPage({ params: { locale } }: { params: { loca
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {cancerIds.map((id) => (
             <Link
-              href={`${cancerLibraryPath}/${id}`}
+              href={localizedCancerPath(locale, id)}
               key={id}
               className="group flex flex-col overflow-hidden rounded-2xl border border-neutral-100 bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
