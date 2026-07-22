@@ -9,22 +9,39 @@ const ETH_METAMASK_ADDRESS = '0x66e4cfe637e73a4c5f34fdf6539c849c3366a0ab';
 const BTC_ADDRESS = '3BuBreK55MS2fF9MfzMTXL4cG6GQDot3aD';
 const TRANSFER_TOPIC =
   '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
+const EVM_TRANSACTION_HASH_PATTERN = /^0x[a-fA-F0-9]{64}$/;
 
 type EvmNetwork = 'ethereum' | 'base';
 type EvmAsset = 'eth' | 'usdc';
 type Destination = 'kraken' | 'metamask';
 
+function uniqueRpcUrls(...urls: Array<string | undefined>) {
+  return Array.from(
+    new Set(
+      urls
+        .map((url) => url?.trim())
+        .filter((url): url is string => Boolean(url)),
+    ),
+  );
+}
+
 const EVM_NETWORKS: Record<
   EvmNetwork,
-  {rpcUrl: string; usdcContract: string; label: string}
+  {rpcUrls: string[]; usdcContract: string; label: string}
 > = {
   ethereum: {
-    rpcUrl: process.env.ETH_RPC_URL || 'https://cloudflare-eth.com',
+    rpcUrls: uniqueRpcUrls(
+      process.env.ETH_RPC_URL,
+      'https://ethereum-rpc.publicnode.com',
+    ),
     usdcContract: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
     label: 'Ethereum',
   },
   base: {
-    rpcUrl: process.env.BASE_RPC_URL || 'https://mainnet.base.org',
+    rpcUrls: uniqueRpcUrls(
+      process.env.BASE_RPC_URL,
+      'https://mainnet.base.org',
+    ),
     usdcContract: '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913',
     label: 'Base',
   },
@@ -35,25 +52,34 @@ async function evmRpc(
   method: string,
   params: unknown[],
 ) {
-  const response = await fetch(EVM_NETWORKS[network].rpcUrl, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({jsonrpc: '2.0', id: 1, method, params}),
-    cache: 'no-store',
-  });
+  const networkConfig = EVM_NETWORKS[network];
+  let receivedValidResponse = false;
 
-  if (!response.ok) {
-    throw new Error(`${EVM_NETWORKS[network].label} RPC request failed.`);
+  for (const rpcUrl of networkConfig.rpcUrls) {
+    try {
+      const response = await fetch(rpcUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({jsonrpc: '2.0', id: 1, method, params}),
+        cache: 'no-store',
+      });
+
+      if (!response.ok) continue;
+
+      const payload = await response.json();
+      if (payload.error) continue;
+
+      receivedValidResponse = true;
+      if (payload.result !== null && payload.result !== undefined) {
+        return payload.result;
+      }
+    } catch {
+      // Try the next configured provider before failing the verification.
+    }
   }
 
-  const payload = await response.json();
-  if (payload.error) {
-    throw new Error(
-      payload.error.message || `${EVM_NETWORKS[network].label} RPC error.`,
-    );
-  }
-
-  return payload.result;
+  if (receivedValidResponse) return null;
+  throw new Error(`${networkConfig.label} RPC request failed.`);
 }
 
 async function getKrakenEurRate(asset: 'btc' | 'eth' | 'usdc') {
@@ -239,6 +265,12 @@ export async function POST(request: NextRequest) {
         {status: 400},
       );
     }
+    if (asset !== 'btc' && !EVM_TRANSACTION_HASH_PATTERN.test(txHash)) {
+      return NextResponse.json(
+        {error: 'Enter a valid Ethereum transaction hash.'},
+        {status: 400},
+      );
+    }
 
     const campaign = getCampaignById(campaignId);
     const typedAsset = asset as 'btc' | 'eth' | 'usdc';
@@ -251,7 +283,7 @@ export async function POST(request: NextRequest) {
       network = 'bitcoin';
     } else {
       const verified = await verifyOnSelectedOrDetectedNetwork(
-        txHash,
+        txHash.toLowerCase(),
         typedAsset,
         destination,
         campaign.startedAt,
