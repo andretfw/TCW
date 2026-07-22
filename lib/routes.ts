@@ -30,7 +30,7 @@ export type RouteKey =
 const ROUTES: Record<SiteLocale, Record<RouteKey, string>> = {
   es: {
     home: '',
-    team: 'team',
+    team: 'equipo',
     aboutCancer: 'sobre-cancer',
     understandingDiagnosis: 'entender-diagnostico',
     questionsForDoctor: 'preguntas-doctor',
@@ -40,18 +40,18 @@ const ROUTES: Record<SiteLocale, Record<RouteKey, string>> = {
     donate: 'donar',
     volunteers: 'voluntarios',
     peerSupport: 'peer-support',
-    warriors: 'warriors',
-    connectSurvivor: 'connect-survivor',
-    dreamApplication: 'dream-application',
+    warriors: 'guerreros',
+    connectSurvivor: 'conecta-con-superviviente',
+    dreamApplication: 'solicitud-sueno',
     shareJourney: 'share-journey',
     moodBoost: 'warrior-mood-boost',
     mensHealth: 'mens-health-week',
     kidneyCancer: 'world-kidney-cancer-day',
-    pilates: 'events/pilates-event',
-    privacy: 'privacy',
-    terms: 'terms',
-    peerPolicy: 'peer-policy',
-    financials: 'financials',
+    pilates: 'eventos/evento-pilates',
+    privacy: 'privacidad',
+    terms: 'terminos',
+    peerPolicy: 'politica-companeros',
+    financials: 'transparencia',
   },
   en: {
     home: '',
@@ -60,13 +60,13 @@ const ROUTES: Record<SiteLocale, Record<RouteKey, string>> = {
     understandingDiagnosis: 'understanding-diagnosis',
     questionsForDoctor: 'questions-for-doctor',
     emotionalWellBeing: 'emotional-wellbeing',
-    awarenessCalendar: 'cancer-awareness-calendar',
+    awarenessCalendar: 'cancer-calendar',
     getInvolved: 'get-involved',
     donate: 'donate',
     volunteers: 'volunteers',
     peerSupport: 'peer-support',
     warriors: 'warriors',
-    connectSurvivor: 'connect-survivor',
+    connectSurvivor: 'connect-with-a-survivor',
     dreamApplication: 'dream-application',
     shareJourney: 'share-journey',
     moodBoost: 'warrior-mood-boost',
@@ -80,28 +80,28 @@ const ROUTES: Record<SiteLocale, Record<RouteKey, string>> = {
   },
   ro: {
     home: '',
-    team: 'team',
+    team: 'echipa',
     aboutCancer: 'despre-cancer',
     understandingDiagnosis: 'intelegerea-diagnosticului',
-    questionsForDoctor: 'intrebari-pentru-medic',
+    questionsForDoctor: 'intrebari-pentru-doctor',
     emotionalWellBeing: 'bunastare-emotionala',
-    awarenessCalendar: 'calendar-oncologic',
+    awarenessCalendar: 'calendar-cancer',
     getInvolved: 'implica-te',
     donate: 'doneaza',
     volunteers: 'voluntari',
     peerSupport: 'peer-support',
-    warriors: 'warriors',
-    connectSurvivor: 'connect-survivor',
-    dreamApplication: 'dream-application',
+    warriors: 'razboinici',
+    connectSurvivor: 'conecteaza-te-cu-un-supravietuitor',
+    dreamApplication: 'cerere-vis',
     shareJourney: 'share-journey',
     moodBoost: 'warrior-mood-boost',
     mensHealth: 'mens-health-week',
     kidneyCancer: 'world-kidney-cancer-day',
-    pilates: 'events/pilates-event',
-    privacy: 'privacy',
-    terms: 'terms',
-    peerPolicy: 'peer-policy',
-    financials: 'financials',
+    pilates: 'evenimente/eveniment-pilates',
+    privacy: 'confidentialitate',
+    terms: 'termeni',
+    peerPolicy: 'politica-pe-pair',
+    financials: 'financiare',
   },
 };
 
@@ -112,10 +112,7 @@ export function normalizeLocale(locale: string): SiteLocale {
 export function localizedPath(localeInput: string, route: RouteKey): string {
   const locale = normalizeLocale(localeInput);
   const slug = ROUTES[locale][route];
-  const prefix = locale === 'es' ? '' : `/${locale}`;
-
-  if (!slug) return prefix || '/';
-  return `${prefix}/${slug}`;
+  return slug ? `/${locale}/${slug}` : `/${locale}`;
 }
 
 export function switchLocalePath(pathname: string, newLocaleInput: string): string {
@@ -132,8 +129,5 @@ export function switchLocalePath(pathname: string, newLocaleInput: string): stri
     (key) => SITE_LOCALES.some((locale) => ROUTES[locale][key] === currentSlug),
   );
 
-  if (currentRoute) return localizedPath(newLocale, currentRoute);
-
-  const prefix = newLocale === 'es' ? '' : `/${newLocale}`;
-  return currentSlug ? `${prefix}/${currentSlug}` : prefix || '/';
+  return currentRoute ? localizedPath(newLocale, currentRoute) : `/${newLocale}${currentSlug ? `/${currentSlug}` : ''}`;
 }
