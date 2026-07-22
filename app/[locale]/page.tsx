@@ -3,11 +3,11 @@ import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import { Heart, Target, TrendingUp, ArrowRight, Sparkles, Quote } from 'lucide-react';
 import { IMPACT } from '@/lib/impact';
+import { localizedPath } from '@/lib/routes';
 
 export default function HomePage() {
   const t = useTranslations();
   const locale = useLocale();
-  const prefix = locale === 'es' ? '' : `/${locale}`;
 
   const warriors = [
     {
@@ -63,14 +63,14 @@ export default function HomePage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href={`${prefix}/donar`}
+              href={localizedPath(locale, 'donate')}
               className="group px-8 py-4 bg-brand-600 text-white font-semibold rounded-full shadow-2xl hover:bg-brand-700 hover:shadow-brand-300/50 hover:scale-110 transition-all flex items-center justify-center gap-2"
             >
               <Heart className="w-5 h-5" fill="currentColor" />
               {t('hero.ctaDonate')}
             </Link>
             <Link
-              href={`${prefix}/warriors`}
+              href={localizedPath(locale, 'warriors')}
               className="px-8 py-4 bg-white/20 backdrop-blur-md text-white font-semibold rounded-full shadow-2xl hover:bg-white/30 border-2 border-white/40 hover:border-white/60 hover:scale-105 transition-all flex items-center justify-center gap-2"
             >
               {t('hero.ctaStories')}
@@ -158,7 +158,7 @@ export default function HomePage() {
 
           <div className="text-center">
             <Link
-              href={`${prefix}/warriors`}
+              href={localizedPath(locale, 'warriors')}
               className="inline-flex items-center gap-2 px-8 py-4 bg-brand-600 text-white font-semibold rounded-full hover:bg-brand-700 hover:shadow-lg transition-all"
             >
               {t('stories.readMore')}
@@ -188,7 +188,7 @@ export default function HomePage() {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">{t('finalCta.title')} 💜</h2>
           <p className="text-xl text-white/90 max-w-2xl mx-auto mb-10 leading-relaxed">{t('finalCta.subtitle')}</p>
           <Link
-            href={`${prefix}/donar`}
+            href={localizedPath(locale, 'donate')}
             className="inline-flex items-center gap-2 px-10 py-5 bg-white text-brand-600 font-bold rounded-full shadow-2xl hover:shadow-white/30 hover:scale-105 transition-all"
           >
             {t('finalCta.button')}
