@@ -18,10 +18,6 @@ export function getSupabaseAdmin() {
         fetch(input, {
           ...init,
           cache: 'no-store',
-          headers: {
-            ...init?.headers,
-            'Cache-Control': 'no-cache',
-          },
         }),
     },
   });
