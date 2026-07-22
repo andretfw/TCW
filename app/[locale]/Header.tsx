@@ -1,23 +1,32 @@
 'use client';
-import Link from 'next/link';
+
 import Image from 'next/image';
-import { useState, useEffect, useRef } from 'react';
-import { Menu, X, Globe, ChevronDown, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
+import { ChevronDown, ExternalLink, Globe, Menu, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRouter, usePathname } from 'next/navigation';
+import { localizedPath, switchLocalePath } from '@/lib/routes';
+
+type MenuLink = {
+  href: string;
+  label: string;
+  external?: boolean;
+};
+
+type MenuItem =
+  | { href: string; label: string; dropdown?: never }
+  | { label: string; dropdown: MenuLink[]; href?: never };
 
 export default function Header({ locale }: { locale: string }) {
-  const t = useTranslations('nav'); // Usamos las traducciones del bloque "nav"
+  const t = useTranslations('nav');
   const router = useRouter();
   const pathname = usePathname();
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const prefix = locale === 'es' ? '' : `/${locale}`;
-
-  const isHomepage = pathname === '/' || pathname === '/es' || pathname === '/en' || pathname === '/ro';
 
   const languages = [
     { code: 'es', name: 'Español', flag: '🇪🇸' },
@@ -25,24 +34,54 @@ export default function Header({ locale }: { locale: string }) {
     { code: 'ro', name: 'Română', flag: '🇷🇴' },
   ];
 
-  const currentLang = languages.find(lang => lang.code === locale) || languages[0];
+  const currentLang = languages.find((language) => language.code === locale) ?? languages[0];
+  const isHomepage = ['/es', '/en', '/ro', '/'].includes(pathname);
 
-  // ✅ LÓGICA DE CAMBIO DE IDIOMA (MANTENIDA)
-  const switchLanguage = (newLocale: string) => {
-    const segments = pathname.split('/');
-    if (['es', 'en', 'ro'].includes(segments[1])) {
-      segments.splice(1, 1);
-    }
-    const pathWithoutLocale = segments.join('/') || '/';
-    const newPath = newLocale === 'es' 
-      ? pathWithoutLocale 
-      : `/${newLocale}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`;
-
-    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
-    router.push(newPath);
-    router.refresh();
-    setIsLangOpen(false);
-  };
+  const menuItems: MenuItem[] = [
+    { href: localizedPath(locale, 'home'), label: t('home') },
+    { href: localizedPath(locale, 'team'), label: t('team') },
+    {
+      label: t('aboutCancer'),
+      dropdown: [
+        { href: localizedPath(locale, 'aboutCancer'), label: t('learnAboutCancer') },
+        { href: localizedPath(locale, 'understandingDiagnosis'), label: t('understandingDiagnosis') },
+        { href: localizedPath(locale, 'questionsForDoctor'), label: t('questionsForDoctor') },
+        { href: localizedPath(locale, 'emotionalWellBeing'), label: t('emotionalWellBeing') },
+        { href: localizedPath(locale, 'awarenessCalendar'), label: t('awarenessCalendar') },
+      ],
+    },
+    {
+      label: t('getInvolved'),
+      dropdown: [
+        { href: localizedPath(locale, 'getInvolved'), label: t('getInvolved') },
+        { href: localizedPath(locale, 'donate'), label: t('donate') },
+        { href: localizedPath(locale, 'volunteers'), label: t('volunteer') },
+        { href: localizedPath(locale, 'peerSupport'), label: t('peerSupport') },
+        {
+          href: 'https://paragraph.com/@tutticancerwarriors',
+          label: t('newsletter'),
+          external: true,
+        },
+      ],
+    },
+    {
+      label: t('warriorsHub'),
+      dropdown: [
+        { href: localizedPath(locale, 'connectSurvivor'), label: t('connectSurvivor') },
+        { href: localizedPath(locale, 'dreamApplication'), label: t('dreamApplication') },
+        { href: localizedPath(locale, 'shareJourney'), label: t('shareJourney') },
+        { href: localizedPath(locale, 'moodBoost'), label: t('moodBoost') },
+      ],
+    },
+    {
+      label: t('events'),
+      dropdown: [
+        { href: localizedPath(locale, 'mensHealth'), label: t('mensHealth') },
+        { href: localizedPath(locale, 'kidneyCancer'), label: t('kidneyCancer') },
+        { href: localizedPath(locale, 'pilates'), label: t('pilates') },
+      ],
+    },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -56,183 +95,139 @@ export default function Header({ locale }: { locale: string }) {
         setOpenDropdown(null);
       }
     };
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-// ✅ MENÚ TRADUCIDO AL 100%
-  // Ahora usamos t('clave') en lugar de texto en inglés
-  const menuItems = [
-    { href: `${prefix}/`, label: t('home'), dropdown: null },
-    { href: `${prefix}/team`, label: t('team'), dropdown: null }, // ✨ ¡AQUÍ ESTÁ NUESTRO BOTÓN DE TEAM! ✨
-    {
-      label: t('aboutCancer'),
-      dropdown: [
-        { href: `${prefix}/sobre-cancer`, label: t('learnAboutCancer') },
-        { href: `${prefix}/entender-diagnostico`, label: t('understandingDiagnosis') },
-        { href: `${prefix}/preguntas-doctor`, label: t('questionsForDoctor') },
-        { href: `${prefix}/bienestar-emocional`, label: t('emotionalWellBeing') },
-        { href: `${prefix}/calendario-cancer`, label: t('awarenessCalendar') },
-      ]
-    },
-    
-    {
-      label: t('getInvolved'), // Traducido
-      dropdown: [
-        { href: `${prefix}/involucrate`, label: t('getInvolved') },
-        { href: `${prefix}/donar`, label: t('donate') },
-        { href: `${prefix}/voluntarios`, label: t('volunteer') },
-        { href: `${prefix}/peer-support`, label: t('peerSupport') },
-        // { href: `${prefix}/support-dream`, label: t('supportDream') }, //
-        { 
-          href: 'https://paragraph.com/@tutticancerwarriors', 
-          label: t('newsletter'), 
-          external: true 
-        },
-      ]
-    },
-    {
-      label: t('warriorsHub'), // Traducido
-      dropdown: [
-        { href: `${prefix}/connect-survivor`, label: t('connectSurvivor') },
-        { href: `${prefix}/dream-application`, label: t('dreamApplication') },
-        { href: `${prefix}/share-journey`, label: t('shareJourney') },
-        { href: `${prefix}/warrior-mood-boost`, label: t('moodBoost') },
-      ]
-    },
-    {
-      label: t('events'), // Traducido
-      dropdown: [
-        { href: `${prefix}/mens-health-week`, label: t('mensHealth') },
-        { href: `${prefix}/world-kidney-cancer-day`, label: t('kidneyCancer') },
-        { href: `${prefix}/events/pilates-event`, label: t('pilates') },
-      ]
-    },
-  ];
-
-  const toggleDropdown = (label: string) => {
-    setOpenDropdown(openDropdown === label ? null : label);
+  const changeLanguage = (newLocale: string) => {
+    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+    router.push(switchLocalePath(pathname, newLocale));
+    router.refresh();
+    setIsLangOpen(false);
+    setIsMobileMenuOpen(false);
   };
 
+  const closeMenus = () => {
+    setOpenDropdown(null);
+    setIsMobileMenuOpen(false);
+  };
+
+  const navTextClass = isScrolled || !isHomepage
+    ? 'text-neutral-700 hover:text-brand-600'
+    : 'text-white hover:text-brand-200 drop-shadow-md';
+
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      isScrolled 
-        ? 'bg-white shadow-lg' 
-        : isHomepage 
-          ? 'bg-transparent' 
-          : 'bg-white/95 backdrop-blur-sm shadow-md'
-    }`}>
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? 'bg-white shadow-lg'
+          : isHomepage
+            ? 'bg-transparent'
+            : 'bg-white/95 shadow-md backdrop-blur-sm'
+      }`}
+    >
       <div className="container mx-auto px-4">
-        <div className={`flex items-center justify-between transition-all duration-500 ${
-          isScrolled ? 'h-24' : 'h-36'
-        }`}>
-          
-          <Link href={`${prefix}/`} className="flex items-center">
-            <Image 
-              src="/TCW_LOGO.png" 
-              alt="Tutti Cancer Warriors" 
+        <div className={`flex items-center justify-between transition-all duration-500 ${isScrolled ? 'h-24' : 'h-36'}`}>
+          <Link href={localizedPath(locale, 'home')} className="flex items-center" onClick={closeMenus}>
+            <Image
+              src="/TCW_LOGO.png"
+              alt="Tutti Cancer Warriors"
               width={isScrolled ? 280 : 380}
               height={isScrolled ? 84 : 114}
-              className="transition-all duration-500 w-auto"
+              className="w-auto transition-all duration-500"
               priority
             />
           </Link>
-          
-          <nav className="hidden md:flex items-center gap-6" ref={dropdownRef}>
-            {menuItems.map((item, idx) => (
-              item.dropdown ? (
-                <div key={idx} className="relative">
-                  <button 
-                    onClick={() => toggleDropdown(item.label)}
-                    className={`flex items-center gap-1 font-medium transition-colors py-2 ${
-                      isScrolled || !isHomepage
-                        ? 'text-neutral-700 hover:text-brand-600'
-                        : 'text-white hover:text-brand-200 drop-shadow-md'
-                    }`}
+
+          <nav className="hidden items-center gap-6 md:flex" ref={dropdownRef}>
+            {menuItems.map((item) => {
+              if (!item.dropdown) {
+                return (
+                  <Link key={item.label} href={item.href} className={`font-medium transition-colors ${navTextClass}`}>
+                    {item.label}
+                  </Link>
+                );
+              }
+
+              const isOpen = openDropdown === item.label;
+              return (
+                <div key={item.label} className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setOpenDropdown(isOpen ? null : item.label)}
+                    className={`flex items-center gap-1 py-2 font-medium transition-colors ${navTextClass}`}
                   >
                     {item.label}
-                    <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${
-                      openDropdown === item.label ? 'rotate-180' : ''
-                    }`} />
+                    <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                   </button>
-                  
-                  <div className={`absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-neutral-100 overflow-hidden transition-all duration-300 origin-top ${
-                    openDropdown === item.label 
-                      ? 'opacity-100 scale-y-100 translate-y-0' 
-                      : 'opacity-0 scale-y-0 -translate-y-2 pointer-events-none'
-                  }`}>
+
+                  <div
+                    className={`absolute left-0 top-full mt-2 w-64 origin-top overflow-hidden rounded-xl border border-neutral-100 bg-white shadow-xl transition-all duration-200 ${
+                      isOpen
+                        ? 'translate-y-0 scale-y-100 opacity-100'
+                        : 'pointer-events-none -translate-y-2 scale-y-0 opacity-0'
+                    }`}
+                  >
                     <div className="py-2">
-                      {item.dropdown.map((subItem, subIdx) => (
+                      {item.dropdown.map((subItem) =>
                         subItem.external ? (
                           <a
-                            key={subIdx}
+                            key={subItem.href}
                             href={subItem.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="block px-4 py-3 text-neutral-700 hover:bg-brand-50 hover:text-brand-600 transition-all hover:pl-6 flex items-center justify-between"
+                            className="flex items-center justify-between px-4 py-3 text-neutral-700 transition-all hover:bg-brand-50 hover:pl-6 hover:text-brand-600"
                             onClick={() => setOpenDropdown(null)}
                           >
                             {subItem.label}
-                            <ExternalLink className="w-3 h-3 opacity-50" />
+                            <ExternalLink className="h-3 w-3 opacity-50" />
                           </a>
                         ) : (
                           <Link
-                            key={subIdx}
+                            key={subItem.href}
                             href={subItem.href}
-                            className="block px-4 py-3 text-neutral-700 hover:bg-brand-50 hover:text-brand-600 transition-all hover:pl-6"
+                            className="block px-4 py-3 text-neutral-700 transition-all hover:bg-brand-50 hover:pl-6 hover:text-brand-600"
                             onClick={() => setOpenDropdown(null)}
                           >
                             {subItem.label}
                           </Link>
-                        )
-                      ))}
+                        ),
+                      )}
                     </div>
                   </div>
                 </div>
-              ) : (
-                <Link
-                  key={idx}
-                  href={item.href!}
-                  className={`font-medium transition-colors ${
-                    isScrolled || !isHomepage
-                      ? 'text-neutral-700 hover:text-brand-600'
-                      : 'text-white hover:text-brand-200 drop-shadow-md'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              )
-            ))}
+              );
+            })}
           </nav>
 
-          {/* Right side (Idioma y Donar) */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden items-center gap-4 md:flex">
             <div className="relative">
               <button
-                onClick={() => setIsLangOpen(!isLangOpen)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-                  isScrolled || !isHomepage
-                    ? 'hover:bg-neutral-100'
-                    : 'hover:bg-white/20 backdrop-blur-sm'
+                type="button"
+                onClick={() => setIsLangOpen((open) => !open)}
+                className={`flex items-center gap-2 rounded-lg px-4 py-2 transition-colors ${
+                  isScrolled || !isHomepage ? 'hover:bg-neutral-100' : 'bg-white/10 hover:bg-white/20'
                 }`}
+                aria-label="Change language"
               >
-                <Globe className={`w-5 h-5 ${
-                  isScrolled || !isHomepage ? 'text-neutral-600' : 'text-white'
-                }`} />
+                <Globe className={`h-5 w-5 ${isScrolled || !isHomepage ? 'text-neutral-600' : 'text-white'}`} />
                 <span className="text-xl">{currentLang.flag}</span>
               </button>
+
               {isLangOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl py-2 z-50 border border-neutral-100 animate-fadeIn">
-                  {languages.map((lang) => (
+                <div className="absolute right-0 z-50 mt-2 w-48 rounded-xl border border-neutral-100 bg-white py-2 shadow-xl">
+                  {languages.map((language) => (
                     <button
-                      key={lang.code}
-                      onClick={() => switchLanguage(lang.code)}
-                      className={`w-full px-4 py-3 text-left hover:bg-brand-50 flex items-center gap-3 transition-all ${
-                        lang.code === locale ? 'bg-brand-50' : ''
+                      type="button"
+                      key={language.code}
+                      onClick={() => changeLanguage(language.code)}
+                      className={`flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-brand-50 ${
+                        language.code === locale ? 'bg-brand-50' : ''
                       }`}
                     >
-                      <span className="text-2xl">{lang.flag}</span>
-                      <span className="font-medium text-neutral-700">{lang.name}</span>
+                      <span className="text-2xl">{language.flag}</span>
+                      <span className="font-medium text-neutral-700">{language.name}</span>
                     </button>
                   ))}
                 </div>
@@ -240,102 +235,103 @@ export default function Header({ locale }: { locale: string }) {
             </div>
 
             <Link
-              href={`${prefix}/donar`}
-              className="px-6 py-3 bg-brand-600 text-white font-semibold rounded-full hover:bg-brand-700 hover:shadow-lg hover:scale-105 transition-all"
+              href={localizedPath(locale, 'donate')}
+              className="rounded-full bg-brand-600 px-6 py-3 font-semibold text-white transition-all hover:scale-105 hover:bg-brand-700 hover:shadow-lg"
             >
               {t('donate')}
             </Link>
           </div>
 
-          {/* Mobile menu button */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`md:hidden p-2 ${
-              isScrolled || !isHomepage ? 'text-neutral-900' : 'text-white'
-            }`}
+            type="button"
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            className={`p-2 md:hidden ${isScrolled || !isHomepage ? 'text-neutral-900' : 'text-white'}`}
+            aria-label="Toggle navigation"
           >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 bg-white rounded-b-2xl shadow-xl animate-slideDown">
+          <div className="rounded-b-2xl bg-white py-4 shadow-xl md:hidden">
             <nav className="flex flex-col gap-2">
-              {menuItems.map((item, idx) => (
-                item.dropdown ? (
-                  <div key={idx}>
-                    <button
-                      onClick={() => toggleDropdown(item.label)}
-                      className="w-full px-4 py-2 text-left text-neutral-700 hover:bg-neutral-50 rounded-lg flex items-center justify-between"
+              {menuItems.map((item) => {
+                if (!item.dropdown) {
+                  return (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      onClick={closeMenus}
+                      className="rounded-lg px-4 py-2 text-neutral-700 hover:bg-neutral-50 hover:text-brand-600"
                     >
                       {item.label}
-                      <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${
-                        openDropdown === item.label ? 'rotate-180' : ''
-                      }`} />
+                    </Link>
+                  );
+                }
+
+                const isOpen = openDropdown === item.label;
+                return (
+                  <div key={item.label}>
+                    <button
+                      type="button"
+                      onClick={() => setOpenDropdown(isOpen ? null : item.label)}
+                      className="flex w-full items-center justify-between rounded-lg px-4 py-2 text-left text-neutral-700 hover:bg-neutral-50"
+                    >
+                      {item.label}
+                      <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                     </button>
-                    <div className={`overflow-hidden transition-all duration-300 ${
-                      openDropdown === item.label ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                    }`}>
-                      <div className="pl-4 mt-1 space-y-1">
-                        {item.dropdown.map((subItem, subIdx) => (
+
+                    {isOpen && (
+                      <div className="space-y-1 pl-4">
+                        {item.dropdown.map((subItem) =>
                           subItem.external ? (
                             <a
-                              key={subIdx}
+                              key={subItem.href}
                               href={subItem.href}
                               target="_blank"
                               rel="noopener noreferrer"
-                              onClick={() => setIsMobileMenuOpen(false)}
-                              className="block px-4 py-2 text-sm text-neutral-600 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-all flex items-center gap-2"
+                              onClick={closeMenus}
+                              className="flex items-center gap-2 rounded-lg px-4 py-2 text-sm text-neutral-600 hover:bg-brand-50 hover:text-brand-600"
                             >
-                              {subItem.label} <ExternalLink className="w-3 h-3" />
+                              {subItem.label}
+                              <ExternalLink className="h-3 w-3" />
                             </a>
                           ) : (
                             <Link
-                              key={subIdx}
+                              key={subItem.href}
                               href={subItem.href}
-                              onClick={() => setIsMobileMenuOpen(false)}
-                              className="block px-4 py-2 text-sm text-neutral-600 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-all"
+                              onClick={closeMenus}
+                              className="block rounded-lg px-4 py-2 text-sm text-neutral-600 hover:bg-brand-50 hover:text-brand-600"
                             >
                               {subItem.label}
                             </Link>
-                          )
-                        ))}
+                          ),
+                        )}
                       </div>
-                    </div>
+                    )}
                   </div>
-                ) : (
-                  <Link
-                    key={idx}
-                    href={item.href!}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="px-4 py-2 text-neutral-700 hover:text-brand-600 hover:bg-neutral-50 rounded-lg"
-                  >
-                    {item.label}
-                  </Link>
-                )
-              ))}
-              
-              <div className="px-4 py-2 border-t border-neutral-100 mt-2">
+                );
+              })}
+
+              <div className="mt-2 border-t border-neutral-100 px-4 py-3">
                 <div className="flex gap-2">
-                  {languages.map((lang) => (
+                  {languages.map((language) => (
                     <button
-                      key={lang.code}
-                      onClick={() => { switchLanguage(lang.code); setIsMobileMenuOpen(false); }}
-                      className={`px-3 py-2 rounded-lg transition-all ${
-                        lang.code === locale ? 'bg-brand-100' : 'bg-neutral-100'
-                      }`}
+                      type="button"
+                      key={language.code}
+                      onClick={() => changeLanguage(language.code)}
+                      className={`rounded-lg px-3 py-2 ${language.code === locale ? 'bg-brand-100' : 'bg-neutral-100'}`}
                     >
-                      {lang.flag}
+                      {language.flag}
                     </button>
                   ))}
                 </div>
               </div>
-              
+
               <Link
-                href={`${prefix}/donar`}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="mx-4 mt-2 px-6 py-3 bg-brand-600 text-white font-semibold rounded-full text-center hover:bg-brand-700 transition-all"
+                href={localizedPath(locale, 'donate')}
+                onClick={closeMenus}
+                className="mx-4 mt-2 rounded-full bg-brand-600 px-6 py-3 text-center font-semibold text-white hover:bg-brand-700"
               >
                 {t('donate')}
               </Link>
@@ -343,23 +339,6 @@ export default function Header({ locale }: { locale: string }) {
           </div>
         )}
       </div>
-
-      <style jsx global>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideDown {
-          from { opacity: 0; transform: translateY(-20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.2s ease-out;
-        }
-        .animate-slideDown {
-          animation: slideDown 0.3s ease-out;
-        }
-      `}</style>
     </header>
   );
 }

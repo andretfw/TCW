@@ -1,42 +1,36 @@
 'use client';
-import { useTranslations } from 'next-intl';
-import { Download, BookOpen, Activity, Users } from 'lucide-react';
+
+import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
+import { BookOpen, Download, Users } from 'lucide-react';
+import { localizedPath } from '@/lib/routes';
 
 export default function UnderstandingDiagnosisPage() {
-  const t = useTranslations('diagnosisPage'); // USAMOS EL NUEVO NAMESPACE
+  const t = useTranslations('diagnosisPage');
+  const locale = useLocale();
 
   return (
-    <div className="pt-20 min-h-screen bg-white">
-      {/* Hero */}
-      <section className="py-16 bg-gradient-to-br from-brand-50 to-purple-50">
+    <div className="min-h-screen bg-white pt-20">
+      <section className="bg-gradient-to-br from-brand-50 to-purple-50 py-16">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl font-bold text-neutral-900 mb-6">
-              {t('title')}
-            </h1>
-            <p className="text-xl text-neutral-600 leading-relaxed">
-              {t('heroDesc')}
-            </p>
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="mb-6 text-5xl font-bold text-neutral-900">{t('title')}</h1>
+            <p className="text-xl leading-relaxed text-neutral-600">{t('heroDesc')}</p>
           </div>
         </div>
       </section>
 
-      {/* What is Cancer - ANIMATED */}
-      <section className="py-20 bg-white">
+      <section className="bg-white py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-white to-brand-50 rounded-2xl p-8 border border-brand-100 hover:shadow-xl transition-all duration-300">
-              <div className="flex items-start gap-6 mb-6">
-                <div className="w-16 h-16 bg-brand-100 rounded-xl flex items-center justify-center flex-shrink-0 animate-pulse">
-                  <BookOpen className="w-8 h-8 text-brand-600" />
+          <div className="mx-auto max-w-4xl">
+            <div className="rounded-2xl border border-brand-100 bg-gradient-to-br from-white to-brand-50 p-8 transition-all duration-300 hover:shadow-xl">
+              <div className="mb-6 flex items-start gap-6">
+                <div className="flex h-16 w-16 flex-shrink-0 animate-pulse items-center justify-center rounded-xl bg-brand-100">
+                  <BookOpen className="h-8 w-8 text-brand-600" />
                 </div>
                 <div>
-                  <h2 className="text-3xl font-bold text-neutral-900 mb-4">
-                    {t('whatIsCancerTitle')}
-                  </h2>
-                  <p className="text-neutral-600 leading-relaxed text-lg">
-                    {t('whatIsCancerDesc')}
-                  </p>
+                  <h2 className="mb-4 text-3xl font-bold text-neutral-900">{t('whatIsCancerTitle')}</h2>
+                  <p className="text-lg leading-relaxed text-neutral-600">{t('whatIsCancerDesc')}</p>
                 </div>
               </div>
             </div>
@@ -44,84 +38,62 @@ export default function UnderstandingDiagnosisPage() {
         </div>
       </section>
 
-      {/* Staging - ANIMATED CARDS */}
-      <section className="py-20 bg-gradient-to-b from-white to-purple-50">
+      <section className="bg-gradient-to-b from-white to-purple-50 py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-4xl font-bold text-neutral-900 mb-4 text-center">
-              {t('stagingTitle')}
-            </h2>
-            <h3 className="text-2xl font-semibold text-purple-600 mb-6 text-center">
-              {t('stagingSub')}
-            </h3>
-            <p className="text-neutral-600 leading-relaxed mb-8 text-center max-w-3xl mx-auto text-lg">
-              {t('stagingDesc')}
-            </p>
-            
-            {/* Stage Cards with Animation */}
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="mb-4 text-center text-4xl font-bold text-neutral-900">{t('stagingTitle')}</h2>
+            <h3 className="mb-6 text-center text-2xl font-semibold text-purple-600">{t('stagingSub')}</h3>
+            <p className="mx-auto mb-8 max-w-3xl text-center text-lg leading-relaxed text-neutral-600">{t('stagingDesc')}</p>
+            <div className="mb-12 grid grid-cols-2 gap-4 md:grid-cols-5">
               {[
                 { stage: '0', label: t('stages.0'), color: 'from-green-400 to-green-600' },
                 { stage: 'I', label: t('stages.I'), color: 'from-blue-400 to-blue-600' },
                 { stage: 'II', label: t('stages.II'), color: 'from-yellow-400 to-yellow-600' },
                 { stage: 'III', label: t('stages.III'), color: 'from-orange-400 to-orange-600' },
-                { stage: 'IV', label: t('stages.IV'), color: 'from-red-400 to-red-600' }
-              ].map((item, idx) => (
-                <div 
-                  key={idx} 
-                  className="bg-white p-6 rounded-xl text-center border-2 border-purple-200 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer group"
-                >
-                  <div className={`w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br ${item.color} flex items-center justify-center text-white text-2xl font-bold group-hover:scale-110 transition-transform`}>
+                { stage: 'IV', label: t('stages.IV'), color: 'from-red-400 to-red-600' },
+              ].map((item) => (
+                <div key={item.stage} className="group cursor-pointer rounded-xl border-2 border-purple-200 bg-white p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                  <div className={`mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br ${item.color} text-2xl font-bold text-white transition-transform group-hover:scale-110`}>
                     {item.stage}
                   </div>
                   <div className="text-sm font-semibold text-neutral-700">Stage {item.stage}</div>
-                  <div className="text-xs text-neutral-500 mt-1">{item.label}</div>
+                  <div className="mt-1 text-xs text-neutral-500">{item.label}</div>
                 </div>
               ))}
             </div>
-
-            {/* Grading */}
-            <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-8 border border-pink-100">
-              <h3 className="text-2xl font-semibold text-pink-600 mb-4">
-                {t('gradingTitle')}
-              </h3>
-              <p className="text-neutral-600 leading-relaxed text-lg">
-                {t('gradingDesc')}
-              </p>
+            <div className="rounded-2xl border border-pink-100 bg-gradient-to-br from-pink-50 to-purple-50 p-8">
+              <h3 className="mb-4 text-2xl font-semibold text-pink-600">{t('gradingTitle')}</h3>
+              <p className="text-lg leading-relaxed text-neutral-600">{t('gradingDesc')}</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Support Section - ANIMATED */}
-      <section className="py-20 bg-gradient-to-br from-brand-600 to-purple-600">
+      <section className="bg-gradient-to-br from-brand-600 to-purple-600 py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-white">
-            <div className="flex items-start gap-6 mb-8">
-              <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0 animate-bounce">
-                <Users className="w-8 h-8 text-white" />
+          <div className="mx-auto max-w-4xl text-white">
+            <div className="mb-8 flex items-start gap-6">
+              <div className="flex h-16 w-16 flex-shrink-0 animate-bounce items-center justify-center rounded-xl bg-white/20">
+                <Users className="h-8 w-8 text-white" />
               </div>
               <div>
-                <h2 className="text-4xl font-bold mb-4">{t('aloneTitle')}</h2>
-                <p className="text-xl text-white/90 leading-relaxed mb-6">
-                  {t('aloneDesc')}
-                </p>
+                <h2 className="mb-4 text-4xl font-bold">{t('aloneTitle')}</h2>
+                <p className="mb-6 text-xl leading-relaxed text-white/90">{t('aloneDesc')}</p>
               </div>
             </div>
-            
-            <div className="flex flex-wrap gap-4 justify-center">
-              <a 
-                href="/voluntarios"
-                className="px-8 py-4 bg-white text-brand-600 font-bold rounded-full hover:shadow-2xl hover:scale-105 transition-all"
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link
+                href={localizedPath(locale, 'volunteers')}
+                className="rounded-full bg-white px-8 py-4 font-bold text-brand-600 transition-all hover:scale-105 hover:shadow-2xl"
               >
                 {t('btnSupport')}
-              </a>
-              <a 
+              </Link>
+              <a
                 href="/understanding-your-diagnosis.pdf"
                 download
-                className="px-8 py-4 bg-white/20 backdrop-blur-sm border-2 border-white text-white font-bold rounded-full hover:bg-white/30 transition-all flex items-center gap-2"
+                className="flex items-center gap-2 rounded-full border-2 border-white bg-white/20 px-8 py-4 font-bold text-white backdrop-blur-sm transition-all hover:bg-white/30"
               >
-                <Download className="w-5 h-5" />
+                <Download className="h-5 w-5" />
                 {t('btnDownload')}
               </a>
             </div>

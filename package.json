@@ -1,12 +1,18 @@
 {
   "name": "tutti-cancer-warriors",
   "version": "1.0.0",
-  "description": "Website for Tutti Cancer Warriors NGO - Multilingual (ES, EN, RO)",
+  "private": true,
+  "description": "Official multilingual website for Tutti Cancer Warriors NGO (English, Romanian and Spanish)",
   "scripts": {
     "dev": "next dev",
+    "clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\"",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=20 <23"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

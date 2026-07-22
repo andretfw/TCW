@@ -1,117 +1,86 @@
 import createMiddleware from 'next-intl/middleware';
+import {NextRequest, NextResponse} from 'next/server';
 import {locales} from './i18n';
+import {
+  cancerIdFromSlug,
+  localizedCancerPath,
+  localizedPath,
+  resolveRouteKey,
+  ROUTES,
+  SITE_LOCALES,
+  type SiteLocale,
+} from './lib/routes';
 
-export default createMiddleware({
+const intlMiddleware = createMiddleware({
   locales,
   defaultLocale: 'es',
-  localePrefix: 'always', // Forzamos el prefijo para evitar las discrepancias de Andrea
-  
+  localePrefix: 'always',
   pathnames: {
     '/': '/',
-    
-    // Páginas principales
-    '/donar': {
-      es: '/donar',
-      en: '/donate',
-      ro: '/doneaza'
-    },
-    '/involucrate': {
-      es: '/involucrate',
-      en: '/get-involved', // Punto 4 y 5 de Andrea
-      ro: '/implica-te'
-    },
-    '/team': {
-      es: '/equipo',
-      en: '/team',
-      ro: '/echipa'
-    },
-    '/warriors': {
-      es: '/guerreros',
-      en: '/warriors',
-      ro: '/razboinici'
-    },
-
-    // Páginas de Salud y Bienestar (Captura 1)
-    '/bienestar-emocional': {
-      es: '/bienestar-emocional',
-      en: '/emotional-wellbeing',
-      ro: '/bunastare-emotionala'
-    },
-    '/calendario-cancer': {
-      es: '/calendario-cancer',
-      en: '/cancer-calendar',
-      ro: '/calendar-cancer'
-    },
-    '/entender-diagnostico': {
-      es: '/entender-diagnostico',
-      en: '/understanding-diagnosis',
-      ro: '/intelegerea-diagnosticului'
-    },
-    '/preguntas-doctor': {
-      es: '/preguntas-doctor',
-      en: '/questions-for-doctor',
-      ro: '/intrebari-pentru-doctor'
-    },
-    '/sobre-cancer': {
-      es: '/sobre-cancer',
-      en: '/about-cancer',
-      ro: '/despre-cancer'
-    },
-
-    // Eventos y Dream (Captura 2)
-    '/events/pilates-event': {
-      es: '/eventos/evento-pilates', // Punto 7 de Andrea
-      en: '/events/pilates-event',
-      ro: '/evenimente/eveniment-pilates'
-    },
-    '/support-dream': {
-      es: '/apoya-un-sueno',
-      en: '/support-a-dream',
-      ro: '/sustine-un-vis'
-    },
-    '/dream-application': {
-      es: '/solicitud-sueno',
-      en: '/dream-application',
-      ro: '/cerere-vis'
-    },
-
-    // Políticas y Legal
-    '/peer-policy': {
-      es: '/politica-companeros',
-      en: '/peer-policy', // La que Andrea dice que desapareció
-      ro: '/politica-pe-pair'
-    },
-    '/privacy': {
-      es: '/privacidad',
-      en: '/privacy',
-      ro: '/confidentialitate'
-    },
-    '/terms': {
-      es: '/terminos',
-      en: '/terms',
-      ro: '/termeni'
-    },
-    '/financials': {
-      es: '/transparencia', // Punto 1 del textato viejo
-      en: '/financials',
-      ro: '/financiare'
-    },
-
-    // Otros
-    '/connect-survivor': {
-      es: '/conecta-con-superviviente',
-      en: '/connect-with-a-survivor',
-      ro: '/conecteaza-te-cu-un-supravietuitor'
-    },
-    '/voluntarios': {
-      es: '/voluntarios',
-      en: '/volunteers',
-      ro: '/voluntari'
-    }
-  }
+    '/team': {es: '/equipo', en: '/team', ro: '/echipa'},
+    '/sobre-cancer': {es: '/sobre-cancer', en: '/about-cancer', ro: '/despre-cancer'},
+    '/sobre-cancer/[id]': {es: '/sobre-cancer/[id]', en: '/about-cancer/[id]', ro: '/despre-cancer/[id]'},
+    '/entender-diagnostico': {es: '/entender-diagnostico', en: '/understanding-diagnosis', ro: '/intelegerea-diagnosticului'},
+    '/preguntas-doctor': {es: '/preguntas-doctor', en: '/questions-for-doctor', ro: '/intrebari-pentru-medic'},
+    '/bienestar-emocional': {es: '/bienestar-emocional', en: '/emotional-wellbeing', ro: '/bunastare-emotionala'},
+    '/calendario-cancer': {es: '/calendario-cancer', en: '/cancer-awareness-calendar', ro: '/calendar-oncologic'},
+    '/involucrate': {es: '/involucrate', en: '/get-involved', ro: '/implica-te'},
+    '/donar': {es: '/donar', en: '/donate', ro: '/doneaza'},
+    '/voluntarios': {es: '/voluntarios', en: '/volunteers', ro: '/voluntari'},
+    '/peer-support': {es: '/apoyo-entre-pares', en: '/peer-support', ro: '/sprijin-intre-pacienti'},
+    '/support-dream': {es: '/apoya-un-sueno', en: '/support-a-dream', ro: '/sustine-un-vis'},
+    '/warriors': {es: '/guerreros', en: '/warriors', ro: '/luptatori'},
+    '/connect-survivor': {es: '/conecta-con-un-superviviente', en: '/connect-with-a-survivor', ro: '/conecteaza-te-cu-un-supravietuitor'},
+    '/dream-application': {es: '/solicitud-sueno', en: '/dream-support-application', ro: '/cerere-sprijin-vis'},
+    '/share-journey': {es: '/comparte-tu-historia', en: '/share-your-journey', ro: '/impartaseste-ti-povestea'},
+    '/warrior-mood-boost': {es: '/animo-para-guerreros', en: '/warrior-mood-boost', ro: '/doza-de-incurajare'},
+    '/mens-health-week': {es: '/semana-salud-masculina', en: '/mens-health-week', ro: '/saptamana-sanatatii-barbatilor'},
+    '/world-kidney-cancer-day': {es: '/dia-mundial-cancer-rinon', en: '/world-kidney-cancer-day', ro: '/ziua-mondiala-cancer-renal'},
+    '/events/pilates-event': {es: '/eventos/evento-pilates', en: '/events/pilates-event', ro: '/evenimente/eveniment-pilates'},
+    '/privacy': {es: '/privacidad', en: '/privacy', ro: '/confidentialitate'},
+    '/terms': {es: '/terminos', en: '/terms', ro: '/termeni'},
+    '/peer-policy': {es: '/politica-apoyo-entre-pares', en: '/peer-support-policy', ro: '/politica-sprijin-intre-pacienti'},
+    '/financials': {es: '/transparencia', en: '/financials', ro: '/transparenta-financiara'},
+  },
 });
 
+export default function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+  const segments = pathname.split('/').filter(Boolean);
+  const locale = segments[0] as SiteLocale | undefined;
+
+  if (locale && SITE_LOCALES.includes(locale)) {
+    const pageSegments = segments.slice(1);
+    const localizedCancerRoot = ROUTES[locale].aboutCancer;
+
+    if (pageSegments[0] === localizedCancerRoot && pageSegments[1]) {
+      const cancerId = cancerIdFromSlug(locale, pageSegments[1]);
+      if (cancerId) {
+        const canonicalPath = localizedCancerPath(locale, cancerId);
+        if (pathname !== canonicalPath) {
+          const url = request.nextUrl.clone();
+          url.pathname = canonicalPath;
+          return NextResponse.redirect(url, 308);
+        }
+      }
+    } else {
+      const slug = pageSegments.join('/');
+      const routeKey = resolveRouteKey(slug);
+
+      if (routeKey) {
+        const canonicalPath = localizedPath(locale, routeKey);
+        if (pathname !== canonicalPath) {
+          const url = request.nextUrl.clone();
+          url.pathname = canonicalPath;
+          return NextResponse.redirect(url, 308);
+        }
+      }
+    }
+  }
+
+  return intlMiddleware(request);
+}
+
 export const config = {
-  // Matcher optimizado para ignorar estáticos y coger todas tus rutas
-  matcher: ['/', '/(es|en|ro)/:path*', '/((?!_next|_vercel|.*\\..*).*)']
+  matcher: ['/', '/(es|en|ro)/:path*', '/((?!_next|_vercel|.*\\..*).*)'],
 };
