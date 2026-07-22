@@ -23,6 +23,7 @@ const copy = {
     of: 'of',
     paypal: 'Donate with PayPal',
     crypto: 'Donate with crypto',
+    attribution: 'Donations attributed to this campaign support her €500 dream.',
   },
   ro: {
     pageTitle: 'Susține un vis',
@@ -37,6 +38,7 @@ const copy = {
     of: 'din',
     paypal: 'Donează prin PayPal',
     crypto: 'Donează în crypto',
+    attribution: 'Donațiile atribuite acestei campanii susțin visul ei de €500.',
   },
   es: {
     pageTitle: 'Apoya un sueño',
@@ -51,6 +53,7 @@ const copy = {
     of: 'de',
     paypal: 'Donar con PayPal',
     crypto: 'Donar con cripto',
+    attribution: 'Las donaciones atribuidas a esta campaña apoyan su sueño de €500.',
   },
 } as const;
 
@@ -138,9 +141,9 @@ export default function SupportDreamPage() {
                 </Link>
               </div>
 
-              <div className="mt-5 flex items-center justify-center gap-2 text-sm text-neutral-500">
-                <Heart className="w-4 h-4 text-brand-500" fill="currentColor" />
-                <span>100% supports this €500 dream once donations are attributed to this campaign.</span>
+              <div className="mt-5 flex items-center justify-center gap-2 text-sm text-neutral-500 text-center">
+                <Heart className="w-4 h-4 text-brand-500 shrink-0" fill="currentColor" />
+                <span>{text.attribution}</span>
               </div>
             </div>
           </article>
