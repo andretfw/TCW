@@ -5,6 +5,18 @@ export const ACTIVE_DREAM_CAMPAIGNS = {
     goalEur: 500,
     startedAt: '2026-07-22T00:00:00.000Z',
   },
+  memoriesWithGrandchildren: {
+    id: 'memories-with-grandchildren',
+    code: 'MG-2026',
+    goalEur: 500,
+    startedAt: '2026-07-22T00:00:00.000Z',
+  },
+  everydayComfort: {
+    id: 'everyday-comfort',
+    code: 'EC-2026',
+    goalEur: 500,
+    startedAt: '2026-07-22T00:00:00.000Z',
+  },
 } as const;
 
 export type ActiveDreamCampaign =
