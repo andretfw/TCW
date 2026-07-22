@@ -3,13 +3,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
-import { Award, Facebook, FileText, Heart, Instagram, Mail, MapPin, ShieldCheck, Star, Twitter } from 'lucide-react';
+import { Award, Facebook, FileText, Heart, Instagram, Mail, MapPin, Star, Twitter } from 'lucide-react';
 import { localizedPath } from '@/lib/routes';
 
 export default function Footer() {
   const t = useTranslations('footer');
   const tNav = useTranslations('nav');
-  const tCookies = useTranslations('cookies');
   const locale = useLocale();
 
   return (
@@ -61,9 +60,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-6 inline-block border-b border-brand-600 pb-1 text-lg font-bold text-white">
-              {t('quickLinks')}
-            </h3>
+            <h3 className="mb-6 inline-block border-b border-brand-600 pb-1 text-lg font-bold text-white">{t('quickLinks')}</h3>
             <ul className="space-y-3 text-sm text-neutral-400">
               <li>
                 <Link href={localizedPath(locale, 'team')} className="flex items-center gap-2 transition-colors hover:text-brand-400">
@@ -93,22 +90,16 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-6 inline-block border-b border-brand-600 pb-1 text-lg font-bold text-white">
-              {t('contact')}
-            </h3>
+            <h3 className="mb-6 inline-block border-b border-brand-600 pb-1 text-lg font-bold text-white">{t('contact')}</h3>
             <ul className="space-y-4 text-sm text-neutral-400">
               <li className="flex items-start gap-3">
-                <div className="shrink-0 rounded-lg bg-neutral-800 p-2 text-brand-500">
-                  <Mail className="h-4 w-4" />
-                </div>
+                <div className="shrink-0 rounded-lg bg-neutral-800 p-2 text-brand-500"><Mail className="h-4 w-4" /></div>
                 <a href="mailto:tcw@tutticancerwarriors.org" className="mt-1 break-all transition-colors hover:text-white">
                   tcw@tutticancerwarriors.org
                 </a>
               </li>
               <li className="flex items-start gap-3">
-                <div className="shrink-0 rounded-lg bg-neutral-800 p-2 text-brand-500">
-                  <MapPin className="h-4 w-4" />
-                </div>
+                <div className="shrink-0 rounded-lg bg-neutral-800 p-2 text-brand-500"><MapPin className="h-4 w-4" /></div>
                 <div className="mt-1">
                   <span className="block">{t('address')}</span>
                   <span className="mt-1 block text-xs text-neutral-500">CIF: 50156252</span>
@@ -175,22 +166,9 @@ export default function Footer() {
           <div className="flex flex-col items-center justify-between gap-4 text-xs text-neutral-500 md:flex-row">
             <p>&copy; {new Date().getFullYear()} Tutti Cancer Warriors. {t('copyright')}</p>
             <div className="flex flex-wrap items-center justify-center gap-6">
-              <Link href={localizedPath(locale, 'privacy')} className="transition-colors hover:text-white">
-                {t('privacy')}
-              </Link>
-              <Link href={localizedPath(locale, 'terms')} className="transition-colors hover:text-white">
-                {t('terms')}
-              </Link>
-              <Link
-                href={localizedPath(locale, 'terms')}
-                className="flex items-center gap-1 rounded bg-neutral-800 px-2 py-1 font-bold text-white transition-colors hover:text-brand-400"
-              >
-                <ShieldCheck className="h-4 w-4 text-brand-500" />
-                {tCookies('cookies_policy')}
-              </Link>
-              <Link href={localizedPath(locale, 'peerPolicy')} className="transition-colors hover:text-white">
-                {t('peerPolicy')}
-              </Link>
+              <Link href={localizedPath(locale, 'privacy')} className="transition-colors hover:text-white">{t('privacy')}</Link>
+              <Link href={localizedPath(locale, 'terms')} className="transition-colors hover:text-white">{t('terms')}</Link>
+              <Link href={localizedPath(locale, 'peerPolicy')} className="transition-colors hover:text-white">{t('peerPolicy')}</Link>
               <span className="hidden text-neutral-700 md:inline">|</span>
               <Link
                 href={localizedPath(locale, 'financials')}
