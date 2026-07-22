@@ -3,40 +3,39 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { Heart, Users, Target, TrendingUp, ArrowRight, Sparkles, Quote } from 'lucide-react';
 import { useLocale } from 'next-intl';
+import { IMPACT } from '@/lib/impact';
 
 export default function HomePage() {
   const t = useTranslations();
   const locale = useLocale();
   const prefix = locale === 'es' ? '' : `/${locale}`;
   
-  // ✅ DATOS DE LOS NUEVOS WARRIORS (Anetra, Janelle, Jeanelle)
   const warriors = [
     {
       name: "Anetra",
       age: 46,
       dream: t('warriorsList.anetra.dream'),
       story: t('warriorsList.anetra.story'),
-      image: "/anetra-home.jpg" // <--- Asegúrate de tener esta foto en public
+      image: "/anetra-home.jpg"
     },
     {
       name: "Janelle",
       age: 40,
       dream: t('warriorsList.janelle.dream'),
       story: t('warriorsList.janelle.story'),
-      image: "/janelle-home.jpg" // <--- Asegúrate de tener esta foto en public
+      image: "/janelle-home.jpg"
     },
     {
       name: "Jeanelle",
       age: 37,
       dream: t('warriorsList.jeanelle.dream'),
       story: t('warriorsList.jeanelle.story'),
-      image: "/jeanelle-home.jpg" // <--- Asegúrate de tener esta foto en public
+      image: "/jeanelle-home.jpg"
     }
   ];
   
   return (
     <>
-      {/* HERO SECTION */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <video autoPlay loop muted playsInline className="w-full h-full object-cover">
@@ -78,7 +77,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* IMPACT SECTION */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -88,12 +86,13 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Stats Items */}
             <div className="group bg-gradient-to-br from-white to-brand-50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2 border border-brand-100">
               <div className="w-14 h-14 bg-brand-100 rounded-xl flex items-center justify-center text-brand-600 mb-4 group-hover:scale-110 transition-transform">
                 <TrendingUp className="w-7 h-7" />
               </div>
-              <div className="text-4xl font-bold text-brand-600 mb-2">5,000 €</div>
+              <div className="text-4xl font-bold text-brand-600 mb-2">
+                €{IMPACT.fundsGrantedEur.toLocaleString('en-US')}
+              </div>
               <div className="text-neutral-600 font-medium">{t('impact.donated')}</div>
             </div>
 
@@ -101,7 +100,7 @@ export default function HomePage() {
               <div className="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 mb-4 group-hover:scale-110 transition-transform">
                 <Target className="w-7 h-7" />
               </div>
-              <div className="text-4xl font-bold text-purple-600 mb-2">10</div>
+              <div className="text-4xl font-bold text-purple-600 mb-2">{IMPACT.dreamsFulfilled}</div>
               <div className="text-neutral-600 font-medium">{t('impact.dreamsFulfilled')}</div>
             </div>
 
@@ -109,7 +108,7 @@ export default function HomePage() {
               <div className="w-14 h-14 bg-pink-100 rounded-xl flex items-center justify-center text-pink-600 mb-4 group-hover:scale-110 transition-transform">
                 <Heart className="w-7 h-7" fill="currentColor" />
               </div>
-              <div className="text-4xl font-bold text-pink-600 mb-2">10</div>
+              <div className="text-4xl font-bold text-pink-600 mb-2">{IMPACT.warriorsSupported}</div>
               <div className="text-neutral-600 font-medium">{t('impact.warriorsSupported')}</div>
             </div>
 
@@ -117,14 +116,13 @@ export default function HomePage() {
               <div className="w-14 h-14 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4 group-hover:scale-110 transition-transform">
                 <Users className="w-7 h-7" />
               </div>
-              <div className="text-4xl font-bold text-indigo-600 mb-2">3</div>
+              <div className="text-4xl font-bold text-indigo-600 mb-2">{IMPACT.activeVolunteers}</div>
               <div className="text-neutral-600 font-medium">{t('impact.activeVolunteers')}</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* WARRIOR STORIES SECTION (AHORA TRADUCIDA) */}
       <section className="py-24 bg-gradient-to-b from-white to-neutral-50">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -146,17 +144,14 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {warriors.map((warrior, index) => (
               <div key={index} className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2">
-                {/* CAMBIO IMPORTANTE: He subido la altura de h-64 a h-80 para que la foto "respire" más.
-                   Y he ajustado el object-position específicamente para Anetra y Janelle.
-                */}
                 <div className="relative h-80 overflow-hidden">
                   <img 
                     src={warrior.image} 
                     alt={warrior.name}
                     className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${
-                        index === 0 ? 'object-[center_25%]' : // ANETRA: Enfoca un poco más abajo del borde superior (cara)
-                        index === 1 ? 'object-top' :          // JANELLE: Enfoca arriba para no cortar cabezas
-                        'object-center'                       // JEANELLE: Centro
+                        index === 0 ? 'object-[center_25%]' :
+                        index === 1 ? 'object-top' :
+                        'object-center'
                     }`}
                   />
                   <div className="absolute top-4 right-4 px-3 py-1 bg-brand-600 text-white text-xs font-semibold rounded-full">
@@ -184,7 +179,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* TESTIMONIAL SECTION */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
@@ -199,7 +193,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA FINAL */}
       <section className="py-24 bg-gradient-to-br from-brand-600 via-purple-600 to-brand-700 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,255,255,0.1),transparent_60%)]"></div>
         
