@@ -2,11 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
-import { ChevronDown, ExternalLink, Globe, Menu, X } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { localizedPath, switchLocalePath } from '@/lib/routes';
+import {usePathname, useRouter} from 'next/navigation';
+import {useEffect, useRef, useState} from 'react';
+import {ChevronDown, ExternalLink, Globe, Menu, X} from 'lucide-react';
+import {useTranslations} from 'next-intl';
+import {localizedPath, switchLocalePath} from '@/lib/routes';
 
 type MenuLink = {
   href: string;
@@ -15,10 +15,27 @@ type MenuLink = {
 };
 
 type MenuItem =
-  | { href: string; label: string; dropdown?: never }
-  | { label: string; dropdown: MenuLink[]; href?: never };
+  | {href: string; label: string; dropdown?: never}
+  | {label: string; dropdown: MenuLink[]; href?: never};
 
-export default function Header({ locale }: { locale: string }) {
+const FUNDRAISER_URL = 'https://better.giving/donate/1293778';
+
+const extraNavCopy = {
+  en: {
+    supportDream: 'Support a Dream',
+    startFundraiser: 'Start a Fundraiser for TCW',
+  },
+  ro: {
+    supportDream: 'Susține un vis',
+    startFundraiser: 'Creează o strângere de fonduri pentru TCW',
+  },
+  es: {
+    supportDream: 'Apoya un sueño',
+    startFundraiser: 'Inicia una recaudación para TCW',
+  },
+} as const;
+
+export default function Header({locale}: {locale: string}) {
   const t = useTranslations('nav');
   const router = useRouter();
   const pathname = usePathname();
@@ -29,34 +46,67 @@ export default function Header({ locale }: { locale: string }) {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   const languages = [
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
-    { code: 'en', name: 'English', flag: '🇬🇧' },
-    { code: 'ro', name: 'Română', flag: '🇷🇴' },
+    {code: 'es', name: 'Español', flag: '🇪🇸'},
+    {code: 'en', name: 'English', flag: '🇬🇧'},
+    {code: 'ro', name: 'Română', flag: '🇷🇴'},
   ];
 
-  const currentLang = languages.find((language) => language.code === locale) ?? languages[0];
+  const currentLang =
+    languages.find((language) => language.code === locale) ?? languages[0];
+  const currentExtraCopy =
+    extraNavCopy[locale as keyof typeof extraNavCopy] ?? extraNavCopy.en;
   const isHomepage = ['/es', '/en', '/ro', '/'].includes(pathname);
 
   const menuItems: MenuItem[] = [
-    { href: localizedPath(locale, 'home'), label: t('home') },
-    { href: localizedPath(locale, 'team'), label: t('team') },
+    {href: localizedPath(locale, 'home'), label: t('home')},
+    {href: localizedPath(locale, 'team'), label: t('team')},
     {
       label: t('aboutCancer'),
       dropdown: [
-        { href: localizedPath(locale, 'aboutCancer'), label: t('learnAboutCancer') },
-        { href: localizedPath(locale, 'understandingDiagnosis'), label: t('understandingDiagnosis') },
-        { href: localizedPath(locale, 'questionsForDoctor'), label: t('questionsForDoctor') },
-        { href: localizedPath(locale, 'emotionalWellBeing'), label: t('emotionalWellBeing') },
-        { href: localizedPath(locale, 'awarenessCalendar'), label: t('awarenessCalendar') },
+        {
+          href: localizedPath(locale, 'aboutCancer'),
+          label: t('learnAboutCancer'),
+        },
+        {
+          href: localizedPath(locale, 'understandingDiagnosis'),
+          label: t('understandingDiagnosis'),
+        },
+        {
+          href: localizedPath(locale, 'questionsForDoctor'),
+          label: t('questionsForDoctor'),
+        },
+        {
+          href: localizedPath(locale, 'emotionalWellBeing'),
+          label: t('emotionalWellBeing'),
+        },
+        {
+          href: localizedPath(locale, 'awarenessCalendar'),
+          label: t('awarenessCalendar'),
+        },
       ],
     },
     {
       label: t('getInvolved'),
       dropdown: [
-        { href: localizedPath(locale, 'getInvolved'), label: t('getInvolved') },
-        { href: localizedPath(locale, 'donate'), label: t('donate') },
-        { href: localizedPath(locale, 'volunteers'), label: t('volunteer') },
-        { href: localizedPath(locale, 'peerSupport'), label: t('peerSupport') },
+        {
+          href: localizedPath(locale, 'getInvolved'),
+          label: t('getInvolved'),
+        },
+        {href: localizedPath(locale, 'donate'), label: t('donate')},
+        {
+          href: localizedPath(locale, 'supportDream'),
+          label: currentExtraCopy.supportDream,
+        },
+        {href: localizedPath(locale, 'volunteers'), label: t('volunteer')},
+        {
+          href: localizedPath(locale, 'peerSupport'),
+          label: t('peerSupport'),
+        },
+        {
+          href: FUNDRAISER_URL,
+          label: currentExtraCopy.startFundraiser,
+          external: true,
+        },
         {
           href: 'https://paragraph.com/@tutticancerwarriors',
           label: t('newsletter'),
@@ -67,18 +117,36 @@ export default function Header({ locale }: { locale: string }) {
     {
       label: t('warriorsHub'),
       dropdown: [
-        { href: localizedPath(locale, 'connectSurvivor'), label: t('connectSurvivor') },
-        { href: localizedPath(locale, 'dreamApplication'), label: t('dreamApplication') },
-        { href: localizedPath(locale, 'shareJourney'), label: t('shareJourney') },
-        { href: localizedPath(locale, 'moodBoost'), label: t('moodBoost') },
+        {
+          href: localizedPath(locale, 'connectSurvivor'),
+          label: t('connectSurvivor'),
+        },
+        {
+          href: localizedPath(locale, 'dreamApplication'),
+          label: t('dreamApplication'),
+        },
+        {
+          href: localizedPath(locale, 'shareJourney'),
+          label: t('shareJourney'),
+        },
+        {
+          href: localizedPath(locale, 'moodBoost'),
+          label: t('moodBoost'),
+        },
       ],
     },
     {
       label: t('events'),
       dropdown: [
-        { href: localizedPath(locale, 'mensHealth'), label: t('mensHealth') },
-        { href: localizedPath(locale, 'kidneyCancer'), label: t('kidneyCancer') },
-        { href: localizedPath(locale, 'pilates'), label: t('pilates') },
+        {
+          href: localizedPath(locale, 'mensHealth'),
+          label: t('mensHealth'),
+        },
+        {
+          href: localizedPath(locale, 'kidneyCancer'),
+          label: t('kidneyCancer'),
+        },
+        {href: localizedPath(locale, 'pilates'), label: t('pilates')},
       ],
     },
   ];
@@ -91,7 +159,10 @@ export default function Header({ locale }: { locale: string }) {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setOpenDropdown(null);
       }
     };
@@ -113,9 +184,10 @@ export default function Header({ locale }: { locale: string }) {
     setIsMobileMenuOpen(false);
   };
 
-  const navTextClass = isScrolled || !isHomepage
-    ? 'text-neutral-700 hover:text-brand-600'
-    : 'text-white hover:text-brand-200 drop-shadow-md';
+  const navTextClass =
+    isScrolled || !isHomepage
+      ? 'text-neutral-700 hover:text-brand-600'
+      : 'text-white hover:text-brand-200 drop-shadow-md';
 
   return (
     <header
@@ -128,8 +200,16 @@ export default function Header({ locale }: { locale: string }) {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className={`flex items-center justify-between transition-all duration-500 ${isScrolled ? 'h-24' : 'h-36'}`}>
-          <Link href={localizedPath(locale, 'home')} className="flex items-center" onClick={closeMenus}>
+        <div
+          className={`flex items-center justify-between transition-all duration-500 ${
+            isScrolled ? 'h-24' : 'h-36'
+          }`}
+        >
+          <Link
+            href={localizedPath(locale, 'home')}
+            className="flex items-center"
+            onClick={closeMenus}
+          >
             <Image
               src="/TCW_LOGO.png"
               alt="Tutti Cancer Warriors"
@@ -140,30 +220,44 @@ export default function Header({ locale }: { locale: string }) {
             />
           </Link>
 
-          <nav className="hidden items-center gap-6 md:flex" ref={dropdownRef}>
+          <nav
+            className="hidden items-center gap-6 md:flex"
+            ref={dropdownRef}
+          >
             {menuItems.map((item) => {
               if (!item.dropdown) {
                 return (
-                  <Link key={item.label} href={item.href} className={`font-medium transition-colors ${navTextClass}`}>
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className={`font-medium transition-colors ${navTextClass}`}
+                  >
                     {item.label}
                   </Link>
                 );
               }
 
               const isOpen = openDropdown === item.label;
+
               return (
                 <div key={item.label} className="relative">
                   <button
                     type="button"
-                    onClick={() => setOpenDropdown(isOpen ? null : item.label)}
+                    onClick={() =>
+                      setOpenDropdown(isOpen ? null : item.label)
+                    }
                     className={`flex items-center gap-1 py-2 font-medium transition-colors ${navTextClass}`}
                   >
                     {item.label}
-                    <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown
+                      className={`h-4 w-4 transition-transform ${
+                        isOpen ? 'rotate-180' : ''
+                      }`}
+                    />
                   </button>
 
                   <div
-                    className={`absolute left-0 top-full mt-2 w-64 origin-top overflow-hidden rounded-xl border border-neutral-100 bg-white shadow-xl transition-all duration-200 ${
+                    className={`absolute left-0 top-full mt-2 w-72 origin-top overflow-hidden rounded-xl border border-neutral-100 bg-white shadow-xl transition-all duration-200 ${
                       isOpen
                         ? 'translate-y-0 scale-y-100 opacity-100'
                         : 'pointer-events-none -translate-y-2 scale-y-0 opacity-0'
@@ -207,11 +301,19 @@ export default function Header({ locale }: { locale: string }) {
                 type="button"
                 onClick={() => setIsLangOpen((open) => !open)}
                 className={`flex items-center gap-2 rounded-lg px-4 py-2 transition-colors ${
-                  isScrolled || !isHomepage ? 'hover:bg-neutral-100' : 'bg-white/10 hover:bg-white/20'
+                  isScrolled || !isHomepage
+                    ? 'hover:bg-neutral-100'
+                    : 'bg-white/10 hover:bg-white/20'
                 }`}
                 aria-label="Change language"
               >
-                <Globe className={`h-5 w-5 ${isScrolled || !isHomepage ? 'text-neutral-600' : 'text-white'}`} />
+                <Globe
+                  className={`h-5 w-5 ${
+                    isScrolled || !isHomepage
+                      ? 'text-neutral-600'
+                      : 'text-white'
+                  }`}
+                />
                 <span className="text-xl">{currentLang.flag}</span>
               </button>
 
@@ -227,7 +329,9 @@ export default function Header({ locale }: { locale: string }) {
                       }`}
                     >
                       <span className="text-2xl">{language.flag}</span>
-                      <span className="font-medium text-neutral-700">{language.name}</span>
+                      <span className="font-medium text-neutral-700">
+                        {language.name}
+                      </span>
                     </button>
                   ))}
                 </div>
@@ -245,15 +349,21 @@ export default function Header({ locale }: { locale: string }) {
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen((open) => !open)}
-            className={`p-2 md:hidden ${isScrolled || !isHomepage ? 'text-neutral-900' : 'text-white'}`}
+            className={`p-2 md:hidden ${
+              isScrolled || !isHomepage ? 'text-neutral-900' : 'text-white'
+            }`}
             aria-label="Toggle navigation"
           >
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
           </button>
         </div>
 
         {isMobileMenuOpen && (
-          <div className="rounded-b-2xl bg-white py-4 shadow-xl md:hidden">
+          <div className="max-h-[calc(100vh-6rem)] overflow-y-auto rounded-b-2xl bg-white py-4 shadow-xl md:hidden">
             <nav className="flex flex-col gap-2">
               {menuItems.map((item) => {
                 if (!item.dropdown) {
@@ -270,15 +380,22 @@ export default function Header({ locale }: { locale: string }) {
                 }
 
                 const isOpen = openDropdown === item.label;
+
                 return (
                   <div key={item.label}>
                     <button
                       type="button"
-                      onClick={() => setOpenDropdown(isOpen ? null : item.label)}
+                      onClick={() =>
+                        setOpenDropdown(isOpen ? null : item.label)
+                      }
                       className="flex w-full items-center justify-between rounded-lg px-4 py-2 text-left text-neutral-700 hover:bg-neutral-50"
                     >
                       {item.label}
-                      <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform ${
+                          isOpen ? 'rotate-180' : ''
+                        }`}
+                      />
                     </button>
 
                     {isOpen && (
@@ -320,7 +437,11 @@ export default function Header({ locale }: { locale: string }) {
                       type="button"
                       key={language.code}
                       onClick={() => changeLanguage(language.code)}
-                      className={`rounded-lg px-3 py-2 ${language.code === locale ? 'bg-brand-100' : 'bg-neutral-100'}`}
+                      className={`rounded-lg px-3 py-2 ${
+                        language.code === locale
+                          ? 'bg-brand-100'
+                          : 'bg-neutral-100'
+                      }`}
                     >
                       {language.flag}
                     </button>
