@@ -9,6 +9,13 @@ export default function HomePage() {
   const t = useTranslations();
   const locale = useLocale();
 
+  const heroBadge =
+    locale === 'ro'
+      ? `${IMPACT.dreamsFulfilled} vise împlinite în 2026`
+      : locale === 'en'
+        ? `${IMPACT.dreamsFulfilled} dreams fulfilled in 2026`
+        : `${IMPACT.dreamsFulfilled} sueños cumplidos en 2026`;
+
   const warriors = [
     {
       name: 'Anetra',
@@ -46,7 +53,7 @@ export default function HomePage() {
         <div className="relative z-10 container mx-auto px-4 py-32 text-center">
           <div className="inline-flex items-center gap-2 px-5 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-medium mb-8 shadow-lg border border-white/30 animate-pulse">
             <Sparkles className="w-4 h-4" />
-            <span>{t('hero.badge')}</span>
+            <span>{heroBadge}</span>
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight mb-6 drop-shadow-2xl">
