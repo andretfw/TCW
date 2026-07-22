@@ -1,6 +1,5 @@
 import createMiddleware from 'next-intl/middleware';
 import {NextRequest, NextResponse} from 'next/server';
-import {locales} from './i18n';
 import {
   cancerIdFromSlug,
   localizedCancerPath,
@@ -12,7 +11,7 @@ import {
 } from './lib/routes';
 
 const intlMiddleware = createMiddleware({
-  locales,
+  locales: [...SITE_LOCALES],
   defaultLocale: 'es',
   localePrefix: 'always',
   pathnames: {
