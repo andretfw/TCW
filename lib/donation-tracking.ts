@@ -90,7 +90,9 @@ export async function recordVerifiedDonation(donation: VerifiedDonation) {
 export async function getCampaignTotalEur(campaignId: string) {
   const supabase = getSupabaseAdmin();
 
-  if (!supabase) return 0;
+  if (!supabase) {
+    throw new Error('Donation storage is not configured.');
+  }
 
   const {data, error} = await supabase
     .from('campaign_donations')
