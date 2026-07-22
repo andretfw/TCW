@@ -4,6 +4,10 @@ import {recordVerifiedDonation} from '@/lib/donation-tracking';
 
 export const dynamic = 'force-dynamic';
 
+function normalizeEmail(value: string | null | undefined) {
+  return (value || '').trim().toLowerCase();
+}
+
 export async function POST(request: NextRequest) {
   const rawBody = await request.text();
   const verificationBody = `cmd=_notify-validate&${rawBody}`;
@@ -25,6 +29,7 @@ export async function POST(request: NextRequest) {
     const verificationResult = await verificationResponse.text();
 
     if (verificationResult.trim() !== 'VERIFIED') {
+      console.error('PayPal IPN rejected by PayPal verification.');
       return new NextResponse('Invalid IPN.', {status: 400});
     }
 
@@ -34,24 +39,42 @@ export async function POST(request: NextRequest) {
     const transactionId = values.get('txn_id');
     const currency = values.get('mc_currency');
     const amount = Number(values.get('mc_gross'));
-    const receiverEmail = (
-      values.get('receiver_email') || values.get('business') || ''
-    ).toLowerCase();
-    const expectedReceiver = (process.env.PAYPAL_RECEIVER_EMAIL || '').toLowerCase();
+    const receiverEmail = normalizeEmail(values.get('receiver_email'));
+    const businessEmail = normalizeEmail(values.get('business'));
+    const expectedReceiver = normalizeEmail(process.env.PAYPAL_RECEIVER_EMAIL);
 
     if (!isCampaignId(campaignId)) {
+      console.error('PayPal IPN contained an unknown campaign.', {campaignId});
       return new NextResponse('Unknown campaign.', {status: 400});
     }
 
-    if (paymentStatus !== 'Completed' || !transactionId || !Number.isFinite(amount) || amount <= 0) {
+    if (
+      paymentStatus !== 'Completed' ||
+      !transactionId ||
+      !Number.isFinite(amount) ||
+      amount <= 0
+    ) {
       return new NextResponse('Payment is not complete.', {status: 200});
     }
 
     if (currency !== 'EUR') {
+      console.error('PayPal IPN used an unsupported currency.', {currency});
       return new NextResponse('Only EUR campaign donations are tracked.', {status: 400});
     }
 
-    if (expectedReceiver && receiverEmail !== expectedReceiver) {
+    if (!expectedReceiver) {
+      console.error('PAYPAL_RECEIVER_EMAIL is not configured.');
+      return new NextResponse('PayPal receiver is not configured.', {status: 500});
+    }
+
+    const receiverMatches =
+      receiverEmail === expectedReceiver || businessEmail === expectedReceiver;
+
+    if (!receiverMatches) {
+      console.error('Unexpected PayPal receiver.', {
+        hasReceiverEmail: Boolean(receiverEmail),
+        hasBusinessEmail: Boolean(businessEmail),
+      });
       return new NextResponse('Unexpected PayPal receiver.', {status: 400});
     }
 
