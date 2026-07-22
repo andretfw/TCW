@@ -1,11 +1,21 @@
 import {NextRequest, NextResponse} from 'next/server';
-import {isCampaignId} from '@/lib/campaigns';
+import {isCampaignId, type CampaignId} from '@/lib/campaigns';
 import {recordVerifiedDonation} from '@/lib/donation-tracking';
 
 export const dynamic = 'force-dynamic';
 
 function normalizeEmail(value: string | null | undefined) {
-  return (value || '').trim().toLowerCase();
+  return (value || '').trim().replace(/^['"]|['"]$/g, '').toLowerCase();
+}
+
+function resolveCampaignId(values: URLSearchParams): CampaignId | null {
+  const itemNumber = values.get('item_number');
+  const custom = values.get('custom');
+
+  if (isCampaignId(itemNumber)) return itemNumber;
+  if (isCampaignId(custom)) return custom;
+
+  return null;
 }
 
 export async function POST(request: NextRequest) {
@@ -29,22 +39,27 @@ export async function POST(request: NextRequest) {
     const verificationResult = await verificationResponse.text();
 
     if (verificationResult.trim() !== 'VERIFIED') {
-      console.error('PayPal IPN rejected by PayPal verification.');
+      console.error('PayPal IPN rejected by PayPal verification.', {
+        verificationResult: verificationResult.trim(),
+      });
       return new NextResponse('Invalid IPN.', {status: 400});
     }
 
     const values = new URLSearchParams(rawBody);
-    const campaignId = values.get('item_number') || values.get('custom');
+    const campaignId = resolveCampaignId(values);
     const paymentStatus = values.get('payment_status');
     const transactionId = values.get('txn_id');
-    const currency = values.get('mc_currency');
+    const currency = (values.get('mc_currency') || '').trim().toUpperCase();
     const amount = Number(values.get('mc_gross'));
     const receiverEmail = normalizeEmail(values.get('receiver_email'));
     const businessEmail = normalizeEmail(values.get('business'));
     const expectedReceiver = normalizeEmail(process.env.PAYPAL_RECEIVER_EMAIL);
 
-    if (!isCampaignId(campaignId)) {
-      console.error('PayPal IPN contained an unknown campaign.', {campaignId});
+    if (!campaignId) {
+      console.error('PayPal IPN contained no valid campaign.', {
+        itemNumber: values.get('item_number'),
+        custom: values.get('custom'),
+      });
       return new NextResponse('Unknown campaign.', {status: 400});
     }
 
@@ -91,7 +106,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return new NextResponse('OK');
+    return new NextResponse('OK', {status: 200});
   } catch (error) {
     console.error('PayPal IPN processing failed:', error);
     return new NextResponse('Unable to process IPN.', {status: 500});
