@@ -1,6 +1,6 @@
 # TCW code quality audit
 
-Commit tested: df5699aa6f37ba0d2ab68fd683d03ddc0181fa4b
+Commit tested: f1af3d375ac18957f0fbcd1a0e94a49b6cab3993
 Node: v20.20.2
 npm: 10.8.2
 
@@ -11,15 +11,15 @@ npm: 10.8.2
 
 ## npm ci — last 120 lines
 ```text
-npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
-npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
 npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
 npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
 npm warn deprecated next@14.2.15: This version has a security vulnerability. Please upgrade to a patched version. See https://nextjs.org/blog/security-update-2025-12-11 for more details.
 
-added 418 packages, and audited 419 packages in 23s
+added 418 packages, and audited 419 packages in 9s
 
 156 packages are looking for funding
   run `npm fund` for details
@@ -79,11 +79,8 @@ info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/d
 ```text
 
 > tutti-cancer-warriors@1.0.0 build
-> node scripts/audit-build.mjs
+> next build
 
-TypeScript exit code: 0
-ESLint exit code: 0
-Audit output written to /audit-results.txt
   ▲ Next.js 14.2.15
 
    Creating an optimized production build ...
@@ -94,8 +91,26 @@ Browserslist: caniuse-lite is outdated. Please run:
   npx update-browserslist-db@latest
   Why you should do it regularly: https://github.com/browserslist/update-db#readme
  ✓ Compiled successfully
-   Skipping validation of types
-   Skipping linting
+   Linting and checking validity of types ...
+
+./app/[locale]/donar/page.tsx
+89:27  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+226:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/[locale]/page.tsx
+146:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/[locale]/support-dream/page.tsx
+343:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/[locale]/team/page.tsx
+64:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/[locale]/warriors/page.tsx
+144:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+177:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
    Collecting page data ...
    Generating static pages (0/83) ...
 u [Error]: ENVIRONMENT_FALLBACK
