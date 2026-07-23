@@ -1,6 +1,6 @@
 # TCW code quality audit
 
-Commit tested: af3c6a8907fbb9d24df981530f84cf9ef7e0ed4c
+Commit tested: 0d72b993d9f84bb74f59cce728e0e01b1a5383df
 Node: v20.20.2
 npm: 10.8.2
 
@@ -19,7 +19,7 @@ npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supporte
 npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
 npm warn deprecated next@14.2.15: This version has a security vulnerability. Please upgrade to a patched version. See https://nextjs.org/blog/security-update-2025-12-11 for more details.
 
-added 418 packages, and audited 419 packages in 23s
+added 418 packages, and audited 419 packages in 39s
 
 156 packages are looking for funding
   run `npm fund` for details
@@ -60,8 +60,11 @@ app/api/crypto-verify/route.ts(194,5): error TS2737: BigInt literals are not ava
 ```text
 
 > tutti-cancer-warriors@1.0.0 build
-> next build
+> node scripts/audit-build.mjs
 
+TypeScript exit code: 1
+ESLint exit code: 1
+Audit output written to /audit-results.txt
 ⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
 Attention: Next.js now collects completely anonymous telemetry regarding usage.
 This information is used to shape Next.js' roadmap and prioritize features.
