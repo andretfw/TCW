@@ -7,16 +7,19 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   audit:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: audit/typecheck-build-safety
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -24,29 +27,83 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run TypeScript, ESLint, and production build
+      - name: Run isolated audit
         shell: bash
         env:
           NEXT_PUBLIC_SITE_URL: https://tutticancerwarriors.org
         run: |
           set +e
+          mkdir -p audit-results
 
-          npm run typecheck 2>&1 | tee typecheck.log
-          TYPECHECK_STATUS=${PIPESTATUS[0]}
+          npm ci > audit-results/npm-ci.log 2>&1
+          INSTALL_STATUS=$?
 
-          npm run lint 2>&1 | tee lint.log
-          LINT_STATUS=${PIPESTATUS[0]}
+          if [ "$INSTALL_STATUS" -eq 0 ]; then
+            npm run typecheck > audit-results/typecheck.log 2>&1
+            TYPECHECK_STATUS=$?
 
-          npm run build 2>&1 | tee build.log
-          BUILD_STATUS=${PIPESTATUS[0]}
+            npm run lint > audit-results/lint.log 2>&1
+            LINT_STATUS=$?
 
-          echo "TypeScript exit code: $TYPECHECK_STATUS"
-          echo "ESLint exit code: $LINT_STATUS"
-          echo "Build exit code: $BUILD_STATUS"
-
-          if [ "$TYPECHECK_STATUS" -ne 0 ] || [ "$LINT_STATUS" -ne 0 ] || [ "$BUILD_STATUS" -ne 0 ]; then
-            exit 1
+            npm run build > audit-results/build.log 2>&1
+            BUILD_STATUS=$?
+          else
+            TYPECHECK_STATUS=99
+            LINT_STATUS=99
+            BUILD_STATUS=99
+            echo "Skipped because npm ci failed." > audit-results/typecheck.log
+            echo "Skipped because npm ci failed." > audit-results/lint.log
+            echo "Skipped because npm ci failed." > audit-results/build.log
           fi
+
+          {
+            echo "# TCW code quality audit"
+            echo
+            echo "Commit tested: $GITHUB_SHA"
+            echo "Node: $(node --version)"
+            echo "npm: $(npm --version)"
+            echo
+            echo "- npm ci exit code: $INSTALL_STATUS"
+            echo "- TypeScript exit code: $TYPECHECK_STATUS"
+            echo "- ESLint exit code: $LINT_STATUS"
+            echo "- Production build exit code: $BUILD_STATUS"
+            echo
+            echo "## npm ci — last 120 lines"
+            echo '```text'
+            tail -n 120 audit-results/npm-ci.log
+            echo '```'
+            echo
+            echo "## TypeScript — last 300 lines"
+            echo '```text'
+            tail -n 300 audit-results/typecheck.log
+            echo '```'
+            echo
+            echo "## ESLint — last 300 lines"
+            echo '```text'
+            tail -n 300 audit-results/lint.log
+            echo '```'
+            echo
+            echo "## Production build — last 300 lines"
+            echo '```text'
+            tail -n 300 audit-results/build.log
+            echo '```'
+          } > audit-results/summary.md
+
+          if [ "$INSTALL_STATUS" -eq 0 ] && [ "$TYPECHECK_STATUS" -eq 0 ] && [ "$LINT_STATUS" -eq 0 ] && [ "$BUILD_STATUS" -eq 0 ]; then
+            echo PASS > audit-results/status.txt
+          else
+            echo FAIL > audit-results/status.txt
+          fi
+
+      - name: Commit audit results to isolated branch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audit-results
+          git commit -m "Add temporary audit results [skip ci]" || exit 0
+          git push origin HEAD:audit/typecheck-build-safety
+
+      - name: Mark failed audit
+        shell: bash
+        run: test "$(cat audit-results/status.txt)" = "PASS"
