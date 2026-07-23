@@ -87,7 +87,7 @@ export default function MensHealthWeekPage() {
             Join Us!
           </h2>
           <p className="text-xl text-white/90 max-w-2xl mx-auto mb-8">
-            Be part of this important week dedicated to men's health awareness and cancer prevention.
+            Be part of this important week dedicated to men’s health awareness and cancer prevention.
           </p>
           <Link
             href="/involucrate"
