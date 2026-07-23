@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\"",
-    "build": "node scripts/audit-build.mjs",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"
