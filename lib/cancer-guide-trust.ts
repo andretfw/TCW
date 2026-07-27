@@ -252,11 +252,123 @@ const LUNG_CANCER_TRUST: Record<SiteLocale, CancerGuideTrustContent> = {
   },
 };
 
+const COLORECTAL_CANCER_TRUST: Record<SiteLocale, CancerGuideTrustContent> = {
+  en: {
+    heading: 'Sources and medical information',
+    disclaimer:
+      'This page provides general educational information. It does not replace medical advice, diagnosis or treatment from a qualified healthcare professional. Bowel symptoms can have many causes; contact a healthcare professional about persistent changes in bowel habits, blood in the stool, abdominal pain, unexplained weight loss, fatigue or iron-deficiency anaemia.',
+    sourcesHeading: 'Official sources',
+    checkedLabel: 'Sources checked',
+    checkedDate: '28 July 2026',
+    stats: [
+      {
+        value: '2.0M',
+        label: 'New cases globally in 2024 (WHO estimate)',
+      },
+      {
+        value: '918K',
+        label: 'Deaths globally in 2024 (WHO estimate)',
+      },
+    ],
+    sources: [
+      {
+        label: 'World Health Organization — Cancer fact sheet and 2024 global estimates',
+        href: 'https://www.who.int/news-room/fact-sheets/detail/cancer',
+      },
+      {
+        label: 'World Health Organization — Colorectal cancer fact sheet',
+        href: 'https://www.who.int/news-room/fact-sheets/detail/colorectal-cancer',
+      },
+      {
+        label: 'National Cancer Institute — Colorectal Cancer: Patient Version',
+        href: 'https://www.cancer.gov/types/colorectal',
+      },
+      {
+        label: 'National Cancer Institute — Colorectal Cancer Screening',
+        href: 'https://www.cancer.gov/types/colorectal/patient/colorectal-screening-pdq',
+      },
+    ],
+  },
+  ro: {
+    heading: 'Surse și informații medicale',
+    disclaimer:
+      'Această pagină oferă informații educaționale generale. Nu înlocuiește sfatul, diagnosticul sau tratamentul oferit de un profesionist medical calificat. Simptomele intestinale pot avea numeroase cauze; adresează-te unui medic pentru modificări persistente ale tranzitului intestinal, sânge în scaun, dureri abdominale, scădere inexplicabilă în greutate, oboseală sau anemie feriprivă.',
+    sourcesHeading: 'Surse oficiale',
+    checkedLabel: 'Surse verificate la data de',
+    checkedDate: '28 iulie 2026',
+    stats: [
+      {
+        value: '2,0 mil.',
+        label: 'Cazuri noi la nivel global în 2024 (estimare OMS)',
+      },
+      {
+        value: '918 mii',
+        label: 'Decese la nivel global în 2024 (estimare OMS)',
+      },
+    ],
+    sources: [
+      {
+        label: 'Organizația Mondială a Sănătății — Fișă despre cancer și estimările globale pentru 2024',
+        href: 'https://www.who.int/news-room/fact-sheets/detail/cancer',
+      },
+      {
+        label: 'Organizația Mondială a Sănătății — Fișă informativă despre cancerul colorectal',
+        href: 'https://www.who.int/news-room/fact-sheets/detail/colorectal-cancer',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Cancer colorectal: versiunea pentru pacienți',
+        href: 'https://www.cancer.gov/types/colorectal',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Screening pentru cancerul colorectal',
+        href: 'https://www.cancer.gov/types/colorectal/patient/colorectal-screening-pdq',
+      },
+    ],
+  },
+  es: {
+    heading: 'Fuentes e información médica',
+    disclaimer:
+      'Esta página ofrece información educativa general. No sustituye el consejo, diagnóstico ni tratamiento de un profesional sanitario cualificado. Los síntomas intestinales pueden tener muchas causas; consulta a un profesional sanitario si tienes cambios persistentes en los hábitos intestinales, sangre en las heces, dolor abdominal, pérdida de peso sin explicación, cansancio o anemia por falta de hierro.',
+    sourcesHeading: 'Fuentes oficiales',
+    checkedLabel: 'Fuentes verificadas el',
+    checkedDate: '28 de julio de 2026',
+    stats: [
+      {
+        value: '2,0 M',
+        label: 'Casos nuevos en todo el mundo en 2024 (estimación de la OMS)',
+      },
+      {
+        value: '918 mil',
+        label: 'Muertes en todo el mundo en 2024 (estimación de la OMS)',
+      },
+    ],
+    sources: [
+      {
+        label: 'Organización Mundial de la Salud — Ficha sobre el cáncer y estimaciones mundiales de 2024',
+        href: 'https://www.who.int/es/news-room/fact-sheets/detail/cancer',
+      },
+      {
+        label: 'Organización Mundial de la Salud — Ficha informativa sobre el cáncer colorrectal',
+        href: 'https://www.who.int/es/news-room/fact-sheets/detail/colorectal-cancer',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — Cáncer colorrectal: versión para pacientes',
+        href: 'https://www.cancer.gov/espanol/tipos/colorrectal',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — Detección del cáncer colorrectal',
+        href: 'https://www.cancer.gov/espanol/tipos/colorrectal/paciente/deteccion-colorrectal-pdq',
+      },
+    ],
+  },
+};
+
 const CANCER_GUIDE_TRUST: Partial<
   Record<CancerId, Record<SiteLocale, CancerGuideTrustContent>>
 > = {
   breast: BREAST_CANCER_TRUST,
   lung: LUNG_CANCER_TRUST,
+  colorectal: COLORECTAL_CANCER_TRUST,
 };
 
 export function getCancerGuideTrustContent(
