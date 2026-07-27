@@ -57,7 +57,7 @@ info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/d
 Browserslist: browsers data (caniuse-lite) is 7 months old. Please run:
   npx update-browserslist-db@latest
   Why you should do it regularly: https://github.com/browserslist/update-db#readme
- ✓ Compiled successfully in 11.5s
+ ✓ Compiled successfully in 12.2s
    Linting and checking validity of types ...
 
 ./app/[locale]/donar/page.tsx
@@ -80,9 +80,9 @@ Browserslist: browsers data (caniuse-lite) is 7 months old. Please run:
 info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
 Failed to compile.
 
-app/[locale]/sobre-cancer/[id]/page.tsx
-Type error: Type '{ params: { id: string; locale: string; }; }' does not satisfy the constraint 'PageProps'.
+app/[locale]/sobre-cancer/page.tsx
+Type error: Type '{ params: { locale: string; }; }' does not satisfy the constraint 'PageProps'.
   Types of property 'params' are incompatible.
-    Type '{ id: string; locale: string; }' is missing the following properties from type 'Promise<any>': then, catch, finally, [Symbol.toStringTag]
+    Type '{ locale: string; }' is missing the following properties from type 'Promise<any>': then, catch, finally, [Symbol.toStringTag]
 
 Next.js build worker exited with code: 1 and signal: null
