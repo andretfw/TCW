@@ -73,12 +73,17 @@ jobs:
           grep -F 'rel="canonical" href="https://tutticancerwarriors.org/ro"' .seo-test/ro.html
           grep -F 'rel="canonical" href="https://tutticancerwarriors.org/es"' .seo-test/es.html
 
-      - name: Validate hreflang alternates
-        run: |
-          grep -F 'hreflang="en"' .seo-test/en.html
-          grep -F 'hreflang="ro"' .seo-test/en.html
-          grep -F 'hreflang="es"' .seo-test/en.html
-          grep -F 'hreflang="x-default"' .seo-test/en.html
+      - name: Validate English hreflang
+        run: grep -F 'hreflang="en"' .seo-test/en.html
+
+      - name: Validate Romanian hreflang
+        run: grep -F 'hreflang="ro"' .seo-test/en.html
+
+      - name: Validate Spanish hreflang
+        run: grep -F 'hreflang="es"' .seo-test/en.html
+
+      - name: Validate default hreflang
+        run: grep -F 'hreflang="x-default"' .seo-test/en.html
 
       - name: Validate Open Graph locales
         run: |
