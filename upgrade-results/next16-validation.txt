@@ -1,0 +1,168 @@
+NEXT16_UPGRADE_VALIDATION
+lock_status=success
+install_status=success
+typecheck_status=success
+lint_status=failure
+build_status=failure
+
+=== TYPECHECK ===
+
+> tutti-cancer-warriors@1.0.0 typecheck
+> tsc --noEmit
+
+
+=== LINT ===
+
+> tutti-cancer-warriors@1.0.0 lint
+> eslint .
+
+
+/home/runner/work/TCW/TCW/app/[locale]/Header.tsx
+  175:5  error  Error: This value cannot be modified
+
+Modifying a variable defined outside a component or hook is not allowed. Consider using an effect.
+
+/home/runner/work/TCW/TCW/app/[locale]/Header.tsx:175:5
+  173 |
+  174 |   const changeLanguage = (newLocale: string) => {
+> 175 |     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+      |     ^^^^^^^^ value cannot be modified
+  176 |     router.push(switchLocalePath(pathname, newLocale));
+  177 |     router.refresh();
+  178 |     setIsLangOpen(false);  react-hooks/immutability
+
+/home/runner/work/TCW/TCW/app/[locale]/donar/page.tsx
+   89:27  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  226:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/home/runner/work/TCW/TCW/app/[locale]/page.tsx
+  146:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/home/runner/work/TCW/TCW/app/[locale]/support-dream/page.tsx
+  343:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/home/runner/work/TCW/TCW/app/[locale]/team/page.tsx
+  64:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/home/runner/work/TCW/TCW/app/[locale]/warriors/page.tsx
+  144:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  177:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/home/runner/work/TCW/TCW/components/CampaignGoalReachedNotice.tsx
+  86:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/home/runner/work/TCW/TCW/components/CampaignGoalReachedNotice.tsx:86:5
+  84 |
+  85 |   useEffect(() => {
+> 86 |     loadCampaignStatus();
+     |     ^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  87 |     const interval = window.setInterval(loadCampaignStatus, 15_000);
+  88 |     return () => window.clearInterval(interval);
+  89 |   }, [loadCampaignStatus]);  react-hooks/set-state-in-effect
+
+/home/runner/work/TCW/TCW/components/CookieBanner.tsx
+  20:19  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/home/runner/work/TCW/TCW/components/CookieBanner.tsx:20:19
+  18 |     // Solo mostramos si no hay un consentimiento previo guardado
+  19 |     const consent = localStorage.getItem('cookie-consent');
+> 20 |     if (!consent) setIsVisible(true);
+     |                   ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  21 |   }, []);
+  22 |
+  23 |   const handleSave = (type: 'all' | 'custom' | 'reject') => {  react-hooks/set-state-in-effect
+
+✖ 10 problems (3 errors, 7 warnings)
+
+
+=== BUILD ===
+
+> tutti-cancer-warriors@1.0.0 build
+> npm run lint && next build
+
+
+> tutti-cancer-warriors@1.0.0 lint
+> eslint .
+
+
+/home/runner/work/TCW/TCW/app/[locale]/Header.tsx
+  175:5  error  Error: This value cannot be modified
+
+Modifying a variable defined outside a component or hook is not allowed. Consider using an effect.
+
+/home/runner/work/TCW/TCW/app/[locale]/Header.tsx:175:5
+  173 |
+  174 |   const changeLanguage = (newLocale: string) => {
+> 175 |     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+      |     ^^^^^^^^ value cannot be modified
+  176 |     router.push(switchLocalePath(pathname, newLocale));
+  177 |     router.refresh();
+  178 |     setIsLangOpen(false);  react-hooks/immutability
+
+/home/runner/work/TCW/TCW/app/[locale]/donar/page.tsx
+   89:27  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  226:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/home/runner/work/TCW/TCW/app/[locale]/page.tsx
+  146:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/home/runner/work/TCW/TCW/app/[locale]/support-dream/page.tsx
+  343:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/home/runner/work/TCW/TCW/app/[locale]/team/page.tsx
+  64:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/home/runner/work/TCW/TCW/app/[locale]/warriors/page.tsx
+  144:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  177:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/home/runner/work/TCW/TCW/components/CampaignGoalReachedNotice.tsx
+  86:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/home/runner/work/TCW/TCW/components/CampaignGoalReachedNotice.tsx:86:5
+  84 |
+  85 |   useEffect(() => {
+> 86 |     loadCampaignStatus();
+     |     ^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  87 |     const interval = window.setInterval(loadCampaignStatus, 15_000);
+  88 |     return () => window.clearInterval(interval);
+  89 |   }, [loadCampaignStatus]);  react-hooks/set-state-in-effect
+
+/home/runner/work/TCW/TCW/components/CookieBanner.tsx
+  20:19  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/home/runner/work/TCW/TCW/components/CookieBanner.tsx:20:19
+  18 |     // Solo mostramos si no hay un consentimiento previo guardado
+  19 |     const consent = localStorage.getItem('cookie-consent');
+> 20 |     if (!consent) setIsVisible(true);
+     |                   ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  21 |   }, []);
+  22 |
+  23 |   const handleSave = (type: 'all' | 'custom' | 'reject') => {  react-hooks/set-state-in-effect
+
+✖ 10 problems (3 errors, 7 warnings)
+
