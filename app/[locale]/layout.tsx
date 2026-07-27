@@ -5,6 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import CookieBanner from '@/components/CookieBanner';
 import IntlProvider from '@/components/IntlProvider';
+import MobileHeaderInteractionBoundary from '@/components/MobileHeaderInteractionBoundary';
 import {SITE_LOCALES, type SiteLocale} from '@/lib/routes';
 
 function isSupportedLocale(locale: string): locale is SiteLocale {
@@ -82,7 +83,9 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className="bg-white antialiased">
         <IntlProvider locale={locale} messages={messages}>
-          <Header locale={locale} />
+          <MobileHeaderInteractionBoundary>
+            <Header locale={locale} />
+          </MobileHeaderInteractionBoundary>
           <main className="min-h-screen">{children}</main>
           <Footer />
           <CookieBanner />
