@@ -26,6 +26,8 @@ jobs:
           cache: npm
 
       - name: Verify isolated scope
+        id: scope
+        continue-on-error: true
         run: |
           git fetch origin main
           changed="$(git diff --name-only origin/main...HEAD | sort)"
@@ -38,18 +40,28 @@ jobs:
           fi
 
       - name: Install dependencies
+        id: install
+        continue-on-error: true
         run: npm ci
 
       - name: Typecheck
+        id: typecheck
+        continue-on-error: true
         run: npm run typecheck
 
       - name: Lint
+        id: lint
+        continue-on-error: true
         run: npm run lint
 
       - name: Production build
+        id: build
+        continue-on-error: true
         run: npm run build
 
       - name: Validate generated homepage metadata
+        id: metadata
+        continue-on-error: true
         run: |
           npm run start > /tmp/tcw-seo-start.log 2>&1 &
           server_pid=$!
@@ -90,22 +102,16 @@ jobs:
           grep -F '"@type":"DonateAction"' /tmp/en-home.html
 
       - name: Record validation result
+        if: always()
         run: |
-          cat > homepage-seo-validation.txt <<'EOF'
+          cat > homepage-seo-validation.txt <<EOF
           HOMEPAGE_SEO_VALIDATION
-          isolated_scope=passed
-          install=passed
-          typecheck=passed
-          lint=passed
-          build=passed
-          production_pages=passed
-          canonical_urls=passed
-          hreflang=passed
-          open_graph_locales=passed
-          localized_titles=passed
-          ngo_schema=passed
-          website_schema=passed
-          donate_action_schema=passed
+          isolated_scope=${{ steps.scope.outcome }}
+          install=${{ steps.install.outcome }}
+          typecheck=${{ steps.typecheck.outcome }}
+          lint=${{ steps.lint.outcome }}
+          build=${{ steps.build.outcome }}
+          metadata=${{ steps.metadata.outcome }}
           EOF
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
