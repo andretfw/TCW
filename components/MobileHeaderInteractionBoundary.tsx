@@ -1,6 +1,6 @@
 'use client';
 
-import type {MouseEvent, ReactNode} from 'react';
+import {useEffect, useRef, type ReactNode} from 'react';
 
 type MobileHeaderInteractionBoundaryProps = {
   children: ReactNode;
@@ -9,11 +9,21 @@ type MobileHeaderInteractionBoundaryProps = {
 export default function MobileHeaderInteractionBoundary({
   children,
 }: MobileHeaderInteractionBoundaryProps) {
-  const handleMouseDown = (event: MouseEvent<HTMLDivElement>) => {
-    if (window.matchMedia('(max-width: 767px)').matches) {
-      event.stopPropagation();
-    }
-  };
+  const boundaryRef = useRef<HTMLDivElement>(null);
 
-  return <div onMouseDown={handleMouseDown}>{children}</div>;
+  useEffect(() => {
+    const boundary = boundaryRef.current;
+    if (!boundary) return;
+
+    const stopMobileMouseDown = (event: MouseEvent) => {
+      if (window.matchMedia('(max-width: 767px)').matches) {
+        event.stopPropagation();
+      }
+    };
+
+    boundary.addEventListener('mousedown', stopMobileMouseDown);
+    return () => boundary.removeEventListener('mousedown', stopMobileMouseDown);
+  }, []);
+
+  return <div ref={boundaryRef}>{children}</div>;
 }
