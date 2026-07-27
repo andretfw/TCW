@@ -1,0 +1,132 @@
+name: Lung cancer medical trust check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out lung medical trust branch
+        uses: actions/checkout@v4
+        with:
+          ref: seo/lung-cancer-medical-trust
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.5
+          cache: npm
+
+      - name: Verify isolated scope
+        run: |
+          git fetch origin main
+          changed="$(git diff --name-only origin/main...HEAD | sort)"
+          printf '%s\n' "$changed"
+          unexpected="$(printf '%s\n' "$changed" | grep -Ev '^(.github/workflows/lung-cancer-medical-trust-check.yml|lib/cancer-guide-trust.ts)$' || true)"
+          if [ -n "$unexpected" ]; then
+            echo "Unexpected files changed:"
+            printf '%s\n' "$unexpected"
+            exit 1
+          fi
+
+      - name: Verify official lung sources and statistics
+        run: |
+          grep -F "const LUNG_CANCER_TRUST" lib/cancer-guide-trust.ts
+          grep -F "value: '2.6M'" lib/cancer-guide-trust.ts
+          grep -F "value: '1.86M'" lib/cancer-guide-trust.ts
+          grep -F "https://www.who.int/news-room/fact-sheets/detail/cancer" lib/cancer-guide-trust.ts
+          grep -F "https://www.who.int/news-room/fact-sheets/detail/lung-cancer" lib/cancer-guide-trust.ts
+          grep -F "https://www.cancer.gov/types/lung" lib/cancer-guide-trust.ts
+          grep -F "https://www.cancer.gov/espanol/tipos/pulmon" lib/cancer-guide-trust.ts
+          ! grep -Ei "lastReviewed|reviewedBy|medical reviewer|medically reviewed" lib/cancer-guide-trust.ts
+
+      - name: Verify breast trust content remains present
+        run: |
+          grep -F "const BREAST_CANCER_TRUST" lib/cancer-guide-trust.ts
+          grep -F "value: '2.4M'" lib/cancer-guide-trust.ts
+          grep -F "value: '694K'" lib/cancer-guide-trust.ts
+          grep -F "breast: BREAST_CANCER_TRUST" lib/cancer-guide-trust.ts
+          grep -F "lung: LUNG_CANCER_TRUST" lib/cancer-guide-trust.ts
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Production build
+        run: npm run build
+
+      - name: Start production server
+        run: |
+          npm run start > /tmp/tcw-lung-trust-start.log 2>&1 &
+          echo $! > /tmp/tcw-lung-trust-server.pid
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:3000/en/about-cancer/lung > /tmp/en-lung.html; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/tcw-lung-trust-start.log
+          exit 1
+
+      - name: Fetch representative guide pages
+        run: |
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/about-cancer/lung > /tmp/en-lung.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/ro/despre-cancer/plaman > /tmp/ro-lung.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/es/sobre-cancer/pulmon > /tmp/es-lung.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/about-cancer/breast > /tmp/en-breast.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/about-cancer/colorectal > /tmp/en-colorectal.html
+
+      - name: Validate English lung guide trust content
+        run: |
+          grep -F "Sources and medical information" /tmp/en-lung.html
+          grep -F "28 July 2026" /tmp/en-lung.html
+          grep -F ">2.6M</span>" /tmp/en-lung.html
+          grep -F ">1.86M</span>" /tmp/en-lung.html
+          grep -F "does not replace medical advice" /tmp/en-lung.html
+          grep -F "https://www.who.int/news-room/fact-sheets/detail/lung-cancer" /tmp/en-lung.html
+          grep -F "https://www.cancer.gov/types/lung" /tmp/en-lung.html
+          ! grep -F ">2.2M</span>" /tmp/en-lung.html
+
+      - name: Validate Romanian lung guide trust content
+        run: |
+          grep -F "Surse și informații medicale" /tmp/ro-lung.html
+          grep -F "28 iulie 2026" /tmp/ro-lung.html
+          grep -F ">2,6 mil.</span>" /tmp/ro-lung.html
+          grep -F ">1,86 mil.</span>" /tmp/ro-lung.html
+          grep -F "Nu înlocuiește sfatul" /tmp/ro-lung.html
+
+      - name: Validate Spanish lung guide trust content
+        run: |
+          grep -F "Fuentes e información médica" /tmp/es-lung.html
+          grep -F "28 de julio de 2026" /tmp/es-lung.html
+          grep -F ">2,6 M</span>" /tmp/es-lung.html
+          grep -F ">1,86 M</span>" /tmp/es-lung.html
+          grep -F "No sustituye el consejo" /tmp/es-lung.html
+          grep -F "https://www.who.int/es/news-room/fact-sheets/detail/lung-cancer" /tmp/es-lung.html
+          grep -F "https://www.cancer.gov/espanol/tipos/pulmon" /tmp/es-lung.html
+
+      - name: Verify breast and unrelated guides
+        run: |
+          grep -F ">2.4M</span>" /tmp/en-breast.html
+          grep -F ">694K</span>" /tmp/en-breast.html
+          grep -F "World Health Organization — Breast cancer fact sheet" /tmp/en-breast.html
+          ! grep -F "Sources and medical information" /tmp/en-colorectal.html
+
+      - name: Stop production server
+        if: always()
+        run: |
+          if [ -f /tmp/tcw-lung-trust-server.pid ]; then
+            kill "$(cat /tmp/tcw-lung-trust-server.pid)" 2>/dev/null || true
+          fi
