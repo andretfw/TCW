@@ -1,2 +1,0 @@
-Temporary validation trigger. Remove before review.
-Retry: 1
