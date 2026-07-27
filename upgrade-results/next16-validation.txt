@@ -80,19 +80,9 @@ https://nextjs.org/telemetry
 Browserslist: browsers data (caniuse-lite) is 7 months old. Please run:
   npx update-browserslist-db@latest
   Why you should do it regularly: https://github.com/browserslist/update-db#readme
-✓ Compiled successfully in 5.6s
+✓ Compiled successfully in 5.4s
   Running TypeScript ...
-
-  We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
-  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
-
-  	- include was updated to add '.next/dev/types/**/*.ts'
-
-  The following mandatory changes were made to your tsconfig.json:
-
-  	- jsx was set to react-jsx (next.js uses the React automatic runtime)
-
-  Finished TypeScript in 4.8s ...
+  Finished TypeScript in 4.6s ...
   Collecting page data using 3 workers ...
   Generating static pages using 3 workers (0/82) ...
 Error: ENVIRONMENT_FALLBACK
@@ -113,7 +103,7 @@ Error: ENVIRONMENT_FALLBACK
   Generating static pages using 3 workers (20/82) 
   Generating static pages using 3 workers (40/82) 
   Generating static pages using 3 workers (61/82) 
-✓ Generating static pages using 3 workers (82/82) in 1675ms
+✓ Generating static pages using 3 workers (82/82) in 1646ms
   Finalizing page optimization ...
 
 Route (app)
