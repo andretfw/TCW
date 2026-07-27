@@ -41,7 +41,7 @@ jobs:
           git show origin/main:'app/[locale]/donar/page.tsx' \
             | sed 's/export default function DonatePage()/export default function DonatePageClient()/' \
             > /tmp/expected-donate-client.tsx
-          cmp /tmp/expected-donate-client.tsx 'app/[locale]/donar/DonatePageClient.tsx'
+          diff -u /tmp/expected-donate-client.tsx 'app/[locale]/donar/DonatePageClient.tsx'
 
       - name: Install dependencies
         run: npm ci
