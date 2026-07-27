@@ -1,213 +1,167 @@
-'use client';
-import Image from 'next/image';
-import { useTranslations, useLocale } from 'next-intl';
-import { useState, useEffect } from 'react';
-import { X, Heart, Sparkles, ArrowRight, TrendingUp, Target, Users } from 'lucide-react';
-import Link from 'next/link';
-import { IMPACT } from '@/lib/impact';
-import { localizedPath } from '@/lib/routes';
+import type {Metadata} from 'next';
+import WarriorsPageClient from './WarriorsPageClient';
+import {localizedPath, normalizeLocale, type SiteLocale} from '@/lib/routes';
 
-function AnimatedCounter({ end, duration = 2000, prefix = '' }: { end: number, duration?: number, prefix?: string }) {
-  const [count, setCount] = useState(0);
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://tutticancerwarriors.org';
 
-  useEffect(() => {
-    let startTime: number | null = null;
-    let animationFrameId: number;
+const SEO_COPY: Record<SiteLocale, {title: string; description: string; collectionName: string}> = {
+  en: {
+    title: 'Cancer Warrior Stories and Fulfilled Dreams',
+    description:
+      'Meet cancer warriors supported by Tutti Cancer Warriors, discover their fulfilled dreams and see the impact of compassionate community support.',
+    collectionName: 'Cancer warrior stories and fulfilled dreams',
+  },
+  ro: {
+    title: 'Povești ale persoanelor afectate de cancer și dorințe împlinite',
+    description:
+      'Descoperă poveștile persoanelor sprijinite de Tutti Cancer Warriors, dorințele lor împlinite și impactul unei comunități care le este alături.',
+    collectionName: 'Povești și dorințe împlinite',
+  },
+  es: {
+    title: 'Historias de personas con cáncer y sueños cumplidos',
+    description:
+      'Conoce las historias de personas apoyadas por Tutti Cancer Warriors, sus sueños cumplidos y el impacto de una comunidad solidaria.',
+    collectionName: 'Historias y sueños cumplidos',
+  },
+};
 
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = timestamp - startTime;
-      const percentage = Math.min(progress / duration, 1);
-      const ease = (x: number) => 1 - Math.pow(1 - x, 3);
-      setCount(Math.floor(ease(percentage) * end));
+const OPEN_GRAPH_LOCALES: Record<SiteLocale, string> = {
+  en: 'en_US',
+  ro: 'ro_RO',
+  es: 'es_ES',
+};
 
-      if (progress < duration) animationFrameId = requestAnimationFrame(animate);
-    };
+const STORY_NAMES = [
+  'Anetra',
+  'Janelle',
+  'Jeanelle',
+  'Susan',
+  'Taya',
+  'Anonymous warrior',
+  'Jocelyn',
+  'Monica',
+  'Penny',
+  'Wren',
+];
 
-    animationFrameId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [end, duration]);
-
-  return <>{prefix}{new Intl.NumberFormat('en-US').format(count)}</>;
+function absoluteWarriorsUrl(locale: SiteLocale) {
+  return `${SITE_URL}${localizedPath(locale, 'warriors')}`;
 }
 
-export default function WarriorsPage() {
-  const t = useTranslations('warriorsPage');
-  const locale = useLocale();
-  const [selectedStory, setSelectedStory] = useState<null | any>(null);
-  const warriorsSupportedLabel = locale === 'ro'
-    ? 'Warriors sprijiniți'
-    : locale === 'es'
-      ? 'Warriors apoyados'
-      : 'Warriors Supported';
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{locale: string}>;
+}): Promise<Metadata> {
+  const {locale: localeParam} = await params;
+  const locale = normalizeLocale(localeParam);
+  const copy = SEO_COPY[locale];
+  const canonical = absoluteWarriorsUrl(locale);
 
-  const stories = [
-    { id: '1', name: t('featured.anetra.name'), age: t('featured.anetra.age'), dream: t('featured.anetra.dream'), shortDesc: t('featured.anetra.shortDesc'), fullStory: t('featured.anetra.fullStory'), image: '/anetra-home.jpg', position: 'object-[center_25%]', color: 'bg-purple-100 text-purple-700' },
-    { id: '2', name: t('featured.janelle.name'), age: t('featured.janelle.age'), dream: t('featured.janelle.dream'), shortDesc: t('featured.janelle.shortDesc'), fullStory: t('featured.janelle.fullStory'), image: '/janelle-home.jpg', position: 'object-top', color: 'bg-blue-100 text-blue-700' },
-    { id: '3', name: t('featured.jeanelle.name'), age: t('featured.jeanelle.age'), dream: t('featured.jeanelle.dream'), shortDesc: t('featured.jeanelle.shortDesc'), fullStory: t('featured.jeanelle.fullStory'), image: '/jeanelle-home.jpg', position: 'object-center', color: 'bg-teal-100 text-teal-700' },
-    { id: '4', name: t('featured.susan.name'), age: t('featured.susan.age'), dream: t('featured.susan.dream'), shortDesc: t('featured.susan.shortDesc'), fullStory: t('featured.susan.fullStory'), image: '/susan.jpg', position: 'object-[center_35%]', color: 'bg-pink-100 text-pink-700' },
-    { id: '5', name: t('featured.taya.name'), age: t('featured.taya.age'), dream: t('featured.taya.dream'), shortDesc: t('featured.taya.shortDesc'), fullStory: t('featured.taya.fullStory'), image: '/taya.jpg', position: 'object-center', color: 'bg-orange-100 text-orange-700' },
-    { id: '6', name: t('featured.anonymous.name'), age: t('featured.anonymous.age'), dream: t('featured.anonymous.dream'), shortDesc: t('featured.anonymous.shortDesc'), fullStory: t('featured.anonymous.fullStory'), image: '/warrior.jpg', position: 'object-center', color: 'bg-indigo-100 text-indigo-700' },
-    {
-      id: '7',
-      name: t('featured.jocelyn.name'),
-      age: t('featured.jocelyn.age'),
-      dream: t('featured.jocelyn.dream'),
-      shortDesc: t('featured.jocelyn.shortDesc'),
-      fullStory: t('featured.jocelyn.fullStory'),
-      image: 'https://plus.unsplash.com/premium_photo-1708371355671-07c6bfab983c?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      position: 'object-center',
-      color: 'bg-rose-100 text-rose-700',
+  return {
+    title: copy.title,
+    description: copy.description,
+    alternates: {
+      canonical,
+      languages: {
+        en: absoluteWarriorsUrl('en'),
+        ro: absoluteWarriorsUrl('ro'),
+        es: absoluteWarriorsUrl('es'),
+        'x-default': absoluteWarriorsUrl('es'),
+      },
     },
-    {
-      id: '8',
-      name: t('featured.monica.name'),
-      age: t('featured.monica.age'),
-      dream: t('featured.monica.dream'),
-      shortDesc: t('featured.monica.shortDesc'),
-      fullStory: t('featured.monica.fullStory'),
-      image: '/Monica RO (1).jpg',
-      position: 'object-center',
-      color: 'bg-emerald-100 text-emerald-700',
+    openGraph: {
+      title: `${copy.title} | Tutti Cancer Warriors`,
+      description: copy.description,
+      url: canonical,
+      siteName: 'Tutti Cancer Warriors',
+      locale: OPEN_GRAPH_LOCALES[locale],
+      alternateLocale: Object.values(OPEN_GRAPH_LOCALES).filter(
+        (value) => value !== OPEN_GRAPH_LOCALES[locale],
+      ),
+      type: 'website',
+      images: [
+        {
+          url: '/TCW_LOGO.png',
+          width: 800,
+          height: 600,
+          alt: 'Tutti Cancer Warriors stories and impact',
+        },
+      ],
     },
-    {
-      id: '9',
-      name: t('featured.penny.name'),
-      age: t('featured.penny.age'),
-      dream: t('featured.penny.dream'),
-      shortDesc: t('featured.penny.shortDesc'),
-      fullStory: t('featured.penny.fullStory'),
-      image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=800',
-      position: 'object-center',
-      color: 'bg-sky-100 text-sky-700',
+    twitter: {
+      card: 'summary_large_image',
+      title: `${copy.title} | Tutti Cancer Warriors`,
+      description: copy.description,
+      images: ['/TCW_LOGO.png'],
     },
-    {
-      id: 'wren',
-      name: t('featured.wren.name'),
-      age: t('featured.wren.age'),
-      dream: t('featured.wren.dream'),
-      shortDesc: t('featured.wren.shortDesc'),
-      fullStory: t('featured.wren.fullStory'),
-      image: '/wren.jpg',
-      position: 'object-center',
-      color: 'bg-fuchsia-100 text-fuchsia-700',
-    },
-  ];
+  };
+}
+
+export default async function WarriorsPage({
+  params,
+}: {
+  params: Promise<{locale: string}>;
+}) {
+  const {locale: localeParam} = await params;
+  const locale = normalizeLocale(localeParam);
+  const copy = SEO_COPY[locale];
+  const pageUrl = absoluteWarriorsUrl(locale);
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: copy.title,
+        description: copy.description,
+        inLanguage: locale,
+        isPartOf: {
+          '@type': 'WebSite',
+          '@id': `${SITE_URL}/#website`,
+          url: SITE_URL,
+          name: 'Tutti Cancer Warriors',
+        },
+        about: {
+          '@type': 'NGO',
+          '@id': `${SITE_URL}/#organization`,
+          name: 'Tutti Cancer Warriors',
+          url: SITE_URL,
+        },
+        mainEntity: {
+          '@id': `${pageUrl}#stories`,
+        },
+      },
+      {
+        '@type': 'ItemList',
+        '@id': `${pageUrl}#stories`,
+        name: copy.collectionName,
+        numberOfItems: STORY_NAMES.length,
+        itemListOrder: 'https://schema.org/ItemListOrderAscending',
+        itemListElement: STORY_NAMES.map((name, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          item: {
+            '@type': 'CreativeWork',
+            name,
+          },
+        })),
+      },
+    ],
+  };
 
   return (
-    <div className="pt-20 min-h-screen bg-neutral-50">
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-bold mb-6">
-            <Sparkles className="w-4 h-4" />
-            <span>Tutti Cancer Warriors</span>
-          </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-neutral-900 mb-6">{t('title')}</h1>
-          <p className="text-xl text-neutral-600 max-w-2xl mx-auto mb-12">{t('subtitle')}</p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="bg-neutral-50 rounded-2xl p-6 border border-neutral-100 flex items-center justify-center gap-4 shadow-sm hover:shadow-md transition-shadow">
-              <div className="p-3 bg-white rounded-xl text-brand-600 shadow-sm"><TrendingUp className="w-6 h-6" /></div>
-              <div className="text-left">
-                <div className="text-3xl font-bold text-neutral-900 tabular-nums"><AnimatedCounter end={IMPACT.fundsGrantedEur} prefix="€" /></div>
-                <div className="text-sm text-neutral-500 font-medium uppercase tracking-wide">{t('stats.investment')}</div>
-              </div>
-            </div>
-
-            <div className="bg-neutral-50 rounded-2xl p-6 border border-neutral-100 flex items-center justify-center gap-4 shadow-sm hover:shadow-md transition-shadow">
-              <div className="p-3 bg-white rounded-xl text-purple-600 shadow-sm"><Target className="w-6 h-6" /></div>
-              <div className="text-left">
-                <div className="text-3xl font-bold text-neutral-900 tabular-nums"><AnimatedCounter end={IMPACT.dreamsFulfilled} /></div>
-                <div className="text-sm text-neutral-500 font-medium uppercase tracking-wide">{t('stats.dreams')}</div>
-              </div>
-            </div>
-
-            <div className="bg-neutral-50 rounded-2xl p-6 border border-neutral-100 flex items-center justify-center gap-4 shadow-sm hover:shadow-md transition-shadow">
-              <div className="p-3 bg-white rounded-xl text-indigo-600 shadow-sm"><Users className="w-6 h-6" /></div>
-              <div className="text-left">
-                <div className="text-3xl font-bold text-neutral-900 tabular-nums"><AnimatedCounter end={IMPACT.warriorsSupported} /></div>
-                <div className="text-sm text-neutral-500 font-medium uppercase tracking-wide">{warriorsSupportedLabel}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="pb-24 px-4 container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {stories.map((story) => (
-            <div
-              key={story.id}
-              className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer border border-neutral-100 flex flex-col h-full"
-              onClick={() => setSelectedStory(story)}
-            >
-              <div className="relative h-80 overflow-hidden">
-                <Image
-                  src={story.image}
-                  alt={story.name}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                  className={`object-cover transition-transform duration-700 group-hover:scale-105 ${story.position}`}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
-                <div className="absolute bottom-4 left-4 text-white"><h3 className="text-2xl font-bold">{story.name}, {story.age}</h3></div>
-                <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${story.color}`}>{t('dreamFulfilled')}</div>
-              </div>
-
-              <div className="p-8 flex flex-col flex-grow">
-                <div className="mb-4">
-                  <h4 className="text-sm font-bold text-neutral-400 uppercase tracking-wide mb-1">Dream</h4>
-                  <p className="text-lg font-bold text-brand-600">{story.dream}</p>
-                </div>
-                <p className="text-neutral-600 mb-6 line-clamp-3 flex-grow">{story.shortDesc}</p>
-                <button className="flex items-center gap-2 text-neutral-900 font-bold group-hover:text-brand-600 transition-colors mt-auto">
-                  {t('readStory')}
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {selectedStory && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setSelectedStory(null)} />
-
-          <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-300">
-            <button onClick={() => setSelectedStory(null)} className="absolute top-4 right-4 p-2 bg-white/50 hover:bg-white rounded-full transition-colors z-10">
-              <X className="w-6 h-6 text-neutral-900" />
-            </button>
-
-            <div className="grid md:grid-cols-2">
-              <div className="h-64 md:h-auto relative">
-                <Image
-                  src={selectedStory.image}
-                  alt={selectedStory.name}
-                  fill
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                  className={`object-cover ${selectedStory.position}`}
-                />
-              </div>
-
-              <div className="p-8 md:p-12">
-                <div className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6 ${selectedStory.color}`}>{t('dreamFulfilled')}</div>
-                <h2 className="text-4xl font-bold text-neutral-900 mb-2">{selectedStory.name}, {selectedStory.age}</h2>
-                <h3 className="text-xl text-brand-600 font-bold mb-6">{selectedStory.dream}</h3>
-                <div className="prose prose-neutral mb-8 text-neutral-600 whitespace-pre-line leading-relaxed">{selectedStory.fullStory}</div>
-
-                <Link
-                  href={localizedPath(locale, 'donate')}
-                  className="flex-1 bg-brand-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-700 transition-colors flex items-center justify-center gap-2 shadow-lg hover:shadow-brand-200"
-                >
-                  <Heart className="w-5 h-5" fill="currentColor" />
-                  {t('supportBtn')}
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <WarriorsPageClient />
+    </>
   );
 }
