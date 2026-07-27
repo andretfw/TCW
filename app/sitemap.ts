@@ -36,18 +36,12 @@ function cancerAlternates(cancerId: CancerId): Record<string, string> {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
   const routeKeys = Object.keys(ROUTES.en) as RouteKey[];
   const cancerIds = Object.keys(CANCER_SLUGS.en) as CancerId[];
 
   const mainPages: MetadataRoute.Sitemap = routeKeys.flatMap((route) =>
     SITE_LOCALES.map((locale: SiteLocale) => ({
       url: absoluteUrl(localizedPath(locale, route)),
-      lastModified: now,
-      changeFrequency:
-        route === 'supportDream' || route === 'home' ? 'daily' : 'monthly',
-      priority:
-        route === 'home' ? 1 : route === 'supportDream' || route === 'donate' ? 0.9 : 0.7,
       alternates: {
         languages: routeAlternates(route),
       },
@@ -57,9 +51,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const cancerPages: MetadataRoute.Sitemap = cancerIds.flatMap((cancerId) =>
     SITE_LOCALES.map((locale: SiteLocale) => ({
       url: absoluteUrl(localizedCancerPath(locale, cancerId)),
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
       alternates: {
         languages: cancerAlternates(cancerId),
       },
