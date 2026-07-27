@@ -1,0 +1,89 @@
+name: Homepage SEO check
+
+on:
+  push:
+    branches:
+      - seo/homepage-metadata
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out SEO branch
+        uses: actions/checkout@v4
+        with:
+          ref: seo/homepage-metadata
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.5
+          cache: npm
+
+      - name: Verify isolated scope
+        run: |
+          git fetch origin main
+          changed="$(git diff --name-only origin/main...HEAD | sort)"
+          printf '%s\n' "$changed"
+          unexpected="$(printf '%s\n' "$changed" | grep -Ev '^(.github/workflows/seo-homepage-check.yml|app/\[locale\]/HomePageClient.tsx|app/\[locale\]/page.tsx)$' || true)"
+          if [ -n "$unexpected" ]; then
+            echo "Unexpected files changed:"
+            printf '%s\n' "$unexpected"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Production build
+        run: npm run build
+
+      - name: Validate generated homepage metadata
+        run: |
+          npm run start > /tmp/tcw-seo-start.log 2>&1 &
+          server_pid=$!
+          cleanup() { kill "$server_pid" 2>/dev/null || true; }
+          trap cleanup EXIT
+
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:3000/es > /tmp/es-home.html; then
+              break
+            fi
+            sleep 1
+          done
+
+          curl --fail --silent --show-error http://127.0.0.1:3000/en > /tmp/en-home.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/ro > /tmp/ro-home.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/es > /tmp/es-home.html
+
+          grep -F 'https://tutticancerwarriors.org/en' /tmp/en-home.html
+          grep -F 'https://tutticancerwarriors.org/ro' /tmp/ro-home.html
+          grep -F 'https://tutticancerwarriors.org/es' /tmp/es-home.html
+
+          grep -F 'en_US' /tmp/en-home.html
+          grep -F 'ro_RO' /tmp/ro-home.html
+          grep -F 'es_ES' /tmp/es-home.html
+
+          grep -F 'hreflang="en"' /tmp/en-home.html
+          grep -F 'hreflang="ro"' /tmp/en-home.html
+          grep -F 'hreflang="es"' /tmp/en-home.html
+          grep -F 'hreflang="x-default"' /tmp/en-home.html
+
+          grep -F 'Cancer Support, Hope and Dream Grants' /tmp/en-home.html
+          grep -F 'Sprijin oncologic, speranță și dorințe împlinite' /tmp/ro-home.html
+          grep -F 'Apoyo contra el cáncer, esperanza y sueños' /tmp/es-home.html
+
+          grep -F '"@type":"NGO"' /tmp/en-home.html
+          grep -F '"@type":"WebSite"' /tmp/en-home.html
+          grep -F '"taxID":"50156252"' /tmp/en-home.html
+          grep -F '"@type":"DonateAction"' /tmp/en-home.html
