@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import { Heart, Target, TrendingUp, ArrowRight, Sparkles, Quote } from 'lucide-react';
@@ -143,10 +144,12 @@ export default function HomePage() {
             {warriors.map((warrior, index) => (
               <div key={warrior.name} className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2">
                 <div className="relative h-80 overflow-hidden">
-                  <img
+                  <Image
                     src={warrior.image}
                     alt={warrior.name}
-                    className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className={`object-cover transition-transform duration-500 group-hover:scale-110 ${
                       index === 0 ? 'object-[center_25%]' : index === 1 ? 'object-top' : 'object-center'
                     }`}
                   />

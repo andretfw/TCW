@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { localizedPath } from '@/lib/routes';
@@ -61,7 +62,7 @@ export default function TeamPage() {
               <div className="relative h-full w-full cursor-pointer rounded-2xl shadow-xl transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
                 <div className="absolute inset-0 flex h-full w-full flex-col items-center justify-center rounded-2xl border border-neutral-100 bg-white p-8 [backface-visibility:hidden]">
                   <div className="mb-8 h-48 w-48 overflow-hidden rounded-full border-4 border-purple-50 shadow-inner">
-                    <img src={member.image} alt={member.name} className="h-full w-full object-cover object-center" />
+                    <Image src={member.image} alt={member.name} width={192} height={192} className="h-full w-full object-cover object-center" />
                   </div>
                   <h3 className="mb-2 text-center text-2xl font-bold text-neutral-900">{member.name}</h3>
                   <div className="mb-3 h-1 w-12 rounded-full bg-brand-500" />

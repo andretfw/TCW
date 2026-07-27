@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {useLocale} from 'next-intl';
 import {
@@ -340,11 +341,12 @@ export default function SupportDreamPage() {
                 className="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-100 bg-white shadow-lg"
               >
                 <div className="relative h-52 overflow-hidden">
-                  <img
+                  <Image
                     src={card.image}
                     alt={card.imageAlt}
-                    className="h-full w-full object-cover"
-                    loading="lazy"
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
                   <div className="absolute right-4 top-4 rounded-full bg-white/95 px-4 py-2 text-sm font-bold text-brand-600 shadow-sm backdrop-blur">

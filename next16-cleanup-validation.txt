@@ -1,0 +1,9 @@
+NEXT16_CLEANUP_VALIDATION
+install=passed
+typecheck=passed
+lint=passed
+build=passed
+production_smoke_test=passed
+raw_img_elements=0
+middleware_deprecation=fixed_with_proxy
+images_domains_deprecation=fixed_with_strict_remote_patterns

@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { useState, useEffect } from 'react';
 import { X, Heart, Sparkles, ArrowRight, TrendingUp, Target, Users } from 'lucide-react';
@@ -141,7 +142,13 @@ export default function WarriorsPage() {
               onClick={() => setSelectedStory(story)}
             >
               <div className="relative h-80 overflow-hidden">
-                <img src={story.image} alt={story.name} className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${story.position}`} />
+                <Image
+                  src={story.image}
+                  alt={story.name}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  className={`object-cover transition-transform duration-700 group-hover:scale-105 ${story.position}`}
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
                 <div className="absolute bottom-4 left-4 text-white"><h3 className="text-2xl font-bold">{story.name}, {story.age}</h3></div>
                 <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${story.color}`}>{t('dreamFulfilled')}</div>
@@ -174,7 +181,13 @@ export default function WarriorsPage() {
 
             <div className="grid md:grid-cols-2">
               <div className="h-64 md:h-auto relative">
-                <img src={selectedStory.image} alt={selectedStory.name} className={`w-full h-full object-cover ${selectedStory.position}`} />
+                <Image
+                  src={selectedStory.image}
+                  alt={selectedStory.name}
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className={`object-cover ${selectedStory.position}`}
+                />
               </div>
 
               <div className="p-8 md:p-12">
