@@ -1,0 +1,137 @@
+name: Colorectal cancer medical trust check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out colorectal medical trust branch
+        uses: actions/checkout@v4
+        with:
+          ref: seo/colorectal-cancer-medical-trust
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.5
+          cache: npm
+
+      - name: Verify isolated scope
+        run: |
+          git fetch origin main
+          changed="$(git diff --name-only origin/main...HEAD | sort)"
+          printf '%s\n' "$changed"
+          unexpected="$(printf '%s\n' "$changed" | grep -Ev '^(.github/workflows/colorectal-cancer-medical-trust-check.yml|lib/cancer-guide-trust.ts)$' || true)"
+          if [ -n "$unexpected" ]; then
+            echo "Unexpected files changed:"
+            printf '%s\n' "$unexpected"
+            exit 1
+          fi
+
+      - name: Verify official colorectal sources and statistics
+        run: |
+          grep -F "const COLORECTAL_CANCER_TRUST" lib/cancer-guide-trust.ts
+          grep -F "value: '2.0M'" lib/cancer-guide-trust.ts
+          grep -F "value: '918K'" lib/cancer-guide-trust.ts
+          grep -F "https://www.who.int/news-room/fact-sheets/detail/colorectal-cancer" lib/cancer-guide-trust.ts
+          grep -F "https://www.cancer.gov/types/colorectal/patient/colorectal-screening-pdq" lib/cancer-guide-trust.ts
+          grep -F "https://www.who.int/es/news-room/fact-sheets/detail/colorectal-cancer" lib/cancer-guide-trust.ts
+          grep -F "https://www.cancer.gov/espanol/tipos/colorrectal/paciente/deteccion-colorrectal-pdq" lib/cancer-guide-trust.ts
+          grep -F "colorectal: COLORECTAL_CANCER_TRUST" lib/cancer-guide-trust.ts
+          ! grep -Ei "lastReviewed|reviewedBy|medical reviewer|medically reviewed" lib/cancer-guide-trust.ts
+
+      - name: Verify breast and lung trust content remains present
+        run: |
+          grep -F "const BREAST_CANCER_TRUST" lib/cancer-guide-trust.ts
+          grep -F "const LUNG_CANCER_TRUST" lib/cancer-guide-trust.ts
+          grep -F "value: '2.4M'" lib/cancer-guide-trust.ts
+          grep -F "value: '2.6M'" lib/cancer-guide-trust.ts
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Production build
+        run: npm run build
+
+      - name: Start production server
+        run: |
+          npm run start > /tmp/tcw-colorectal-trust-start.log 2>&1 &
+          echo $! > /tmp/tcw-colorectal-trust-server.pid
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:3000/en/about-cancer/colorectal > /tmp/en-colorectal.html; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/tcw-colorectal-trust-start.log
+          exit 1
+
+      - name: Fetch representative guide pages
+        run: |
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/about-cancer/colorectal > /tmp/en-colorectal.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/ro/despre-cancer/colorectal > /tmp/ro-colorectal.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/es/sobre-cancer/colorrectal > /tmp/es-colorectal.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/about-cancer/breast > /tmp/en-breast.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/about-cancer/lung > /tmp/en-lung.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/about-cancer/prostate > /tmp/en-prostate.html
+
+      - name: Validate English colorectal guide trust content
+        run: |
+          grep -F "Sources and medical information" /tmp/en-colorectal.html
+          grep -F "28 July 2026" /tmp/en-colorectal.html
+          grep -F "2.0M" /tmp/en-colorectal.html
+          grep -F "918K" /tmp/en-colorectal.html
+          grep -F "does not replace medical advice" /tmp/en-colorectal.html
+          grep -F "persistent changes in bowel habits" /tmp/en-colorectal.html
+          grep -F "https://www.who.int/news-room/fact-sheets/detail/colorectal-cancer" /tmp/en-colorectal.html
+          grep -F "https://www.cancer.gov/types/colorectal/patient/colorectal-screening-pdq" /tmp/en-colorectal.html
+          ! grep -F ">90%+</span>" /tmp/en-colorectal.html
+
+      - name: Validate Romanian colorectal guide trust content
+        run: |
+          grep -F "Surse și informații medicale" /tmp/ro-colorectal.html
+          grep -F "28 iulie 2026" /tmp/ro-colorectal.html
+          grep -F "2,0 mil." /tmp/ro-colorectal.html
+          grep -F "918 mii" /tmp/ro-colorectal.html
+          grep -F "Nu înlocuiește sfatul" /tmp/ro-colorectal.html
+          grep -F "sânge în scaun" /tmp/ro-colorectal.html
+
+      - name: Validate Spanish colorectal guide trust content
+        run: |
+          grep -F "Fuentes e información médica" /tmp/es-colorectal.html
+          grep -F "28 de julio de 2026" /tmp/es-colorectal.html
+          grep -F "2,0 M" /tmp/es-colorectal.html
+          grep -F "918 mil" /tmp/es-colorectal.html
+          grep -F "No sustituye el consejo" /tmp/es-colorectal.html
+          grep -F "sangre en las heces" /tmp/es-colorectal.html
+          grep -F "https://www.who.int/es/news-room/fact-sheets/detail/colorectal-cancer" /tmp/es-colorectal.html
+
+      - name: Verify existing and unrelated guides
+        run: |
+          grep -F "2.4M" /tmp/en-breast.html
+          grep -F "694K" /tmp/en-breast.html
+          grep -F "2.6M" /tmp/en-lung.html
+          grep -F "1.86M" /tmp/en-lung.html
+          ! grep -F "Sources and medical information" /tmp/en-prostate.html
+          grep -F ">1 in 8<" /tmp/en-prostate.html
+
+      - name: Stop production server
+        if: always()
+        run: |
+          if [ -f /tmp/tcw-colorectal-trust-server.pid ]; then
+            kill "$(cat /tmp/tcw-colorectal-trust-server.pid)" 2>/dev/null || true
+          fi
