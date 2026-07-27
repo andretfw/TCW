@@ -1,0 +1,168 @@
+name: Cancer guide technical SEO check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out cancer guide SEO branch
+        uses: actions/checkout@v4
+        with:
+          ref: seo/cancer-guide-technical-seo
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.5
+          cache: npm
+
+      - name: Verify isolated scope
+        run: |
+          git fetch origin main
+          changed="$(git diff --name-only origin/main...HEAD | sort)"
+          printf '%s\n' "$changed"
+          unexpected="$(printf '%s\n' "$changed" | grep -Ev '^(.github/workflows/cancer-guide-seo-check.yml|app/\[locale\]/sobre-cancer/\[id\]/CancerDetailPageClient.tsx|app/\[locale\]/sobre-cancer/\[id\]/page.tsx)$' || true)"
+          if [ -n "$unexpected" ]; then
+            echo "Unexpected files changed:"
+            printf '%s\n' "$unexpected"
+            exit 1
+          fi
+
+      - name: Verify visible guide UI is unchanged
+        run: |
+          git show origin/main:'app/[locale]/sobre-cancer/[id]/page.tsx' \
+            | sed 's/export default function CancerDetailPage/export default function CancerDetailPageClient/' \
+            | tr -d '[:space:]' > /tmp/expected-cancer-guide-client.tsx
+          tr -d '[:space:]' < 'app/[locale]/sobre-cancer/[id]/CancerDetailPageClient.tsx' > /tmp/actual-cancer-guide-client.tsx
+          cmp /tmp/expected-cancer-guide-client.tsx /tmp/actual-cancer-guide-client.tsx
+
+      - name: Verify no medical trust claims were invented
+        run: |
+          ! grep -Eiq 'lastReviewed|reviewedBy|medicalReviewer|dateModified|datePublished|author' 'app/[locale]/sobre-cancer/[id]/page.tsx'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Production build
+        run: npm run build
+
+      - name: Start production server
+        run: |
+          npm run start > /tmp/tcw-cancer-guide-seo-start.log 2>&1 &
+          echo $! > /tmp/tcw-server.pid
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:3000/sitemap.xml > /tmp/sitemap.xml; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/tcw-cancer-guide-seo-start.log
+          exit 1
+
+      - name: Validate all 105 canonical cancer guide routes
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const sitemap = fs.readFileSync('/tmp/sitemap.xml', 'utf8');
+          const urls = [...sitemap.matchAll(/<loc>(https:\/\/tutticancerwarriors\.org\/[^<]+)<\/loc>/g)]
+            .map((match) => match[1])
+            .filter((url) =>
+              /\/(en\/about-cancer|ro\/despre-cancer|es\/sobre-cancer)\/.+/.test(url),
+            );
+
+          if (urls.length !== 105) {
+            throw new Error(`Expected 105 cancer guide URLs, found ${urls.length}`);
+          }
+
+          if (new Set(urls).size !== 105) {
+            throw new Error('Cancer guide sitemap URLs are not unique');
+          }
+
+          (async () => {
+            for (const publicUrl of urls) {
+              const localUrl = publicUrl.replace('https://tutticancerwarriors.org', 'http://127.0.0.1:3000');
+              const response = await fetch(localUrl, {redirect: 'manual'});
+              if (response.status !== 200) {
+                throw new Error(`${publicUrl} returned ${response.status}`);
+              }
+
+              const html = await response.text();
+              const required = [
+                `rel="canonical" href="${publicUrl}"`,
+                'hrefLang="en"',
+                'hrefLang="ro"',
+                'hrefLang="es"',
+                'hrefLang="x-default"',
+                '"@type":"MedicalWebPage"',
+                '"@type":"MedicalCondition"',
+                '"@type":"BreadcrumbList"',
+              ];
+
+              for (const marker of required) {
+                if (!html.includes(marker)) {
+                  throw new Error(`${publicUrl} is missing ${marker}`);
+                }
+              }
+
+              if (/lastReviewed|reviewedBy|medicalReviewer|dateModified|datePublished/.test(html)) {
+                throw new Error(`${publicUrl} contains an unapproved medical review claim`);
+              }
+            }
+
+            console.log(`Validated ${urls.length} canonical cancer guide routes.`);
+          })().catch((error) => {
+            console.error(error);
+            process.exit(1);
+          });
+          NODE
+
+      - name: Validate representative localised metadata
+        run: |
+          curl --fail --silent http://127.0.0.1:3000/en/about-cancer/breast > /tmp/en-breast.html
+          curl --fail --silent http://127.0.0.1:3000/ro/despre-cancer/san > /tmp/ro-breast.html
+          curl --fail --silent http://127.0.0.1:3000/es/sobre-cancer/mama > /tmp/es-breast.html
+
+          grep -F '<title>Breast Cancer | Tutti Cancer Warriors</title>' /tmp/en-breast.html
+          grep -F '<title>Cancerul de Sân | Tutti Cancer Warriors</title>' /tmp/ro-breast.html
+          grep -F '<title>Cáncer de Mama | Tutti Cancer Warriors</title>' /tmp/es-breast.html
+          grep -F 'property="og:locale" content="en_US"' /tmp/en-breast.html
+          grep -F 'property="og:locale" content="ro_RO"' /tmp/ro-breast.html
+          grep -F 'property="og:locale" content="es_ES"' /tmp/es-breast.html
+
+      - name: Validate permanent canonical redirects
+        run: |
+          ro_headers="$(curl --silent --output /dev/null --dump-header - http://127.0.0.1:3000/ro/despre-cancer/breast)"
+          es_headers="$(curl --silent --output /dev/null --dump-header - http://127.0.0.1:3000/es/sobre-cancer/breast)"
+          printf '%s\n' "$ro_headers"
+          printf '%s\n' "$es_headers"
+          printf '%s' "$ro_headers" | grep -Eq '^HTTP/.* 308'
+          printf '%s' "$ro_headers" | grep -Fi 'location: /ro/despre-cancer/san'
+          printf '%s' "$es_headers" | grep -Eq '^HTTP/.* 308'
+          printf '%s' "$es_headers" | grep -Fi 'location: /es/sobre-cancer/mama'
+
+      - name: Validate invalid guide 404 and noindex
+        run: |
+          status="$(curl --silent --output /tmp/invalid-guide.html --write-out '%{http_code}' http://127.0.0.1:3000/en/about-cancer/not-a-real-cancer)"
+          test "$status" = '404'
+          grep -Eiq '<meta[^>]+name="robots"[^>]+content="noindex"|<meta[^>]+content="noindex"[^>]+name="robots"' /tmp/invalid-guide.html
+
+      - name: Stop production server
+        if: always()
+        run: |
+          if [ -f /tmp/tcw-server.pid ]; then
+            kill "$(cat /tmp/tcw-server.pid)" 2>/dev/null || true
+          fi
