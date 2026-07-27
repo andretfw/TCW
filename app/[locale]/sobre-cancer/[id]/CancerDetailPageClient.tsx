@@ -6,11 +6,12 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import {
-  Activity, AlertCircle, AlignCenter, Anchor, ArrowLeft, Circle, Cloud, Cpu, Database,
-  Droplet, Flower2, Gem, Hammer, Heart, Info, Layers, Mic, Mic2, Shield, Stethoscope,
+  Activity, AlertCircle, AlignCenter, Anchor, ArrowLeft, BookOpen, Circle, Cloud, Cpu, Database,
+  Droplet, ExternalLink, Flower2, Gem, Hammer, Heart, Info, Layers, Mic, Mic2, Shield, Stethoscope,
   Sun, User, Wind, Zap,
 } from 'lucide-react';
 import { getCancerData } from '@/lib/cancer-data';
+import { getCancerGuideTrustContent } from '@/lib/cancer-guide-trust';
 import { cancerIdFromSlug, localizedPath } from '@/lib/routes';
 
 const iconMap: Record<string, any> = {
@@ -56,11 +57,14 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
   const cancerData = getCancerData(cancerId);
   const t = useTranslations(`cancerDetails.${cancerId}`);
   const tCommon = useTranslations('common');
+  const trustContent = getCancerGuideTrustContent(cancerId, locale);
 
   if (!cancerData) notFound();
 
   const HeroIcon = iconMap[cancerData.icon] || Activity;
   const contentImage = cancerData.contentImage || 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800';
+  const stat1 = trustContent?.stats[0] ?? { value: t('stat1.value'), label: t('stat1.label') };
+  const stat2 = trustContent?.stats[1] ?? { value: t('stat2.value'), label: t('stat2.label') };
 
   return (
     <div className="min-h-screen bg-brand-50 pb-20">
@@ -141,6 +145,39 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
                 </div>
               </div>
             </div>
+
+            {trustContent && (
+              <section className="animate-fade-in-up rounded-3xl border border-brand-100/50 bg-white p-6 shadow-xl md:p-8" aria-labelledby="medical-sources-heading">
+                <div className="mb-5 flex items-center gap-3">
+                  <div className="rounded-xl bg-purple-100 p-3 text-purple-700 shadow-sm"><BookOpen className="h-6 w-6" /></div>
+                  <div>
+                    <h2 id="medical-sources-heading" className="text-xl font-bold text-neutral-800 md:text-2xl">{trustContent.heading}</h2>
+                    <p className="mt-1 text-sm font-medium text-neutral-500">{trustContent.checkedLabel}: {trustContent.checkedDate}</p>
+                  </div>
+                </div>
+
+                <p className="rounded-2xl border border-purple-100 bg-purple-50 p-4 text-sm leading-relaxed text-neutral-700 md:text-base">
+                  {trustContent.disclaimer}
+                </p>
+
+                <h3 className="mb-3 mt-6 font-bold text-neutral-800">{trustContent.sourcesHeading}</h3>
+                <ul className="space-y-3">
+                  {trustContent.sources.map((source) => (
+                    <li key={source.href}>
+                      <a
+                        href={source.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-start gap-3 rounded-xl border border-neutral-100 bg-neutral-50 p-4 text-sm font-medium text-neutral-700 transition-colors hover:border-brand-200 hover:bg-brand-50 hover:text-brand-800"
+                      >
+                        <ExternalLink className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" aria-hidden="true" />
+                        <span>{source.label}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
           </div>
 
           <div className="animate-fade-in-up space-y-6 delay-200">
@@ -151,12 +188,12 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
               </h3>
               <div className="grid grid-cols-2 gap-4 lg:grid-cols-1">
                 <div className="rounded-2xl border border-neutral-100 bg-neutral-50 p-4 text-center transition-colors hover:border-brand-200">
-                  <span className="mb-1 block text-2xl font-bold text-brand-600 md:text-3xl">{t('stat1.value')}</span>
-                  <span className="text-xs font-medium text-neutral-500 md:text-sm">{t('stat1.label')}</span>
+                  <span className="mb-1 block text-2xl font-bold text-brand-600 md:text-3xl">{stat1.value}</span>
+                  <span className="text-xs font-medium text-neutral-500 md:text-sm">{stat1.label}</span>
                 </div>
                 <div className="rounded-2xl border border-neutral-100 bg-neutral-50 p-4 text-center transition-colors hover:border-brand-200">
-                  <span className="mb-1 block text-2xl font-bold text-brand-600 md:text-3xl">{t('stat2.value')}</span>
-                  <span className="text-xs font-medium text-neutral-500 md:text-sm">{t('stat2.label')}</span>
+                  <span className="mb-1 block text-2xl font-bold text-brand-600 md:text-3xl">{stat2.value}</span>
+                  <span className="text-xs font-medium text-neutral-500 md:text-sm">{stat2.label}</span>
                 </div>
               </div>
               <div className="mt-8 border-t border-neutral-100 pt-6">
