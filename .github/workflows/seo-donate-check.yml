@@ -1,0 +1,107 @@
+name: Donate page SEO check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Donate SEO branch
+        uses: actions/checkout@v4
+        with:
+          ref: seo/donate-page-metadata
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.5
+          cache: npm
+
+      - name: Verify isolated scope
+        run: |
+          git fetch origin main
+          changed="$(git diff --name-only origin/main...HEAD | sort)"
+          printf '%s\n' "$changed"
+          unexpected="$(printf '%s\n' "$changed" | grep -Ev '^(.github/workflows/seo-donate-check.yml|app/\[locale\]/donar/DonatePageClient.tsx|app/\[locale\]/donar/page.tsx)$' || true)"
+          if [ -n "$unexpected" ]; then
+            echo "Unexpected files changed:"
+            printf '%s\n' "$unexpected"
+            exit 1
+          fi
+
+      - name: Verify Donate UI is unchanged
+        run: |
+          git show origin/main:'app/[locale]/donar/page.tsx' \
+            | sed 's/export default function DonatePage()/export default function DonatePageClient()/' \
+            > /tmp/expected-donate-client.tsx
+          cmp /tmp/expected-donate-client.tsx 'app/[locale]/donar/DonatePageClient.tsx'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Production build
+        run: npm run build
+
+      - name: Fetch generated Donate pages
+        run: |
+          mkdir -p .seo-test
+          npm run start > /tmp/tcw-donate-seo-start.log 2>&1 &
+          server_pid=$!
+          cleanup() { kill "$server_pid" 2>/dev/null || true; }
+          trap cleanup EXIT
+
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:3000/es/donar > .seo-test/es.html; then
+              break
+            fi
+            sleep 1
+          done
+
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/donate > .seo-test/en.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/ro/doneaza > .seo-test/ro.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/es/donar > .seo-test/es.html
+
+      - name: Validate canonical URLs
+        run: |
+          grep -F 'rel="canonical" href="https://tutticancerwarriors.org/en/donate"' .seo-test/en.html
+          grep -F 'rel="canonical" href="https://tutticancerwarriors.org/ro/doneaza"' .seo-test/ro.html
+          grep -F 'rel="canonical" href="https://tutticancerwarriors.org/es/donar"' .seo-test/es.html
+
+      - name: Validate hreflang alternates
+        run: |
+          grep -Fi 'hreflang="en"' .seo-test/en.html
+          grep -Fi 'hreflang="ro"' .seo-test/en.html
+          grep -Fi 'hreflang="es"' .seo-test/en.html
+          grep -Fi 'hreflang="x-default"' .seo-test/en.html
+
+      - name: Validate Open Graph locales
+        run: |
+          grep -F 'property="og:locale" content="en_US"' .seo-test/en.html
+          grep -F 'property="og:locale" content="ro_RO"' .seo-test/ro.html
+          grep -F 'property="og:locale" content="es_ES"' .seo-test/es.html
+
+      - name: Validate localized titles
+        run: |
+          grep -F 'Donate to Support Cancer Warriors' .seo-test/en.html
+          grep -F 'Donează pentru persoanele afectate de cancer' .seo-test/ro.html
+          grep -F 'Dona para apoyar a personas con cáncer' .seo-test/es.html
+
+      - name: Validate donation schema
+        run: |
+          grep -F '"@type":"WebPage"' .seo-test/en.html
+          grep -F '"@type":"DonateAction"' .seo-test/en.html
+          grep -F '"@type":"NGO"' .seo-test/en.html
+          grep -F 'https://tutticancerwarriors.org/en/donate#donate-action' .seo-test/en.html
