@@ -1,12 +1,14 @@
 'use client';
 
+import { use } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Activity, ArrowRight } from 'lucide-react';
 import { localizedCancerPath } from '@/lib/routes';
 
-export default function CancerTypesPage({ params: { locale } }: { params: { locale: string } }) {
+export default function CancerTypesPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params);
   const t = useTranslations('aboutCancerPage');
 
   const cancerImages: Record<string, string> = {

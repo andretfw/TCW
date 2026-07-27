@@ -1,5 +1,6 @@
 'use client';
 
+import { use } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -47,8 +48,9 @@ const iconMap: Record<string, any> = {
   'mic-2': Mic2,
 };
 
-export default function CancerDetailPage({ params }: { params: { id: string; locale: string } }) {
-  const cancerId = cancerIdFromSlug(params.locale, params.id);
+export default function CancerDetailPage({ params }: { params: Promise<{ id: string; locale: string }> }) {
+  const { id, locale } = use(params);
+  const cancerId = cancerIdFromSlug(locale, id);
   if (!cancerId) notFound();
 
   const cancerData = getCancerData(cancerId);
@@ -68,7 +70,7 @@ export default function CancerDetailPage({ params }: { params: { id: string; loc
         <div className="absolute bottom-0 left-0 w-full p-6 text-white md:p-16">
           <div className="container mx-auto">
             <Link
-              href={localizedPath(params.locale, 'aboutCancer')}
+              href={localizedPath(locale, 'aboutCancer')}
               className="group mb-4 inline-flex items-center text-white/80 transition-all duration-300 hover:-translate-x-1 hover:text-white md:mb-6"
             >
               <ArrowLeft className="mr-2 h-5 w-5 transition-transform group-hover:-translate-x-1" />
@@ -160,7 +162,7 @@ export default function CancerDetailPage({ params }: { params: { id: string; loc
               <div className="mt-8 border-t border-neutral-100 pt-6">
                 <h4 className="mb-4 text-center font-semibold text-neutral-800">{t('ctaSidebarTitle')}</h4>
                 <Link
-                  href={localizedPath(params.locale, 'donate')}
+                  href={localizedPath(locale, 'donate')}
                   className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-4 font-bold text-white shadow-lg shadow-brand-200 transition-all hover:scale-[1.02] hover:bg-brand-700 active:scale-95"
                 >
                   <Heart className="h-5 w-5 animate-pulse fill-current" />

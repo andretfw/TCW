@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Heart, CreditCard, Building2, Bitcoin, ArrowRight, Check, FileText } from 'lucide-react';
 import { useState } from 'react';
@@ -86,7 +87,7 @@ export default function DonatePage() {
                     </div>
                     <div className="hidden md:block w-px h-32 bg-neutral-200" />
                     <div className="mt-8 md:mt-0 flex flex-col items-center justify-center shrink-0">
-                          <img src="/logo.png" alt="Better Giving" className="w-20 h-20 rounded-2xl shadow-md mb-3" />
+                          <Image src="/logo.png" alt="Better Giving" width={80} height={80} className="mb-3 h-20 w-20 rounded-2xl shadow-md" />
                           <span className="font-bold text-neutral-900">{t('verified')}</span>
                     </div>
                 </div>
@@ -223,7 +224,7 @@ export default function DonatePage() {
                 </div>
                 <h2 className="text-4xl font-bold mb-4">{t('cryptoTitle')}</h2>
                 <div className="flex items-center justify-center gap-2 text-neutral-400">
-                    <img src="/kraken-badge.jpg" alt="Kraken" className="w-6 h-6 rounded-full grayscale opacity-70" />
+                    <Image src="/kraken-badge.jpg" alt="Kraken" width={24} height={24} className="h-6 w-6 rounded-full grayscale opacity-70" />
                     <span className="text-sm">{t('krakenVerified')}</span>
                 </div>
             </div>

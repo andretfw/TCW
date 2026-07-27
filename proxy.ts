@@ -43,7 +43,7 @@ const intlMiddleware = createMiddleware({
   },
 });
 
-export default function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const segments = pathname.split('/').filter(Boolean);
   const locale = segments[0] as SiteLocale | undefined;

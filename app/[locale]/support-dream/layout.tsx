@@ -37,11 +37,12 @@ function absoluteSupportDreamUrl(locale: SiteLocale) {
   return `${SITE_URL}${localizedPath(locale, 'supportDream')}`;
 }
 
-export function generateMetadata({
-  params: {locale: localeParam},
+export async function generateMetadata({
+  params,
 }: {
-  params: {locale: string};
-}): Metadata {
+  params: Promise<{locale: string}>;
+}): Promise<Metadata> {
+  const {locale: localeParam} = await params;
   const locale = normalizeLocale(localeParam);
   const copy = SEO_COPY[locale];
   const canonical = absoluteSupportDreamUrl(locale);
@@ -88,13 +89,14 @@ export function generateMetadata({
   };
 }
 
-export default function SupportDreamLayout({
+export default async function SupportDreamLayout({
   children,
-  params: {locale: localeParam},
+  params,
 }: {
   children: React.ReactNode;
-  params: {locale: string};
+  params: Promise<{locale: string}>;
 }) {
+  const {locale: localeParam} = await params;
   const locale = normalizeLocale(localeParam);
   const copy = SEO_COPY[locale];
   const pageUrl = absoluteSupportDreamUrl(locale);
