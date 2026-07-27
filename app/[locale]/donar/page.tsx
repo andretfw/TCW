@@ -24,7 +24,7 @@ const SEO_COPY: Record<SiteLocale, {title: string; description: string}> = {
 };
 
 const OPEN_GRAPH_LOCALES: Record<SiteLocale, string> = {
-  en: 'en_GB',
+  en: 'en_US',
   ro: 'ro_RO',
   es: 'es_ES',
 };
