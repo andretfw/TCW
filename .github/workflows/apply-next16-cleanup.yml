@@ -1,0 +1,231 @@
+name: Apply Next 16 cleanup
+
+on:
+  push:
+    branches:
+      - upgrade/next15-maintenance
+
+permissions:
+  contents: write
+
+jobs:
+  apply-and-validate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: upgrade/next15-maintenance
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.5
+          cache: npm
+
+      - name: Apply approved cleanup
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path_str: str, old: str, new: str) -> None:
+              path = Path(path_str)
+              text = path.read_text(encoding='utf-8')
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{path_str}: expected exactly one match, found {count}')
+              path.write_text(text.replace(old, new, 1), encoding='utf-8')
+
+          Path('next.config.mjs').write_text("""/** @type {import('next').NextConfig} */
+          const nextConfig = {
+            images: {
+              remotePatterns: [
+                {
+                  protocol: 'https',
+                  hostname: 'images.unsplash.com',
+                  pathname: '/**',
+                },
+                {
+                  protocol: 'https',
+                  hostname: 'plus.unsplash.com',
+                  pathname: '/**',
+                },
+              ],
+            },
+          };
+
+          export default nextConfig;
+          """, encoding='utf-8')
+
+          middleware = Path('middleware.ts')
+          proxy = Path('proxy.ts')
+          if not middleware.exists() or proxy.exists():
+              raise SystemExit('Expected middleware.ts to exist and proxy.ts not to exist')
+          proxy.write_text(
+              middleware.read_text(encoding='utf-8').replace(
+                  'export default function middleware(request: NextRequest)',
+                  'export default function proxy(request: NextRequest)',
+                  1,
+              ),
+              encoding='utf-8',
+          )
+          middleware.unlink()
+
+          replace_once(
+              'app/[locale]/donar/page.tsx',
+              "'use client';\nimport { useTranslations } from 'next-intl';",
+              "'use client';\nimport Image from 'next/image';\nimport { useTranslations } from 'next-intl';",
+          )
+          replace_once(
+              'app/[locale]/donar/page.tsx',
+              '<img src="/logo.png" alt="Better Giving" className="w-20 h-20 rounded-2xl shadow-md mb-3" />',
+              '<Image src="/logo.png" alt="Better Giving" width={80} height={80} className="mb-3 h-20 w-20 rounded-2xl shadow-md" />',
+          )
+          replace_once(
+              'app/[locale]/donar/page.tsx',
+              '<img src="/kraken-badge.jpg" alt="Kraken" className="w-6 h-6 rounded-full grayscale opacity-70" />',
+              '<Image src="/kraken-badge.jpg" alt="Kraken" width={24} height={24} className="h-6 w-6 rounded-full grayscale opacity-70" />',
+          )
+
+          replace_once(
+              'app/[locale]/page.tsx',
+              "'use client';\nimport { useTranslations, useLocale } from 'next-intl';",
+              "'use client';\nimport Image from 'next/image';\nimport { useTranslations, useLocale } from 'next-intl';",
+          )
+          replace_once(
+              'app/[locale]/page.tsx',
+              '''<img
+                    src={warrior.image}
+                    alt={warrior.name}
+                    className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${
+                      index === 0 ? 'object-[center_25%]' : index === 1 ? 'object-top' : 'object-center'
+                    }`}
+                  />''',
+              '''<Image
+                    src={warrior.image}
+                    alt={warrior.name}
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className={`object-cover transition-transform duration-500 group-hover:scale-110 ${
+                      index === 0 ? 'object-[center_25%]' : index === 1 ? 'object-top' : 'object-center'
+                    }`}
+                  />''',
+          )
+
+          replace_once(
+              'app/[locale]/support-dream/page.tsx',
+              "'use client';\n\nimport {useCallback, useEffect, useMemo, useState} from 'react';",
+              "'use client';\n\nimport Image from 'next/image';\nimport {useCallback, useEffect, useMemo, useState} from 'react';",
+          )
+          replace_once(
+              'app/[locale]/support-dream/page.tsx',
+              '''<img
+                    src={card.image}
+                    alt={card.imageAlt}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />''',
+              '''<Image
+                    src={card.image}
+                    alt={card.imageAlt}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover"
+                  />''',
+          )
+
+          replace_once(
+              'app/[locale]/team/page.tsx',
+              "'use client';\n\nimport Link from 'next/link';",
+              "'use client';\n\nimport Image from 'next/image';\nimport Link from 'next/link';",
+          )
+          replace_once(
+              'app/[locale]/team/page.tsx',
+              '<img src={member.image} alt={member.name} className="h-full w-full object-cover object-center" />',
+              '<Image src={member.image} alt={member.name} width={192} height={192} className="h-full w-full object-cover object-center" />',
+          )
+
+          replace_once(
+              'app/[locale]/warriors/page.tsx',
+              "'use client';\nimport { useTranslations, useLocale } from 'next-intl';",
+              "'use client';\nimport Image from 'next/image';\nimport { useTranslations, useLocale } from 'next-intl';",
+          )
+          replace_once(
+              'app/[locale]/warriors/page.tsx',
+              '<img src={story.image} alt={story.name} className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${story.position}`} />',
+              '''<Image
+                  src={story.image}
+                  alt={story.name}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  className={`object-cover transition-transform duration-700 group-hover:scale-105 ${story.position}`}
+                />''',
+          )
+          replace_once(
+              'app/[locale]/warriors/page.tsx',
+              '<img src={selectedStory.image} alt={selectedStory.name} className={`w-full h-full object-cover ${selectedStory.position}`} />',
+              '''<Image
+                  src={selectedStory.image}
+                  alt={selectedStory.name}
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className={`object-cover ${selectedStory.position}`}
+                />''',
+          )
+
+          remaining = []
+          for path in Path('app').rglob('*.tsx'):
+              if '<img' in path.read_text(encoding='utf-8'):
+                  remaining.append(str(path))
+          if remaining:
+              raise SystemExit(f'Raw img elements remain: {remaining}')
+          PY
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Production build
+        run: npm run build
+
+      - name: Native production smoke test
+        run: |
+          npm run start > /tmp/tcw-next-start.log 2>&1 &
+          server_pid=$!
+          cleanup() { kill "$server_pid" 2>/dev/null || true; }
+          trap cleanup EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent --show-error http://127.0.0.1:3000/es >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          curl --fail --silent --show-error http://127.0.0.1:3000/es >/dev/null
+          curl --fail --silent --show-error http://127.0.0.1:3000/en >/dev/null
+          curl --fail --silent --show-error http://127.0.0.1:3000/ro >/dev/null
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/about-cancer >/dev/null
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/donate >/dev/null
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/support-a-dream >/dev/null
+
+      - name: Record successful validation and commit changes
+        run: |
+          cat > next16-cleanup-validation.txt <<'EOF'
+          NEXT16_CLEANUP_VALIDATION
+          install=passed
+          typecheck=passed
+          lint=passed
+          build=passed
+          production_smoke_test=passed
+          raw_img_elements=0
+          middleware_deprecation=fixed_with_proxy
+          images_domains_deprecation=fixed_with_strict_remote_patterns
+          EOF
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Fix remaining Next.js 16 warnings and validate [skip ci]"
+          git push origin HEAD:upgrade/next15-maintenance
