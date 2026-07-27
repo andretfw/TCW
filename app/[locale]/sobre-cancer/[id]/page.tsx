@@ -1,178 +1,253 @@
-'use client';
-
-import { use } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import type {Metadata} from 'next';
+import {notFound, permanentRedirect} from 'next/navigation';
+import CancerDetailPageClient from './CancerDetailPageClient';
+import enMessages from '@/messages/en.json';
+import roMessages from '@/messages/ro.json';
+import esMessages from '@/messages/es.json';
+import {getCancerData} from '@/lib/cancer-data';
 import {
-  Activity, AlertCircle, AlignCenter, Anchor, ArrowLeft, Circle, Cloud, Cpu, Database,
-  Droplet, Flower2, Gem, Hammer, Heart, Info, Layers, Mic, Mic2, Shield, Stethoscope,
-  Sun, User, Wind, Zap,
-} from 'lucide-react';
-import { getCancerData } from '@/lib/cancer-data';
-import { cancerIdFromSlug, localizedPath } from '@/lib/routes';
+  CANCER_SLUGS,
+  SITE_LOCALES,
+  cancerIdFromSlug,
+  localizedCancerPath,
+  localizedPath,
+  type CancerId,
+  type SiteLocale,
+} from '@/lib/routes';
 
-const iconMap: Record<string, any> = {
-  ribbon: Gem,
-  lungs: Wind,
-  activity: Activity,
-  user: User,
-  sun: Sun,
-  droplet: Droplet,
-  shield: Shield,
-  'user-check': User,
-  zap: Zap,
-  feather: Mic2,
-  'git-commit': AlignCenter,
-  coffee: Layers,
-  layers: Layers,
-  circle: Circle,
-  heart: Heart,
-  cpu: Cpu,
-  anchor: Anchor,
-  database: Database,
-  flower: Flower2,
-  'brain-circuit': Cpu,
-  bone: Hammer,
-  'arrow-up': Activity,
-  'stop-circle': Circle,
-  'zap-off': Zap,
-  eye: Activity,
-  mic: Mic,
-  wind: Wind,
-  hammer: Hammer,
-  cloud: Cloud,
-  'align-center': AlignCenter,
-  'flower-2': Flower2,
-  'mic-2': Mic2,
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://tutticancerwarriors.org';
+
+const OPEN_GRAPH_LOCALES: Record<SiteLocale, string> = {
+  en: 'en_US',
+  ro: 'ro_RO',
+  es: 'es_ES',
 };
 
-export default function CancerDetailPage({ params }: { params: Promise<{ id: string; locale: string }> }) {
-  const { id, locale } = use(params);
-  const cancerId = cancerIdFromSlug(locale, id);
-  if (!cancerId) notFound();
+const MESSAGES = {
+  en: enMessages,
+  ro: roMessages,
+  es: esMessages,
+};
+
+type GuideMessages = {
+  nav?: {
+    home?: string;
+    aboutCancer?: string;
+  };
+  cancerDetails?: Record<
+    string,
+    {
+      title?: string;
+      shortDescription?: string;
+    }
+  >;
+};
+
+type ResolvedGuide = {
+  locale: SiteLocale;
+  cancerId: CancerId;
+  canonicalSlug: string;
+  title: string;
+  description: string;
+  homeLabel: string;
+  libraryLabel: string;
+  image: string;
+};
+
+function isSupportedLocale(locale: string): locale is SiteLocale {
+  return SITE_LOCALES.includes(locale as SiteLocale);
+}
+
+function resolveGuide(localeParam: string, slug: string): ResolvedGuide | null {
+  if (!isSupportedLocale(localeParam)) return null;
+
+  const locale = localeParam;
+  const cancerId = cancerIdFromSlug(locale, slug);
+  if (!cancerId) return null;
 
   const cancerData = getCancerData(cancerId);
-  const t = useTranslations(`cancerDetails.${cancerId}`);
-  const tCommon = useTranslations('common');
+  if (!cancerData) return null;
 
-  if (!cancerData) notFound();
+  const messages = MESSAGES[locale] as GuideMessages;
+  const copy = messages.cancerDetails?.[cancerId];
+  if (!copy?.title || !copy.shortDescription) return null;
 
-  const HeroIcon = iconMap[cancerData.icon] || Activity;
-  const contentImage = cancerData.contentImage || 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800';
+  return {
+    locale,
+    cancerId,
+    canonicalSlug: CANCER_SLUGS[locale][cancerId],
+    title: copy.title,
+    description: copy.shortDescription,
+    homeLabel: messages.nav?.home || 'Home',
+    libraryLabel: messages.nav?.aboutCancer || 'About Cancer',
+    image: cancerData.image,
+  };
+}
+
+function absoluteCancerUrl(locale: SiteLocale, cancerId: CancerId) {
+  return `${SITE_URL}${localizedCancerPath(locale, cancerId)}`;
+}
+
+function absoluteLibraryUrl(locale: SiteLocale) {
+  return `${SITE_URL}${localizedPath(locale, 'aboutCancer')}`;
+}
+
+export function generateStaticParams() {
+  const cancerIds = Object.keys(CANCER_SLUGS.en) as CancerId[];
+
+  return SITE_LOCALES.flatMap((locale) =>
+    cancerIds.map((cancerId) => ({
+      locale,
+      id: CANCER_SLUGS[locale][cancerId],
+    })),
+  );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{locale: string; id: string}>;
+}): Promise<Metadata> {
+  const {locale: localeParam, id} = await params;
+  const guide = resolveGuide(localeParam, id);
+  if (!guide) notFound();
+
+  const canonical = absoluteCancerUrl(guide.locale, guide.cancerId);
+
+  return {
+    title: guide.title,
+    description: guide.description,
+    alternates: {
+      canonical,
+      languages: {
+        en: absoluteCancerUrl('en', guide.cancerId),
+        ro: absoluteCancerUrl('ro', guide.cancerId),
+        es: absoluteCancerUrl('es', guide.cancerId),
+        'x-default': absoluteCancerUrl('es', guide.cancerId),
+      },
+    },
+    openGraph: {
+      title: `${guide.title} | Tutti Cancer Warriors`,
+      description: guide.description,
+      url: canonical,
+      siteName: 'Tutti Cancer Warriors',
+      locale: OPEN_GRAPH_LOCALES[guide.locale],
+      alternateLocale: Object.values(OPEN_GRAPH_LOCALES).filter(
+        (value) => value !== OPEN_GRAPH_LOCALES[guide.locale],
+      ),
+      type: 'article',
+      images: [
+        {
+          url: guide.image,
+          alt: `${guide.title} - Tutti Cancer Warriors`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${guide.title} | Tutti Cancer Warriors`,
+      description: guide.description,
+      images: [guide.image],
+    },
+  };
+}
+
+export default async function CancerDetailPage({
+  params,
+}: {
+  params: Promise<{locale: string; id: string}>;
+}) {
+  const {locale: localeParam, id} = await params;
+  const guide = resolveGuide(localeParam, id);
+  if (!guide) notFound();
+
+  if (id !== guide.canonicalSlug) {
+    permanentRedirect(localizedCancerPath(guide.locale, guide.cancerId));
+  }
+
+  const pageUrl = absoluteCancerUrl(guide.locale, guide.cancerId);
+  const libraryUrl = absoluteLibraryUrl(guide.locale);
+  const conditionId = `${pageUrl}#condition`;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'MedicalWebPage',
+        '@id': `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: guide.title,
+        description: guide.description,
+        inLanguage: guide.locale,
+        isAccessibleForFree: true,
+        educationalUse: 'patient education',
+        specialty: 'https://schema.org/Oncologic',
+        isPartOf: {
+          '@type': 'WebSite',
+          '@id': `${SITE_URL}/#website`,
+          url: SITE_URL,
+          name: 'Tutti Cancer Warriors',
+        },
+        publisher: {
+          '@type': 'NGO',
+          '@id': `${SITE_URL}/#organization`,
+          name: 'Tutti Cancer Warriors',
+          url: SITE_URL,
+        },
+        about: {
+          '@id': conditionId,
+        },
+        mainEntity: {
+          '@id': conditionId,
+        },
+        breadcrumb: {
+          '@id': `${pageUrl}#breadcrumb`,
+        },
+      },
+      {
+        '@type': 'MedicalCondition',
+        '@id': conditionId,
+        name: guide.title,
+        description: guide.description,
+        url: pageUrl,
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: guide.homeLabel,
+            item: `${SITE_URL}${localizedPath(guide.locale, 'home')}`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: guide.libraryLabel,
+            item: libraryUrl,
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: guide.title,
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
-    <div className="min-h-screen bg-brand-50 pb-20">
-      <div className="relative h-[50vh] w-full overflow-hidden md:h-[60vh]">
-        <Image src={cancerData.image} alt={cancerId} fill className="object-cover" priority />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-brand-900/50 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full p-6 text-white md:p-16">
-          <div className="container mx-auto">
-            <Link
-              href={localizedPath(locale, 'aboutCancer')}
-              className="group mb-4 inline-flex items-center text-white/80 transition-all duration-300 hover:-translate-x-1 hover:text-white md:mb-6"
-            >
-              <ArrowLeft className="mr-2 h-5 w-5 transition-transform group-hover:-translate-x-1" />
-              {tCommon('backToLibrary')}
-            </Link>
-            <div className="flex animate-fade-in-up items-end gap-4">
-              <HeroIcon className="mb-1 hidden h-12 w-12 text-brand-300 sm:block md:h-16 md:w-16" />
-              <h1 className="text-3xl font-bold capitalize leading-tight sm:text-4xl md:text-6xl">
-                {t('title') === `cancerDetails.${cancerId}.title` ? cancerId.replace('-', ' ') : t('title')}
-              </h1>
-            </div>
-            <div className="mt-4 max-w-2xl animate-fade-in-up text-lg leading-relaxed text-brand-100 delay-100 md:text-2xl">
-              <div>{t('shortDescription')}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="container relative z-10 mx-auto -mt-8 px-4">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          <div className="space-y-6 md:space-y-8 lg:col-span-2">
-            <div className="animate-fade-in-up overflow-hidden rounded-3xl border border-brand-100/50 bg-white p-6 shadow-xl delay-200 md:p-8">
-              <div className="mb-4 flex items-center gap-3 md:mb-6">
-                <div className="rounded-xl bg-brand-100 p-3 text-brand-600 shadow-sm"><Info className="h-6 w-6" /></div>
-                <h2 className="text-xl font-bold text-neutral-800 md:text-2xl">{t('overviewTitle')}</h2>
-              </div>
-              <div className="flex flex-col items-start gap-6 md:flex-row">
-                <div className="flex-1 text-base leading-relaxed text-neutral-600 md:text-lg">{t('overviewText')}</div>
-                <div className="relative aspect-video h-48 w-full shrink-0 overflow-hidden rounded-xl shadow-md md:h-auto md:w-1/3 md:aspect-square">
-                  <Image src={contentImage} alt="Medical Detail" fill className="object-cover transition-transform duration-700 hover:scale-110" />
-                </div>
-              </div>
-            </div>
-
-            <div className="animate-fade-in-up rounded-3xl border border-brand-100/50 bg-white p-6 shadow-xl delay-300 md:p-8">
-              <div className="mb-4 flex items-center gap-3 md:mb-6">
-                <div className="rounded-xl bg-red-100 p-3 text-red-500 shadow-sm"><AlertCircle className="h-6 w-6" /></div>
-                <h2 className="text-xl font-bold text-neutral-800 md:text-2xl">{t('symptomsTitle')}</h2>
-              </div>
-              <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                {[1, 2, 3, 4, 5, 6].map((index) => (
-                  <li key={index} className="group flex items-start gap-3 rounded-xl bg-neutral-50 p-4 transition-colors duration-300 hover:bg-brand-50">
-                    <div className="mt-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-brand-200 transition-colors group-hover:bg-brand-300">
-                      <div className="h-2 w-2 rounded-full bg-brand-600" />
-                    </div>
-                    <div className="text-sm font-medium text-neutral-700 md:text-base">{t(`symptoms.symptom${index}`)}</div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="animate-fade-in-up rounded-3xl border border-brand-100/50 bg-white p-6 shadow-xl delay-400 md:p-8">
-              <div className="mb-4 flex items-center gap-3 md:mb-6">
-                <div className="rounded-xl bg-blue-100 p-3 text-blue-600 shadow-sm"><Stethoscope className="h-6 w-6" /></div>
-                <h2 className="text-xl font-bold text-neutral-800 md:text-2xl">{t('treatmentsTitle')}</h2>
-              </div>
-              <div className="space-y-4">
-                <div className="mb-6 text-base text-neutral-600 md:text-lg">{t('treatmentsIntro')}</div>
-                <div className="flex flex-col gap-4 md:flex-row">
-                  <div className="flex-1 rounded-r-xl border-l-4 border-brand-500 bg-brand-50 p-5 transition-shadow hover:shadow-md">
-                    <h3 className="mb-2 text-lg font-bold text-brand-800">{t('treatment1.title')}</h3>
-                    <div className="text-sm leading-relaxed text-brand-700">{t('treatment1.desc')}</div>
-                  </div>
-                  <div className="flex-1 rounded-r-xl border-l-4 border-blue-500 bg-blue-50 p-5 transition-shadow hover:shadow-md">
-                    <h3 className="mb-2 text-lg font-bold text-blue-800">{t('treatment2.title')}</h3>
-                    <div className="text-sm leading-relaxed text-blue-700">{t('treatment2.desc')}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="animate-fade-in-up space-y-6 delay-200">
-            <div className="rounded-3xl border border-brand-100/50 bg-white p-6 shadow-xl lg:sticky lg:top-28">
-              <h3 className="mb-6 flex items-center gap-2 text-xl font-bold text-neutral-800">
-                <Activity className="h-5 w-5 text-brand-500" />
-                {t('statsTitle')}
-              </h3>
-              <div className="grid grid-cols-2 gap-4 lg:grid-cols-1">
-                <div className="rounded-2xl border border-neutral-100 bg-neutral-50 p-4 text-center transition-colors hover:border-brand-200">
-                  <span className="mb-1 block text-2xl font-bold text-brand-600 md:text-3xl">{t('stat1.value')}</span>
-                  <span className="text-xs font-medium text-neutral-500 md:text-sm">{t('stat1.label')}</span>
-                </div>
-                <div className="rounded-2xl border border-neutral-100 bg-neutral-50 p-4 text-center transition-colors hover:border-brand-200">
-                  <span className="mb-1 block text-2xl font-bold text-brand-600 md:text-3xl">{t('stat2.value')}</span>
-                  <span className="text-xs font-medium text-neutral-500 md:text-sm">{t('stat2.label')}</span>
-                </div>
-              </div>
-              <div className="mt-8 border-t border-neutral-100 pt-6">
-                <h4 className="mb-4 text-center font-semibold text-neutral-800">{t('ctaSidebarTitle')}</h4>
-                <Link
-                  href={localizedPath(locale, 'donate')}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-4 font-bold text-white shadow-lg shadow-brand-200 transition-all hover:scale-[1.02] hover:bg-brand-700 active:scale-95"
-                >
-                  <Heart className="h-5 w-5 animate-pulse fill-current" />
-                  {tCommon('donateNow')}
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <CancerDetailPageClient params={params} />
+    </>
   );
 }
