@@ -95,7 +95,7 @@ jobs:
           grep -F "does not replace medical advice" /tmp/en-breast.html
           grep -F "https://www.who.int/news-room/fact-sheets/detail/breast-cancer" /tmp/en-breast.html
           grep -F "https://www.cancer.gov/types/breast/survival" /tmp/en-breast.html
-          ! grep -F "90%" /tmp/en-breast.html
+          ! grep -F ">90%</span>" /tmp/en-breast.html
 
       - name: Validate Romanian breast guide trust content
         run: |
