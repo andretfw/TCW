@@ -6,10 +6,11 @@ on:
       - seo/homepage-metadata
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Check out SEO branch
@@ -29,7 +30,7 @@ jobs:
           git fetch origin main
           changed="$(git diff --name-only origin/main...HEAD | sort)"
           printf '%s\n' "$changed"
-          unexpected="$(printf '%s\n' "$changed" | grep -Ev '^(.github/workflows/seo-homepage-check.yml|app/\[locale\]/HomePageClient.tsx|app/\[locale\]/page.tsx)$' || true)"
+          unexpected="$(printf '%s\n' "$changed" | grep -Ev '^(.github/workflows/seo-homepage-check.yml|app/\[locale\]/HomePageClient.tsx|app/\[locale\]/page.tsx|homepage-seo-validation.txt)$' || true)"
           if [ -n "$unexpected" ]; then
             echo "Unexpected files changed:"
             printf '%s\n' "$unexpected"
@@ -87,3 +88,27 @@ jobs:
           grep -F '"@type":"WebSite"' /tmp/en-home.html
           grep -F '"taxID":"50156252"' /tmp/en-home.html
           grep -F '"@type":"DonateAction"' /tmp/en-home.html
+
+      - name: Record validation result
+        run: |
+          cat > homepage-seo-validation.txt <<'EOF'
+          HOMEPAGE_SEO_VALIDATION
+          isolated_scope=passed
+          install=passed
+          typecheck=passed
+          lint=passed
+          build=passed
+          production_pages=passed
+          canonical_urls=passed
+          hreflang=passed
+          open_graph_locales=passed
+          localized_titles=passed
+          ngo_schema=passed
+          website_schema=passed
+          donate_action_schema=passed
+          EOF
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add homepage-seo-validation.txt
+          git commit -m "Record homepage SEO validation [skip ci]"
+          git push origin HEAD:seo/homepage-metadata
