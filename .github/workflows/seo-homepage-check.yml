@@ -48,42 +48,53 @@ jobs:
       - name: Production build
         run: npm run build
 
-      - name: Validate generated homepage metadata
+      - name: Fetch generated homepages
         run: |
+          mkdir -p .seo-test
           npm run start > /tmp/tcw-seo-start.log 2>&1 &
           server_pid=$!
           cleanup() { kill "$server_pid" 2>/dev/null || true; }
           trap cleanup EXIT
 
           for attempt in {1..30}; do
-            if curl --fail --silent http://127.0.0.1:3000/es > /tmp/es-home.html; then
+            if curl --fail --silent http://127.0.0.1:3000/es > .seo-test/es.html; then
               break
             fi
             sleep 1
           done
 
-          curl --fail --silent --show-error http://127.0.0.1:3000/en > /tmp/en-home.html
-          curl --fail --silent --show-error http://127.0.0.1:3000/ro > /tmp/ro-home.html
-          curl --fail --silent --show-error http://127.0.0.1:3000/es > /tmp/es-home.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/en > .seo-test/en.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/ro > .seo-test/ro.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/es > .seo-test/es.html
 
-          grep -F 'https://tutticancerwarriors.org/en' /tmp/en-home.html
-          grep -F 'https://tutticancerwarriors.org/ro' /tmp/ro-home.html
-          grep -F 'https://tutticancerwarriors.org/es' /tmp/es-home.html
+      - name: Validate canonical URLs
+        run: |
+          grep -F 'rel="canonical" href="https://tutticancerwarriors.org/en"' .seo-test/en.html
+          grep -F 'rel="canonical" href="https://tutticancerwarriors.org/ro"' .seo-test/ro.html
+          grep -F 'rel="canonical" href="https://tutticancerwarriors.org/es"' .seo-test/es.html
 
-          grep -F 'en_US' /tmp/en-home.html
-          grep -F 'ro_RO' /tmp/ro-home.html
-          grep -F 'es_ES' /tmp/es-home.html
+      - name: Validate hreflang alternates
+        run: |
+          grep -F 'hreflang="en"' .seo-test/en.html
+          grep -F 'hreflang="ro"' .seo-test/en.html
+          grep -F 'hreflang="es"' .seo-test/en.html
+          grep -F 'hreflang="x-default"' .seo-test/en.html
 
-          grep -F 'hreflang="en"' /tmp/en-home.html
-          grep -F 'hreflang="ro"' /tmp/en-home.html
-          grep -F 'hreflang="es"' /tmp/en-home.html
-          grep -F 'hreflang="x-default"' /tmp/en-home.html
+      - name: Validate Open Graph locales
+        run: |
+          grep -F 'property="og:locale" content="en_US"' .seo-test/en.html
+          grep -F 'property="og:locale" content="ro_RO"' .seo-test/ro.html
+          grep -F 'property="og:locale" content="es_ES"' .seo-test/es.html
 
-          grep -F 'Cancer Support, Hope and Dream Grants' /tmp/en-home.html
-          grep -F 'Sprijin oncologic, speranță și dorințe împlinite' /tmp/ro-home.html
-          grep -F 'Apoyo contra el cáncer, esperanza y sueños' /tmp/es-home.html
+      - name: Validate localized titles
+        run: |
+          grep -F 'Cancer Support, Hope and Dream Grants' .seo-test/en.html
+          grep -F 'Sprijin oncologic, speranță și dorințe împlinite' .seo-test/ro.html
+          grep -F 'Apoyo contra el cáncer, esperanza y sueños' .seo-test/es.html
 
-          grep -F '"@type":"NGO"' /tmp/en-home.html
-          grep -F '"@type":"WebSite"' /tmp/en-home.html
-          grep -F '"taxID":"50156252"' /tmp/en-home.html
-          grep -F '"@type":"DonateAction"' /tmp/en-home.html
+      - name: Validate organisation schema
+        run: |
+          grep -F '"@type":"NGO"' .seo-test/en.html
+          grep -F '"@type":"WebSite"' .seo-test/en.html
+          grep -F '"taxID":"50156252"' .seo-test/en.html
+          grep -F '"@type":"DonateAction"' .seo-test/en.html
