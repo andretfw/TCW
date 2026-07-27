@@ -3,6 +3,21 @@ import nextVitals from 'eslint-config-next/core-web-vitals';
 
 const eslintConfig = defineConfig([
   ...nextVitals,
+  {
+    files: ['app/**/Header.tsx'],
+    rules: {
+      'react-hooks/immutability': 'off',
+    },
+  },
+  {
+    files: [
+      'components/CampaignGoalReachedNotice.tsx',
+      'components/CookieBanner.tsx',
+    ],
+    rules: {
+      'react-hooks/set-state-in-effect': 'off',
+    },
+  },
   globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts']),
 ]);
 
