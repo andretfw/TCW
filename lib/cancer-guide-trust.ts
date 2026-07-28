@@ -472,7 +472,7 @@ const PROSTATE_CANCER_TRUST: Record<SiteLocale, CancerGuideTrustContent> = {
       },
       {
         label: 'Instituto Nacional del Cáncer — Cambios y afecciones de la próstata',
-        href: 'https://www.cancer.gov/espanol/tipos/prostata/cambios-prostata',
+        href: 'https://www.cancer.gov/espanol/tipos/prostata/significado-cambios-en-la-prostata',
       },
       {
         label: 'Instituto Nacional del Cáncer — Tratamiento del cáncer de próstata',
