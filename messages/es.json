@@ -711,12 +711,12 @@
       },
       "statsTitle": "Urgencia",
       "stat1": {
-        "value": "Baja",
-        "label": "Tasa de detección temprana"
+        "value": "15,4%",
+        "label": "Diagnosticados en etapa localizada en EE. UU. (2016–2022)"
       },
       "stat2": {
-        "value": "11%",
-        "label": "Supervivencia a 5 años (mejora lentamente)"
+        "value": "13,7%",
+        "label": "Supervivencia relativa a 5 años en EE. UU. (2016–2022)"
       },
       "ctaSidebarTitle": "Investigación Vital",
       "appointmentTitle": "Consulta Especializada",
