@@ -41,6 +41,13 @@ const cancerTypeDefinitions = [
   { id: 'neuroendocrine', icon: 'activity' },
   { id: 'gist', icon: 'layers' },
   { id: 'appendix', icon: 'align-center' },
+  { id: 'adrenal', icon: 'activity' },
+  { id: 'primary-peritoneal', icon: 'circle' },
+  { id: 'fallopian-tube', icon: 'flower' },
+  { id: 'unknown-primary', icon: 'activity' },
+  { id: 'gestational-trophoblastic', icon: 'heart' },
+  { id: 'mds', icon: 'droplet' },
+  { id: 'mpn', icon: 'droplet' },
 ] as const satisfies readonly { id: CancerId; icon: string }[];
 
 export const cancerTypes = cancerTypeDefinitions.map(({ id, icon }) => ({
