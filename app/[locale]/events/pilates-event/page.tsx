@@ -78,22 +78,30 @@ export default function PilatesEventPage() {
             <h2 className="mb-4 text-4xl font-bold text-neutral-800 md:text-5xl">{t('galleryTitle')}</h2>
             <p className="text-xl text-neutral-600">{t('gallerySubtitle')}</p>
           </div>
-          <div className="group relative h-[500px] w-full overflow-hidden rounded-3xl bg-neutral-900 shadow-2xl md:h-[700px]">
+          <div className="group relative h-[500px] w-full touch-pan-y overflow-hidden rounded-3xl bg-neutral-900 shadow-2xl md:h-[700px]">
             {carouselImages.map((source, index) => (
               <div key={source} className={`absolute inset-0 transition-opacity duration-700 ${currentIndex === index ? 'z-10 opacity-100' : 'z-0 opacity-0'}`}>
                 <Image src={source} alt="Background Blur" fill className="scale-110 object-cover opacity-40 blur-2xl" />
                 <Image src={source} alt={`Pilates Event ${index + 1}`} fill className="object-contain p-4 md:p-8" />
               </div>
             ))}
-            <button onClick={prevSlide} className="absolute left-4 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white opacity-0 shadow-lg backdrop-blur-md transition-all hover:bg-white hover:text-brand-600 group-hover:opacity-100 md:h-16 md:w-16" aria-label="Previous image">
-              <ChevronLeft className="h-8 w-8" />
+            <button onClick={prevSlide} className="absolute left-3 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white opacity-100 shadow-lg backdrop-blur-md transition-all hover:bg-white hover:text-brand-600 md:left-4 md:h-16 md:w-16 md:bg-white/20" aria-label="Previous image">
+              <ChevronLeft className="h-7 w-7 md:h-8 md:w-8" />
             </button>
-            <button onClick={nextSlide} className="absolute right-4 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white opacity-0 shadow-lg backdrop-blur-md transition-all hover:bg-white hover:text-brand-600 group-hover:opacity-100 md:h-16 md:w-16" aria-label="Next image">
-              <ChevronRight className="h-8 w-8" />
+            <button onClick={nextSlide} className="absolute right-3 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white opacity-100 shadow-lg backdrop-blur-md transition-all hover:bg-white hover:text-brand-600 md:right-4 md:h-16 md:w-16 md:bg-white/20" aria-label="Next image">
+              <ChevronRight className="h-7 w-7 md:h-8 md:w-8" />
             </button>
-            <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-3">
+            <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-1 md:bottom-6">
               {carouselImages.map((source, index) => (
-                <button key={source} onClick={() => setCurrentIndex(index)} className={`rounded-full transition-all duration-300 ${currentIndex === index ? 'h-3 w-10 bg-brand-500' : 'h-3 w-3 bg-white/50 hover:bg-white'}`} aria-label={`Go to image ${index + 1}`} />
+                <button
+                  key={source}
+                  onClick={() => setCurrentIndex(index)}
+                  className="flex h-11 w-11 items-center justify-center rounded-full"
+                  aria-label={`Go to image ${index + 1}`}
+                  aria-current={currentIndex === index ? 'true' : undefined}
+                >
+                  <span className={`block h-3 rounded-full transition-all duration-300 ${currentIndex === index ? 'w-8 bg-brand-500' : 'w-3 bg-white/60'}`} />
+                </button>
               ))}
             </div>
           </div>

@@ -50,3 +50,46 @@
 .animate-bounce-subtle { 
   animation: bounce-subtle 3s ease-in-out infinite; 
 }
+
+/* Keep the shared header usable on phones and tablets. */
+@media (max-width: 1279px) {
+  header.fixed.inset-x-0.top-0 > div > div:first-child {
+    height: 5rem !important;
+  }
+
+  header.fixed.inset-x-0.top-0 > div > div:first-child > nav,
+  header.fixed.inset-x-0.top-0 > div > div:first-child > div.hidden {
+    display: none !important;
+  }
+
+  header.fixed.inset-x-0.top-0 button[aria-label='Toggle navigation'] {
+    display: flex !important;
+    min-height: 44px;
+    min-width: 44px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  header.fixed.inset-x-0.top-0 > div > div[class*='max-h-'] {
+    display: block !important;
+    max-height: calc(100dvh - 5rem) !important;
+    overscroll-behavior: contain;
+  }
+
+  header.fixed.inset-x-0.top-0 img[alt='Tutti Cancer Warriors'] {
+    max-height: 4rem;
+    max-width: 13.75rem;
+    object-fit: contain;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
