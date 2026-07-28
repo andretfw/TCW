@@ -85,10 +85,10 @@ export default function PilatesEventPage() {
                 <Image src={source} alt={`Pilates Event ${index + 1}`} fill className="object-contain p-4 md:p-8" />
               </div>
             ))}
-            <button onClick={prevSlide} className="absolute left-3 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white opacity-100 shadow-lg backdrop-blur-md transition-all hover:bg-white hover:text-brand-600 md:left-4 md:h-16 md:w-16 md:bg-white/10 md:opacity-0 md:group-hover:opacity-100" aria-label="Previous image">
+            <button onClick={prevSlide} className="absolute left-3 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white opacity-100 shadow-lg backdrop-blur-md transition-all hover:bg-white hover:text-brand-600 md:left-4 md:h-16 md:w-16 md:bg-white/20" aria-label="Previous image">
               <ChevronLeft className="h-7 w-7 md:h-8 md:w-8" />
             </button>
-            <button onClick={nextSlide} className="absolute right-3 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white opacity-100 shadow-lg backdrop-blur-md transition-all hover:bg-white hover:text-brand-600 md:right-4 md:h-16 md:w-16 md:bg-white/10 md:opacity-0 md:group-hover:opacity-100" aria-label="Next image">
+            <button onClick={nextSlide} className="absolute right-3 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white opacity-100 shadow-lg backdrop-blur-md transition-all hover:bg-white hover:text-brand-600 md:right-4 md:h-16 md:w-16 md:bg-white/20" aria-label="Next image">
               <ChevronRight className="h-7 w-7 md:h-8 md:w-8" />
             </button>
             <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-1 md:bottom-6">
