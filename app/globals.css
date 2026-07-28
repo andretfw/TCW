@@ -52,7 +52,7 @@
 }
 
 /* Keep the shared header usable on phones and tablets. */
-@media (max-width: 1199px) {
+@media (max-width: 1279px) {
   header.fixed.inset-x-0.top-0 > div > div:first-child {
     height: 5rem !important;
   }
