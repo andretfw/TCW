@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { getCancerData } from '@/lib/cancer-data';
 import { getCancerGuideTrustContent } from '@/lib/cancer-guide-trust';
+import { getMelanomaGuideTrustContent } from '@/lib/melanoma-guide-trust';
 import { cancerIdFromSlug, localizedPath } from '@/lib/routes';
 
 const iconMap: Record<string, any> = {
@@ -57,7 +58,8 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
   const cancerData = getCancerData(cancerId);
   const t = useTranslations(`cancerDetails.${cancerId}`);
   const tCommon = useTranslations('common');
-  const trustContent = getCancerGuideTrustContent(cancerId, locale);
+  const trustContent = getCancerGuideTrustContent(cancerId, locale)
+    ?? getMelanomaGuideTrustContent(cancerId, locale);
 
   if (!cancerData) notFound();
 
