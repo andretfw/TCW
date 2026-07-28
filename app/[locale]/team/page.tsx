@@ -63,7 +63,7 @@ export default function TeamPage() {
       </section>
 
       <section className="container relative z-20 mx-auto -mt-8 px-4">
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 md:grid-cols-3">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 lg:grid-cols-3">
           {teamMembers.map((member) => {
             const isFlipped = activeMemberId === member.id;
 
