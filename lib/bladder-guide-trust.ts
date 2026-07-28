@@ -1,3 +1,4 @@
+import {getCervicalGuideTrustContent, type CervicalGuideTrustContent} from '@/lib/cervical-guide-trust';
 import {normalizeLocale, type CancerId, type SiteLocale} from '@/lib/routes';
 
 type GuideSource = {
@@ -148,7 +149,10 @@ const BLADDER_GUIDE_TRUST: Record<SiteLocale, BladderGuideTrustContent> = {
 export function getBladderGuideTrustContent(
   cancerId: CancerId,
   localeInput: string,
-): BladderGuideTrustContent | undefined {
+): BladderGuideTrustContent | CervicalGuideTrustContent | undefined {
+  if (cancerId === 'cervical') {
+    return getCervicalGuideTrustContent(cancerId, localeInput);
+  }
   if (cancerId !== 'bladder') return undefined;
   const locale = normalizeLocale(localeInput);
   return BLADDER_GUIDE_TRUST[locale];
