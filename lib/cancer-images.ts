@@ -18,8 +18,18 @@ const illustration = (src: string): CancerGuideImage => ({
   presentation: 'illustration',
 });
 
+const photo = (src: string): CancerGuideImage => ({
+  src,
+  presentation: 'photo',
+});
+
 const sameIllustration = (src: string): CancerGuideImageSet => {
   const image = illustration(src);
+  return { card: image, hero: image, overview: image };
+};
+
+const samePhoto = (src: string): CancerGuideImageSet => {
+  const image = photo(src);
   return { card: image, hero: image, overview: image };
 };
 
@@ -119,22 +129,22 @@ export const CANCER_GUIDE_IMAGES: Record<CancerId, CancerGuideImageSet> = {
   throat: sameIllustration('/images/cancer-guides/larynx-anatomy.jpg'),
   'small-intestine': sameIllustration('/images/cancer-guides/lower-digestive-anatomy.jpg'),
   thymus: sameIllustration('/images/cancer-guides/lymph-system-anatomy.jpg'),
-  mesothelioma: sameIllustration('/images/cancer-guides/lung-anatomy.jpg'),
-  neuroendocrine: sameIllustration('/images/cancer-guides/digestive-system-anatomy.jpg'),
-  gist: sameIllustration('/images/cancer-guides/digestive-system-anatomy.jpg'),
-  appendix: sameIllustration('/images/cancer-guides/lower-digestive-anatomy.jpg'),
-  adrenal: sameIllustration('/images/cancer-guides/kidney-anatomy.jpg'),
-  'primary-peritoneal': sameIllustration('/images/cancer-guides/female-reproductive-anatomy.jpg'),
-  'fallopian-tube': sameIllustration('/images/cancer-guides/female-reproductive-anatomy.jpg'),
-  'unknown-primary': sameIllustration('/images/cancer-guides/lymph-system-anatomy.jpg'),
-  'gestational-trophoblastic': sameIllustration('/images/cancer-guides/female-reproductive-anatomy.jpg'),
-  mds: sameIllustration('/images/cancer-guides/blood-cell-development.jpg'),
-  mpn: sameIllustration('/images/cancer-guides/blood-cell-development.jpg'),
-  neuroblastoma: sameIllustration('/images/cancer-guides/kidney-anatomy.jpg'),
-  urethral: sameIllustration('/images/cancer-guides/urinary-system-anatomy.jpg'),
-  'renal-pelvis-ureter': sameIllustration('/images/cancer-guides/urinary-system-anatomy.jpg'),
-  'salivary-gland': sameIllustration('/images/cancer-guides/oral-cavity-anatomy.jpg'),
-  'nasal-sinus': sameIllustration('/images/cancer-guides/oral-cavity-anatomy.jpg'),
-  laryngeal: sameIllustration('/images/cancer-guides/larynx-anatomy.jpg'),
-  parathyroid: sameIllustration('/images/cancer-guides/thyroid-anatomy.jpg'),
+  mesothelioma: samePhoto('/images/cancer-guides/mesothelioma-pathology.webp'),
+  neuroendocrine: samePhoto('/images/cancer-guides/neuroendocrine-pathology.webp'),
+  gist: samePhoto('/images/cancer-guides/gist-pathology.webp'),
+  appendix: sameIllustration('/images/cancer-guides/appendix-anatomy.webp'),
+  adrenal: sameIllustration('/images/cancer-guides/adrenal-anatomy.webp'),
+  'primary-peritoneal': sameIllustration('/images/cancer-guides/peritoneum-anatomy.webp'),
+  'fallopian-tube': sameIllustration('/images/cancer-guides/fallopian-tube-anatomy.webp'),
+  'unknown-primary': sameIllustration('/images/cancer-guides/unknown-primary-metastasis.webp'),
+  'gestational-trophoblastic': sameIllustration('/images/cancer-guides/gestational-trophoblastic-anatomy.webp'),
+  mds: sameIllustration('/images/cancer-guides/mds-bone-marrow.webp'),
+  mpn: samePhoto('/images/cancer-guides/mpn-pathology.webp'),
+  neuroblastoma: samePhoto('/images/cancer-guides/neuroblastoma-pathology.webp'),
+  urethral: sameIllustration('/images/cancer-guides/urethra-anatomy.webp'),
+  'renal-pelvis-ureter': sameIllustration('/images/cancer-guides/renal-pelvis-ureter-anatomy.webp'),
+  'salivary-gland': sameIllustration('/images/cancer-guides/salivary-glands-anatomy.webp'),
+  'nasal-sinus': sameIllustration('/images/cancer-guides/nasal-sinus-anatomy.webp'),
+  laryngeal: sameIllustration('/images/cancer-guides/larynx-dedicated-anatomy.webp'),
+  parathyroid: sameIllustration('/images/cancer-guides/parathyroid-anatomy.webp'),
 };
