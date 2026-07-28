@@ -1,12 +1,14 @@
 'use client';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Heart, CreditCard, Building2, Bitcoin, ArrowRight, Check, FileText } from 'lucide-react';
 import { useState } from 'react';
 
 export default function DonatePageClient() {
   const t = useTranslations('donatePage'); // Usamos el hook de traducción
+  const locale = useLocale();
   const [copied, setCopied] = useState('');
+  const ronAccountLabel = locale === 'ro' ? 'Cont RON' : locale === 'es' ? 'Cuenta RON' : 'RON Account';
 
   const copyToClipboard = (text: string, type: string) => {
     navigator.clipboard.writeText(text);
@@ -179,21 +181,31 @@ export default function DonatePageClient() {
                 
                 <div className="space-y-4 mb-6 flex-grow">
                     <div className="p-3 bg-neutral-50 rounded-lg border border-neutral-100">
-                        <div className="text-xs font-bold text-neutral-400 uppercase mb-1">{t('usdAccount')}</div>
+                        <div className="text-xs font-bold text-neutral-400 uppercase mb-1">{ronAccountLabel}</div>
                         <div className="flex justify-between items-center">
-                            <span className="font-mono text-sm font-medium text-neutral-800 break-all mr-2">RO36BTRLUSDCRTOCS5281601</span>
-                            <button onClick={() => copyToClipboard('RO36BTRLUSDCRTOCS5281601', 'usd')} className="text-blue-600 hover:bg-blue-50 p-1 rounded">
-                                {copied === 'usd' ? <Check size={16} /> : <span className="text-xs font-bold">{t('copy')}</span>}
+                            <span className="font-mono text-sm font-medium text-neutral-800 break-all mr-2">RO77BTRLRONCRT0CS5281601</span>
+                            <button onClick={() => copyToClipboard('RO77BTRLRONCRT0CS5281601', 'ron')} className="text-blue-600 hover:bg-blue-50 p-1 rounded">
+                                {copied === 'ron' ? <Check size={16} /> : <span className="text-xs font-bold">{t('copy')}</span>}
                             </button>
                         </div>
                     </div>
-                    
+
                     <div className="p-3 bg-neutral-50 rounded-lg border border-neutral-100">
                         <div className="text-xs font-bold text-neutral-400 uppercase mb-1">{t('eurAccount')}</div>
                         <div className="flex justify-between items-center">
                             <span className="font-mono text-sm font-medium text-neutral-800 break-all mr-2">RO24BTRLEURCRTOCS5281601</span>
                             <button onClick={() => copyToClipboard('RO24BTRLEURCRTOCS5281601', 'eur')} className="text-blue-600 hover:bg-blue-50 p-1 rounded">
                                 {copied === 'eur' ? <Check size={16} /> : <span className="text-xs font-bold">{t('copy')}</span>}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="p-3 bg-neutral-50 rounded-lg border border-neutral-100">
+                        <div className="text-xs font-bold text-neutral-400 uppercase mb-1">{t('usdAccount')}</div>
+                        <div className="flex justify-between items-center">
+                            <span className="font-mono text-sm font-medium text-neutral-800 break-all mr-2">RO36BTRLUSDCRTOCS5281601</span>
+                            <button onClick={() => copyToClipboard('RO36BTRLUSDCRTOCS5281601', 'usd')} className="text-blue-600 hover:bg-blue-50 p-1 rounded">
+                                {copied === 'usd' ? <Check size={16} /> : <span className="text-xs font-bold">{t('copy')}</span>}
                             </button>
                         </div>
                     </div>
