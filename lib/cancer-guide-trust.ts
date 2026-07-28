@@ -597,6 +597,129 @@ const KIDNEY_CANCER_TRUST: Record<SiteLocale, CancerGuideTrustContent> = {
   },
 };
 
+const LEUKEMIA_CANCER_TRUST: Record<SiteLocale, CancerGuideTrustContent> = {
+  en: {
+    heading: 'Sources and medical information',
+    disclaimer:
+      'This page provides general educational information. It does not replace medical advice, diagnosis or treatment from a qualified healthcare professional. Leukemia is a broad term for cancers of the blood cells; symptoms, treatment and outlook differ substantially by type and age. Contact a healthcare professional about persistent or concerning symptoms such as unexplained fatigue, fever, frequent infections, easy bruising or bleeding, swollen lymph nodes, bone pain or night sweats. NCI SEER reports 68.6% five-year relative survival for leukemia in the United States for 2016–2022. This population average combines different leukemia types and cannot predict an individual outcome.',
+    sourcesHeading: 'Official sources',
+    checkedLabel: 'Sources checked',
+    checkedDate: '28 July 2026',
+    stats: [
+      {
+        value: '495K',
+        label: 'New leukemia cases globally in 2024 (IARC estimate)',
+      },
+      {
+        value: '68.6%',
+        label: 'Five-year relative survival in the US, all leukemia types combined, 2016–2022 (NCI SEER)',
+      },
+    ],
+    sources: [
+      {
+        label: 'International Agency for Research on Cancer — Leukaemia fact sheet',
+        href: 'https://gco.iarc.who.int/media/globocan/factsheets/cancers/36-leukaemia-fact-sheet.pdf',
+      },
+      {
+        label: 'National Cancer Institute — Leukemia: Patient Version',
+        href: 'https://www.cancer.gov/types/leukemia',
+      },
+      {
+        label: 'National Cancer Institute — Acute Lymphoblastic Leukemia Treatment',
+        href: 'https://www.cancer.gov/types/leukemia/patient/adult-all-treatment-pdq',
+      },
+      {
+        label: 'National Cancer Institute — Acute Myeloid Leukemia Treatment',
+        href: 'https://www.cancer.gov/types/leukemia/patient/adult-aml-treatment-pdq',
+      },
+      {
+        label: 'National Cancer Institute SEER — Leukemia Cancer Stat Facts',
+        href: 'https://seer.cancer.gov/statfacts/html/leuks.html',
+      },
+    ],
+  },
+  ro: {
+    heading: 'Surse și informații medicale',
+    disclaimer:
+      'Această pagină oferă informații educaționale generale. Nu înlocuiește sfatul, diagnosticul sau tratamentul oferit de un profesionist medical calificat. Leucemia este un termen larg pentru cancerele celulelor sanguine; simptomele, tratamentul și prognosticul diferă considerabil în funcție de tip și vârstă. Adresează-te unui medic pentru simptome persistente sau îngrijorătoare, precum oboseală fără explicație, febră, infecții frecvente, apariția ușoară a vânătăilor sau sângerărilor, ganglioni limfatici măriți, dureri osoase ori transpirații nocturne. NCI SEER raportează o supraviețuire relativă la 5 ani de 68,6% pentru leucemie în Statele Unite, în perioada 2016–2022. Această medie populațională reunește tipuri diferite de leucemie și nu poate prezice rezultatul unei persoane.',
+    sourcesHeading: 'Surse oficiale',
+    checkedLabel: 'Surse verificate la data de',
+    checkedDate: '28 iulie 2026',
+    stats: [
+      {
+        value: '495 mii',
+        label: 'Cazuri noi de leucemie la nivel global în 2024 (estimare IARC)',
+      },
+      {
+        value: '68,6%',
+        label: 'Supraviețuire relativă la 5 ani în SUA, toate tipurile de leucemie combinate, 2016–2022 (NCI SEER)',
+      },
+    ],
+    sources: [
+      {
+        label: 'Agenția Internațională pentru Cercetare în Domeniul Cancerului — Fișă despre leucemie',
+        href: 'https://gco.iarc.who.int/media/globocan/factsheets/cancers/36-leukaemia-fact-sheet.pdf',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Leucemie: versiunea pentru pacienți',
+        href: 'https://www.cancer.gov/types/leukemia',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Tratamentul leucemiei limfoblastice acute',
+        href: 'https://www.cancer.gov/types/leukemia/patient/adult-all-treatment-pdq',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Tratamentul leucemiei mieloide acute',
+        href: 'https://www.cancer.gov/types/leukemia/patient/adult-aml-treatment-pdq',
+      },
+      {
+        label: 'Institutul Național al Cancerului SEER — Date statistice despre leucemie',
+        href: 'https://seer.cancer.gov/statfacts/html/leuks.html',
+      },
+    ],
+  },
+  es: {
+    heading: 'Fuentes e información médica',
+    disclaimer:
+      'Esta página ofrece información educativa general. No sustituye el consejo, diagnóstico ni tratamiento de un profesional sanitario cualificado. Leucemia es un término amplio para los cánceres de las células sanguíneas; los síntomas, el tratamiento y el pronóstico varían considerablemente según el tipo y la edad. Consulta a un profesional sanitario ante síntomas persistentes o preocupantes, como cansancio sin explicación, fiebre, infecciones frecuentes, aparición fácil de moretones o sangrado, ganglios linfáticos inflamados, dolor de huesos o sudores nocturnos. NCI SEER informa una supervivencia relativa a 5 años del 68,6% para la leucemia en Estados Unidos durante 2016–2022. Este promedio poblacional combina distintos tipos de leucemia y no puede predecir el resultado de una persona.',
+    sourcesHeading: 'Fuentes oficiales',
+    checkedLabel: 'Fuentes verificadas el',
+    checkedDate: '28 de julio de 2026',
+    stats: [
+      {
+        value: '495 mil',
+        label: 'Casos nuevos de leucemia en todo el mundo en 2024 (estimación del IARC)',
+      },
+      {
+        value: '68,6%',
+        label: 'Supervivencia relativa a 5 años en EE. UU., todos los tipos de leucemia combinados, 2016–2022 (NCI SEER)',
+      },
+    ],
+    sources: [
+      {
+        label: 'Agencia Internacional para la Investigación del Cáncer — Ficha sobre la leucemia',
+        href: 'https://gco.iarc.who.int/media/globocan/factsheets/cancers/36-leukaemia-fact-sheet.pdf',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — Leucemia: versión para pacientes',
+        href: 'https://www.cancer.gov/espanol/tipos/leucemia',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — Tratamiento de la leucemia linfoblástica aguda',
+        href: 'https://www.cancer.gov/espanol/tipos/leucemia/paciente/tratamiento-lla-adultos-pdq',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — Tratamiento de la leucemia mieloide aguda',
+        href: 'https://www.cancer.gov/espanol/tipos/leucemia/paciente/tratamiento-lma-adultos-pdq',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer SEER — Datos estadísticos sobre la leucemia',
+        href: 'https://seer.cancer.gov/statfacts/html/leuks.html',
+      },
+    ],
+  },
+};
+
 const CANCER_GUIDE_TRUST: Partial<
   Record<CancerId, Record<SiteLocale, CancerGuideTrustContent>>
 > = {
@@ -605,6 +728,7 @@ const CANCER_GUIDE_TRUST: Partial<
   colorectal: COLORECTAL_CANCER_TRUST,
   prostate: PROSTATE_CANCER_TRUST,
   kidney: KIDNEY_CANCER_TRUST,
+  leukemia: LEUKEMIA_CANCER_TRUST,
 };
 
 export function getCancerGuideTrustContent(
