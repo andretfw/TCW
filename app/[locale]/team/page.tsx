@@ -2,12 +2,19 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { localizedPath } from '@/lib/routes';
 
 export default function TeamPage() {
   const t = useTranslations('teamPage');
   const locale = useLocale();
+  const [activeMemberId, setActiveMemberId] = useState<string | null>(null);
+  const mobileCopy = locale === 'ro'
+    ? { open: 'Vezi biografia', close: 'Înapoi' }
+    : locale === 'es'
+      ? { open: 'Ver biografía', close: 'Volver' }
+      : { open: 'View biography', close: 'Back' };
 
   const teamMembers = [
     {
@@ -57,38 +64,62 @@ export default function TeamPage() {
 
       <section className="container relative z-20 mx-auto -mt-8 px-4">
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 md:grid-cols-3">
-          {teamMembers.map((member) => (
-            <div key={member.id} className="group h-[480px] w-full [perspective:1000px]">
-              <div className="relative h-full w-full cursor-pointer rounded-2xl shadow-xl transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                <div className="absolute inset-0 flex h-full w-full flex-col items-center justify-center rounded-2xl border border-neutral-100 bg-white p-8 [backface-visibility:hidden]">
-                  <div className="mb-8 h-48 w-48 overflow-hidden rounded-full border-4 border-purple-50 shadow-inner">
-                    <Image src={member.image} alt={member.name} width={192} height={192} className="h-full w-full object-cover object-center" />
-                  </div>
-                  <h3 className="mb-2 text-center text-2xl font-bold text-neutral-900">{member.name}</h3>
-                  <div className="mb-3 h-1 w-12 rounded-full bg-brand-500" />
-                  <p className="text-center text-sm font-semibold uppercase tracking-wide text-brand-600">{member.role}</p>
-                  <p className="mt-6 text-xs font-medium tracking-wide text-neutral-400">{t('hoverHint')}</p>
-                </div>
+          {teamMembers.map((member) => {
+            const isFlipped = activeMemberId === member.id;
 
-                <div className="absolute inset-0 flex h-full w-full flex-col items-center justify-between rounded-2xl bg-gradient-to-br from-brand-600 to-purple-800 px-8 py-10 text-center text-slate-200 shadow-2xl [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                  <div className="flex w-full flex-col items-center">
-                    <svg className="mb-6 h-10 w-10 text-brand-300 opacity-40" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                    </svg>
-                    <h3 className="mb-1 text-2xl font-bold text-white">{member.name}</h3>
-                    <p className="mb-6 text-sm font-medium uppercase tracking-wider text-brand-200">{member.role}</p>
-                    <p className="max-w-sm text-base font-light leading-relaxed text-white/90">{member.description}</p>
+            return (
+              <div key={member.id} className="group h-[540px] w-full [perspective:1000px] sm:h-[500px]">
+                <div
+                  className={`relative h-full w-full rounded-2xl shadow-xl transition-all duration-700 [transform-style:preserve-3d] lg:group-hover:[transform:rotateY(180deg)] ${
+                    isFlipped ? '[transform:rotateY(180deg)]' : ''
+                  }`}
+                >
+                  <div className="absolute inset-0 flex h-full w-full flex-col items-center justify-center rounded-2xl border border-neutral-100 bg-white p-8 [backface-visibility:hidden]">
+                    <div className="mb-8 h-48 w-48 overflow-hidden rounded-full border-4 border-purple-50 shadow-inner">
+                      <Image src={member.image} alt={member.name} width={192} height={192} className="h-full w-full object-cover object-center" />
+                    </div>
+                    <h3 className="mb-2 text-center text-2xl font-bold text-neutral-900">{member.name}</h3>
+                    <div className="mb-3 h-1 w-12 rounded-full bg-brand-500" />
+                    <p className="text-center text-sm font-semibold uppercase tracking-wide text-brand-600">{member.role}</p>
+                    <p className="mt-6 hidden text-xs font-medium tracking-wide text-neutral-400 lg:block">{t('hoverHint')}</p>
+                    <button
+                      type="button"
+                      onClick={() => setActiveMemberId(member.id)}
+                      className="mt-6 min-h-11 rounded-full bg-brand-600 px-6 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-brand-700 lg:hidden"
+                      aria-label={`${mobileCopy.open}: ${member.name}`}
+                    >
+                      {mobileCopy.open}
+                    </button>
                   </div>
 
-                  <div className="mt-6 flex space-x-4">
-                    <a href={`mailto:${member.email}`} aria-label={`Email ${member.name}`} className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-all duration-300 hover:-translate-y-1 hover:bg-white/20">
-                      <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
-                    </a>
+                  <div className="absolute inset-0 flex h-full w-full flex-col items-center justify-between overflow-y-auto rounded-2xl bg-gradient-to-br from-brand-600 to-purple-800 px-8 py-10 text-center text-slate-200 shadow-2xl [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                    <div className="flex w-full flex-col items-center">
+                      <svg className="mb-6 h-10 w-10 shrink-0 text-brand-300 opacity-40" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                      </svg>
+                      <h3 className="mb-1 text-2xl font-bold text-white">{member.name}</h3>
+                      <p className="mb-6 text-sm font-medium uppercase tracking-wider text-brand-200">{member.role}</p>
+                      <p className="max-w-sm text-base font-light leading-relaxed text-white/90">{member.description}</p>
+                    </div>
+
+                    <div className="mt-6 flex items-center gap-4">
+                      <a href={`mailto:${member.email}`} aria-label={`Email ${member.name}`} className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 transition-all duration-300 hover:-translate-y-1 hover:bg-white/20">
+                        <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+                      </a>
+                      <button
+                        type="button"
+                        onClick={() => setActiveMemberId(null)}
+                        className="min-h-11 rounded-full border border-white/30 bg-white/10 px-5 py-2 text-sm font-bold text-white transition-colors hover:bg-white/20 lg:hidden"
+                        aria-label={`${mobileCopy.close}: ${member.name}`}
+                      >
+                        {mobileCopy.close}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
