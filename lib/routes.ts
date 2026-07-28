@@ -93,6 +93,7 @@ export const CANCER_SLUGS = {
     lymphoma: 'linfoma', myeloma: 'mieloma', esophageal: 'esofago', 'head-neck': 'cabeza-cuello', bone: 'hueso', sarcoma: 'sarcoma',
     gallbladder: 'vesicula-biliar', 'bile-duct': 'vias-biliares', anal: 'anal', penile: 'pene', vaginal: 'vagina', vulvar: 'vulva',
     eye: 'ojo', oral: 'boca', throat: 'garganta', 'small-intestine': 'intestino-delgado', thymus: 'timo',
+    mesothelioma: 'mesotelioma', neuroendocrine: 'tumores-neuroendocrinos', gist: 'gist', appendix: 'apendice',
   },
   en: {
     breast: 'breast', lung: 'lung', colorectal: 'colorectal', prostate: 'prostate', skin: 'skin', kidney: 'kidney',
@@ -101,6 +102,7 @@ export const CANCER_SLUGS = {
     lymphoma: 'lymphoma', myeloma: 'myeloma', esophageal: 'esophageal', 'head-neck': 'head-neck', bone: 'bone', sarcoma: 'sarcoma',
     gallbladder: 'gallbladder', 'bile-duct': 'bile-duct', anal: 'anal', penile: 'penile', vaginal: 'vaginal', vulvar: 'vulvar',
     eye: 'eye', oral: 'oral', throat: 'throat', 'small-intestine': 'small-intestine', thymus: 'thymus',
+    mesothelioma: 'mesothelioma', neuroendocrine: 'neuroendocrine-tumours', gist: 'gist', appendix: 'appendix',
   },
   ro: {
     breast: 'san', lung: 'plaman', colorectal: 'colorectal', prostate: 'prostata', skin: 'piele', kidney: 'rinichi',
@@ -109,6 +111,7 @@ export const CANCER_SLUGS = {
     lymphoma: 'limfom', myeloma: 'mielom', esophageal: 'esofag', 'head-neck': 'cap-gat', bone: 'os', sarcoma: 'sarcom',
     gallbladder: 'vezica-biliara', 'bile-duct': 'cai-biliare', anal: 'anal', penile: 'penis', vaginal: 'vaginal', vulvar: 'vulvar',
     eye: 'ochi', oral: 'oral', throat: 'gat', 'small-intestine': 'intestin-subtire', thymus: 'timus',
+    mesothelioma: 'mezoteliom', neuroendocrine: 'tumori-neuroendocrine', gist: 'gist', appendix: 'apendice',
   },
 } as const;
 
