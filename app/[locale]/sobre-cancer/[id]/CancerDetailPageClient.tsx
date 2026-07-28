@@ -199,7 +199,7 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
                 </div>
               </div>
               <div className="mt-8 border-t border-neutral-100 pt-6">
-                <h4 className="mb-4 text-center font-semibold text-neutral-800">{t('ctaSidebarTitle')}</h4>
+                <h4 className="mb-4 text-center font-semibold text-neutral-800">{tCommon('supportWarriorWish')}</h4>
                 <Link
                   href={localizedPath(locale, 'donate')}
                   className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-4 font-bold text-white shadow-lg shadow-brand-200 transition-all hover:scale-[1.02] hover:bg-brand-700 active:scale-95"
