@@ -6,6 +6,7 @@ import roMessages from '@/messages/ro.json';
 import esMessages from '@/messages/es.json';
 import {getAdditionalCancerGuideContent} from '@/lib/additional-cancer-guides';
 import {getAdditionalCancerGuideBatch2Content} from '@/lib/additional-cancer-guides-2';
+import {getAdditionalCancerGuideBatch3Content} from '@/lib/additional-cancer-guides-3';
 import {getCancerData} from '@/lib/cancer-data';
 import {
   CANCER_SLUGS,
@@ -74,7 +75,8 @@ function resolveGuide(localeParam: string, slug: string): ResolvedGuide | null {
   const messages = MESSAGES[locale] as GuideMessages;
   const translatedCopy = messages.cancerDetails?.[cancerId];
   const additionalCopy = getAdditionalCancerGuideContent(cancerId, locale)
-    ?? getAdditionalCancerGuideBatch2Content(cancerId, locale);
+    ?? getAdditionalCancerGuideBatch2Content(cancerId, locale)
+    ?? getAdditionalCancerGuideBatch3Content(cancerId, locale);
   const title = additionalCopy?.title ?? translatedCopy?.title;
   const description = additionalCopy?.shortDescription ?? translatedCopy?.shortDescription;
   if (!title || !description) return null;

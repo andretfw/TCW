@@ -70,6 +70,13 @@ export const CANCER_GUIDE_IDS = [
   'gestational-trophoblastic',
   'mds',
   'mpn',
+  'neuroblastoma',
+  'urethral',
+  'renal-pelvis-ureter',
+  'salivary-gland',
+  'nasal-sinus',
+  'laryngeal',
+  'parathyroid',
 ] as const satisfies readonly CancerId[];
 
 export const CANCER_GUIDE_IMAGES: Record<CancerId, CancerGuideImageSet> = {
@@ -123,4 +130,11 @@ export const CANCER_GUIDE_IMAGES: Record<CancerId, CancerGuideImageSet> = {
   'gestational-trophoblastic': sameIllustration('/images/cancer-guides/female-reproductive-anatomy.jpg'),
   mds: sameIllustration('/images/cancer-guides/blood-cell-development.jpg'),
   mpn: sameIllustration('/images/cancer-guides/blood-cell-development.jpg'),
+  neuroblastoma: sameIllustration('/images/cancer-guides/kidney-anatomy.jpg'),
+  urethral: sameIllustration('/images/cancer-guides/urinary-system-anatomy.jpg'),
+  'renal-pelvis-ureter': sameIllustration('/images/cancer-guides/urinary-system-anatomy.jpg'),
+  'salivary-gland': sameIllustration('/images/cancer-guides/oral-cavity-anatomy.jpg'),
+  'nasal-sinus': sameIllustration('/images/cancer-guides/oral-cavity-anatomy.jpg'),
+  laryngeal: sameIllustration('/images/cancer-guides/larynx-anatomy.jpg'),
+  parathyroid: sameIllustration('/images/cancer-guides/thyroid-anatomy.jpg'),
 };
