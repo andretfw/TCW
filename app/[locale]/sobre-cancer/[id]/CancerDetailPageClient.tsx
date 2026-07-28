@@ -64,14 +64,40 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
   if (!cancerData) notFound();
 
   const HeroIcon = iconMap[cancerData.icon] || Activity;
-  const contentImage = cancerData.contentImage || 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800';
+  const guideTitle = t('title') === `cancerDetails.${cancerId}.title`
+    ? cancerId.replace('-', ' ')
+    : t('title');
   const stat1 = trustContent?.stats[0] ?? { value: t('stat1.value'), label: t('stat1.label') };
   const stat2 = trustContent?.stats[1] ?? { value: t('stat2.value'), label: t('stat2.label') };
 
   return (
     <div className="min-h-screen bg-brand-50 pb-20">
-      <div className="relative h-[50vh] w-full overflow-hidden md:h-[60vh]">
-        <Image src={cancerData.image} alt={cancerId} fill className="object-cover" priority />
+      <div className="relative h-[32rem] w-full overflow-hidden md:h-[60vh]">
+        {cancerData.imagePresentation === 'illustration' ? (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-brand-800 to-brand-600" />
+            <Image
+              src={cancerData.image}
+              alt=""
+              fill
+              className="scale-110 object-cover opacity-20 blur-2xl"
+              aria-hidden="true"
+              sizes="100vw"
+            />
+            <div className="absolute inset-x-6 bottom-44 top-6 overflow-hidden rounded-3xl border border-white/40 bg-white/95 shadow-2xl md:inset-y-10 md:left-[48%] md:right-12">
+              <Image
+                src={cancerData.image}
+                alt={`${guideTitle} anatomy`}
+                fill
+                className="object-contain p-3"
+                priority
+                sizes="(min-width: 768px) 48vw, 90vw"
+              />
+            </div>
+          </>
+        ) : (
+          <Image src={cancerData.image} alt={guideTitle} fill className="object-cover" priority sizes="100vw" />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-brand-900/50 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full p-6 text-white md:p-16">
           <div className="container mx-auto">
@@ -85,7 +111,7 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
             <div className="flex animate-fade-in-up items-end gap-4">
               <HeroIcon className="mb-1 hidden h-12 w-12 text-brand-300 sm:block md:h-16 md:w-16" />
               <h1 className="text-3xl font-bold capitalize leading-tight sm:text-4xl md:text-6xl">
-                {t('title') === `cancerDetails.${cancerId}.title` ? cancerId.replace('-', ' ') : t('title')}
+                {guideTitle}
               </h1>
             </div>
             <div className="mt-4 max-w-2xl animate-fade-in-up text-lg leading-relaxed text-brand-100 delay-100 md:text-2xl">
@@ -105,8 +131,18 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
               </div>
               <div className="flex flex-col items-start gap-6 md:flex-row">
                 <div className="flex-1 text-base leading-relaxed text-neutral-600 md:text-lg">{t('overviewText')}</div>
-                <div className="relative aspect-video h-48 w-full shrink-0 overflow-hidden rounded-xl shadow-md md:h-auto md:w-1/3 md:aspect-square">
-                  <Image src={contentImage} alt="Medical Detail" fill className="object-cover transition-transform duration-700 hover:scale-110" />
+                <div className="relative aspect-video h-48 w-full shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-brand-50 via-white to-brand-100 shadow-md md:h-auto md:w-1/3 md:aspect-square">
+                  <Image
+                    src={cancerData.contentImage}
+                    alt={`${guideTitle} overview`}
+                    fill
+                    className={
+                      cancerData.contentImagePresentation === 'illustration'
+                        ? 'object-contain p-3'
+                        : 'object-cover transition-transform duration-700 hover:scale-110'
+                    }
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                  />
                 </div>
               </div>
             </div>
