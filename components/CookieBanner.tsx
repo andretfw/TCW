@@ -38,12 +38,12 @@ export default function CookieBanner() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-[9999] animate-bounce-subtle">
-      <div className="bg-white/95 backdrop-blur-md border border-purple-100 shadow-2xl rounded-2xl p-6 max-w-2xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center gap-6">
+    <div className="fixed inset-x-3 bottom-3 z-[9999] md:inset-x-4 md:bottom-4">
+      <div className="mx-auto max-h-[calc(100dvh-1.5rem)] max-w-2xl overscroll-contain overflow-y-auto rounded-2xl border border-purple-100 bg-white/95 p-4 shadow-2xl backdrop-blur-md md:max-h-[calc(100dvh-2rem)] md:p-6">
+        <div className="flex flex-col items-center gap-4 md:flex-row md:gap-6">
           
           {/* SVG Animado de Galleta */}
-          <div className="w-16 h-16 flex-shrink-0 animate-spin-slow text-purple-600">
+          <div className="h-14 w-14 flex-shrink-0 animate-spin-slow text-purple-600 md:h-16 md:w-16">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="12" r="10" fill="#F3E8FF" stroke="currentColor" strokeWidth="2"/>
               <circle cx="8" cy="8" r="1.5" fill="#7E22CE"/>
@@ -55,28 +55,29 @@ export default function CookieBanner() {
 
           <div className="flex-1 text-center md:text-left">
             <h3 className="text-lg font-bold text-purple-900">{t('title')}</h3>
-            <p className="text-sm text-gray-600 leading-relaxed">{t('description')}</p>
+            <p className="text-sm leading-relaxed text-gray-600">{t('description')}</p>
           </div>
 
-          <div className="flex flex-wrap gap-2 justify-center">
+          <div className="flex w-full flex-wrap justify-center gap-2 md:w-auto">
             {/* Botón RECHAZAR (Novedad) */}
             <button 
               onClick={() => handleSave('reject')} 
-              className="px-4 py-2 text-xs font-medium text-red-600 border border-red-100 rounded-lg hover:bg-red-50 transition-all"
+              className="min-h-11 rounded-lg border border-red-100 px-4 py-2 text-xs font-medium text-red-600 transition-all hover:bg-red-50"
             >
               {t('reject')}
             </button>
 
             <button 
               onClick={() => setShowSettings(!showSettings)} 
-              className="px-4 py-2 text-xs font-medium text-purple-600 border border-purple-200 rounded-lg hover:bg-purple-50 transition-all"
+              className="min-h-11 rounded-lg border border-purple-200 px-4 py-2 text-xs font-medium text-purple-600 transition-all hover:bg-purple-50"
+              aria-expanded={showSettings}
             >
               {t('settings')}
             </button>
             
             <button 
               onClick={() => handleSave('all')} 
-              className="px-6 py-2 bg-purple-600 text-white text-xs font-bold rounded-lg hover:bg-purple-700 shadow-lg active:scale-95 transition-all"
+              className="min-h-11 rounded-lg bg-purple-600 px-6 py-2 text-xs font-bold text-white shadow-lg transition-all hover:bg-purple-700 active:scale-95"
             >
               {t('accept')}
             </button>
@@ -85,37 +86,43 @@ export default function CookieBanner() {
 
         {/* Panel de Personalización que se despliega */}
         {showSettings && (
-          <div className="mt-6 pt-6 border-t border-purple-100 space-y-4 animate-fade-in-up">
-            <div className="flex items-center justify-between">
+          <div className="mt-6 space-y-4 border-t border-purple-100 pt-6 animate-fade-in-up">
+            <div className="flex items-center justify-between gap-4">
               <span className="text-sm font-medium text-gray-700">{t('essential')}</span>
-              <div className="w-10 h-5 bg-purple-200 rounded-full relative opacity-50 cursor-not-allowed">
-                <div className="absolute right-1 top-1 w-3 h-3 bg-purple-600 rounded-full" />
+              <div className="relative h-7 w-12 shrink-0 cursor-not-allowed rounded-full bg-purple-200 opacity-50">
+                <div className="absolute right-1 top-1 h-5 w-5 rounded-full bg-purple-600" />
               </div>
             </div>
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-4">
               <span className="text-sm font-medium text-gray-700">{t('analytics')}</span>
               <button 
+                type="button"
                 onClick={() => setOptions({...options, analytics: !options.analytics})}
-                className={`w-10 h-5 rounded-full relative transition-colors ${options.analytics ? 'bg-purple-600' : 'bg-gray-300'}`}
+                className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${options.analytics ? 'bg-purple-600' : 'bg-gray-300'}`}
+                aria-pressed={options.analytics}
+                aria-label={t('analytics')}
               >
-                <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${options.analytics ? 'right-1' : 'left-1'}`} />
+                <div className={`absolute top-1 h-5 w-5 rounded-full bg-white transition-all ${options.analytics ? 'right-1' : 'left-1'}`} />
               </button>
             </div>
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-4">
               <span className="text-sm font-medium text-gray-700">{t('marketing')}</span>
               <button 
+                type="button"
                 onClick={() => setOptions({...options, marketing: !options.marketing})}
-                className={`w-10 h-5 rounded-full relative transition-colors ${options.marketing ? 'bg-purple-600' : 'bg-gray-300'}`}
+                className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${options.marketing ? 'bg-purple-600' : 'bg-gray-300'}`}
+                aria-pressed={options.marketing}
+                aria-label={t('marketing')}
               >
-                <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${options.marketing ? 'right-1' : 'left-1'}`} />
+                <div className={`absolute top-1 h-5 w-5 rounded-full bg-white transition-all ${options.marketing ? 'right-1' : 'left-1'}`} />
               </button>
             </div>
 
             <button 
               onClick={() => handleSave('custom')}
-              className="w-full mt-4 py-2 bg-purple-50 text-purple-700 text-xs font-bold rounded-lg hover:bg-purple-100 transition-all border border-purple-100"
+              className="mt-4 min-h-11 w-full rounded-lg border border-purple-100 bg-purple-50 py-2 text-xs font-bold text-purple-700 transition-all hover:bg-purple-100"
             >
               {t('save')}
             </button>
