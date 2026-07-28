@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
 import AboutCancerPageClient from './AboutCancerPageClient';
+import {CANCER_GUIDE_IDS} from '@/lib/cancer-images';
 import {
   localizedCancerPath,
   localizedPath,
@@ -10,22 +11,23 @@ import {
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'https://tutticancerwarriors.org';
+const GUIDE_COUNT = CANCER_GUIDE_IDS.length;
 
 const SEO_COPY: Record<SiteLocale, {title: string; description: string}> = {
   en: {
     title: 'Cancer Types and Information Guides',
     description:
-      'Explore 35 educational guides about cancer types, symptoms, diagnosis, treatment and support from Tutti Cancer Warriors.',
+      `Explore ${GUIDE_COUNT} educational guides about cancer types, symptoms, diagnosis, treatment and support from Tutti Cancer Warriors.`,
   },
   ro: {
     title: 'Tipuri de cancer și ghiduri informative',
     description:
-      'Explorează 35 de ghiduri educaționale despre tipuri de cancer, simptome, diagnostic, tratament și sprijin de la Tutti Cancer Warriors.',
+      `Explorează ${GUIDE_COUNT} de ghiduri educaționale despre tipuri de cancer, simptome, diagnostic, tratament și sprijin de la Tutti Cancer Warriors.`,
   },
   es: {
     title: 'Tipos de cáncer y guías informativas',
     description:
-      'Explora 35 guías educativas sobre tipos de cáncer, síntomas, diagnóstico, tratamiento y apoyo de Tutti Cancer Warriors.',
+      `Explora ${GUIDE_COUNT} guías educativas sobre tipos de cáncer, síntomas, diagnóstico, tratamiento y apoyo de Tutti Cancer Warriors.`,
   },
 };
 
@@ -34,44 +36,6 @@ const OPEN_GRAPH_LOCALES: Record<SiteLocale, string> = {
   ro: 'ro_RO',
   es: 'es_ES',
 };
-
-const CANCER_IDS: CancerId[] = [
-  'breast',
-  'lung',
-  'colorectal',
-  'prostate',
-  'skin',
-  'kidney',
-  'leukemia',
-  'liver',
-  'pancreatic',
-  'ovarian',
-  'childhood',
-  'brain',
-  'bladder',
-  'cervical',
-  'stomach',
-  'testicular',
-  'thyroid',
-  'uterine',
-  'lymphoma',
-  'myeloma',
-  'esophageal',
-  'head-neck',
-  'bone',
-  'sarcoma',
-  'gallbladder',
-  'bile-duct',
-  'anal',
-  'penile',
-  'vaginal',
-  'vulvar',
-  'eye',
-  'oral',
-  'throat',
-  'small-intestine',
-  'thymus',
-];
 
 function absoluteAboutCancerUrl(locale: SiteLocale) {
   return `${SITE_URL}${localizedPath(locale, 'aboutCancer')}`;
@@ -171,8 +135,8 @@ export default async function AboutCancerPage({
         '@type': 'ItemList',
         '@id': `${pageUrl}#cancer-guides`,
         name: copy.title,
-        numberOfItems: CANCER_IDS.length,
-        itemListElement: CANCER_IDS.map((cancerId, index) => ({
+        numberOfItems: CANCER_GUIDE_IDS.length,
+        itemListElement: CANCER_GUIDE_IDS.map((cancerId, index) => ({
           '@type': 'ListItem',
           position: index + 1,
           url: absoluteCancerUrl(locale, cancerId),

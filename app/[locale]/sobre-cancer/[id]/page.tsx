@@ -4,6 +4,7 @@ import CancerDetailPageClient from './CancerDetailPageClient';
 import enMessages from '@/messages/en.json';
 import roMessages from '@/messages/ro.json';
 import esMessages from '@/messages/es.json';
+import {getAdditionalCancerGuideContent} from '@/lib/additional-cancer-guides';
 import {getCancerData} from '@/lib/cancer-data';
 import {
   CANCER_SLUGS,
@@ -70,15 +71,18 @@ function resolveGuide(localeParam: string, slug: string): ResolvedGuide | null {
   if (!cancerData) return null;
 
   const messages = MESSAGES[locale] as GuideMessages;
-  const copy = messages.cancerDetails?.[cancerId];
-  if (!copy?.title || !copy.shortDescription) return null;
+  const translatedCopy = messages.cancerDetails?.[cancerId];
+  const additionalCopy = getAdditionalCancerGuideContent(cancerId, locale);
+  const title = additionalCopy?.title ?? translatedCopy?.title;
+  const description = additionalCopy?.shortDescription ?? translatedCopy?.shortDescription;
+  if (!title || !description) return null;
 
   return {
     locale,
     cancerId,
     canonicalSlug: CANCER_SLUGS[locale][cancerId],
-    title: copy.title,
-    description: copy.shortDescription,
+    title,
+    description,
     homeLabel: messages.nav?.home || 'Home',
     libraryLabel: messages.nav?.aboutCancer || 'About Cancer',
     image: cancerData.image,

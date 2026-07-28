@@ -37,6 +37,10 @@ const cancerTypeDefinitions = [
   { id: 'throat', icon: 'mic-2' },
   { id: 'small-intestine', icon: 'align-center' },
   { id: 'thymus', icon: 'shield' },
+  { id: 'mesothelioma', icon: 'lungs' },
+  { id: 'neuroendocrine', icon: 'activity' },
+  { id: 'gist', icon: 'layers' },
+  { id: 'appendix', icon: 'align-center' },
 ] as const satisfies readonly { id: CancerId; icon: string }[];
 
 export const cancerTypes = cancerTypeDefinitions.map(({ id, icon }) => ({

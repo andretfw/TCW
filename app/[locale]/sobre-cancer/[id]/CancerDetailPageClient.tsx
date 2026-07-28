@@ -10,6 +10,8 @@ import {
   Droplet, ExternalLink, Flower2, Gem, Hammer, Heart, Info, Layers, Mic, Mic2, Shield, Stethoscope,
   Sun, User, Wind, Zap,
 } from 'lucide-react';
+import { getAdditionalCancerGuideContent } from '@/lib/additional-cancer-guides';
+import { getAdditionalGuideTrustContent } from '@/lib/additional-guide-trust';
 import { getCancerData } from '@/lib/cancer-data';
 import { getBladderGuideTrustContent } from '@/lib/bladder-guide-trust';
 import { getBrainGuideTrustContent } from '@/lib/brain-guide-trust';
@@ -60,9 +62,11 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
   if (!cancerId) notFound();
 
   const cancerData = getCancerData(cancerId);
-  const t = useTranslations(`cancerDetails.${cancerId}`);
+  const t = useTranslations();
   const tCommon = useTranslations('common');
-  const trustContent = getCancerGuideTrustContent(cancerId, locale)
+  const additionalGuide = getAdditionalCancerGuideContent(cancerId, locale);
+  const trustContent = getAdditionalGuideTrustContent(cancerId, locale)
+    ?? getCancerGuideTrustContent(cancerId, locale)
     ?? getMelanomaGuideTrustContent(cancerId, locale)
     ?? getOvarianGuideTrustContent(cancerId, locale)
     ?? getChildhoodGuideTrustContent(cancerId, locale)
@@ -71,15 +75,36 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
 
   if (!cancerData) notFound();
 
+  const cancerTranslation = (key: string) => t(`cancerDetails.${cancerId}.${key}`);
+  const translatedTitle = additionalGuide ? '' : cancerTranslation('title');
   const HeroIcon = iconMap[cancerData.icon] || Activity;
-  const guideTitle = t('title') === `cancerDetails.${cancerId}.title`
-    ? cancerId.replace('-', ' ')
-    : t('title');
-  const stat1 = trustContent?.stats[0] ?? { value: t('stat1.value'), label: t('stat1.label') };
-  const stat2 = trustContent?.stats[1] ?? { value: t('stat2.value'), label: t('stat2.label') };
-  const statsTitle = trustContent && 'statsTitle' in trustContent && typeof trustContent.statsTitle === 'string'
-    ? trustContent.statsTitle
-    : t('statsTitle');
+  const guideTitle = additionalGuide?.title
+    ?? (translatedTitle === `cancerDetails.${cancerId}.title` ? cancerId.replace('-', ' ') : translatedTitle);
+  const shortDescription = additionalGuide?.shortDescription ?? cancerTranslation('shortDescription');
+  const overviewTitle = additionalGuide?.overviewTitle ?? cancerTranslation('overviewTitle');
+  const overviewText = additionalGuide?.overviewText ?? cancerTranslation('overviewText');
+  const symptomsTitle = additionalGuide?.symptomsTitle ?? cancerTranslation('symptomsTitle');
+  const symptoms = additionalGuide?.symptoms
+    ?? [1, 2, 3, 4, 5, 6].map((index) => cancerTranslation(`symptoms.symptom${index}`));
+  const treatmentsTitle = additionalGuide?.treatmentsTitle ?? cancerTranslation('treatmentsTitle');
+  const treatmentsIntro = additionalGuide?.treatmentsIntro ?? cancerTranslation('treatmentsIntro');
+  const treatment1 = additionalGuide?.treatment1 ?? {
+    title: cancerTranslation('treatment1.title'),
+    desc: cancerTranslation('treatment1.desc'),
+  };
+  const treatment2 = additionalGuide?.treatment2 ?? {
+    title: cancerTranslation('treatment2.title'),
+    desc: cancerTranslation('treatment2.desc'),
+  };
+  const stat1 = trustContent?.stats[0] ?? {
+    value: cancerTranslation('stat1.value'),
+    label: cancerTranslation('stat1.label'),
+  };
+  const stat2 = trustContent?.stats[1] ?? {
+    value: cancerTranslation('stat2.value'),
+    label: cancerTranslation('stat2.label'),
+  };
+  const statsTitle = trustContent?.statsTitle ?? cancerTranslation('statsTitle');
 
   return (
     <div className="min-h-screen bg-brand-50 pb-20">
@@ -126,7 +151,7 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
               </h1>
             </div>
             <div className="mt-4 max-w-2xl animate-fade-in-up text-lg leading-relaxed text-brand-100 delay-100 md:text-2xl">
-              <div>{t('shortDescription')}</div>
+              <div>{shortDescription}</div>
             </div>
           </div>
         </div>
@@ -138,10 +163,10 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
             <div className="animate-fade-in-up overflow-hidden rounded-3xl border border-brand-100/50 bg-white p-6 shadow-xl delay-200 md:p-8">
               <div className="mb-4 flex items-center gap-3 md:mb-6">
                 <div className="rounded-xl bg-brand-100 p-3 text-brand-600 shadow-sm"><Info className="h-6 w-6" /></div>
-                <h2 className="text-xl font-bold text-neutral-800 md:text-2xl">{t('overviewTitle')}</h2>
+                <h2 className="text-xl font-bold text-neutral-800 md:text-2xl">{overviewTitle}</h2>
               </div>
               <div className="flex flex-col items-start gap-6 md:flex-row">
-                <div className="flex-1 text-base leading-relaxed text-neutral-600 md:text-lg">{t('overviewText')}</div>
+                <div className="flex-1 text-base leading-relaxed text-neutral-600 md:text-lg">{overviewText}</div>
                 <div className="relative aspect-video h-48 w-full shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-brand-50 via-white to-brand-100 shadow-md md:h-auto md:w-1/3 md:aspect-square">
                   <Image
                     src={cancerData.contentImage}
@@ -161,15 +186,15 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
             <div className="animate-fade-in-up rounded-3xl border border-brand-100/50 bg-white p-6 shadow-xl delay-300 md:p-8">
               <div className="mb-4 flex items-center gap-3 md:mb-6">
                 <div className="rounded-xl bg-red-100 p-3 text-red-500 shadow-sm"><AlertCircle className="h-6 w-6" /></div>
-                <h2 className="text-xl font-bold text-neutral-800 md:text-2xl">{t('symptomsTitle')}</h2>
+                <h2 className="text-xl font-bold text-neutral-800 md:text-2xl">{symptomsTitle}</h2>
               </div>
               <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                {[1, 2, 3, 4, 5, 6].map((index) => (
-                  <li key={index} className="group flex items-start gap-3 rounded-xl bg-neutral-50 p-4 transition-colors duration-300 hover:bg-brand-50">
+                {symptoms.map((symptom, index) => (
+                  <li key={`${cancerId}-symptom-${index}`} className="group flex items-start gap-3 rounded-xl bg-neutral-50 p-4 transition-colors duration-300 hover:bg-brand-50">
                     <div className="mt-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-brand-200 transition-colors group-hover:bg-brand-300">
                       <div className="h-2 w-2 rounded-full bg-brand-600" />
                     </div>
-                    <div className="text-sm font-medium text-neutral-700 md:text-base">{t(`symptoms.symptom${index}`)}</div>
+                    <div className="text-sm font-medium text-neutral-700 md:text-base">{symptom}</div>
                   </li>
                 ))}
               </ul>
@@ -178,18 +203,18 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
             <div className="animate-fade-in-up rounded-3xl border border-brand-100/50 bg-white p-6 shadow-xl delay-400 md:p-8">
               <div className="mb-4 flex items-center gap-3 md:mb-6">
                 <div className="rounded-xl bg-blue-100 p-3 text-blue-600 shadow-sm"><Stethoscope className="h-6 w-6" /></div>
-                <h2 className="text-xl font-bold text-neutral-800 md:text-2xl">{t('treatmentsTitle')}</h2>
+                <h2 className="text-xl font-bold text-neutral-800 md:text-2xl">{treatmentsTitle}</h2>
               </div>
               <div className="space-y-4">
-                <div className="mb-6 text-base text-neutral-600 md:text-lg">{t('treatmentsIntro')}</div>
+                <div className="mb-6 text-base text-neutral-600 md:text-lg">{treatmentsIntro}</div>
                 <div className="flex flex-col gap-4 md:flex-row">
                   <div className="flex-1 rounded-r-xl border-l-4 border-brand-500 bg-brand-50 p-5 transition-shadow hover:shadow-md">
-                    <h3 className="mb-2 text-lg font-bold text-brand-800">{t('treatment1.title')}</h3>
-                    <div className="text-sm leading-relaxed text-brand-700">{t('treatment1.desc')}</div>
+                    <h3 className="mb-2 text-lg font-bold text-brand-800">{treatment1.title}</h3>
+                    <div className="text-sm leading-relaxed text-brand-700">{treatment1.desc}</div>
                   </div>
                   <div className="flex-1 rounded-r-xl border-l-4 border-blue-500 bg-blue-50 p-5 transition-shadow hover:shadow-md">
-                    <h3 className="mb-2 text-lg font-bold text-blue-800">{t('treatment2.title')}</h3>
-                    <div className="text-sm leading-relaxed text-blue-700">{t('treatment2.desc')}</div>
+                    <h3 className="mb-2 text-lg font-bold text-blue-800">{treatment2.title}</h3>
+                    <div className="text-sm leading-relaxed text-blue-700">{treatment2.desc}</div>
                   </div>
                 </div>
               </div>

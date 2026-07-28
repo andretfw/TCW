@@ -59,6 +59,10 @@ export const CANCER_GUIDE_IDS = [
   'throat',
   'small-intestine',
   'thymus',
+  'mesothelioma',
+  'neuroendocrine',
+  'gist',
+  'appendix',
 ] as const satisfies readonly CancerId[];
 
 export const CANCER_GUIDE_IMAGES: Record<CancerId, CancerGuideImageSet> = {
@@ -101,4 +105,8 @@ export const CANCER_GUIDE_IMAGES: Record<CancerId, CancerGuideImageSet> = {
   throat: sameIllustration('/images/cancer-guides/larynx-anatomy.jpg'),
   'small-intestine': sameIllustration('/images/cancer-guides/lower-digestive-anatomy.jpg'),
   thymus: sameIllustration('/images/cancer-guides/lymph-system-anatomy.jpg'),
+  mesothelioma: sameIllustration('/images/cancer-guides/lung-anatomy.jpg'),
+  neuroendocrine: sameIllustration('/images/cancer-guides/digestive-system-anatomy.jpg'),
+  gist: sameIllustration('/images/cancer-guides/digestive-system-anatomy.jpg'),
+  appendix: sameIllustration('/images/cancer-guides/lower-digestive-anatomy.jpg'),
 };

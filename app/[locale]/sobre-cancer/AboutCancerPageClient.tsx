@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Activity, ArrowRight } from 'lucide-react';
+import { getAdditionalCancerGuideContent, getCancerGuideCountLabel } from '@/lib/additional-cancer-guides';
 import { CANCER_GUIDE_IDS, CANCER_GUIDE_IMAGES } from '@/lib/cancer-images';
 import { localizedCancerPath } from '@/lib/routes';
 
@@ -20,14 +21,17 @@ export default function AboutCancerPageClient({ params }: { params: Promise<{ lo
           {t.rich('title', { highlight: (chunks) => <span className="text-brand-600">{chunks}</span> })}
         </h1>
         <p className="mx-auto max-w-2xl text-xl text-neutral-600">{t('subtitle')}</p>
-        <p className="mt-4 font-medium text-brand-600">{t('countText')}</p>
+        <p className="mt-4 font-medium text-brand-600">{getCancerGuideCountLabel(locale, CANCER_GUIDE_IDS.length)}</p>
       </section>
 
       <section className="container mx-auto px-4">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {CANCER_GUIDE_IDS.map((id) => {
             const image = CANCER_GUIDE_IMAGES[id].card;
-            const title = t.has(`types.${id}.title`) ? t(`types.${id}.title`) : id;
+            const additionalGuide = getAdditionalCancerGuideContent(id, locale);
+            const title = additionalGuide?.title ?? (t.has(`types.${id}.title`) ? t(`types.${id}.title`) : id);
+            const shortDescription = additionalGuide?.shortDescription
+              ?? (t.has(`types.${id}.shortDesc`) ? t(`types.${id}.shortDesc`) : '');
 
             return (
               <Link
@@ -59,7 +63,7 @@ export default function AboutCancerPageClient({ params }: { params: Promise<{ lo
                   <h3 className="mb-3 text-2xl font-bold capitalize text-neutral-900 transition-colors group-hover:text-brand-600">
                     {title}
                   </h3>
-                  <p className="mb-6 line-clamp-3 flex-1 text-neutral-500">{t.has(`types.${id}.shortDesc`) ? t(`types.${id}.shortDesc`) : ''}</p>
+                  <p className="mb-6 line-clamp-3 flex-1 text-neutral-500">{shortDescription}</p>
                   <div className="flex items-center font-bold text-brand-600 transition-all group-hover:gap-2">
                     {t('readMore')} <ArrowRight className="ml-1 h-4 w-4" />
                   </div>
