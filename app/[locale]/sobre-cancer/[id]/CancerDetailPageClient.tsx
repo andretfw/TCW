@@ -11,6 +11,7 @@ import {
   Sun, User, Wind, Zap,
 } from 'lucide-react';
 import { getCancerData } from '@/lib/cancer-data';
+import { getBladderGuideTrustContent } from '@/lib/bladder-guide-trust';
 import { getBrainGuideTrustContent } from '@/lib/brain-guide-trust';
 import { getCancerGuideTrustContent } from '@/lib/cancer-guide-trust';
 import { getChildhoodGuideTrustContent } from '@/lib/childhood-guide-trust';
@@ -65,7 +66,8 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
     ?? getMelanomaGuideTrustContent(cancerId, locale)
     ?? getOvarianGuideTrustContent(cancerId, locale)
     ?? getChildhoodGuideTrustContent(cancerId, locale)
-    ?? getBrainGuideTrustContent(cancerId, locale);
+    ?? getBrainGuideTrustContent(cancerId, locale)
+    ?? getBladderGuideTrustContent(cancerId, locale);
 
   if (!cancerData) notFound();
 
