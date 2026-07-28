@@ -71,6 +71,9 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
     : t('title');
   const stat1 = trustContent?.stats[0] ?? { value: t('stat1.value'), label: t('stat1.label') };
   const stat2 = trustContent?.stats[1] ?? { value: t('stat2.value'), label: t('stat2.label') };
+  const statsTitle = trustContent && 'statsTitle' in trustContent && typeof trustContent.statsTitle === 'string'
+    ? trustContent.statsTitle
+    : t('statsTitle');
 
   return (
     <div className="min-h-screen bg-brand-50 pb-20">
@@ -103,13 +106,13 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
         <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-brand-900/50 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full p-6 text-white md:p-16">
           <div className="container mx-auto">
-            <Link
+            <a
               href={localizedPath(locale, 'aboutCancer')}
               className="group mb-4 inline-flex items-center text-white/80 transition-all duration-300 hover:-translate-x-1 hover:text-white md:mb-6"
             >
               <ArrowLeft className="mr-2 h-5 w-5 transition-transform group-hover:-translate-x-1" />
               {tCommon('backToLibrary')}
-            </Link>
+            </a>
             <div className="flex animate-fade-in-up items-end gap-4">
               <HeroIcon className="mb-1 hidden h-12 w-12 text-brand-300 sm:block md:h-16 md:w-16" />
               <h1 className="text-3xl font-bold capitalize leading-tight sm:text-4xl md:text-6xl">
@@ -224,7 +227,7 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
             <div className="rounded-3xl border border-brand-100/50 bg-white p-6 shadow-xl lg:sticky lg:top-28">
               <h3 className="mb-6 flex items-center gap-2 text-xl font-bold text-neutral-800">
                 <Activity className="h-5 w-5 text-brand-500" />
-                {t('statsTitle')}
+                {statsTitle}
               </h3>
               <div className="grid grid-cols-2 gap-4 lg:grid-cols-1">
                 <div className="rounded-2xl border border-neutral-100 bg-neutral-50 p-4 text-center transition-colors hover:border-brand-200">
