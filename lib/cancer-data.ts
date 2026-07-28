@@ -12,7 +12,7 @@ export const cancerTypes = [
     id: 'lung', 
     icon: 'lungs', 
     image: 'https://images.unsplash.com/photo-1581595219145-01060b2eb27d?w=800',
-    contentImage: 'https://images.unsplash.com/photo-1581595219145-01060b2eb27d?w=800' 
+    contentImage: 'https://images.unsplash.com/photo-1581595219145-01060b2eb27d?w=800'
   },
   { 
     id: 'colorectal', 
