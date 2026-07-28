@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Activity, ArrowRight } from 'lucide-react';
 import { getAdditionalCancerGuideContent, getCancerGuideCountLabel } from '@/lib/additional-cancer-guides';
+import { getAdditionalCancerGuideBatch2Content } from '@/lib/additional-cancer-guides-2';
 import { CANCER_GUIDE_IDS, CANCER_GUIDE_IMAGES } from '@/lib/cancer-images';
 import { localizedCancerPath } from '@/lib/routes';
 
@@ -28,7 +29,8 @@ export default function AboutCancerPageClient({ params }: { params: Promise<{ lo
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {CANCER_GUIDE_IDS.map((id) => {
             const image = CANCER_GUIDE_IMAGES[id].card;
-            const additionalGuide = getAdditionalCancerGuideContent(id, locale);
+            const additionalGuide = getAdditionalCancerGuideContent(id, locale)
+              ?? getAdditionalCancerGuideBatch2Content(id, locale);
             const title = additionalGuide?.title ?? (t.has(`types.${id}.title`) ? t(`types.${id}.title`) : id);
             const shortDescription = additionalGuide?.shortDescription
               ?? (t.has(`types.${id}.shortDesc`) ? t(`types.${id}.shortDesc`) : '');
