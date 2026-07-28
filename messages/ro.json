@@ -711,12 +711,12 @@
       },
       "statsTitle": "Urgență",
       "stat1": {
-        "value": "Mică",
-        "label": "Rata de detecție timpurie"
+        "value": "15,4%",
+        "label": "Diagnosticate într-un stadiu localizat în SUA (2016–2022)"
       },
       "stat2": {
-        "value": "11%",
-        "label": "Supraviețuire la 5 ani (crește lent)"
+        "value": "13,7%",
+        "label": "Supraviețuire relativă la 5 ani în SUA (2016–2022)"
       },
       "ctaSidebarTitle": "Cercetare Vitală",
       "appointmentTitle": "Consultație Specializată",
