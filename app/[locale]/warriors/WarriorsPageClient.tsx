@@ -43,7 +43,18 @@ export default function WarriorsPage() {
 
   const stories = [
     { id: '1', name: t('featured.anetra.name'), age: t('featured.anetra.age'), dream: t('featured.anetra.dream'), shortDesc: t('featured.anetra.shortDesc'), fullStory: t('featured.anetra.fullStory'), image: '/anetra-home.jpg', position: 'object-[center_25%]', color: 'bg-purple-100 text-purple-700' },
-    { id: '2', name: t('featured.janelle.name'), age: t('featured.janelle.age'), dream: t('featured.janelle.dream'), shortDesc: t('featured.janelle.shortDesc'), fullStory: t('featured.janelle.fullStory'), image: '/janelle-home.jpg', position: 'object-top', color: 'bg-blue-100 text-blue-700' },
+    {
+      id: '2',
+      name: t('featured.janelle.name'),
+      age: t('featured.janelle.age'),
+      dream: t('featured.janelle.dream'),
+      shortDesc: t('featured.janelle.shortDesc'),
+      fullStory: t('featured.janelle.fullStory'),
+      image: '/janelle-ysc-summit-1.jpg',
+      gallery: ['/janelle-ysc-summit-1.jpg', '/janelle-ysc-summit-2.jpg'],
+      position: 'object-top',
+      color: 'bg-blue-100 text-blue-700',
+    },
     { id: '3', name: t('featured.jeanelle.name'), age: t('featured.jeanelle.age'), dream: t('featured.jeanelle.dream'), shortDesc: t('featured.jeanelle.shortDesc'), fullStory: t('featured.jeanelle.fullStory'), image: '/jeanelle-home.jpg', position: 'object-center', color: 'bg-teal-100 text-teal-700' },
     { id: '4', name: t('featured.susan.name'), age: t('featured.susan.age'), dream: t('featured.susan.dream'), shortDesc: t('featured.susan.shortDesc'), fullStory: t('featured.susan.fullStory'), image: '/susan.jpg', position: 'object-[center_35%]', color: 'bg-pink-100 text-pink-700' },
     { id: '5', name: t('featured.taya.name'), age: t('featured.taya.age'), dream: t('featured.taya.dream'), shortDesc: t('featured.taya.shortDesc'), fullStory: t('featured.taya.fullStory'), image: '/taya.jpg', position: 'object-center', color: 'bg-orange-100 text-orange-700' },
@@ -180,15 +191,31 @@ export default function WarriorsPage() {
             </button>
 
             <div className="grid md:grid-cols-2">
-              <div className="h-64 md:h-auto relative">
-                <Image
-                  src={selectedStory.image}
-                  alt={selectedStory.name}
-                  fill
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                  className={`object-cover ${selectedStory.position}`}
-                />
-              </div>
+              {selectedStory.gallery ? (
+                <div className="grid grid-cols-2 md:grid-cols-1 gap-2 p-2 bg-neutral-100">
+                  {selectedStory.gallery.map((image: string, index: number) => (
+                    <div key={image} className="relative aspect-[3/4] overflow-hidden rounded-2xl">
+                      <Image
+                        src={image}
+                        alt={`${selectedStory.name} at the YSC Summit ${index + 1}`}
+                        fill
+                        sizes="(min-width: 768px) 50vw, 50vw"
+                        className="object-cover object-top"
+                      />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="h-64 md:h-auto relative">
+                  <Image
+                    src={selectedStory.image}
+                    alt={selectedStory.name}
+                    fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className={`object-cover ${selectedStory.position}`}
+                  />
+                </div>
+              )}
 
               <div className="p-8 md:p-12">
                 <div className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6 ${selectedStory.color}`}>{t('dreamFulfilled')}</div>
