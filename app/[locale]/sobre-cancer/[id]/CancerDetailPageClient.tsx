@@ -11,7 +11,9 @@ import {
   Sun, User, Wind, Zap,
 } from 'lucide-react';
 import { getAdditionalCancerGuideContent } from '@/lib/additional-cancer-guides';
+import { getAdditionalCancerGuideBatch2Content } from '@/lib/additional-cancer-guides-2';
 import { getAdditionalGuideTrustContent } from '@/lib/additional-guide-trust';
+import { getAdditionalGuideBatch2TrustContent } from '@/lib/additional-guide-trust-2';
 import { getCancerData } from '@/lib/cancer-data';
 import { getBladderGuideTrustContent } from '@/lib/bladder-guide-trust';
 import { getBrainGuideTrustContent } from '@/lib/brain-guide-trust';
@@ -64,8 +66,10 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
   const cancerData = getCancerData(cancerId);
   const t = useTranslations();
   const tCommon = useTranslations('common');
-  const additionalGuide = getAdditionalCancerGuideContent(cancerId, locale);
+  const additionalGuide = getAdditionalCancerGuideContent(cancerId, locale)
+    ?? getAdditionalCancerGuideBatch2Content(cancerId, locale);
   const trustContent = getAdditionalGuideTrustContent(cancerId, locale)
+    ?? getAdditionalGuideBatch2TrustContent(cancerId, locale)
     ?? getCancerGuideTrustContent(cancerId, locale)
     ?? getMelanomaGuideTrustContent(cancerId, locale)
     ?? getOvarianGuideTrustContent(cancerId, locale)
