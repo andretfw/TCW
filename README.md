@@ -14,7 +14,7 @@ Translation content is stored in `messages/en.json`, `messages/ro.json`, and `me
 
 ## Technology
 
-- Next.js 14 App Router
+- Next.js 16 App Router
 - TypeScript
 - Tailwind CSS
 - `next-intl` multilingual routing
