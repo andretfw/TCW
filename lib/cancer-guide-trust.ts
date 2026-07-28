@@ -720,6 +720,129 @@ const LEUKEMIA_CANCER_TRUST: Record<SiteLocale, CancerGuideTrustContent> = {
   },
 };
 
+const LIVER_CANCER_TRUST: Record<SiteLocale, CancerGuideTrustContent> = {
+  en: {
+    heading: 'Sources and medical information',
+    disclaimer:
+      'This page provides general educational information. It does not replace medical advice, diagnosis or treatment from a qualified healthcare professional. Signs and symptoms associated with primary liver cancer can also have other causes. Contact a healthcare professional about a hard lump or persistent discomfort in the upper-right abdomen, abdominal swelling, jaundice, pale stools and dark urine, unexplained weight loss, loss of appetite, unusual tiredness or other concerning symptoms. Chronic hepatitis B or C infection and cirrhosis increase risk; people living with chronic liver disease should discuss appropriate monitoring with their clinician. NCI SEER reports 21.9% five-year relative survival in the United States for liver and intrahepatic bile duct cancer, all stages combined, for 2016–2022. This population statistic groups different cancers and stages and cannot predict an individual outcome.',
+    sourcesHeading: 'Official sources',
+    checkedLabel: 'Sources checked',
+    checkedDate: '28 July 2026',
+    stats: [
+      {
+        value: '843K',
+        label: 'New liver and intrahepatic bile duct cancer cases globally in 2024 (IARC estimate)',
+      },
+      {
+        value: '21.9%',
+        label: 'Five-year relative survival in the US, liver and intrahepatic bile duct cancer, all stages combined, 2016–2022 (NCI SEER)',
+      },
+    ],
+    sources: [
+      {
+        label: 'International Agency for Research on Cancer — Liver fact sheet',
+        href: 'https://gco.iarc.who.int/media/globocan/factsheets/cancers/11-liver-and-intrahepatic-bile-ducts-fact-sheet.pdf',
+      },
+      {
+        label: 'National Cancer Institute — What Is Liver Cancer?',
+        href: 'https://www.cancer.gov/types/liver/what-is-liver-cancer',
+      },
+      {
+        label: 'National Cancer Institute — Liver Cancer Causes, Risk Factors, and Prevention',
+        href: 'https://www.cancer.gov/types/liver/what-is-liver-cancer/causes-risk-factors',
+      },
+      {
+        label: 'National Cancer Institute — Liver Cancer Treatment',
+        href: 'https://www.cancer.gov/types/liver/what-is-liver-cancer/treatment',
+      },
+      {
+        label: 'National Cancer Institute SEER — Liver and Intrahepatic Bile Duct Cancer Stat Facts',
+        href: 'https://seer.cancer.gov/statfacts/html/livibd.html',
+      },
+    ],
+  },
+  ro: {
+    heading: 'Surse și informații medicale',
+    disclaimer:
+      'Această pagină oferă informații educaționale generale. Nu înlocuiește sfatul, diagnosticul sau tratamentul oferit de un profesionist medical calificat. Semnele și simptomele asociate cancerului hepatic primar pot avea și alte cauze. Adresează-te unui medic dacă observi un nodul tare sau disconfort persistent în partea dreaptă superioară a abdomenului, umflarea abdomenului, icter, scaune deschise la culoare și urină închisă, scădere inexplicabilă în greutate, pierderea poftei de mâncare, oboseală neobișnuită ori alte simptome îngrijorătoare. Infecțiile cronice cu virusurile hepatitice B sau C și ciroza cresc riscul; persoanele cu boală hepatică cronică ar trebui să discute cu medicul despre monitorizarea potrivită situației lor. NCI SEER raportează o supraviețuire relativă la 5 ani de 21,9% în Statele Unite pentru cancerul hepatic și al căilor biliare intrahepatice, toate stadiile combinate, în perioada 2016–2022. Această statistică populațională grupează tipuri diferite de cancer și stadii și nu poate prezice rezultatul unei persoane.',
+    sourcesHeading: 'Surse oficiale',
+    checkedLabel: 'Surse verificate la data de',
+    checkedDate: '28 iulie 2026',
+    stats: [
+      {
+        value: '843 mii',
+        label: 'Cazuri noi de cancer hepatic și al căilor biliare intrahepatice la nivel global în 2024 (estimare IARC)',
+      },
+      {
+        value: '21,9%',
+        label: 'Supraviețuire relativă la 5 ani în SUA pentru cancerul hepatic și al căilor biliare intrahepatice, toate stadiile combinate, 2016–2022 (NCI SEER)',
+      },
+    ],
+    sources: [
+      {
+        label: 'Agenția Internațională pentru Cercetare în Domeniul Cancerului — Fișă despre cancerul hepatic',
+        href: 'https://gco.iarc.who.int/media/globocan/factsheets/cancers/11-liver-and-intrahepatic-bile-ducts-fact-sheet.pdf',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Ce este cancerul hepatic?',
+        href: 'https://www.cancer.gov/types/liver/what-is-liver-cancer',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Cauze, factori de risc și prevenție',
+        href: 'https://www.cancer.gov/types/liver/what-is-liver-cancer/causes-risk-factors',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Tratamentul cancerului hepatic',
+        href: 'https://www.cancer.gov/types/liver/what-is-liver-cancer/treatment',
+      },
+      {
+        label: 'Institutul Național al Cancerului SEER — Date statistice despre cancerul hepatic și al căilor biliare intrahepatice',
+        href: 'https://seer.cancer.gov/statfacts/html/livibd.html',
+      },
+    ],
+  },
+  es: {
+    heading: 'Fuentes e información médica',
+    disclaimer:
+      'Esta página ofrece información educativa general. No sustituye el consejo, diagnóstico ni tratamiento de un profesional sanitario cualificado. Los signos y síntomas asociados con el cáncer primario de hígado también pueden tener otras causas. Consulta a un profesional sanitario si observas un bulto duro o molestias persistentes en la parte superior derecha del abdomen, hinchazón abdominal, ictericia, heces pálidas y orina oscura, pérdida de peso sin explicación, pérdida del apetito, cansancio inusual u otros síntomas preocupantes. Las infecciones crónicas por los virus de la hepatitis B o C y la cirrosis aumentan el riesgo; las personas con enfermedad hepática crónica deberían consultar con su médico sobre el seguimiento adecuado para su situación. NCI SEER informa una supervivencia relativa a 5 años del 21,9% en Estados Unidos para el cáncer de hígado y de conductos biliares intrahepáticos, todas las etapas combinadas, durante 2016–2022. Esta estadística poblacional agrupa distintos cánceres y etapas y no puede predecir el resultado de una persona.',
+    sourcesHeading: 'Fuentes oficiales',
+    checkedLabel: 'Fuentes verificadas el',
+    checkedDate: '28 de julio de 2026',
+    stats: [
+      {
+        value: '843 mil',
+        label: 'Casos nuevos de cáncer de hígado y de conductos biliares intrahepáticos en todo el mundo en 2024 (estimación del IARC)',
+      },
+      {
+        value: '21,9%',
+        label: 'Supervivencia relativa a 5 años en EE. UU. para el cáncer de hígado y de conductos biliares intrahepáticos, todas las etapas combinadas, 2016–2022 (NCI SEER)',
+      },
+    ],
+    sources: [
+      {
+        label: 'Agencia Internacional para la Investigación del Cáncer — Ficha sobre el cáncer de hígado',
+        href: 'https://gco.iarc.who.int/media/globocan/factsheets/cancers/11-liver-and-intrahepatic-bile-ducts-fact-sheet.pdf',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — ¿Qué es el cáncer de hígado?',
+        href: 'https://www.cancer.gov/espanol/tipos/higado/que-es-cancer-de-higado',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — Causas, factores de riesgo y prevención',
+        href: 'https://www.cancer.gov/espanol/tipos/higado/que-es-cancer-de-higado/causas-factores-de-riesgo',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — Tratamiento del cáncer de hígado',
+        href: 'https://www.cancer.gov/espanol/tipos/higado/que-es-cancer-de-higado/tratamiento',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer SEER — Datos estadísticos sobre el cáncer de hígado y de conductos biliares intrahepáticos',
+        href: 'https://seer.cancer.gov/statfacts/html/livibd.html',
+      },
+    ],
+  },
+};
+
 const CANCER_GUIDE_TRUST: Partial<
   Record<CancerId, Record<SiteLocale, CancerGuideTrustContent>>
 > = {
@@ -729,6 +852,7 @@ const CANCER_GUIDE_TRUST: Partial<
   prostate: PROSTATE_CANCER_TRUST,
   kidney: KIDNEY_CANCER_TRUST,
   leukemia: LEUKEMIA_CANCER_TRUST,
+  liver: LIVER_CANCER_TRUST,
 };
 
 export function getCancerGuideTrustContent(
