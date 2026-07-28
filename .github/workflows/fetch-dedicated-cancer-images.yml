@@ -1,17 +1,16 @@
 name: Fetch dedicated cancer guide images
 
 on:
-  push:
+  pull_request:
     branches:
       - main
-    paths:
-      - .github/workflows/fetch-dedicated-cancer-images.yml
 
 permissions:
   contents: write
 
 jobs:
   fetch-images:
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -75,5 +74,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add public/images/cancer-guides
+          if git diff --cached --quiet; then
+            echo "Dedicated images already exist; nothing to commit."
+            exit 0
+          fi
           git commit -m "[skip netlify] Add dedicated images for new cancer guides"
           git push origin HEAD:fix/dedicated-images-new-cancer-guides
