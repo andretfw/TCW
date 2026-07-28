@@ -363,12 +363,136 @@ const COLORECTAL_CANCER_TRUST: Record<SiteLocale, CancerGuideTrustContent> = {
   },
 };
 
+const PROSTATE_CANCER_TRUST: Record<SiteLocale, CancerGuideTrustContent> = {
+  en: {
+    heading: 'Sources and medical information',
+    disclaimer:
+      'This page provides general educational information. It does not replace medical advice, diagnosis or treatment from a qualified healthcare professional. Early prostate cancer often causes no symptoms, and urinary symptoms can also be caused by non-cancerous prostate conditions. Prognosis varies by stage, grade, age, overall health and treatment response. Discuss symptoms and the potential benefits and harms of PSA testing with a healthcare professional.',
+    sourcesHeading: 'Official sources',
+    checkedLabel: 'Sources checked',
+    checkedDate: '28 July 2026',
+    stats: [
+      {
+        value: '1.5M',
+        label: 'New cases globally in 2024 (WHO estimate)',
+      },
+      {
+        value: '98.2%',
+        label: 'Five-year relative survival in the US, all stages combined, 2016–2022 (NCI SEER)',
+      },
+    ],
+    sources: [
+      {
+        label: 'World Health Organization — Cancer fact sheet and 2024 global estimates',
+        href: 'https://www.who.int/news-room/fact-sheets/detail/cancer',
+      },
+      {
+        label: 'National Cancer Institute — Prostate Cancer: Patient Version',
+        href: 'https://www.cancer.gov/types/prostate',
+      },
+      {
+        label: 'National Cancer Institute — Understanding Prostate Changes',
+        href: 'https://www.cancer.gov/types/prostate/understanding-prostate-changes',
+      },
+      {
+        label: 'National Cancer Institute — Prostate Cancer Treatment',
+        href: 'https://www.cancer.gov/types/prostate/patient/prostate-treatment-pdq',
+      },
+      {
+        label: 'National Cancer Institute SEER — Prostate Cancer Stat Facts',
+        href: 'https://seer.cancer.gov/statfacts/html/prost.html',
+      },
+    ],
+  },
+  ro: {
+    heading: 'Surse și informații medicale',
+    disclaimer:
+      'Această pagină oferă informații educaționale generale. Nu înlocuiește sfatul, diagnosticul sau tratamentul oferit de un profesionist medical calificat. Cancerul de prostată în stadiu incipient nu provoacă adesea simptome, iar simptomele urinare pot fi cauzate și de afecțiuni necanceroase ale prostatei. Prognosticul variază în funcție de stadiu, grad, vârstă, starea generală de sănătate și răspunsul la tratament. Discută cu un medic despre simptome și despre posibilele beneficii și riscuri ale testării PSA.',
+    sourcesHeading: 'Surse oficiale',
+    checkedLabel: 'Surse verificate la data de',
+    checkedDate: '28 iulie 2026',
+    stats: [
+      {
+        value: '1,5 mil.',
+        label: 'Cazuri noi la nivel global în 2024 (estimare OMS)',
+      },
+      {
+        value: '98,2%',
+        label: 'Supraviețuire relativă la 5 ani în SUA, toate stadiile combinate, 2016–2022 (NCI SEER)',
+      },
+    ],
+    sources: [
+      {
+        label: 'Organizația Mondială a Sănătății — Fișă despre cancer și estimările globale pentru 2024',
+        href: 'https://www.who.int/news-room/fact-sheets/detail/cancer',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Cancer de prostată: versiunea pentru pacienți',
+        href: 'https://www.cancer.gov/types/prostate',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Înțelegerea modificărilor prostatei',
+        href: 'https://www.cancer.gov/types/prostate/understanding-prostate-changes',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Tratamentul cancerului de prostată',
+        href: 'https://www.cancer.gov/types/prostate/patient/prostate-treatment-pdq',
+      },
+      {
+        label: 'Institutul Național al Cancerului SEER — Date statistice despre cancerul de prostată',
+        href: 'https://seer.cancer.gov/statfacts/html/prost.html',
+      },
+    ],
+  },
+  es: {
+    heading: 'Fuentes e información médica',
+    disclaimer:
+      'Esta página ofrece información educativa general. No sustituye el consejo, diagnóstico ni tratamiento de un profesional sanitario cualificado. El cáncer de próstata en etapa temprana a menudo no causa síntomas, y los síntomas urinarios también pueden deberse a afecciones no cancerosas de la próstata. El pronóstico varía según la etapa, el grado, la edad, el estado general de salud y la respuesta al tratamiento. Consulta a un profesional sanitario sobre los síntomas y sobre los posibles beneficios y riesgos de la prueba del PSA.',
+    sourcesHeading: 'Fuentes oficiales',
+    checkedLabel: 'Fuentes verificadas el',
+    checkedDate: '28 de julio de 2026',
+    stats: [
+      {
+        value: '1,5 M',
+        label: 'Casos nuevos en todo el mundo en 2024 (estimación de la OMS)',
+      },
+      {
+        value: '98,2%',
+        label: 'Supervivencia relativa a 5 años en EE. UU., todas las etapas combinadas, 2016–2022 (NCI SEER)',
+      },
+    ],
+    sources: [
+      {
+        label: 'Organización Mundial de la Salud — Ficha sobre el cáncer y estimaciones mundiales de 2024',
+        href: 'https://www.who.int/es/news-room/fact-sheets/detail/cancer',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — Cáncer de próstata: versión para pacientes',
+        href: 'https://www.cancer.gov/espanol/tipos/prostata',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — Cambios y afecciones de la próstata',
+        href: 'https://www.cancer.gov/espanol/tipos/prostata/significado-cambios-en-la-prostata',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — Tratamiento del cáncer de próstata',
+        href: 'https://www.cancer.gov/espanol/tipos/prostata/paciente/tratamiento-prostata-pdq',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer SEER — Datos estadísticos sobre el cáncer de próstata',
+        href: 'https://seer.cancer.gov/statfacts/html/prost.html',
+      },
+    ],
+  },
+};
+
 const CANCER_GUIDE_TRUST: Partial<
   Record<CancerId, Record<SiteLocale, CancerGuideTrustContent>>
 > = {
   breast: BREAST_CANCER_TRUST,
   lung: LUNG_CANCER_TRUST,
   colorectal: COLORECTAL_CANCER_TRUST,
+  prostate: PROSTATE_CANCER_TRUST,
 };
 
 export function getCancerGuideTrustContent(
