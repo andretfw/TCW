@@ -1,4 +1,11 @@
 import {getCervicalGuideTrustContent, type CervicalGuideTrustContent} from '@/lib/cervical-guide-trust';
+import {
+  getRemainingGuideTrustContentA,
+  type RemainingGuideTrustContent,
+} from '@/lib/remaining-guide-trust-1';
+import {getRemainingGuideTrustContentB} from '@/lib/remaining-guide-trust-2';
+import {getRemainingGuideTrustContentC} from '@/lib/remaining-guide-trust-3';
+import {getRemainingGuideTrustContentD} from '@/lib/remaining-guide-trust-4';
 import {normalizeLocale, type CancerId, type SiteLocale} from '@/lib/routes';
 import {getStomachGuideTrustContent, type StomachGuideTrustContent} from '@/lib/stomach-guide-trust';
 
@@ -150,13 +157,18 @@ const BLADDER_GUIDE_TRUST: Record<SiteLocale, BladderGuideTrustContent> = {
 export function getBladderGuideTrustContent(
   cancerId: CancerId,
   localeInput: string,
-): BladderGuideTrustContent | CervicalGuideTrustContent | StomachGuideTrustContent | undefined {
+): BladderGuideTrustContent | CervicalGuideTrustContent | StomachGuideTrustContent | RemainingGuideTrustContent | undefined {
   if (cancerId === 'cervical') {
     return getCervicalGuideTrustContent(cancerId, localeInput);
   }
   if (cancerId === 'stomach') {
     return getStomachGuideTrustContent(cancerId, localeInput);
   }
+  const remainingContent = getRemainingGuideTrustContentA(cancerId, localeInput)
+    ?? getRemainingGuideTrustContentB(cancerId, localeInput)
+    ?? getRemainingGuideTrustContentC(cancerId, localeInput)
+    ?? getRemainingGuideTrustContentD(cancerId, localeInput);
+  if (remainingContent) return remainingContent;
   if (cancerId !== 'bladder') return undefined;
   const locale = normalizeLocale(localeInput);
   return BLADDER_GUIDE_TRUST[locale];
