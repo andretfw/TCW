@@ -13,9 +13,9 @@ export default function AboutCancerPageClient({ params }: { params: Promise<{ lo
 
   const cancerImages: Record<string, string> = {
     breast: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=800',
-    lung: 'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?q=80&w=800',
+    lung: '/images/lung-respiratory-anatomy.jpg',
     colorectal: 'https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=800',
-    prostate: 'https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?q=80&w=800',
+    prostate: '/images/prostate-anatomy.jpg',
     skin: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=800',
     kidney: 'https://images.unsplash.com/photo-1559757175-0828e13882ed?q=80&w=1331&auto=format&fit=crop',
     leukemia: 'https://images.unsplash.com/photo-1680279019882-d0317164a394?q=80&w=1121&auto=format&fit=crop',

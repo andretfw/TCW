@@ -24,12 +24,12 @@ export const cancerTypes = [
     id: 'prostate', 
     icon: 'user', 
     image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?w=800',
-    contentImage: 'https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=800' 
+    contentImage: '/images/prostate-anatomy.jpg' 
   },
   { id: 'skin', icon: 'sun', image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800', contentImage: 'https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=800' },
   { id: 'kidney', icon: 'activity', image: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=800', contentImage: 'https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800' },
-  { id: 'leukemia', icon: 'droplet', image: 'https://images.unsplash.com/photo-1579154341406-c3c90516ee88?w=800', contentImage: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800' },
-  { id: 'liver', icon: 'activity', image: 'https://images.unsplash.com/photo-1579165466741-7f35e4755660?w=800', contentImage: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=800' },
+  { id: 'leukemia', icon: 'droplet', image: '/images/leukemia-blood-cell-development.jpg', contentImage: '/images/leukemia-blood-cell-development.jpg' },
+  { id: 'liver', icon: 'activity', image: 'https://images.unsplash.com/photo-1579165466741-7f35e4755660?w=800', contentImage: '/images/liver-anatomy.jpg' },
   { id: 'pancreatic', icon: 'zap', image: '/images/pancreatic-cancer-anatomy.jpg', contentImage: '/images/pancreatic-cancer-anatomy.jpg' },
   { id: 'ovarian', icon: 'circle', image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800', contentImage: 'https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800' },
   
