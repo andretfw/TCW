@@ -11,6 +11,7 @@ export type OvarianGuideTrustContent = {
   sourcesHeading: string;
   checkedLabel: string;
   checkedDate: string;
+  statsTitle: string;
   stats: [
     {value: string; label: string},
     {value: string; label: string},
@@ -26,6 +27,7 @@ const OVARIAN_GUIDE_TRUST: Record<SiteLocale, OvarianGuideTrustContent> = {
     sourcesHeading: 'Official sources',
     checkedLabel: 'Sources checked',
     checkedDate: '28 July 2026',
+    statsTitle: 'Key Facts',
     stats: [
       {
         value: '331K',
@@ -62,6 +64,7 @@ const OVARIAN_GUIDE_TRUST: Record<SiteLocale, OvarianGuideTrustContent> = {
     sourcesHeading: 'Surse oficiale',
     checkedLabel: 'Surse verificate la data de',
     checkedDate: '28 iulie 2026',
+    statsTitle: 'Date-cheie',
     stats: [
       {
         value: '331 mii',
@@ -98,6 +101,7 @@ const OVARIAN_GUIDE_TRUST: Record<SiteLocale, OvarianGuideTrustContent> = {
     sourcesHeading: 'Fuentes oficiales',
     checkedLabel: 'Fuentes verificadas el',
     checkedDate: '28 de julio de 2026',
+    statsTitle: 'Datos clave',
     stats: [
       {
         value: '331 mil',
