@@ -1,0 +1,154 @@
+name: Apply melanoma medical trust update
+
+on:
+  push:
+    branches:
+      - seo/melanoma-medical-trust
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: seo/melanoma-medical-trust
+          fetch-depth: 0
+
+      - name: Apply melanoma trust data
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('lib/cancer-guide-trust.ts')
+          text = path.read_text()
+
+          if 'const MELANOMA_CANCER_TRUST' not in text:
+              marker = "const CANCER_GUIDE_TRUST: Partial<"
+              if marker not in text:
+                  raise SystemExit('Trust map marker not found')
+
+              block = r'''const MELANOMA_CANCER_TRUST: Record<SiteLocale, CancerGuideTrustContent> = {
+  en: {
+    heading: 'Sources and medical information',
+    disclaimer:
+      'This page provides general educational information. It does not replace medical advice, diagnosis or treatment from a qualified healthcare professional. Melanoma does not always follow the ABCDE pattern. Contact a healthcare professional about a new or changing mole, an unusual skin lesion, bleeding, itching or another persistent skin change. Prognosis varies by stage, tumour thickness, ulceration and other individual factors.',
+    sourcesHeading: 'Official sources',
+    checkedLabel: 'Sources checked',
+    checkedDate: '28 July 2026',
+    stats: [
+      {
+        value: '330K',
+        label: 'New melanoma cases globally in 2022 (IARC estimate)',
+      },
+      {
+        value: '60K',
+        label: 'Melanoma deaths globally in 2022 (IARC estimate)',
+      },
+    ],
+    sources: [
+      {
+        label: 'International Agency for Research on Cancer — Skin cancer',
+        href: 'https://www.iarc.who.int/cancer-type/skin-cancer/',
+      },
+      {
+        label: 'National Cancer Institute — Melanoma Treatment: Patient Version',
+        href: 'https://www.cancer.gov/types/skin/patient/melanoma-treatment-pdq',
+      },
+      {
+        label: 'National Cancer Institute SEER — Melanoma of the Skin Stat Facts',
+        href: 'https://seer.cancer.gov/statfacts/html/melan.html',
+      },
+    ],
+  },
+  ro: {
+    heading: 'Surse și informații medicale',
+    disclaimer:
+      'Această pagină oferă informații educaționale generale. Nu înlocuiește sfatul, diagnosticul sau tratamentul oferit de un profesionist medical calificat. Melanomul nu respectă întotdeauna regula ABCDE. Adresează-te unui medic pentru o aluniță nouă sau care se modifică, o leziune neobișnuită, sângerare, mâncărime ori o altă modificare persistentă a pielii. Prognosticul variază în funcție de stadiu, grosimea tumorii, ulcerație și alți factori individuali.',
+    sourcesHeading: 'Surse oficiale',
+    checkedLabel: 'Surse verificate la data de',
+    checkedDate: '28 iulie 2026',
+    stats: [
+      {
+        value: '330 mii',
+        label: 'Cazuri noi de melanom la nivel global în 2022 (estimare IARC)',
+      },
+      {
+        value: '60 mii',
+        label: 'Decese cauzate de melanom la nivel global în 2022 (estimare IARC)',
+      },
+    ],
+    sources: [
+      {
+        label: 'Agenția Internațională pentru Cercetare în Domeniul Cancerului — Cancer de piele',
+        href: 'https://www.iarc.who.int/cancer-type/skin-cancer/',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Tratamentul melanomului: versiunea pentru pacienți',
+        href: 'https://www.cancer.gov/types/skin/patient/melanoma-treatment-pdq',
+      },
+      {
+        label: 'Institutul Național al Cancerului SEER — Date statistice despre melanomul cutanat',
+        href: 'https://seer.cancer.gov/statfacts/html/melan.html',
+      },
+    ],
+  },
+  es: {
+    heading: 'Fuentes e información médica',
+    disclaimer:
+      'Esta página ofrece información educativa general. No sustituye el consejo, diagnóstico ni tratamiento de un profesional sanitario cualificado. El melanoma no siempre sigue la regla ABCDE. Consulta a un profesional sanitario por un lunar nuevo o que cambia, una lesión cutánea inusual, sangrado, picor u otro cambio persistente en la piel. El pronóstico varía según la etapa, el grosor del tumor, la ulceración y otros factores individuales.',
+    sourcesHeading: 'Fuentes oficiales',
+    checkedLabel: 'Fuentes verificadas el',
+    checkedDate: '28 de julio de 2026',
+    stats: [
+      {
+        value: '330 mil',
+        label: 'Casos nuevos de melanoma en todo el mundo en 2022 (estimación del IARC)',
+      },
+      {
+        value: '60 mil',
+        label: 'Muertes por melanoma en todo el mundo en 2022 (estimación del IARC)',
+      },
+    ],
+    sources: [
+      {
+        label: 'Agencia Internacional para la Investigación del Cáncer — Cáncer de piel',
+        href: 'https://www.iarc.who.int/cancer-type/skin-cancer/',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — Tratamiento del melanoma: versión para pacientes',
+        href: 'https://www.cancer.gov/espanol/tipos/piel/paciente/tratamiento-melanoma-pdq',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer SEER — Datos estadísticos sobre el melanoma cutáneo',
+        href: 'https://seer.cancer.gov/statfacts/html/melan.html',
+      },
+    ],
+  },
+};
+
+'''
+              text = text.replace(marker, block + marker, 1)
+
+          map_marker = '  prostate: PROSTATE_CANCER_TRUST,\n'
+          if '  skin: MELANOMA_CANCER_TRUST,' not in text:
+              if map_marker not in text:
+                  raise SystemExit('Prostate map entry not found')
+              text = text.replace(map_marker, map_marker + '  skin: MELANOMA_CANCER_TRUST,\n', 1)
+
+          path.write_text(text)
+          PY
+
+      - name: Commit generated update
+        run: |
+          if git diff --quiet; then
+            echo "Melanoma trust data already applied"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/cancer-guide-trust.ts
+          git commit -m "Add sourced melanoma medical trust content"
+          git push origin HEAD:seo/melanoma-medical-trust
