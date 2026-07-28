@@ -97,6 +97,8 @@ export const CANCER_SLUGS = {
     adrenal: 'corteza-suprarrenal', 'primary-peritoneal': 'peritoneal-primario', 'fallopian-tube': 'trompa-de-falopio',
     'unknown-primary': 'origen-desconocido', 'gestational-trophoblastic': 'trofoblastica-gestacional',
     mds: 'sindromes-mielodisplasicos', mpn: 'neoplasias-mieloproliferativas',
+    neuroblastoma: 'neuroblastoma', urethral: 'uretra', 'renal-pelvis-ureter': 'pelvis-renal-ureter',
+    'salivary-gland': 'glandulas-salivales', 'nasal-sinus': 'cavidad-nasal-senos', laryngeal: 'laringe', parathyroid: 'paratiroides',
   },
   en: {
     breast: 'breast', lung: 'lung', colorectal: 'colorectal', prostate: 'prostate', skin: 'skin', kidney: 'kidney',
@@ -109,6 +111,8 @@ export const CANCER_SLUGS = {
     adrenal: 'adrenal', 'primary-peritoneal': 'primary-peritoneal', 'fallopian-tube': 'fallopian-tube',
     'unknown-primary': 'unknown-primary', 'gestational-trophoblastic': 'gestational-trophoblastic',
     mds: 'myelodysplastic-syndromes', mpn: 'myeloproliferative-neoplasms',
+    neuroblastoma: 'neuroblastoma', urethral: 'urethral', 'renal-pelvis-ureter': 'renal-pelvis-ureter',
+    'salivary-gland': 'salivary-gland', 'nasal-sinus': 'nasal-sinus', laryngeal: 'laryngeal', parathyroid: 'parathyroid',
   },
   ro: {
     breast: 'san', lung: 'plaman', colorectal: 'colorectal', prostate: 'prostata', skin: 'piele', kidney: 'rinichi',
@@ -121,6 +125,8 @@ export const CANCER_SLUGS = {
     adrenal: 'corticosuprarenal', 'primary-peritoneal': 'peritoneal-primar', 'fallopian-tube': 'trompa-uterina',
     'unknown-primary': 'origine-necunoscuta', 'gestational-trophoblastic': 'trofoblastica-gestationala',
     mds: 'sindroame-mielodisplazice', mpn: 'neoplasme-mieloproliferative',
+    neuroblastoma: 'neuroblastom', urethral: 'uretral', 'renal-pelvis-ureter': 'pelvis-renal-ureter',
+    'salivary-gland': 'glande-salivare', 'nasal-sinus': 'cavitate-nazala-sinusuri', laryngeal: 'laringian', parathyroid: 'paratiroidian',
   },
 } as const;
 
