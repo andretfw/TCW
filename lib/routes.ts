@@ -94,6 +94,9 @@ export const CANCER_SLUGS = {
     gallbladder: 'vesicula-biliar', 'bile-duct': 'vias-biliares', anal: 'anal', penile: 'pene', vaginal: 'vagina', vulvar: 'vulva',
     eye: 'ojo', oral: 'boca', throat: 'garganta', 'small-intestine': 'intestino-delgado', thymus: 'timo',
     mesothelioma: 'mesotelioma', neuroendocrine: 'tumores-neuroendocrinos', gist: 'gist', appendix: 'apendice',
+    adrenal: 'corteza-suprarrenal', 'primary-peritoneal': 'peritoneal-primario', 'fallopian-tube': 'trompa-de-falopio',
+    'unknown-primary': 'origen-desconocido', 'gestational-trophoblastic': 'trofoblastica-gestacional',
+    mds: 'sindromes-mielodisplasicos', mpn: 'neoplasias-mieloproliferativas',
   },
   en: {
     breast: 'breast', lung: 'lung', colorectal: 'colorectal', prostate: 'prostate', skin: 'skin', kidney: 'kidney',
@@ -103,6 +106,9 @@ export const CANCER_SLUGS = {
     gallbladder: 'gallbladder', 'bile-duct': 'bile-duct', anal: 'anal', penile: 'penile', vaginal: 'vaginal', vulvar: 'vulvar',
     eye: 'eye', oral: 'oral', throat: 'throat', 'small-intestine': 'small-intestine', thymus: 'thymus',
     mesothelioma: 'mesothelioma', neuroendocrine: 'neuroendocrine-tumours', gist: 'gist', appendix: 'appendix',
+    adrenal: 'adrenal', 'primary-peritoneal': 'primary-peritoneal', 'fallopian-tube': 'fallopian-tube',
+    'unknown-primary': 'unknown-primary', 'gestational-trophoblastic': 'gestational-trophoblastic',
+    mds: 'myelodysplastic-syndromes', mpn: 'myeloproliferative-neoplasms',
   },
   ro: {
     breast: 'san', lung: 'plaman', colorectal: 'colorectal', prostate: 'prostata', skin: 'piele', kidney: 'rinichi',
@@ -112,6 +118,9 @@ export const CANCER_SLUGS = {
     gallbladder: 'vezica-biliara', 'bile-duct': 'cai-biliare', anal: 'anal', penile: 'penis', vaginal: 'vaginal', vulvar: 'vulvar',
     eye: 'ochi', oral: 'oral', throat: 'gat', 'small-intestine': 'intestin-subtire', thymus: 'timus',
     mesothelioma: 'mezoteliom', neuroendocrine: 'tumori-neuroendocrine', gist: 'gist', appendix: 'apendice',
+    adrenal: 'corticosuprarenal', 'primary-peritoneal': 'peritoneal-primar', 'fallopian-tube': 'trompa-uterina',
+    'unknown-primary': 'origine-necunoscuta', 'gestational-trophoblastic': 'trofoblastica-gestationala',
+    mds: 'sindroame-mielodisplazice', mpn: 'neoplasme-mieloproliferative',
   },
 } as const;
 

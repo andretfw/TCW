@@ -63,6 +63,13 @@ export const CANCER_GUIDE_IDS = [
   'neuroendocrine',
   'gist',
   'appendix',
+  'adrenal',
+  'primary-peritoneal',
+  'fallopian-tube',
+  'unknown-primary',
+  'gestational-trophoblastic',
+  'mds',
+  'mpn',
 ] as const satisfies readonly CancerId[];
 
 export const CANCER_GUIDE_IMAGES: Record<CancerId, CancerGuideImageSet> = {
@@ -109,4 +116,11 @@ export const CANCER_GUIDE_IMAGES: Record<CancerId, CancerGuideImageSet> = {
   neuroendocrine: sameIllustration('/images/cancer-guides/digestive-system-anatomy.jpg'),
   gist: sameIllustration('/images/cancer-guides/digestive-system-anatomy.jpg'),
   appendix: sameIllustration('/images/cancer-guides/lower-digestive-anatomy.jpg'),
+  adrenal: sameIllustration('/images/cancer-guides/kidney-anatomy.jpg'),
+  'primary-peritoneal': sameIllustration('/images/cancer-guides/female-reproductive-anatomy.jpg'),
+  'fallopian-tube': sameIllustration('/images/cancer-guides/female-reproductive-anatomy.jpg'),
+  'unknown-primary': sameIllustration('/images/cancer-guides/lymph-system-anatomy.jpg'),
+  'gestational-trophoblastic': sameIllustration('/images/cancer-guides/female-reproductive-anatomy.jpg'),
+  mds: sameIllustration('/images/cancer-guides/blood-cell-development.jpg'),
+  mpn: sameIllustration('/images/cancer-guides/blood-cell-development.jpg'),
 };
