@@ -24,7 +24,7 @@ export const cancerTypes = [
     id: 'prostate', 
     icon: 'user', 
     image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?w=800',
-    contentImage: '/images/prostate-anatomy.jpg' 
+    contentImage: '/images/prostate-anatomy.jpg'
   },
   { id: 'skin', icon: 'sun', image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800', contentImage: 'https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=800' },
   { id: 'kidney', icon: 'activity', image: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=800', contentImage: 'https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800' },
