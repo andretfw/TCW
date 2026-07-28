@@ -1,0 +1,125 @@
+name: Prostate cancer medical trust check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out prostate medical trust branch
+        uses: actions/checkout@v4
+        with:
+          ref: seo/prostate-cancer-medical-trust
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.5
+          cache: npm
+
+      - name: Verify isolated scope
+        run: |
+          git fetch origin main
+          changed="$(git diff --name-only origin/main...HEAD | sort)"
+          printf '%s\n' "$changed"
+          unexpected="$(printf '%s\n' "$changed" | grep -Ev '^(.github/workflows/prostate-cancer-medical-trust-check.yml|lib/cancer-guide-trust.ts)$' || true)"
+          if [ -n "$unexpected" ]; then
+            echo "Unexpected files changed:"
+            printf '%s\n' "$unexpected"
+            exit 1
+          fi
+
+      - name: Verify prostate sources and statistics
+        run: |
+          grep -F "const PROSTATE_CANCER_TRUST" lib/cancer-guide-trust.ts
+          grep -F "prostate: PROSTATE_CANCER_TRUST" lib/cancer-guide-trust.ts
+          grep -F "value: '1.5M'" lib/cancer-guide-trust.ts
+          grep -F "value: '98.2%'" lib/cancer-guide-trust.ts
+          grep -F "https://www.who.int/news-room/fact-sheets/detail/cancer" lib/cancer-guide-trust.ts
+          grep -F "https://www.cancer.gov/types/prostate" lib/cancer-guide-trust.ts
+          grep -F "https://www.cancer.gov/types/prostate/understanding-prostate-changes" lib/cancer-guide-trust.ts
+          grep -F "https://www.cancer.gov/types/prostate/patient/prostate-treatment-pdq" lib/cancer-guide-trust.ts
+          grep -F "https://seer.cancer.gov/statfacts/html/prost.html" lib/cancer-guide-trust.ts
+          grep -F "https://www.cancer.gov/espanol/tipos/prostata/significado-cambios-en-la-prostata" lib/cancer-guide-trust.ts
+          ! grep -F "medical reviewer" lib/cancer-guide-trust.ts
+          ! grep -F "medically reviewed" lib/cancer-guide-trust.ts
+
+      - name: Verify existing trust content remains present
+        run: |
+          grep -F "breast: BREAST_CANCER_TRUST" lib/cancer-guide-trust.ts
+          grep -F "lung: LUNG_CANCER_TRUST" lib/cancer-guide-trust.ts
+          grep -F "colorectal: COLORECTAL_CANCER_TRUST" lib/cancer-guide-trust.ts
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Production build
+        run: npm run build
+
+      - name: Fetch representative guide pages
+        run: |
+          mkdir -p .medical-test
+          npm run start > /tmp/tcw-prostate-start.log 2>&1 &
+          server_pid=$!
+          cleanup() { kill "$server_pid" 2>/dev/null || true; }
+          trap cleanup EXIT
+
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:3000/en/about-cancer/prostate > .medical-test/en-prostate.html; then
+              break
+            fi
+            sleep 1
+          done
+
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/about-cancer/prostate > .medical-test/en-prostate.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/ro/despre-cancer/prostata > .medical-test/ro-prostate.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/es/sobre-cancer/prostata > .medical-test/es-prostate.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/about-cancer/breast > .medical-test/en-breast.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/about-cancer/lung > .medical-test/en-lung.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/about-cancer/colorectal > .medical-test/en-colorectal.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/en/about-cancer/skin > .medical-test/en-skin.html
+
+      - name: Validate English prostate guide
+        run: |
+          grep -F 'Sources and medical information' .medical-test/en-prostate.html
+          grep -F '1.5M' .medical-test/en-prostate.html
+          grep -F '98.2%' .medical-test/en-prostate.html
+          grep -F 'all stages combined, 2016–2022' .medical-test/en-prostate.html
+          grep -F 'https://seer.cancer.gov/statfacts/html/prost.html' .medical-test/en-prostate.html
+          ! grep -F '>1 in 8<' .medical-test/en-prostate.html
+          ! grep -F '>98%<' .medical-test/en-prostate.html
+
+      - name: Validate Romanian prostate guide
+        run: |
+          grep -F 'Surse și informații medicale' .medical-test/ro-prostate.html
+          grep -F '1,5 mil.' .medical-test/ro-prostate.html
+          grep -F '98,2%' .medical-test/ro-prostate.html
+          grep -F 'toate stadiile combinate, 2016–2022' .medical-test/ro-prostate.html
+
+      - name: Validate Spanish prostate guide
+        run: |
+          grep -F 'Fuentes e información médica' .medical-test/es-prostate.html
+          grep -F '1,5 M' .medical-test/es-prostate.html
+          grep -F '98,2%' .medical-test/es-prostate.html
+          grep -F 'todas las etapas combinadas, 2016–2022' .medical-test/es-prostate.html
+          grep -F 'https://www.cancer.gov/espanol/tipos/prostata/significado-cambios-en-la-prostata' .medical-test/es-prostate.html
+
+      - name: Verify existing and unrelated guides
+        run: |
+          grep -F '2.4M' .medical-test/en-breast.html
+          grep -F '2.6M' .medical-test/en-lung.html
+          grep -F '2.0M' .medical-test/en-colorectal.html
+          ! grep -F 'Sources and medical information' .medical-test/en-skin.html
