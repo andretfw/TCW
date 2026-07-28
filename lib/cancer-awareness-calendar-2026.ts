@@ -34,9 +34,9 @@ const UI = {
     es: 'Cómo usar este calendario',
   },
   scopeNote: {
-    en: 'Cancer awareness months are not governed by one global authority. Some campaigns are worldwide, while others are established by organisations in particular countries. We label the scope and link every item to its organising or reference source. Dates shown are for 2026.',
-    ro: 'Lunile de conștientizare a cancerului nu sunt stabilite de o singură autoritate globală. Unele campanii sunt mondiale, iar altele sunt organizate în anumite țări. Indicăm aria campaniei și oferim pentru fiecare element sursa organizatoare sau de referință. Datele afișate sunt pentru 2026.',
-    es: 'Los meses de concienciación sobre el cáncer no dependen de una única autoridad mundial. Algunas campañas son globales y otras pertenecen a organizaciones de países concretos. Indicamos su alcance y enlazamos cada elemento con la fuente organizadora o de referencia. Las fechas mostradas corresponden a 2026.',
+    en: 'Cancer awareness months are not governed by one global authority. Some campaigns are worldwide, while others are established by organisations in particular countries. Dates shown are for 2026.',
+    ro: 'Lunile de conștientizare a cancerului nu sunt stabilite de o singură autoritate globală. Unele campanii sunt mondiale, iar altele sunt organizate în anumite țări. Datele afișate sunt pentru 2026.',
+    es: 'Los meses de concienciación sobre el cáncer no dependen de una única autoridad mundial. Algunas campañas son globales y otras pertenecen a organizaciones de países concretos. Las fechas mostradas corresponden a 2026.',
   },
   sourceTitle: {
     en: 'Reference sources',
