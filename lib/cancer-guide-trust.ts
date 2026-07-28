@@ -843,6 +843,117 @@ const LIVER_CANCER_TRUST: Record<SiteLocale, CancerGuideTrustContent> = {
   },
 };
 
+const PANCREATIC_CANCER_TRUST: Record<SiteLocale, CancerGuideTrustContent> = {
+  en: {
+    heading: 'Sources and medical information',
+    disclaimer:
+      'This page provides general educational information. It does not replace medical advice, diagnosis or treatment from a qualified healthcare professional. Pancreatic cancer may cause no noticeable symptoms early, and symptoms such as jaundice, upper or middle abdominal or back pain, pale stools, dark urine, unexplained weight loss, appetite loss or fatigue can also have other causes. Contact a healthcare professional about persistent or concerning symptoms. IARC estimates 531,318 new cases and 490,786 deaths worldwide in 2024. NCI SEER reports 13.7% five-year relative survival in the United States for 2016–2022. This population average combines pancreatic cancer types and stages and cannot predict an individual outcome; prognosis and treatment depend on cancer type, stage, whether it can be removed surgically, overall health and treatment response.',
+    sourcesHeading: 'Official sources',
+    checkedLabel: 'Sources checked',
+    checkedDate: '28 July 2026',
+    stats: [
+      {
+        value: '531K',
+        label: 'New pancreatic cancer cases globally in 2024 (IARC estimate)',
+      },
+      {
+        value: '13.7%',
+        label: 'Five-year relative survival in the US, all stages combined, 2016–2022 (NCI SEER)',
+      },
+    ],
+    sources: [
+      {
+        label: 'International Agency for Research on Cancer — Pancreas fact sheet',
+        href: 'https://gco.iarc.who.int/media/globocan/factsheets/cancers/13-pancreas-fact-sheet.pdf',
+      },
+      {
+        label: 'National Cancer Institute — Pancreatic Cancer: Patient Version',
+        href: 'https://www.cancer.gov/types/pancreatic',
+      },
+      {
+        label: 'National Cancer Institute — Pancreatic Cancer Treatment',
+        href: 'https://www.cancer.gov/types/pancreatic/patient/pancreatic-treatment-pdq',
+      },
+      {
+        label: 'National Cancer Institute SEER — Pancreatic Cancer Stat Facts and public-domain anatomy illustration',
+        href: 'https://seer.cancer.gov/statfacts/html/pancreas.html',
+      },
+    ],
+  },
+  ro: {
+    heading: 'Surse și informații medicale',
+    disclaimer:
+      'Această pagină oferă informații educaționale generale. Nu înlocuiește sfatul, diagnosticul sau tratamentul oferit de un profesionist medical calificat. Cancerul pancreatic poate să nu provoace simptome vizibile în stadiile timpurii, iar simptome precum icterul, durerea în partea superioară sau mijlocie a abdomenului ori în spate, scaunele deschise la culoare, urina închisă la culoare, scăderea inexplicabilă în greutate, pierderea poftei de mâncare sau oboseala pot avea și alte cauze. Adresează-te unui medic pentru simptome persistente sau îngrijorătoare. IARC estimează 531.318 cazuri noi și 490.786 de decese la nivel mondial în 2024. NCI SEER raportează o supraviețuire relativă la 5 ani de 13,7% în Statele Unite pentru perioada 2016–2022. Această medie populațională combină tipuri de cancer pancreatic și stadii diferite și nu poate prezice rezultatul unei persoane; prognosticul și tratamentul depind de tipul și stadiul cancerului, posibilitatea îndepărtării chirurgicale, starea generală de sănătate și răspunsul la tratament.',
+    sourcesHeading: 'Surse oficiale',
+    checkedLabel: 'Surse verificate la data de',
+    checkedDate: '28 iulie 2026',
+    stats: [
+      {
+        value: '531 mii',
+        label: 'Cazuri noi de cancer pancreatic la nivel global în 2024 (estimare IARC)',
+      },
+      {
+        value: '13,7%',
+        label: 'Supraviețuire relativă la 5 ani în SUA, toate stadiile combinate, 2016–2022 (NCI SEER)',
+      },
+    ],
+    sources: [
+      {
+        label: 'Agenția Internațională pentru Cercetare în Domeniul Cancerului — Fișă despre pancreas',
+        href: 'https://gco.iarc.who.int/media/globocan/factsheets/cancers/13-pancreas-fact-sheet.pdf',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Cancer pancreatic: versiunea pentru pacienți',
+        href: 'https://www.cancer.gov/types/pancreatic',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Tratamentul cancerului pancreatic',
+        href: 'https://www.cancer.gov/types/pancreatic/patient/pancreatic-treatment-pdq',
+      },
+      {
+        label: 'Institutul Național al Cancerului SEER — Date statistice și ilustrație anatomică din domeniul public',
+        href: 'https://seer.cancer.gov/statfacts/html/pancreas.html',
+      },
+    ],
+  },
+  es: {
+    heading: 'Fuentes e información médica',
+    disclaimer:
+      'Esta página ofrece información educativa general. No sustituye el consejo, diagnóstico ni tratamiento de un profesional sanitario cualificado. El cáncer de páncreas puede no causar síntomas perceptibles en las etapas iniciales, y síntomas como ictericia, dolor en la parte superior o media del abdomen o en la espalda, heces pálidas, orina oscura, pérdida de peso sin explicación, pérdida del apetito o cansancio también pueden tener otras causas. Consulta a un profesional sanitario ante síntomas persistentes o preocupantes. El IARC estima 531.318 casos nuevos y 490.786 muertes en todo el mundo en 2024. NCI SEER informa una supervivencia relativa a 5 años del 13,7% en Estados Unidos durante 2016–2022. Este promedio poblacional combina distintos tipos y etapas de cáncer de páncreas y no puede predecir el resultado de una persona; el pronóstico y el tratamiento dependen del tipo y la etapa del cáncer, de si se puede extirpar mediante cirugía, del estado general de salud y de la respuesta al tratamiento.',
+    sourcesHeading: 'Fuentes oficiales',
+    checkedLabel: 'Fuentes verificadas el',
+    checkedDate: '28 de julio de 2026',
+    stats: [
+      {
+        value: '531 mil',
+        label: 'Casos nuevos de cáncer de páncreas en todo el mundo en 2024 (estimación del IARC)',
+      },
+      {
+        value: '13,7%',
+        label: 'Supervivencia relativa a 5 años en EE. UU., todas las etapas combinadas, 2016–2022 (NCI SEER)',
+      },
+    ],
+    sources: [
+      {
+        label: 'Agencia Internacional para la Investigación del Cáncer — Ficha sobre el páncreas',
+        href: 'https://gco.iarc.who.int/media/globocan/factsheets/cancers/13-pancreas-fact-sheet.pdf',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — Cáncer de páncreas: versión para pacientes',
+        href: 'https://www.cancer.gov/espanol/tipos/pancreas',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — Tratamiento del cáncer de páncreas',
+        href: 'https://www.cancer.gov/espanol/tipos/pancreas/paciente/tratamiento-pancreas-pdq',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer SEER — Datos estadísticos e ilustración anatómica de dominio público',
+        href: 'https://seer.cancer.gov/statfacts/html/pancreas.html',
+      },
+    ],
+  },
+};
+
 const CANCER_GUIDE_TRUST: Partial<
   Record<CancerId, Record<SiteLocale, CancerGuideTrustContent>>
 > = {
@@ -853,6 +964,7 @@ const CANCER_GUIDE_TRUST: Partial<
   kidney: KIDNEY_CANCER_TRUST,
   leukemia: LEUKEMIA_CANCER_TRUST,
   liver: LIVER_CANCER_TRUST,
+  pancreatic: PANCREATIC_CANCER_TRUST,
 };
 
 export function getCancerGuideTrustContent(
