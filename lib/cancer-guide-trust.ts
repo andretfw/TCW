@@ -486,6 +486,117 @@ const PROSTATE_CANCER_TRUST: Record<SiteLocale, CancerGuideTrustContent> = {
   },
 };
 
+const KIDNEY_CANCER_TRUST: Record<SiteLocale, CancerGuideTrustContent> = {
+  en: {
+    heading: 'Sources and medical information',
+    disclaimer:
+      'This page provides general educational information. It does not replace medical advice, diagnosis or treatment from a qualified healthcare professional. Kidney cancer may cause no signs or symptoms in its early stages. Contact a healthcare professional about blood in the urine, persistent pain in the side or back, a lump in the abdomen, unexplained weight loss, fatigue or fever. Prognosis varies by cancer type, stage, age, overall health and treatment response. NCI SEER reports 79.2% five-year relative survival in the United States for kidney and renal pelvis cancer, all stages combined, for 2016–2022; this population statistic cannot predict an individual outcome.',
+    sourcesHeading: 'Official sources',
+    checkedLabel: 'Sources checked',
+    checkedDate: '28 July 2026',
+    stats: [
+      {
+        value: '443K',
+        label: 'New kidney cancer cases globally in 2024 (IARC estimate)',
+      },
+      {
+        value: '79.2%',
+        label: 'Five-year relative survival in the US, all stages combined, 2016–2022 (NCI SEER)',
+      },
+    ],
+    sources: [
+      {
+        label: 'International Agency for Research on Cancer — Kidney fact sheet',
+        href: 'https://gco.iarc.who.int/media/globocan/factsheets/cancers/29-kidney-fact-sheet.pdf',
+      },
+      {
+        label: 'National Cancer Institute — Kidney Cancer: Patient Version',
+        href: 'https://www.cancer.gov/types/kidney',
+      },
+      {
+        label: 'National Cancer Institute — Renal Cell Cancer Treatment: Patient Version',
+        href: 'https://www.cancer.gov/types/kidney/patient/kidney-treatment-pdq',
+      },
+      {
+        label: 'National Cancer Institute SEER — Kidney and Renal Pelvis Cancer Stat Facts',
+        href: 'https://seer.cancer.gov/statfacts/html/kidrp.html',
+      },
+    ],
+  },
+  ro: {
+    heading: 'Surse și informații medicale',
+    disclaimer:
+      'Această pagină oferă informații educaționale generale. Nu înlocuiește sfatul, diagnosticul sau tratamentul oferit de un profesionist medical calificat. Cancerul renal poate să nu provoace semne sau simptome în stadiile incipiente. Adresează-te unui medic dacă observi sânge în urină, durere persistentă în lateral sau spate, un nodul în abdomen, scădere inexplicabilă în greutate, oboseală ori febră. Prognosticul variază în funcție de tipul cancerului, stadiu, vârstă, starea generală de sănătate și răspunsul la tratament. NCI SEER raportează o supraviețuire relativă la 5 ani de 79,2% în Statele Unite pentru cancerul de rinichi și pelvis renal, toate stadiile combinate, în perioada 2016–2022; această statistică populațională nu poate prezice rezultatul unei persoane.',
+    sourcesHeading: 'Surse oficiale',
+    checkedLabel: 'Surse verificate la data de',
+    checkedDate: '28 iulie 2026',
+    stats: [
+      {
+        value: '443 mii',
+        label: 'Cazuri noi de cancer renal la nivel global în 2024 (estimare IARC)',
+      },
+      {
+        value: '79,2%',
+        label: 'Supraviețuire relativă la 5 ani în SUA, toate stadiile combinate, 2016–2022 (NCI SEER)',
+      },
+    ],
+    sources: [
+      {
+        label: 'Agenția Internațională pentru Cercetare în Domeniul Cancerului — Fișă despre cancerul renal',
+        href: 'https://gco.iarc.who.int/media/globocan/factsheets/cancers/29-kidney-fact-sheet.pdf',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Cancer renal: versiunea pentru pacienți',
+        href: 'https://www.cancer.gov/types/kidney',
+      },
+      {
+        label: 'Institutul Național al Cancerului — Tratamentul cancerului cu celule renale: versiunea pentru pacienți',
+        href: 'https://www.cancer.gov/types/kidney/patient/kidney-treatment-pdq',
+      },
+      {
+        label: 'Institutul Național al Cancerului SEER — Date statistice despre cancerul de rinichi și pelvis renal',
+        href: 'https://seer.cancer.gov/statfacts/html/kidrp.html',
+      },
+    ],
+  },
+  es: {
+    heading: 'Fuentes e información médica',
+    disclaimer:
+      'Esta página ofrece información educativa general. No sustituye el consejo, diagnóstico ni tratamiento de un profesional sanitario cualificado. El cáncer de riñón puede no causar signos ni síntomas en las etapas iniciales. Consulta a un profesional sanitario si observas sangre en la orina, dolor persistente en el costado o la espalda, un bulto en el abdomen, pérdida de peso sin explicación, cansancio o fiebre. El pronóstico varía según el tipo de cáncer, la etapa, la edad, el estado general de salud y la respuesta al tratamiento. NCI SEER informa una supervivencia relativa a 5 años del 79,2% en Estados Unidos para el cáncer de riñón y pelvis renal, todas las etapas combinadas, durante 2016–2022; esta estadística poblacional no puede predecir el resultado de una persona.',
+    sourcesHeading: 'Fuentes oficiales',
+    checkedLabel: 'Fuentes verificadas el',
+    checkedDate: '28 de julio de 2026',
+    stats: [
+      {
+        value: '443 mil',
+        label: 'Casos nuevos de cáncer de riñón en todo el mundo en 2024 (estimación del IARC)',
+      },
+      {
+        value: '79,2%',
+        label: 'Supervivencia relativa a 5 años en EE. UU., todas las etapas combinadas, 2016–2022 (NCI SEER)',
+      },
+    ],
+    sources: [
+      {
+        label: 'Agencia Internacional para la Investigación del Cáncer — Ficha sobre el cáncer de riñón',
+        href: 'https://gco.iarc.who.int/media/globocan/factsheets/cancers/29-kidney-fact-sheet.pdf',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — Cáncer de riñón: versión para pacientes',
+        href: 'https://www.cancer.gov/espanol/tipos/rinon',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer — Tratamiento del cáncer de células renales: versión para pacientes',
+        href: 'https://www.cancer.gov/espanol/tipos/rinon/paciente/tratamiento-rinon-pdq',
+      },
+      {
+        label: 'Instituto Nacional del Cáncer SEER — Datos estadísticos sobre el cáncer de riñón y pelvis renal',
+        href: 'https://seer.cancer.gov/statfacts/html/kidrp.html',
+      },
+    ],
+  },
+};
+
 const CANCER_GUIDE_TRUST: Partial<
   Record<CancerId, Record<SiteLocale, CancerGuideTrustContent>>
 > = {
@@ -493,6 +604,7 @@ const CANCER_GUIDE_TRUST: Partial<
   lung: LUNG_CANCER_TRUST,
   colorectal: COLORECTAL_CANCER_TRUST,
   prostate: PROSTATE_CANCER_TRUST,
+  kidney: KIDNEY_CANCER_TRUST,
 };
 
 export function getCancerGuideTrustContent(
