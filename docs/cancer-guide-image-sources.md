@@ -1,6 +1,6 @@
 # Cancer guide image sources
 
-The cancer guide image registry covers all 35 guides and all three placements in each guide: directory card, hero and overview. The active mapping is maintained in `lib/cancer-images.ts`.
+The cancer guide image registry covers all 53 guides and all three placements in each guide: directory card, hero and overview. The active mapping is maintained in `lib/cancer-images.ts`.
 
 ## NCI SEER Cancer Stat Facts
 
@@ -36,6 +36,31 @@ The anatomy and disease illustrations below come from the National Cancer Instit
 | `soft-tissue-anatomy.jpg` | Sarcoma | [Muscles anterior labeled](https://commons.wikimedia.org/wiki/File:Muscles_anterior_labeled.png), public-domain Gray's Anatomy material |
 | `eye-anatomy.jpg` | Eye | [Human eye diagram — sagittal view](https://commons.wikimedia.org/wiki/File:Human_eye_diagram-sagittal_view-NEI.jpg), U.S. National Eye Institute public-domain work |
 | `vulvar-anatomy.jpg` | Vulvar | [Clitoris anatomy unlabeled](https://commons.wikimedia.org/wiki/File:Clitoris_anatomy_unlabeled.svg), released into the public domain by the author |
+
+## Dedicated sources for guides 36–53
+
+These assets are downloaded into `public/images/cancer-guides/`, converted to optimised WebP files and served locally. They are not hotlinked. The same registered asset is used consistently for each guide's directory card, hero and overview placement.
+
+| Local asset | Used for | Source and licence |
+| --- | --- | --- |
+| `mesothelioma-pathology.webp` | Malignant mesothelioma | [Mesothelioma pathology](https://commons.wikimedia.org/wiki/File:Mesothelioma.PNG), released into the public domain by the author |
+| `neuroendocrine-pathology.webp` | Neuroendocrine tumours | [Mitosis in a neuroendocrine tumour](https://commons.wikimedia.org/wiki/File:Mitosis_in_a_neuroendocrine_tumor_(original).jpg), CC0 1.0 public-domain dedication |
+| `gist-pathology.webp` | Gastrointestinal stromal tumour | [GIST of stomach](https://commons.wikimedia.org/wiki/File:Gastrointestinal_Stromal_Tumor_(GIST)_of_Stomach.jpg), released into the public domain by the author |
+| `appendix-anatomy.webp` | Appendix cancer | [Human appendix in the colon](https://commons.wikimedia.org/wiki/File:Anatomy-human-appendix-in-colon.png), CC0 1.0 public-domain dedication |
+| `adrenal-anatomy.webp` | Adrenocortical carcinoma | [Adrenal gland illustration](https://commons.wikimedia.org/wiki/File:Illu_adrenal_gland.jpg), U.S. National Cancer Institute public-domain work |
+| `peritoneum-anatomy.webp` | Primary peritoneal cancer | [Peritoneum anatomy, Gray's Anatomy plate 1037](https://commons.wikimedia.org/wiki/File:Gray1037.png), public domain |
+| `fallopian-tube-anatomy.webp` | Fallopian tube cancer | [Uterus and nearby organs](https://commons.wikimedia.org/wiki/File:Uterus_and_nearby_organs.jpg), U.S. National Cancer Institute public-domain work |
+| `unknown-primary-metastasis.webp` | Cancer of unknown primary | [Metastasis illustration](https://commons.wikimedia.org/wiki/File:Metastasis_illustration.jpg), U.S. National Cancer Institute public-domain work |
+| `gestational-trophoblastic-anatomy.webp` | Gestational trophoblastic disease | [Placenta anatomy](https://commons.wikimedia.org/wiki/File:Placenta.svg), public-domain Gray's Anatomy material |
+| `mds-bone-marrow.webp` | Myelodysplastic syndromes | [Bone Marrow, NIH BioArt 56](https://commons.wikimedia.org/wiki/File:Bone_Marrow_(NIH_BioArt_56).svg), U.S. NIAID / NIH public-domain work |
+| `mpn-pathology.webp` | Myeloproliferative neoplasms | [Chronic myeloid leukaemia blood smear](https://commons.wikimedia.org/wiki/File:LMC-1.JPG), released into the public domain by the author |
+| `neuroblastoma-pathology.webp` | Neuroblastoma | [Neuroblastoma histology](https://commons.wikimedia.org/wiki/File:Neuroblastoma_(1).jpg), U.S. National Cancer Institute public-domain work |
+| `urethra-anatomy.webp` | Urethral cancer | [Urinary system illustration](https://commons.wikimedia.org/wiki/File:Illu_urinary_system.svg), U.S. National Cancer Institute / SEER public-domain work |
+| `renal-pelvis-ureter-anatomy.webp` | Renal pelvis and ureter cancer | [Kidney and adrenal gland](https://commons.wikimedia.org/wiki/File:Kidney_and_adrenal_gland.jpg), U.S. National Cancer Institute public-domain work |
+| `salivary-glands-anatomy.webp` | Salivary gland cancer | [Head-and-neck salivary-gland anatomy](https://commons.wikimedia.org/wiki/File:Illu_quiz_hn_Ohne_Text.JPG), U.S. National Cancer Institute public-domain work |
+| `nasal-sinus-anatomy.webp` | Nasal cavity and paranasal sinus cancer | [Nose and nasal cavities](https://commons.wikimedia.org/wiki/File:Nose_and_nasal_cavities.png), U.S. National Cancer Institute public-domain work |
+| `larynx-dedicated-anatomy.webp` | Laryngeal cancer | [Larynx and nearby structures](https://commons.wikimedia.org/wiki/File:Larynx_and_nearby_structures.jpg), U.S. National Cancer Institute public-domain work |
+| `parathyroid-anatomy.webp` | Parathyroid cancer | [Thyroid and parathyroid illustration](https://commons.wikimedia.org/wiki/File:Illu_thyroid_parathyroid.jpg), U.S. National Cancer Institute / SEER public-domain work |
 
 ## Original project artwork
 
