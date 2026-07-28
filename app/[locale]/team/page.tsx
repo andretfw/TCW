@@ -1,10 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { localizedPath } from '@/lib/routes';
 
 export default function TeamPage() {
   const t = useTranslations('teamPage');
@@ -120,26 +118,6 @@ export default function TeamPage() {
               </div>
             );
           })}
-        </div>
-      </section>
-
-      <section className="mx-auto mt-32 w-full max-w-4xl px-4 text-center">
-        <div className="relative overflow-hidden rounded-3xl border border-brand-100 bg-brand-50 p-10 md:p-16">
-          <svg className="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 transform text-brand-200 opacity-50" width="200" height="200" fill="currentColor" viewBox="0 0 100 100">
-            <path d="M50 0 L100 50 L50 100 L0 50 Z" />
-          </svg>
-          <div className="relative z-10 flex flex-col items-center">
-            <h2 className="mb-4 text-3xl font-bold text-neutral-900">{t('cta.title')}</h2>
-            <p className="mx-auto mb-8 max-w-xl text-lg leading-relaxed text-neutral-600">{t('cta.description')}</p>
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Link href={localizedPath(locale, 'getInvolved')} className="rounded-xl bg-brand-600 px-8 py-4 font-bold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-xl">
-                {t('cta.buttonInvolved')}
-              </Link>
-              <Link href={localizedPath(locale, 'donate')} className="rounded-xl border-2 border-brand-600 bg-white px-8 py-4 font-bold text-brand-600 transition-colors duration-300 hover:bg-brand-50">
-                {t('cta.buttonDonate')}
-              </Link>
-            </div>
-          </div>
         </div>
       </section>
     </div>
