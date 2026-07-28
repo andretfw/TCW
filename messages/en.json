@@ -711,12 +711,12 @@
       },
       "statsTitle": "Urgency",
       "stat1": {
-        "value": "Low",
-        "label": "Early detection rate"
+        "value": "15.4%",
+        "label": "Diagnosed at a localized stage in the US (2016–2022)"
       },
       "stat2": {
-        "value": "11%",
-        "label": "5-year survival (slowly improving)"
+        "value": "13.7%",
+        "label": "5-year relative survival in the US (2016–2022)"
       },
       "ctaSidebarTitle": "Vital Research",
       "appointmentTitle": "Specialist Consult",

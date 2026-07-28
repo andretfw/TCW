@@ -20,7 +20,7 @@ export default function AboutCancerPageClient({ params }: { params: Promise<{ lo
     kidney: 'https://images.unsplash.com/photo-1559757175-0828e13882ed?q=80&w=1331&auto=format&fit=crop',
     leukemia: 'https://images.unsplash.com/photo-1680279019882-d0317164a394?q=80&w=1121&auto=format&fit=crop',
     liver: 'https://plus.unsplash.com/premium_photo-1744264418038-19cf0cf6bb54?q=80&w=1332&auto=format&fit=crop',
-    pancreatic: 'https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?q=80&w=800',
+    pancreatic: '/images/pancreatic-cancer-anatomy.jpg',
     ovarian: 'https://images.unsplash.com/photo-1628348070889-cb656235b4eb?q=80&w=800',
     childhood: 'https://images.unsplash.com/photo-1543332164-6e82f355badc?q=80&w=800',
     brain: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?q=80&w=800',
