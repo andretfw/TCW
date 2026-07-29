@@ -2,7 +2,17 @@
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { useState, useEffect } from 'react';
-import { X, Heart, Sparkles, ArrowRight, TrendingUp, Target, Users } from 'lucide-react';
+import {
+  X,
+  Heart,
+  Sparkles,
+  ArrowRight,
+  TrendingUp,
+  Target,
+  Users,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
 import Link from 'next/link';
 import { IMPACT } from '@/lib/impact';
 import { localizedPath } from '@/lib/routes';
@@ -35,11 +45,27 @@ export default function WarriorsPage() {
   const t = useTranslations('warriorsPage');
   const locale = useLocale();
   const [selectedStory, setSelectedStory] = useState<null | any>(null);
+  const [selectedGalleryIndex, setSelectedGalleryIndex] = useState(0);
   const warriorsSupportedLabel = locale === 'ro'
     ? 'Warriors sprijiniți'
     : locale === 'es'
       ? 'Warriors apoyados'
       : 'Warriors Supported';
+  const previousImageLabel = locale === 'ro'
+    ? 'Imaginea anterioară'
+    : locale === 'es'
+      ? 'Imagen anterior'
+      : 'Previous image';
+  const nextImageLabel = locale === 'ro'
+    ? 'Imaginea următoare'
+    : locale === 'es'
+      ? 'Imagen siguiente'
+      : 'Next image';
+  const imageLabel = locale === 'ro'
+    ? 'Imaginea'
+    : locale === 'es'
+      ? 'Imagen'
+      : 'Image';
 
   const stories = [
     { id: '1', name: t('featured.anetra.name'), age: t('featured.anetra.age'), dream: t('featured.anetra.dream'), shortDesc: t('featured.anetra.shortDesc'), fullStory: t('featured.anetra.fullStory'), image: '/anetra-home.jpg', position: 'object-[center_25%]', color: 'bg-purple-100 text-purple-700' },
@@ -105,6 +131,51 @@ export default function WarriorsPage() {
     },
   ];
 
+  const openStory = (story: any) => {
+    setSelectedGalleryIndex(0);
+    setSelectedStory(story);
+  };
+
+  const closeStory = () => {
+    setSelectedStory(null);
+    setSelectedGalleryIndex(0);
+  };
+
+  const galleryImages = selectedStory?.gallery ?? [];
+  const showPreviousImage = () => {
+    setSelectedGalleryIndex((currentIndex) =>
+      (currentIndex - 1 + galleryImages.length) % galleryImages.length,
+    );
+  };
+  const showNextImage = () => {
+    setSelectedGalleryIndex((currentIndex) =>
+      (currentIndex + 1) % galleryImages.length,
+    );
+  };
+
+  useEffect(() => {
+    if (!selectedStory) return;
+
+    const galleryLength = selectedStory.gallery?.length ?? 0;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setSelectedStory(null);
+        setSelectedGalleryIndex(0);
+      } else if (galleryLength > 1 && event.key === 'ArrowLeft') {
+        setSelectedGalleryIndex((currentIndex) =>
+          (currentIndex - 1 + galleryLength) % galleryLength,
+        );
+      } else if (galleryLength > 1 && event.key === 'ArrowRight') {
+        setSelectedGalleryIndex((currentIndex) =>
+          (currentIndex + 1) % galleryLength,
+        );
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedStory]);
+
   return (
     <div className="pt-20 min-h-screen bg-neutral-50">
       <section className="py-20 bg-white">
@@ -150,7 +221,7 @@ export default function WarriorsPage() {
             <div
               key={story.id}
               className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer border border-neutral-100 flex flex-col h-full"
-              onClick={() => setSelectedStory(story)}
+              onClick={() => openStory(story)}
             >
               <div className="relative h-80 overflow-hidden">
                 <Image
@@ -183,27 +254,66 @@ export default function WarriorsPage() {
 
       {selectedStory && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setSelectedStory(null)} />
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeStory} />
 
           <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-300">
-            <button onClick={() => setSelectedStory(null)} className="absolute top-4 right-4 p-2 bg-white/50 hover:bg-white rounded-full transition-colors z-10">
+            <button onClick={closeStory} className="absolute top-4 right-4 p-2 bg-white/80 hover:bg-white rounded-full transition-colors z-20">
               <X className="w-6 h-6 text-neutral-900" />
             </button>
 
             <div className="grid md:grid-cols-2">
-              {selectedStory.gallery ? (
-                <div className="grid grid-cols-2 md:grid-cols-1 gap-2 p-2 bg-neutral-100">
-                  {selectedStory.gallery.map((image: string, index: number) => (
-                    <div key={image} className="relative aspect-[3/4] overflow-hidden rounded-2xl">
-                      <Image
-                        src={image}
-                        alt={`${selectedStory.name} at the YSC Summit ${index + 1}`}
-                        fill
-                        sizes="(min-width: 768px) 50vw, 50vw"
-                        className="object-cover object-top"
-                      />
-                    </div>
-                  ))}
+              {galleryImages.length > 0 ? (
+                <div className="relative h-[58vh] min-h-[28rem] max-h-[42rem] overflow-hidden bg-neutral-100 md:h-auto md:max-h-none">
+                  <Image
+                    src={galleryImages[selectedGalleryIndex]}
+                    alt={`${selectedStory.name} at the YSC Summit ${selectedGalleryIndex + 1}`}
+                    fill
+                    priority
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className="object-contain"
+                  />
+
+                  <div className="absolute left-4 top-4 rounded-full bg-black/60 px-3 py-1 text-sm font-bold text-white">
+                    {selectedGalleryIndex + 1} / {galleryImages.length}
+                  </div>
+
+                  {galleryImages.length > 1 && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={showPreviousImage}
+                        aria-label={previousImageLabel}
+                        className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-3 text-neutral-900 shadow-lg transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-600"
+                      >
+                        <ChevronLeft className="h-6 w-6" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={showNextImage}
+                        aria-label={nextImageLabel}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-3 text-neutral-900 shadow-lg transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-600"
+                      >
+                        <ChevronRight className="h-6 w-6" />
+                      </button>
+
+                      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-black/50 px-3 py-2">
+                        {galleryImages.map((image: string, index: number) => (
+                          <button
+                            key={image}
+                            type="button"
+                            onClick={() => setSelectedGalleryIndex(index)}
+                            aria-label={`${imageLabel} ${index + 1}`}
+                            aria-current={index === selectedGalleryIndex}
+                            className={`h-2.5 w-2.5 rounded-full transition ${
+                              index === selectedGalleryIndex
+                                ? 'bg-white'
+                                : 'bg-white/50 hover:bg-white/80'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </div>
               ) : (
                 <div className="h-64 md:h-auto relative">
