@@ -177,6 +177,27 @@ Thank you 💜
 Tutti Cancer Warriors`;
 }
 
+function boardReminderBody(reference: string, reviewUrl: string): string {
+  return `Hi,
+
+Just a gentle reminder that Dream Support application ${reference} is still waiting for your board vote.
+
+Please sign in to the secure TCW dashboard to review it and submit your decision:
+${reviewUrl}
+
+For confidentiality, applicant details and medical information are not included in this email.
+
+Thank you 💜
+Tutti Cancer Warriors`;
+}
+
+function boardReviewUrl(applicationId: string): string {
+  return new URL(
+    `/admin/dream-applications/board/${encodeURIComponent(applicationId)}`,
+    process.env.NEXT_PUBLIC_SITE_URL || DEFAULT_SITE_URL,
+  ).toString();
+}
+
 function errorMessage(result: PromiseRejectedResult): string {
   return result.reason instanceof Error ? result.reason.message : 'Email delivery failed.';
 }
@@ -232,10 +253,7 @@ export async function sendDreamBoardReviewEmails(input: {
 
   const accessToken = await getGoogleWorkspaceAccessToken(GOOGLE_GMAIL_SEND_SCOPE);
   const from = googleWorkspaceAccountEmail();
-  const reviewUrl = new URL(
-    `/admin/dream-applications/board/${encodeURIComponent(input.application.id)}`,
-    process.env.NEXT_PUBLIC_SITE_URL || DEFAULT_SITE_URL,
-  ).toString();
+  const reviewUrl = boardReviewUrl(input.application.id);
 
   const results = await Promise.allSettled(
     recipients.map((email) => sendGmailMessage(accessToken, from, {
@@ -254,4 +272,20 @@ export async function sendDreamBoardReviewEmails(input: {
   });
 
   return {sent, failed};
+}
+
+export async function sendDreamBoardReminderEmail(input: {
+  application: DreamApplicationRecord;
+  recipient: string;
+}): Promise<void> {
+  const recipient = input.recipient.trim().toLowerCase();
+  if (!recipient) throw new Error('Board reminder recipient is required.');
+
+  const accessToken = await getGoogleWorkspaceAccessToken(GOOGLE_GMAIL_SEND_SCOPE);
+  const from = googleWorkspaceAccountEmail();
+  await sendGmailMessage(accessToken, from, {
+    to: recipient,
+    subject: `Reminder: board vote needed — ${input.application.reference}`,
+    body: boardReminderBody(input.application.reference, boardReviewUrl(input.application.id)),
+  });
 }

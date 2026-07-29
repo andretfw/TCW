@@ -137,6 +137,9 @@ export async function PATCH(request: Request): Promise<Response> {
 
       if (enteredBoardReview) {
         application.boardVotes = [];
+        application.boardReviewNotifiedAt = {};
+        application.boardReminderSentAt = {};
+        application.boardReminderClaimedAt = {};
       }
 
       if (note) {
@@ -164,6 +167,7 @@ export async function PATCH(request: Request): Promise<Response> {
       return privateJson({error: 'Application not found.'}, {status: 404});
     }
 
+    let responseRecord = mutation.record;
     let boardNotification: {sent: string[]; failed: Array<{email: string; error: string}>} | undefined;
     if (mutation.result.enteredBoardReview) {
       try {
@@ -171,6 +175,23 @@ export async function PATCH(request: Request): Promise<Response> {
           application: mutation.record,
           recipients: boardEmails.filter((email) => email !== actor),
         });
+
+        if (boardNotification.sent.length > 0) {
+          const deliveredAt = new Date().toISOString();
+          const deliveryMutation = await mutateDreamApplication(body.applicationId, (application) => {
+            if (application.status !== 'board_review') return false;
+
+            const notifiedAt = {...(application.boardReviewNotifiedAt || {})};
+            for (const email of boardNotification?.sent || []) {
+              notifiedAt[email] = notifiedAt[email] || deliveredAt;
+            }
+            application.boardReviewNotifiedAt = notifiedAt;
+            application.updatedAt = deliveredAt;
+            return true;
+          });
+          if (deliveryMutation?.result) responseRecord = deliveryMutation.record;
+        }
+
         if (boardNotification.failed.length > 0) {
           console.error(
             `Board review email delivery failed for ${mutation.record.reference}.`,
@@ -186,7 +207,7 @@ export async function PATCH(request: Request): Promise<Response> {
     }
 
     return privateJson({
-      application: applicationForReviewer(mutation.record),
+      application: applicationForReviewer(responseRecord),
       boardNotification,
     });
   } catch (error) {

@@ -123,6 +123,12 @@ export interface DreamApplicationRecord extends DreamApplicationInput {
   files: DreamApplicationFile[];
   reviewerNotes: DreamApplicationNote[];
   boardVotes?: DreamBoardVote[];
+  /** Successful initial board-review email delivery time, keyed by board email. */
+  boardReviewNotifiedAt?: Record<string, string>;
+  /** Successful one-time reminder delivery time, keyed by board email. */
+  boardReminderSentAt?: Record<string, string>;
+  /** Short-lived delivery claims prevent overlapping reminder jobs from duplicating mail. */
+  boardReminderClaimedAt?: Record<string, string>;
   history: DreamApplicationEvent[];
   consentVersion: 'dream-application-v1';
   grantPolicyVersion: '3.1';
@@ -150,3 +156,4 @@ export const MAX_DREAM_PHOTOS = 3;
 export const DRAFT_RETENTION_HOURS = 24;
 export const DECLINED_APPLICATION_RETENTION_DAYS = 365;
 export const DREAM_BOARD_APPROVAL_THRESHOLD = 2;
+export const DREAM_BOARD_REMINDER_DELAY_HOURS = 72;
