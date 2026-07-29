@@ -9,6 +9,7 @@ export const dynamic = 'force-dynamic';
 
 const ALERT_FORM_NAME = 'dream-application-server-alert';
 const ALERT_ATTEMPTS = 3;
+const APPLICATION_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 class DreamSubmissionError extends Error {
   constructor(
@@ -33,7 +34,12 @@ async function sendReferenceOnlyAlert(
     'submitted-at': submittedAt,
     'bot-field': '',
   });
-  const alertUrl = new URL('/dream-application-notification.html', request.url);
+  const trustedBaseUrl =
+    process.env.DEPLOY_PRIME_URL ||
+    process.env.URL ||
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    new URL(request.url).origin;
+  const alertUrl = new URL('/dream-application-notification.html', trustedBaseUrl);
   let lastError: unknown;
 
   for (let attempt = 1; attempt <= ALERT_ATTEMPTS; attempt += 1) {
@@ -68,7 +74,11 @@ export async function POST(request: Request): Promise<Response> {
       uploadToken?: string;
     };
 
-    if (!body.applicationId || !body.uploadToken) {
+    if (
+      !body.applicationId ||
+      !APPLICATION_ID_PATTERN.test(body.applicationId) ||
+      !body.uploadToken
+    ) {
       return privateJson({error: 'Invalid submission session.'}, {status: 400});
     }
 
