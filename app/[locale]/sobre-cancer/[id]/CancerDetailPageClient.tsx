@@ -17,6 +17,7 @@ import { getAdditionalGuideTrustContent } from '@/lib/additional-guide-trust';
 import { getAdditionalGuideBatch2TrustContent } from '@/lib/additional-guide-trust-2';
 import { getAdditionalGuideBatch3TrustContent } from '@/lib/additional-guide-trust-3';
 import { getCancerData } from '@/lib/cancer-data';
+import { getCancerGuideImageAlt } from '@/lib/cancer-image-seo';
 import { getBladderGuideTrustContent } from '@/lib/bladder-guide-trust';
 import { getBrainGuideTrustContent } from '@/lib/brain-guide-trust';
 import { getCancerGuideTrustContent } from '@/lib/cancer-guide-trust';
@@ -131,7 +132,12 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
             <div className="absolute inset-x-6 bottom-44 top-6 overflow-hidden rounded-3xl border border-white/40 bg-white/95 shadow-2xl md:inset-y-10 md:left-[48%] md:right-12">
               <Image
                 src={cancerData.image}
-                alt={`${guideTitle} anatomy`}
+                alt={getCancerGuideImageAlt(
+                  guideTitle,
+                  locale,
+                  'hero',
+                  cancerData.imagePresentation,
+                )}
                 fill
                 className="object-contain p-3"
                 priority
@@ -140,7 +146,19 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
             </div>
           </>
         ) : (
-          <Image src={cancerData.image} alt={guideTitle} fill className="object-cover" priority sizes="100vw" />
+          <Image
+            src={cancerData.image}
+            alt={getCancerGuideImageAlt(
+              guideTitle,
+              locale,
+              'hero',
+              cancerData.imagePresentation,
+            )}
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-brand-900/50 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full p-6 text-white md:p-16">
@@ -178,7 +196,12 @@ export default function CancerDetailPageClient({ params }: { params: Promise<{ i
                 <div className="relative aspect-video h-48 w-full shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-brand-50 via-white to-brand-100 shadow-md md:h-auto md:w-1/3 md:aspect-square">
                   <Image
                     src={cancerData.contentImage}
-                    alt={`${guideTitle} overview`}
+                    alt={getCancerGuideImageAlt(
+                      guideTitle,
+                      locale,
+                      'overview',
+                      cancerData.contentImagePresentation,
+                    )}
                     fill
                     className={
                       cancerData.contentImagePresentation === 'illustration'
