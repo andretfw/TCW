@@ -104,6 +104,7 @@ export interface DreamApplicationRecord extends DreamApplicationInput {
   updatedAt: string;
   submittedAt?: string;
   draftExpiresAt?: string;
+  /** Used only for unsuccessful applications scheduled for deletion. */
   retentionDeleteAt?: string;
   uploadTokenHash?: string;
   files: DreamApplicationFile[];
@@ -133,4 +134,4 @@ export interface DreamApplicationListItem {
 export const MAX_DREAM_FILE_BYTES = 4 * 1024 * 1024;
 export const MAX_DREAM_PHOTOS = 3;
 export const DRAFT_RETENTION_HOURS = 24;
-export const CLOSED_MEDICAL_RETENTION_DAYS = 90;
+export const DECLINED_APPLICATION_RETENTION_DAYS = 365;
