@@ -1,3 +1,5 @@
+import 'server-only';
+
 import { getStore } from '@netlify/blobs';
 
 import { decryptFile, decryptJson, encryptFile, encryptJson, hashRateLimitIdentifier } from './crypto';
@@ -11,6 +13,7 @@ const STORE_NAME = 'tcw-dream-applications';
 const APPLICATION_PREFIX = 'applications/';
 const FILE_PREFIX = 'files/';
 const RATE_PREFIX = 'rate/';
+const CONDITIONAL_WRITE_ATTEMPTS = 5;
 
 function store() {
   return getStore({name: STORE_NAME, consistency: 'strong'});
@@ -18,6 +21,14 @@ function store() {
 
 function applicationKey(id: string): string {
   return `${APPLICATION_PREFIX}${id}.json`;
+}
+
+function applicationMetadata(record: DreamApplicationRecord) {
+  return {
+    kind: 'application',
+    status: record.status,
+    updatedAt: record.updatedAt,
+  };
 }
 
 function bufferToArrayBuffer(value: Buffer): ArrayBuffer {
@@ -29,11 +40,7 @@ function bufferToArrayBuffer(value: Buffer): ArrayBuffer {
 
 export async function saveDreamApplication(record: DreamApplicationRecord): Promise<void> {
   await store().set(applicationKey(record.id), encryptJson(record), {
-    metadata: {
-      kind: 'application',
-      status: record.status,
-      updatedAt: record.updatedAt,
-    },
+    metadata: applicationMetadata(record),
   });
 }
 
@@ -44,6 +51,33 @@ export async function getDreamApplication(id: string): Promise<DreamApplicationR
   });
   if (!payload) return null;
   return decryptJson<DreamApplicationRecord>(payload);
+}
+
+export async function mutateDreamApplication<T>(
+  id: string,
+  mutate: (record: DreamApplicationRecord) => T | Promise<T>,
+): Promise<{record: DreamApplicationRecord; result: T} | null> {
+  const key = applicationKey(id);
+
+  for (let attempt = 0; attempt < CONDITIONAL_WRITE_ATTEMPTS; attempt += 1) {
+    const current = await store().getWithMetadata(key, {
+      type: 'text',
+      consistency: 'strong',
+    });
+    if (!current) return null;
+    if (!current.etag || !current.data) continue;
+
+    const record = decryptJson<DreamApplicationRecord>(current.data);
+    const result = await mutate(record);
+    const write = await store().set(key, encryptJson(record), {
+      metadata: applicationMetadata(record),
+      onlyIfMatch: current.etag,
+    });
+
+    if (write.modified) return {record, result};
+  }
+
+  throw new Error('APPLICATION_WRITE_CONFLICT');
 }
 
 export async function listDreamApplications(): Promise<DreamApplicationRecord[]> {
@@ -115,27 +149,45 @@ interface RateWindow {
 export async function enforceDreamStartRateLimit(identifier: string): Promise<void> {
   const key = `${RATE_PREFIX}${hashRateLimitIdentifier(identifier)}.json`;
   const now = new Date();
-  const existing = await store().get(key, {
-    type: 'text',
-    consistency: 'strong',
-  });
-  let window: RateWindow | null = existing ? JSON.parse(existing) as RateWindow : null;
 
-  if (!window || new Date(window.resetsAt) <= now) {
-    window = {
-      count: 0,
-      resetsAt: new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString(),
-    };
+  for (let attempt = 0; attempt < CONDITIONAL_WRITE_ATTEMPTS; attempt += 1) {
+    const existing = await store().getWithMetadata(key, {
+      type: 'text',
+      consistency: 'strong',
+    });
+    let window: RateWindow | null = existing?.data
+      ? JSON.parse(existing.data) as RateWindow
+      : null;
+
+    if (!window || new Date(window.resetsAt) <= now) {
+      window = {
+        count: 0,
+        resetsAt: new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString(),
+      };
+    }
+
+    if (window.count >= 5) {
+      throw new Error('RATE_LIMITED');
+    }
+
+    window.count += 1;
+    const metadata = {kind: 'rate-limit', expiresAt: window.resetsAt};
+    const write = existing
+      ? existing.etag
+        ? await store().set(key, JSON.stringify(window), {
+            metadata,
+            onlyIfMatch: existing.etag,
+          })
+        : {modified: false}
+      : await store().set(key, JSON.stringify(window), {
+          metadata,
+          onlyIfNew: true,
+        });
+
+    if (write.modified) return;
   }
 
-  if (window.count >= 5) {
-    throw new Error('RATE_LIMITED');
-  }
-
-  window.count += 1;
-  await store().set(key, JSON.stringify(window), {
-    metadata: {kind: 'rate-limit', expiresAt: window.resetsAt},
-  });
+  throw new Error('RATE_LIMIT_BUSY');
 }
 
 export function retentionDateFrom(now: Date): string {

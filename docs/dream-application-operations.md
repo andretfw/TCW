@@ -7,6 +7,24 @@ This runbook is for the private Dream Support application system at:
 
 The public form stores applications and uploads in a private Netlify Blobs store. Answers and files are encrypted by the application with AES-256-GCM before they are written. No public Blob URL is created. The Netlify Forms notification contains only the reference, language and submission time.
 
+## Local development
+
+Use Node.js 20.12.2 or newer within the supported Node 20-22 range.
+
+```bash
+npm run dev
+```
+
+The default development command runs the site through the pinned Netlify CLI so Netlify Identity, Blobs and Functions are available to the Dream Support portal. On the first run, complete any Netlify login or site-linking prompt and make sure the local project is linked to the correct TCW Netlify site.
+
+For public-page styling work that does not need Netlify services, plain Next.js remains available:
+
+```bash
+npm run dev:next
+```
+
+Do not use `npm run dev:next` to test the private admin login, application storage, uploads, reviewer APIs or retention function. Those features require the Netlify runtime.
+
 ## Required setup before the first production deployment
 
 ### 1. Add Netlify environment variables
@@ -47,13 +65,15 @@ The admin API checks authentication on every list, detail, status, note, delete 
 
 After the first deploy:
 
-1. Open **Forms** in Netlify and confirm that `dream-application-alert` was detected.
+1. Open **Forms** in Netlify and confirm that `dream-application-server-alert` was detected.
 2. Add an email notification for that form to `tcw@tutticancerwarriors.org`.
 3. Submit one test application.
 4. Confirm the email contains only:
    - application reference;
    - application language;
    - submission time.
+
+The final application API sends this alert from the server after the encrypted application has been saved. It retries transient failures three times and records a server error if all attempts fail. The applicant's browser is not responsible for notifying TCW.
 
 Applicant names, contact details, answers, photographs and medical documents must never be added to the Netlify form or email notification.
 
@@ -101,7 +121,7 @@ Before marking an approved grant `Closed`, record any limited accounting, paymen
 - [ ] A disallowed or oversized file is rejected.
 - [ ] Optional photographs work and publicity can be set to `None`.
 - [ ] The success screen shows a TCW reference.
-- [ ] The Netlify email contains reference-only data.
+- [ ] The server-side Netlify email contains reference-only data and arrives once.
 - [ ] The application appears in the private queue.
 - [ ] A reviewer can download a file only while signed in and authorised.
 - [ ] Status updates, notes and retention dates work.

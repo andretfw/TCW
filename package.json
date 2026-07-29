@@ -4,7 +4,8 @@
   "private": true,
   "description": "Official multilingual website for Tutti Cancer Warriors NGO (English, Romanian and Spanish)",
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm exec --yes --package=netlify-cli@26.2.0 -- netlify dev",
+    "dev:next": "next dev",
     "clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\"",
     "build": "npm run lint && next build",
     "start": "next start",
@@ -13,7 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "engines": {
-    "node": ">=20.9 <23"
+    "node": ">=20.12.2 <23"
   },
   "dependencies": {
     "@netlify/blobs": "^10.7.10",
