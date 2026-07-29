@@ -97,6 +97,9 @@ export async function POST(request: Request): Promise<Response> {
       if (!application.files.some((file) => file.category === 'medical')) {
         throw new DreamSubmissionError('A diagnosis-verification document is required.', 400);
       }
+      if (!application.files.some((file) => file.category === 'identity')) {
+        throw new DreamSubmissionError('An ID or passport document is required.', 400);
+      }
 
       application.status = 'new';
       application.submittedAt = now;
