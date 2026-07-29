@@ -105,6 +105,63 @@ function assertDocument(pathname, result) {
   }
 }
 
+function getAttribute(tag, attribute) {
+  return tag.match(new RegExp(`\\s${attribute}="([^"]*)"`, 'i'))?.[1] || '';
+}
+
+function assertSeo(result, expectedCanonical) {
+  const title = result.html.match(/<title>([^<]+)<\/title>/i)?.[1] || '';
+  if (title === 'Tutti Cancer Warriors - Born to Thrive') {
+    throw new Error('still uses the generic site title');
+  }
+
+  const metaTags = [
+    ...result.html.matchAll(/<meta\b[^>]*>/gi),
+  ].map((match) => match[0]);
+  const description = metaTags.find(
+    (tag) => getAttribute(tag, 'name').toLowerCase() === 'description',
+  );
+  if (!description || !getAttribute(description, 'content')) {
+    throw new Error('rendered without a meta description');
+  }
+
+  const linkTags = [
+    ...result.html.matchAll(/<link\b[^>]*>/gi),
+  ].map((match) => match[0]);
+  const canonicalTag = linkTags.find(
+    (tag) => getAttribute(tag, 'rel').toLowerCase() === 'canonical',
+  );
+  const canonical = canonicalTag ? getAttribute(canonicalTag, 'href') : '';
+  if (canonical !== expectedCanonical) {
+    throw new Error(
+      `rendered canonical "${canonical}" instead of "${expectedCanonical}"`,
+    );
+  }
+
+  const alternateLanguages = new Set(
+    linkTags
+      .filter((tag) => getAttribute(tag, 'rel').toLowerCase() === 'alternate')
+      .map((tag) => getAttribute(tag, 'hreflang')),
+  );
+  for (const language of ['en', 'ro', 'es', 'x-default']) {
+    if (!alternateLanguages.has(language)) {
+      throw new Error(`rendered without hreflang="${language}"`);
+    }
+  }
+
+  const openGraphUrlTag = metaTags.find(
+    (tag) => getAttribute(tag, 'property').toLowerCase() === 'og:url',
+  );
+  const openGraphUrl = openGraphUrlTag
+    ? getAttribute(openGraphUrlTag, 'content')
+    : '';
+  if (openGraphUrl !== expectedCanonical) {
+    throw new Error(
+      `rendered og:url "${openGraphUrl}" instead of "${expectedCanonical}"`,
+    );
+  }
+}
+
 async function mapLimit(items, limit, callback) {
   const results = new Array(items.length);
   let nextIndex = 0;
@@ -146,23 +203,28 @@ async function main() {
   }
 
   const sitemapXml = await sitemapResponse.text();
-  const sitemapPaths = [
+  const sitemapUrls = [
     ...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g),
-  ].map((match) => new URL(match[1]).pathname);
-  const uniqueSitemapPaths = [...new Set(sitemapPaths)];
+  ].map((match) => match[1]);
+  const sitemapEntries = sitemapUrls.map((url) => ({
+    url,
+    pathname: new URL(url).pathname,
+  }));
+  const uniqueSitemapUrls = [...new Set(sitemapUrls)];
 
-  if (sitemapPaths.length === 0) {
+  if (sitemapUrls.length === 0) {
     throw new Error('The sitemap does not contain any URLs');
   }
-  if (uniqueSitemapPaths.length !== sitemapPaths.length) {
+  if (uniqueSitemapUrls.length !== sitemapUrls.length) {
     throw new Error('The sitemap contains duplicate URLs');
   }
 
   const sitemapFailures = [];
-  await mapLimit(uniqueSitemapPaths, 12, async (pathname) => {
+  await mapLimit(sitemapEntries, 12, async ({pathname, url}) => {
     try {
       const result = await inspectPath(pathname);
       assertDocument(pathname, result);
+      assertSeo(result, url);
       if (result.hops.length !== 1) {
         throw new Error(
           `sitemap URL is not canonical: ${result.hops
@@ -219,7 +281,7 @@ async function main() {
   }
 
   console.log(
-    `Route smoke test passed: ${sitemapPaths.length} sitemap URLs and ${redirectCases.length} redirect cases.`,
+    `Route and SEO smoke test passed: ${sitemapUrls.length} sitemap URLs and ${redirectCases.length} redirect cases.`,
   );
 }
 
