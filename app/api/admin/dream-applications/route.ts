@@ -1,11 +1,9 @@
 import { randomUUID } from 'node:crypto';
 
-import { sendDreamBoardReviewEmails } from '@/lib/dream-applications/email';
 import {
   assertSameOrigin,
   DreamAuthorizationError,
   privateJson,
-  requireConfiguredDreamBoard,
   requireDreamAdmin,
   requireDreamReviewerContext,
 } from '@/lib/dream-applications/security';
@@ -34,7 +32,7 @@ export const dynamic = 'force-dynamic';
 class DreamAdminUpdateError extends Error {
   constructor(
     message: string,
-    public readonly status: 400 | 404,
+    public readonly status: 400 | 404 | 409,
   ) {
     super(message);
     this.name = 'DreamAdminUpdateError';
@@ -110,9 +108,6 @@ export async function PATCH(request: Request): Promise<Response> {
       throw new DreamAuthorizationError('Only the TCW administrator can change workflow status.', 403);
     }
 
-    const boardEmails = requestedStatus === 'board_review'
-      ? requireConfiguredDreamBoard()
-      : [];
     const now = new Date();
     const nowIso = now.toISOString();
     const actor = reviewer.email;
@@ -123,6 +118,13 @@ export async function PATCH(request: Request): Promise<Response> {
 
       const nextStatus = requestedStatus || application.status;
       const enteredBoardReview = nextStatus === 'board_review' && application.status !== 'board_review';
+      if (enteredBoardReview) {
+        throw new DreamAdminUpdateError(
+          'Preview and confirm the board review email before moving this application.',
+          409,
+        );
+      }
+
       if (nextStatus !== application.status) {
         application.history.push({
           id: randomUUID(),
@@ -133,13 +135,6 @@ export async function PATCH(request: Request): Promise<Response> {
           createdAt: nowIso,
         });
         application.status = nextStatus;
-      }
-
-      if (enteredBoardReview) {
-        application.boardVotes = [];
-        application.boardReviewNotifiedAt = {};
-        application.boardReminderSentAt = {};
-        application.boardReminderClaimedAt = {};
       }
 
       if (note) {
@@ -161,54 +156,14 @@ export async function PATCH(request: Request): Promise<Response> {
         ? application.retentionDeleteAt || retentionDateFrom(now)
         : undefined;
       application.updatedAt = nowIso;
-      return {enteredBoardReview};
+      return true;
     });
     if (!mutation) {
       return privateJson({error: 'Application not found.'}, {status: 404});
     }
 
-    let responseRecord = mutation.record;
-    let boardNotification: {sent: string[]; failed: Array<{email: string; error: string}>} | undefined;
-    if (mutation.result.enteredBoardReview) {
-      try {
-        boardNotification = await sendDreamBoardReviewEmails({
-          application: mutation.record,
-          recipients: boardEmails.filter((email) => email !== actor),
-        });
-
-        if (boardNotification.sent.length > 0) {
-          const deliveredAt = new Date().toISOString();
-          const deliveryMutation = await mutateDreamApplication(body.applicationId, (application) => {
-            if (application.status !== 'board_review') return false;
-
-            const notifiedAt = {...(application.boardReviewNotifiedAt || {})};
-            for (const email of boardNotification?.sent || []) {
-              notifiedAt[email] = notifiedAt[email] || deliveredAt;
-            }
-            application.boardReviewNotifiedAt = notifiedAt;
-            application.updatedAt = deliveredAt;
-            return true;
-          });
-          if (deliveryMutation?.result) responseRecord = deliveryMutation.record;
-        }
-
-        if (boardNotification.failed.length > 0) {
-          console.error(
-            `Board review email delivery failed for ${mutation.record.reference}.`,
-            boardNotification.failed,
-          );
-        }
-      } catch (notificationError) {
-        console.error(
-          `Application ${mutation.record.reference} entered board review, but board notifications failed.`,
-          notificationError,
-        );
-      }
-    }
-
     return privateJson({
-      application: applicationForReviewer(responseRecord),
-      boardNotification,
+      application: applicationForReviewer(mutation.record),
     });
   } catch (error) {
     const authResponse = authorizationResponse(error);
