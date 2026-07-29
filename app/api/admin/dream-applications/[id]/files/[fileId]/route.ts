@@ -2,7 +2,7 @@ import { googleDrivePreviewUrl } from '@/lib/dream-applications/google-drive';
 import {
   DreamAuthorizationError,
   privateJson,
-  requireDreamReviewer,
+  requireDreamReviewerContext,
 } from '@/lib/dream-applications/security';
 import { getDreamApplication } from '@/lib/dream-applications/store';
 
@@ -14,10 +14,14 @@ export async function GET(
   {params}: {params: Promise<{id: string; fileId: string}>},
 ): Promise<Response> {
   try {
-    await requireDreamReviewer();
+    const reviewer = await requireDreamReviewerContext();
     const {id, fileId} = await params;
     const application = await getDreamApplication(id);
-    if (!application || application.status === 'draft') {
+    if (
+      !application ||
+      application.status === 'draft' ||
+      (!reviewer.isAdmin && application.status !== 'board_review')
+    ) {
       return privateJson({error: 'Application not found.'}, {status: 404});
     }
 
