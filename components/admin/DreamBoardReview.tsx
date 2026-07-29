@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
 import {
   ArrowLeft,
   BadgeCheck,
   CircleAlert,
   Download,
-  FileHeart,
   HeartHandshake,
   LoaderCircle,
   LockKeyhole,
@@ -16,7 +16,6 @@ import {
   ShieldCheck,
   ThumbsDown,
   ThumbsUp,
-  UserRound,
 } from 'lucide-react';
 import {
   getUser,
@@ -190,7 +189,7 @@ export default function DreamBoardReview({applicationId}: {applicationId: string
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string>();
 
-  async function loadApplication() {
+  const loadApplication = useCallback(async () => {
     setLoading(true);
     setError(undefined);
     try {
@@ -206,7 +205,7 @@ export default function DreamBoardReview({applicationId}: {applicationId: string
     } finally {
       setLoading(false);
     }
-  }
+  }, [applicationId]);
 
   useEffect(() => {
     let active = true;
@@ -227,7 +226,7 @@ export default function DreamBoardReview({applicationId}: {applicationId: string
     }
     void initialize();
     return () => { active = false; };
-  }, [applicationId]);
+  }, [loadApplication]);
 
   const summary = useMemo(() => {
     const votes = application?.boardVotes || [];
@@ -319,9 +318,9 @@ export default function DreamBoardReview({applicationId}: {applicationId: string
       </header>
 
       <main className="mx-auto max-w-6xl px-4 py-7 md:px-7">
-        <a href="/admin/dream-applications" className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-black text-slate-700 shadow-sm">
+        <Link href="/admin/dream-applications" className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-black text-slate-700 shadow-sm">
           <ArrowLeft className="h-4 w-4" /> Dashboard
-        </a>
+        </Link>
 
         {error && <p className="mt-5 rounded-2xl border border-red-200 bg-red-50 p-4 font-semibold text-red-800">{error}</p>}
 
