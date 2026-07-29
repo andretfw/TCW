@@ -1,7 +1,7 @@
 import {
   DreamAuthorizationError,
   privateJson,
-  requireDreamReviewer,
+  requireDreamReviewerContext,
 } from '@/lib/dream-applications/security';
 import { getDreamApplication } from '@/lib/dream-applications/store';
 import type { DreamApplicationFile } from '@/lib/dream-applications/types';
@@ -14,15 +14,20 @@ export async function GET(
   {params}: {params: Promise<{id: string}>},
 ): Promise<Response> {
   try {
-    await requireDreamReviewer();
+    const reviewer = await requireDreamReviewerContext();
     const {id} = await params;
     const application = await getDreamApplication(id);
-    if (!application || application.status === 'draft') {
+    if (
+      !application ||
+      application.status === 'draft' ||
+      (!reviewer.isAdmin && application.status !== 'board_review')
+    ) {
       return privateJson({error: 'Application not found.'}, {status: 404});
     }
     return privateJson({
       application: {
         ...application,
+        boardVotes: application.boardVotes || [],
         files: application.files.map((file: DreamApplicationFile) => ({
           id: file.id,
           category: file.category,
@@ -31,6 +36,11 @@ export async function GET(
           size: file.size,
           uploadedAt: file.uploadedAt,
         })),
+      },
+      viewer: {
+        email: reviewer.email,
+        isAdmin: reviewer.isAdmin,
+        isBoardMember: reviewer.isBoardMember,
       },
     });
   } catch (error) {
