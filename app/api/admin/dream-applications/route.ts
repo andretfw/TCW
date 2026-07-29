@@ -131,7 +131,10 @@ export async function PATCH(request: Request): Promise<Response> {
         });
       }
 
-      application.retentionDeleteAt = ['declined', 'closed'].includes(nextStatus)
+      // Only unsuccessful applications are scheduled for deletion. Closed funded
+      // cases remain available as an audit record and never receive an automatic
+      // deletion date.
+      application.retentionDeleteAt = nextStatus === 'declined'
         ? application.retentionDeleteAt || retentionDateFrom(now)
         : undefined;
       application.updatedAt = nowIso;
