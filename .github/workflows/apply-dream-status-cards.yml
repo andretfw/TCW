@@ -1,0 +1,116 @@
+name: Apply Dream dashboard status cards
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/apply-dream-status-cards.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Create feature branch and update status cards
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B fix/dream-dashboard-status-cards origin/main
+          git rm .github/workflows/apply-dream-status-cards.yml
+
+          python <<'PY'
+          from pathlib import Path
+
+          path = Path('components/admin/AdminDreamApplications.tsx')
+          text = path.read_text()
+
+          old_counts = """  const counts = useMemo(() => ({
+    new: applications.filter((application) => application.status === 'new').length,
+    review: applications.filter((application) => ['under_review', 'board_review'].includes(application.status)).length,
+    approved: applications.filter((application) => application.status === 'approved').length,
+  }), [applications]);"""
+
+          new_counts = """  const counts = useMemo<Record<DreamApplicationStatus, number>>(() => ({
+    draft: applications.filter((application) => application.status === 'draft').length,
+    new: applications.filter((application) => application.status === 'new').length,
+    under_review: applications.filter((application) => application.status === 'under_review').length,
+    more_info_requested: applications.filter((application) => application.status === 'more_info_requested').length,
+    board_review: applications.filter((application) => application.status === 'board_review').length,
+    approved: applications.filter((application) => application.status === 'approved').length,
+    declined: applications.filter((application) => application.status === 'declined').length,
+    closed: applications.filter((application) => application.status === 'closed').length,
+  }), [applications]);"""
+
+          old_cards = """            <div className=\"grid gap-4 sm:grid-cols-3\">
+              {[
+                {label: 'New applications', value: counts.new, icon: <Sparkles className=\"h-6 w-6\" />, color: 'from-fuchsia-500 to-brand-600'},
+                {label: 'In review', value: counts.review, icon: <ClipboardList className=\"h-6 w-6\" />, color: 'from-blue-500 to-cyan-500'},
+                {label: 'Approved', value: counts.approved, icon: <BadgeCheck className=\"h-6 w-6\" />, color: 'from-emerald-500 to-teal-500'},
+              ].map((card) => (
+                <div key={card.label} className=\"rounded-3xl border border-white bg-white p-5 shadow-sm\">
+                  <div className={`flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br ${card.color} text-white`}>
+                    {card.icon}
+                  </div>
+                  <p className=\"mt-5 text-3xl font-black text-slate-950\">{card.value}</p>
+                  <p className=\"mt-1 text-sm font-bold text-slate-500\">{card.label}</p>
+                </div>
+              ))}
+            </div>"""
+
+          new_cards = """            <div className=\"grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7\">
+              {[
+                {status: 'new' as const, label: 'New', value: counts.new, icon: <Sparkles className=\"h-6 w-6\" />, color: 'from-fuchsia-500 to-brand-600'},
+                {status: 'under_review' as const, label: 'Under review', value: counts.under_review, icon: <ClipboardList className=\"h-6 w-6\" />, color: 'from-blue-500 to-cyan-500'},
+                {status: 'more_info_requested' as const, label: 'More information', value: counts.more_info_requested, icon: <CircleAlert className=\"h-6 w-6\" />, color: 'from-amber-500 to-orange-500'},
+                {status: 'board_review' as const, label: 'Board review', value: counts.board_review, icon: <ShieldCheck className=\"h-6 w-6\" />, color: 'from-purple-500 to-violet-600'},
+                {status: 'approved' as const, label: 'Approved', value: counts.approved, icon: <BadgeCheck className=\"h-6 w-6\" />, color: 'from-emerald-500 to-teal-500'},
+                {status: 'declined' as const, label: 'Declined', value: counts.declined, icon: <CircleAlert className=\"h-6 w-6\" />, color: 'from-rose-500 to-red-500'},
+                {status: 'closed' as const, label: 'Closed', value: counts.closed, icon: <CheckCircle2 className=\"h-6 w-6\" />, color: 'from-slate-500 to-slate-700'},
+              ].map((card) => {
+                const active = statusFilter === card.status;
+                return (
+                  <button
+                    type=\"button\"
+                    key={card.status}
+                    onClick={() => setStatusFilter(active ? 'all' : card.status)}
+                    aria-pressed={active}
+                    className={`rounded-3xl border bg-white p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${active ? 'border-brand-400 ring-4 ring-brand-100' : 'border-white'}`}
+                  >
+                    <div className={`flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br ${card.color} text-white`}>
+                      {card.icon}
+                    </div>
+                    <p className=\"mt-5 text-3xl font-black text-slate-950\">{card.value}</p>
+                    <p className=\"mt-1 text-sm font-bold text-slate-500\">{card.label}</p>
+                  </button>
+                );
+              })}
+            </div>"""
+
+          if old_counts not in text:
+              raise SystemExit('Old counts block not found')
+          if old_cards not in text:
+              raise SystemExit('Old cards block not found')
+
+          text = text.replace(old_counts, new_counts, 1)
+          text = text.replace(old_cards, new_cards, 1)
+          path.write_text(text)
+          PY
+
+          npm ci
+          npm run typecheck
+          npm run build
+          npm run smoke:routes
+
+          git add components/admin/AdminDreamApplications.tsx
+          git commit -m "Show every Dream workflow status [skip netlify]"
+          git push --force-with-lease origin fix/dream-dashboard-status-cards
