@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img">
+  <title>Myelodysplastic syndromes and bone marrow</title>
+  <desc>Schematic bone marrow producing abnormal immature blood cells and fewer healthy blood cells.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff7ed"/>
+      <stop offset="1" stop-color="#f3e8ff"/>
+    </linearGradient>
+    <linearGradient id="bone" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fef3c7"/>
+      <stop offset="1" stop-color="#d6b889"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" rx="48" fill="url(#bg)"/>
+  <circle cx="600" cy="400" r="340" fill="#fff" opacity=".76"/>
+  <path d="M288 139c-67 15-101 83-72 137 13 24 41 42 76 47l71 3 199 342c21 36 67 47 102 26 35-20 48-65 29-101L495 250l28-65c12-31 8-64-11-89-42-55-133-40-159 24-10 25-7 50 5 73l22 37-69 2c-27 1-45-14-49-33-6-26 5-51 26-60Z" fill="url(#bone)" stroke="#92400e" stroke-width="11"/>
+  <path d="M396 249 623 645" fill="none" stroke="#7f1d1d" stroke-width="86" stroke-linecap="round"/>
+  <path d="M402 250 625 640" fill="none" stroke="#fecaca" stroke-width="58" stroke-linecap="round" stroke-dasharray="8 12"/>
+  <path d="M704 249c92 1 158 44 189 111 33 73 14 162-46 211" fill="none" stroke="#7c3aed" stroke-width="13" stroke-linecap="round"/>
+  <path d="m840 552 27 45 40-34" fill="none" stroke="#7c3aed" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <g stroke="#fff" stroke-width="7">
+    <circle cx="767" cy="263" r="43" fill="#c026d3"/>
+    <path d="M743 258c15-29 55-24 54 8-1 25-30 37-50 22" fill="#f5d0fe" stroke="#86198f"/>
+    <circle cx="866" cy="304" r="34" fill="#7e22ce"/>
+    <path d="M850 288c26-13 43 15 25 34-17 18-42 4-34-18" fill="#ddd6fe" stroke="#5b21b6"/>
+    <circle cx="786" cy="384" r="37" fill="#db2777"/>
+    <path d="M770 369c19-18 47-3 40 22-6 22-39 26-50 5" fill="#fbcfe8" stroke="#9d174d"/>
+    <circle cx="885" cy="423" r="31" fill="#9333ea"/>
+    <path d="M873 405c20-9 37 11 25 29-12 17-36 9-36-9" fill="#e9d5ff" stroke="#6b21a8"/>
+    <circle cx="792" cy="504" r="41" fill="#be123c"/>
+    <path d="M770 501c9-29 50-33 56-3 5 27-29 47-49 26" fill="#fecdd3" stroke="#9f1239"/>
+  </g>
+  <g>
+    <circle cx="980" cy="292" r="25" fill="#ef4444" stroke="#991b1b" stroke-width="6"/>
+    <circle cx="1027" cy="389" r="21" fill="#ef4444" stroke="#991b1b" stroke-width="6" opacity=".75"/>
+    <circle cx="966" cy="483" r="29" fill="#f8fafc" stroke="#7c3aed" stroke-width="7"/>
+    <g fill="#f59e0b">
+      <circle cx="1021" cy="515" r="8"/><circle cx="1048" cy="538" r="7"/><circle cx="1002" cy="553" r="6"/>
+    </g>
+  </g>
+</svg>
