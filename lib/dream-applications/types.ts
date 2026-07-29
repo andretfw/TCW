@@ -122,6 +122,7 @@ export interface DreamApplicationListItem {
   country: string;
   diagnosis: string;
   dream: string;
+  estimatedCost: string;
   requestedAmountEur: number;
   locale: DreamApplicationInput['locale'];
   submittedAt?: string;
