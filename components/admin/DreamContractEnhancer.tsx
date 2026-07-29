@@ -238,7 +238,7 @@ export default function DreamContractEnhancer() {
 
   if (!portalHost || !application || !details) return null;
   const editable = application.status === 'approved';
-  const document = application.contractDocument;
+  const contractDocument = application.contractDocument;
 
   return createPortal(
     <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -267,8 +267,8 @@ export default function DreamContractEnhancer() {
         </div>
         <div className="rounded-2xl bg-slate-50 p-4">
           <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Latest document</p>
-          <p className="mt-1 text-sm font-black text-slate-900">{formatDate(document?.generatedAt)}</p>
-          {document && (
+          <p className="mt-1 text-sm font-black text-slate-900">{formatDate(contractDocument?.generatedAt)}</p>
+          {contractDocument && (
             <a
               href={`/api/admin/dream-applications/${encodeURIComponent(application.id)}/contract/download`}
               className="mt-2 inline-flex items-center gap-2 text-sm font-black text-violet-700 hover:underline"
@@ -341,7 +341,7 @@ export default function DreamContractEnhancer() {
               {saving ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />} Save contract details
             </button>
             <button type="button" disabled={saving || generating} onClick={() => void submit('generate')} className="flex items-center justify-center gap-2 rounded-2xl bg-violet-600 px-4 py-3 font-black text-white hover:bg-violet-700 disabled:opacity-50">
-              {generating ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <WandSparkles className="h-4 w-4" />} {document ? 'Regenerate Word contract' : 'Generate Word contract'}
+              {generating ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <WandSparkles className="h-4 w-4" />} {contractDocument ? 'Regenerate Word contract' : 'Generate Word contract'}
             </button>
           </div>
         </div>
