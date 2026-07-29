@@ -15,6 +15,10 @@ function safeFilename(value: string): string {
   return value.replace(/[^A-Za-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '') || 'TCW-Contract.docx';
 }
 
+function bufferToArrayBuffer(value: Buffer): ArrayBuffer {
+  return value.buffer.slice(value.byteOffset, value.byteOffset + value.byteLength) as ArrayBuffer;
+}
+
 export async function GET(
   _request: Request,
   {params}: {params: Promise<{id: string}>},
@@ -29,7 +33,7 @@ export async function GET(
     const file = await downloadDreamContractFromGoogleDrive(
       application.contractDocument.driveFileId,
     );
-    return new Response(file, {
+    return new Response(bufferToArrayBuffer(file), {
       headers: {
         'Cache-Control': 'no-store, private',
         'Content-Type': DOCX_MIME,
