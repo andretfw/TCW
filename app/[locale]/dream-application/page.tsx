@@ -1,10 +1,13 @@
 'use client';
-import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
 import { ClipboardCheck, Sparkles, Languages, ShieldCheck, Scale, Gavel, AlertCircle, Info } from 'lucide-react';
+import {localizedPath} from '@/lib/routes';
 
 export default function DreamApplicationPage() {
   const t = useTranslations('dreamApp');
   const tGrant = useTranslations('grantPolicy');
+  const locale = useLocale();
 
   return (
     <div className="pt-20 min-h-screen bg-white">
@@ -23,6 +26,7 @@ export default function DreamApplicationPage() {
           <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-neutral-100 animate-fade-in-up">
             <div className="p-6 md:p-12">
                 <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-6 text-center">{t('formTitle')}</h2>
+                <p className="mx-auto mb-8 max-w-2xl text-center text-neutral-600">{t('formIntro')}</p>
                 
                 {/* Caja de Elegibilidad */}
                 <div className="bg-amber-50 rounded-2xl p-6 md:p-8 mb-10 border border-amber-100">
@@ -52,6 +56,15 @@ export default function DreamApplicationPage() {
                        className="py-4 bg-white text-brand-600 font-bold rounded-xl text-center border-2 border-brand-100 hover:border-brand-600 transition-all flex items-center justify-center gap-2 active:scale-95">
                         <Languages className="w-5 h-5" /> Aplică în Română
                     </a>
+                </div>
+                <div className="-mt-10 mb-16 rounded-xl border border-blue-100 bg-blue-50 p-4 text-sm leading-relaxed text-blue-950">
+                    <p>{t('privacyNotice')}</p>
+                    <Link
+                      href={localizedPath(locale, 'privacy')}
+                      className="mt-2 inline-block font-semibold text-blue-700 underline decoration-blue-300 underline-offset-4 hover:text-blue-900"
+                    >
+                      {t('privacyLink')}
+                    </Link>
                 </div>
 
                 {/* --- SECCIÓN POLÍTICA INTEGRAL (TEXTO COMPLETO PDF) --- */}
