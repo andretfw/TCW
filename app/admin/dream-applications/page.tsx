@@ -1,5 +1,6 @@
 import AdminDreamApplications from '@/components/admin/AdminDreamApplications';
 import DreamApplicantEmailEnhancer from '@/components/admin/DreamApplicantEmailEnhancer';
+import DreamContractEnhancer from '@/components/admin/DreamContractEnhancer';
 import DreamStatusSummaryEnhancer from '@/components/admin/DreamStatusSummaryEnhancer';
 import GoogleDriveConnectionNotice from '@/components/admin/GoogleDriveConnectionNotice';
 
@@ -12,6 +13,7 @@ export default function DreamApplicationsAdminPage() {
       <AdminDreamApplications />
       <DreamStatusSummaryEnhancer />
       <DreamApplicantEmailEnhancer />
+      <DreamContractEnhancer />
     </>
   );
 }
