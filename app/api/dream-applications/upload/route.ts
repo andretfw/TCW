@@ -6,7 +6,7 @@ import {
   createDreamFileKey,
   deleteDreamFile,
   getDreamApplication,
-  saveDreamApplication,
+  mutateDreamApplication,
   saveDreamFile,
 } from '@/lib/dream-applications/store';
 import {
@@ -14,11 +14,22 @@ import {
   MAX_DREAM_FILE_BYTES,
   MAX_DREAM_PHOTOS,
   type DreamApplicationFile,
+  type DreamApplicationRecord,
   type DreamFileCategory,
 } from '@/lib/dream-applications/types';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+
+class DreamUploadError extends Error {
+  constructor(
+    message: string,
+    public readonly status: 400 | 410,
+  ) {
+    super(message);
+    this.name = 'DreamUploadError';
+  }
+}
 
 function detectMimeType(value: Buffer): DreamApplicationFile['mimeType'] | null {
   if (value.subarray(0, 5).toString('ascii') === '%PDF-') return 'application/pdf';
@@ -43,6 +54,34 @@ function cleanFilename(value: string): string {
     .replace(/[\u0000-\u001f\u007f]/g, '')
     .replace(/[^\p{L}\p{N}._ -]/gu, '_')
     .slice(0, 120) || 'document';
+}
+
+function assertUploadSession(
+  application: DreamApplicationRecord | null,
+  uploadToken: string,
+): asserts application is DreamApplicationRecord {
+  if (
+    !application ||
+    application.status !== 'draft' ||
+    !uploadTokensMatch(uploadToken, application.uploadTokenHash) ||
+    !application.draftExpiresAt ||
+    new Date(application.draftExpiresAt) <= new Date()
+  ) {
+    throw new DreamUploadError('This upload session has expired.', 410);
+  }
+}
+
+function assertCategoryCapacity(
+  application: DreamApplicationRecord,
+  category: DreamFileCategory,
+): void {
+  const categoryFiles = application.files.filter((entry) => entry.category === category);
+  if (category === 'medical' && categoryFiles.length >= 1) {
+    throw new DreamUploadError('Only one diagnosis document is requested.', 400);
+  }
+  if (category === 'photo' && categoryFiles.length >= MAX_DREAM_PHOTOS) {
+    throw new DreamUploadError(`You can upload up to ${MAX_DREAM_PHOTOS} photographs.`, 400);
+  }
 }
 
 export async function POST(request: Request): Promise<Response> {
@@ -70,23 +109,8 @@ export async function POST(request: Request): Promise<Response> {
     }
 
     const application = await getDreamApplication(applicationId);
-    if (
-      !application ||
-      application.status !== 'draft' ||
-      !uploadTokensMatch(uploadToken, application.uploadTokenHash) ||
-      !application.draftExpiresAt ||
-      new Date(application.draftExpiresAt) <= new Date()
-    ) {
-      return privateJson({error: 'This upload session has expired.'}, {status: 410});
-    }
-
-    const categoryFiles = application.files.filter((entry) => entry.category === category);
-    if (category === 'medical' && categoryFiles.length >= 1) {
-      return privateJson({error: 'Only one diagnosis document is requested.'}, {status: 400});
-    }
-    if (category === 'photo' && categoryFiles.length >= MAX_DREAM_PHOTOS) {
-      return privateJson({error: `You can upload up to ${MAX_DREAM_PHOTOS} photographs.`}, {status: 400});
-    }
+    assertUploadSession(application, uploadToken);
+    assertCategoryCapacity(application, category);
 
     const buffer = Buffer.from(await file.arrayBuffer());
     const mimeType = detectMimeType(buffer);
@@ -98,7 +122,7 @@ export async function POST(request: Request): Promise<Response> {
     }
 
     const fileId = randomUUID();
-    storedKey = createDreamFileKey(application.id, fileId);
+    storedKey = createDreamFileKey(applicationId, fileId);
     await saveDreamFile(storedKey, buffer);
 
     const uploadedAt = new Date().toISOString();
@@ -112,10 +136,17 @@ export async function POST(request: Request): Promise<Response> {
       uploadedAt,
     };
 
-    application.files.push(fileRecord);
-    application.updatedAt = uploadedAt;
-    await saveDreamApplication(application);
+    const mutation = await mutateDreamApplication(applicationId, (current) => {
+      assertUploadSession(current, uploadToken);
+      assertCategoryCapacity(current, category);
+      current.files.push(fileRecord);
+      current.updatedAt = uploadedAt;
+    });
+    if (!mutation) {
+      throw new DreamUploadError('This upload session has expired.', 410);
+    }
 
+    storedKey = undefined;
     return privateJson(
       {
         file: {
@@ -139,9 +170,11 @@ export async function POST(request: Request): Promise<Response> {
     if (error instanceof DreamAuthorizationError) {
       return privateJson({error: error.message}, {status: error.status});
     }
+    if (error instanceof DreamUploadError) {
+      return privateJson({error: error.message}, {status: error.status});
+    }
 
     console.error('Unable to upload Dream Support file', error);
     return privateJson({error: 'The secure upload failed. Please try again.'}, {status: 503});
   }
 }
-
