@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img">
+  <title>Primary peritoneal cancer location</title>
+  <desc>Schematic abdomen with the peritoneal lining and several surface nodules highlighted.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#faf5ff"/>
+      <stop offset="1" stop-color="#fce7f3"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" rx="48" fill="url(#bg)"/>
+  <circle cx="600" cy="400" r="340" fill="#fff" opacity=".76"/>
+  <path d="M431 120c-64 117-89 250-86 414 2 95 48 164 124 205h262c76-41 122-110 124-205 3-164-22-297-86-414" fill="#fdf4ff" stroke="#7c3aed" stroke-width="10" stroke-linecap="round"/>
+  <path d="M439 191c-34 100-50 215-46 338 2 68 30 121 82 160h250c52-39 80-92 82-160 4-123-12-238-46-338" fill="none" stroke="#e11d48" stroke-width="24" stroke-linecap="round"/>
+  <path d="M471 287c52-51 150-43 174 13 18 42-15 78-64 85-54 8-130-32-110-98Z" fill="#fda4af" stroke="#be123c" stroke-width="8"/>
+  <path d="M684 289c54 8 91 47 77 88-12 35-55 56-92 38-35-17-45-80-18-111 9-10 20-16 33-15Z" fill="#fdba74" stroke="#c2410c" stroke-width="8"/>
+  <path d="M470 454c44-42 103-24 129 4 28-31 89-45 134-2 31 29 5 64-29 58-31-5-38-29-65-24-31 6-35 35-70 34-34-1-38-29-67-34-26-4-36 20-65 25-35 5-58-33-27-61Z" fill="none" stroke="#a78bfa" stroke-width="16" stroke-linecap="round"/>
+  <g fill="#be123c" stroke="#fff" stroke-width="7">
+    <circle cx="410" cy="363" r="17"/><circle cx="397" cy="475" r="22"/><circle cx="432" cy="603" r="16"/>
+    <circle cx="790" cy="345" r="17"/><circle cx="803" cy="468" r="21"/><circle cx="770" cy="607" r="16"/>
+  </g>
+</svg>

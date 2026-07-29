@@ -39,28 +39,30 @@ The anatomy and disease illustrations below come from the National Cancer Instit
 
 ## Dedicated sources for guides 36–53
 
-These assets are downloaded into `public/images/cancer-guides/`, converted to optimised WebP files and served locally. They are not hotlinked. The same registered asset is used consistently for each guide's directory card, hero and overview placement.
+These locally served assets combine optimised public-domain WebP files with original, language-neutral TCW medical schematics. They are not hotlinked. The same registered asset is used consistently for each guide's directory card, hero and overview placement.
 
 | Local asset | Used for | Source and licence |
 | --- | --- | --- |
-| `mesothelioma-pathology.webp` | Malignant mesothelioma | [Mesothelioma pathology](https://commons.wikimedia.org/wiki/File:Mesothelioma.PNG), released into the public domain by the author |
-| `neuroendocrine-pathology.webp` | Neuroendocrine tumours | [Mitosis in a neuroendocrine tumour](https://commons.wikimedia.org/wiki/File:Mitosis_in_a_neuroendocrine_tumor_(original).jpg), CC0 1.0 public-domain dedication |
-| `gist-pathology.webp` | Gastrointestinal stromal tumour | [GIST of stomach](https://commons.wikimedia.org/wiki/File:Gastrointestinal_Stromal_Tumor_(GIST)_of_Stomach.jpg), released into the public domain by the author |
+| `mesothelioma-pleura.svg` | Malignant mesothelioma | Original Tutti Cancer Warriors medical schematic; cross-checked against the [NCI mesothelioma overview](https://www.cancer.gov/types/mesothelioma/what-is-mesothelioma) |
+| `neuroendocrine-system.svg` | Neuroendocrine tumours | Original Tutti Cancer Warriors medical schematic; cross-checked against the [NCI neuroendocrine tumour definition](https://www.cancer.gov/publications/dictionaries/cancer-terms/def/neuroendocrine-tumor) |
+| `gist-gi-wall.svg` | Gastrointestinal stromal tumour | Original Tutti Cancer Warriors medical schematic; cross-checked against the [NCI GIST treatment overview](https://www.cancer.gov/types/soft-tissue-sarcoma/patient/gist-treatment-pdq) |
 | `appendix-anatomy.webp` | Appendix cancer | [Human appendix in the colon](https://commons.wikimedia.org/wiki/File:Anatomy-human-appendix-in-colon.png), CC0 1.0 public-domain dedication |
 | `adrenal-anatomy.webp` | Adrenocortical carcinoma | [Adrenal gland illustration](https://commons.wikimedia.org/wiki/File:Illu_adrenal_gland.jpg), U.S. National Cancer Institute public-domain work |
-| `peritoneum-anatomy.webp` | Primary peritoneal cancer | [Peritoneum anatomy, Gray's Anatomy plate 1037](https://commons.wikimedia.org/wiki/File:Gray1037.png), public domain |
+| `primary-peritoneal-lining.svg` | Primary peritoneal cancer | Original Tutti Cancer Warriors medical schematic; cross-checked against the [NCI primary peritoneal cancer definition](https://www.cancer.gov/publications/dictionaries/cancer-terms/def/primary-peritoneal-cancer) |
 | `fallopian-tube-anatomy.webp` | Fallopian tube cancer | [Uterus and nearby organs](https://commons.wikimedia.org/wiki/File:Uterus_and_nearby_organs.jpg), U.S. National Cancer Institute public-domain work |
-| `unknown-primary-metastasis.webp` | Cancer of unknown primary | [Metastasis illustration](https://commons.wikimedia.org/wiki/File:Metastasis_illustration.jpg), U.S. National Cancer Institute public-domain work |
-| `gestational-trophoblastic-anatomy.webp` | Gestational trophoblastic disease | [Placenta anatomy](https://commons.wikimedia.org/wiki/File:Placenta.svg), public-domain Gray's Anatomy material |
-| `mds-bone-marrow.webp` | Myelodysplastic syndromes | [Bone Marrow, NIH BioArt 56](https://commons.wikimedia.org/wiki/File:Bone_Marrow_(NIH_BioArt_56).svg), U.S. NIAID / NIH public-domain work |
-| `mpn-pathology.webp` | Myeloproliferative neoplasms | [Chronic myeloid leukaemia blood smear](https://commons.wikimedia.org/wiki/File:LMC-1.JPG), released into the public domain by the author |
-| `neuroblastoma-pathology.webp` | Neuroblastoma | [Neuroblastoma histology](https://commons.wikimedia.org/wiki/File:Neuroblastoma_(1).jpg), U.S. National Cancer Institute public-domain work |
-| `urethra-anatomy.webp` | Urethral cancer | [Urinary system illustration](https://commons.wikimedia.org/wiki/File:Illu_urinary_system.svg), U.S. National Cancer Institute / SEER public-domain work |
-| `renal-pelvis-ureter-anatomy.webp` | Renal pelvis and ureter cancer | [Kidney and adrenal gland](https://commons.wikimedia.org/wiki/File:Kidney_and_adrenal_gland.jpg), U.S. National Cancer Institute public-domain work |
+| `unknown-primary-metastasis.svg` | Cancer of unknown primary | Original Tutti Cancer Warriors medical schematic; cross-checked against the [NCI cancer of unknown primary overview](https://www.cancer.gov/types/unknown-primary/patient/unknown-primary-treatment-pdq) |
+| `gestational-trophoblastic-tissue.svg` | Gestational trophoblastic disease | Original Tutti Cancer Warriors medical schematic; cross-checked against the [NCI gestational trophoblastic disease overview](https://www.cancer.gov/types/gestational-trophoblastic/patient/gtd-treatment-pdq) |
+| `mds-bone-marrow-cells.svg` | Myelodysplastic syndromes | Original Tutti Cancer Warriors medical schematic; cross-checked against the [NCI myelodysplastic syndrome definition](https://www.cancer.gov/publications/dictionaries/cancer-terms/def/myelodysplastic-syndrome) |
+| `mpn-bone-marrow-overproduction.svg` | Myeloproliferative neoplasms | Original Tutti Cancer Warriors medical schematic; cross-checked against the [NCI myeloproliferative neoplasm definition](https://www.cancer.gov/publications/dictionaries/cancer-terms/def/myeloproliferative-neoplasm) |
+| `neuroblastoma-adrenal-nerves.svg` | Neuroblastoma | Original Tutti Cancer Warriors medical schematic; cross-checked against the [NCI neuroblastoma overview](https://www.cancer.gov/types/neuroblastoma/patient/neuroblastoma-screening-pdq) |
+| `urethral-anatomy.svg` | Urethral cancer | Original Tutti Cancer Warriors medical schematic; cross-checked against the [NCI urethral cancer overview](https://www.cancer.gov/types/urethral/patient/urethral-treatment-pdq) |
+| `renal-pelvis-ureter-highlight.svg` | Renal pelvis and ureter cancer | Original Tutti Cancer Warriors medical schematic; cross-checked against the [NCI transitional cell cancer overview](https://www.cancer.gov/types/kidney/patient/transitional-cell-treatment-pdq) |
 | `salivary-glands-anatomy.webp` | Salivary gland cancer | [Head-and-neck salivary-gland anatomy](https://commons.wikimedia.org/wiki/File:Illu_quiz_hn_Ohne_Text.JPG), U.S. National Cancer Institute public-domain work |
 | `nasal-sinus-anatomy.webp` | Nasal cavity and paranasal sinus cancer | [Nose and nasal cavities](https://commons.wikimedia.org/wiki/File:Nose_and_nasal_cavities.png), U.S. National Cancer Institute public-domain work |
 | `larynx-dedicated-anatomy.webp` | Laryngeal cancer | [Larynx and nearby structures](https://commons.wikimedia.org/wiki/File:Larynx_and_nearby_structures.jpg), U.S. National Cancer Institute public-domain work |
 | `parathyroid-anatomy.webp` | Parathyroid cancer | [Thyroid and parathyroid illustration](https://commons.wikimedia.org/wiki/File:Illu_thyroid_parathyroid.jpg), U.S. National Cancer Institute / SEER public-domain work |
+
+The original SVGs replace images that were too small, stretched, graphic, or misleading for a public-facing patient guide. They contain no embedded language, so the English, Romanian and Spanish versions stay visually consistent.
 
 ## Original project artwork
 

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img">
+  <title>Urethral cancer location</title>
+  <desc>Schematic urinary system with the urethra and a small area of abnormal tissue highlighted.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eff6ff"/>
+      <stop offset="1" stop-color="#f3e8ff"/>
+    </linearGradient>
+    <linearGradient id="urine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bfdbfe"/>
+      <stop offset="1" stop-color="#60a5fa"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" rx="48" fill="url(#bg)"/>
+  <circle cx="600" cy="400" r="340" fill="#fff" opacity=".78"/>
+  <g stroke-linejoin="round">
+    <path d="M392 178c-73 4-124 74-113 153 10 75 77 120 144 83 42-23 58-76 48-135-10-60-32-104-79-101Z" fill="#ddd6fe" stroke="#6d28d9" stroke-width="11"/>
+    <path d="M808 178c73 4 124 74 113 153-10 75-77 120-144 83-42-23-58-76-48-135 10-60 32-104 79-101Z" fill="#ddd6fe" stroke="#6d28d9" stroke-width="11"/>
+    <path d="M443 380c-10 104-18 172 55 218M757 380c10 104 18 172-55 218" fill="none" stroke="#7c3aed" stroke-width="22" stroke-linecap="round"/>
+    <path d="M491 550c25-51 65-75 109-75s84 24 109 75c30 62-8 135-109 135s-139-73-109-135Z" fill="url(#urine)" stroke="#2563eb" stroke-width="11"/>
+    <path d="M600 686v75" fill="none" stroke="#be123c" stroke-width="28" stroke-linecap="round"/>
+    <path d="M582 713c13-17 38-21 55-7 18 15 17 43 0 59-16 15-43 11-55-8-9-14-9-31 0-44Z" fill="#fb7185" stroke="#9f1239" stroke-width="8"/>
+    <circle cx="608" cy="731" r="10" fill="#fff" opacity=".7"/>
+  </g>
+</svg>

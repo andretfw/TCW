@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img">
+  <title>Renal pelvis and ureter cancer location</title>
+  <desc>Schematic kidney cross-section with the renal pelvis and ureter lining highlighted.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0fdfa"/>
+      <stop offset="1" stop-color="#f3e8ff"/>
+    </linearGradient>
+    <linearGradient id="kidney" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fda4af"/>
+      <stop offset="1" stop-color="#e11d48"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" rx="48" fill="url(#bg)"/>
+  <circle cx="600" cy="400" r="340" fill="#fff" opacity=".78"/>
+  <path d="M480 130c-150 14-250 145-232 298 18 156 149 257 284 188 91-47 130-150 103-266-26-113-62-230-155-220Z" fill="url(#kidney)" stroke="#9f1239" stroke-width="12"/>
+  <path d="M468 209c-80 15-137 95-125 187 11 89 78 148 151 121 45-17 67-72 52-130-14-58-26-134-78-178Z" fill="#fecdd3" opacity=".78"/>
+  <path d="M543 297c-46 21-65 69-47 112 13 29 41 46 69 49l-21 79c-8 28 10 57 40 62 26 4 51-13 57-39l20-92c12-55-3-112-41-153-22-24-51-31-77-18Z" fill="#fde68a" stroke="#b45309" stroke-width="10"/>
+  <path d="M623 458c50 84 83 159 80 257" fill="none" stroke="#7c3aed" stroke-width="32" stroke-linecap="round"/>
+  <path d="M623 458c50 84 83 159 80 257" fill="none" stroke="#f5d0fe" stroke-width="12" stroke-linecap="round"/>
+  <path d="M548 352c21-27 59-26 79-2 20 24 13 62-13 80-27 18-67 5-77-25-6-18-2-38 11-53Z" fill="#be123c" stroke="#fff" stroke-width="9"/>
+  <path d="M671 548c19-17 49-13 62 9 13 23 1 53-25 60-25 7-51-11-53-37-1-12 5-24 16-32Z" fill="#be123c" stroke="#fff" stroke-width="9"/>
+  <path d="M705 714c63 0 113 35 113 79H592c0-44 50-79 113-79Z" fill="#bfdbfe" stroke="#2563eb" stroke-width="10"/>
+</svg>
