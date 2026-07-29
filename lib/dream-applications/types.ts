@@ -37,6 +37,14 @@ export const DREAM_BOARD_DECISIONS = ['approve', 'reject'] as const;
 
 export type DreamBoardDecision = (typeof DREAM_BOARD_DECISIONS)[number];
 
+export const DREAM_APPLICANT_EMAIL_KINDS = [
+  'more_info_requested',
+  'approved',
+  'declined',
+] as const;
+
+export type DreamApplicantEmailKind = (typeof DREAM_APPLICANT_EMAIL_KINDS)[number];
+
 export interface DreamApplicationInput {
   locale: 'en' | 'ro' | 'es';
   fullName: string;
@@ -99,6 +107,18 @@ export interface DreamBoardVote {
   updatedAt: string;
 }
 
+export interface DreamApplicantEmailDelivery {
+  id: string;
+  kind: DreamApplicantEmailKind;
+  subject: string;
+  body: string;
+  informationRequest?: string;
+  requestedBy: string;
+  attemptedAt: string;
+  sentAt?: string;
+  error?: string;
+}
+
 export interface DreamApplicationEvent {
   id: string;
   type: 'submitted' | 'status_changed' | 'note_added' | 'board_vote_cast';
@@ -129,6 +149,8 @@ export interface DreamApplicationRecord extends DreamApplicationInput {
   boardReminderSentAt?: Record<string, string>;
   /** Short-lived delivery claims prevent overlapping reminder jobs from duplicating mail. */
   boardReminderClaimedAt?: Record<string, string>;
+  /** Applicant decision and information-request email attempts, retained in encrypted storage. */
+  applicantEmailDeliveries?: DreamApplicantEmailDelivery[];
   history: DreamApplicationEvent[];
   consentVersion: 'dream-application-v1';
   grantPolicyVersion: '3.1';
