@@ -81,7 +81,7 @@ export default function DreamBoardReviewEmailEnhancer() {
   const listenersRef = useRef<{
     remember: () => void;
     change: (event: Event) => void;
-  }>();
+  } | undefined>(undefined);
 
   const closePreview = useCallback(() => {
     if (sending) return;
