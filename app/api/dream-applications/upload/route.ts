@@ -21,6 +21,18 @@ import {
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+const SUSPICIOUS_PDF_TOKENS = [
+  '/JavaScript',
+  '/JS',
+  '/Launch',
+  '/EmbeddedFile',
+  '/OpenAction',
+  '/AA',
+  '/RichMedia',
+  '/AcroForm',
+  '/XFA',
+] as const;
+
 class DreamUploadError extends Error {
   constructor(
     message: string,
@@ -46,6 +58,11 @@ function detectMimeType(value: Buffer): DreamApplicationFile['mimeType'] | null 
     return 'image/png';
   }
   return null;
+}
+
+function containsActivePdfContent(value: Buffer): boolean {
+  const source = value.toString('latin1');
+  return SUSPICIOUS_PDF_TOKENS.some((token) => source.includes(token));
 }
 
 function cleanFilename(value: string): string {
@@ -117,6 +134,12 @@ export async function POST(request: Request): Promise<Response> {
     if (!mimeType || (category === 'photo' && mimeType === 'application/pdf')) {
       return privateJson(
         {error: category === 'photo' ? 'Photographs must be JPG or PNG.' : 'Use a PDF, JPG or PNG file.'},
+        {status: 415},
+      );
+    }
+    if (mimeType === 'application/pdf' && containsActivePdfContent(buffer)) {
+      return privateJson(
+        {error: 'For security, interactive PDFs, embedded attachments and PDFs containing scripts are not accepted. Please upload a flattened PDF, JPG or PNG.'},
         {status: 415},
       );
     }
