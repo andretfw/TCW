@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img">
+  <title>Neuroendocrine cells across the body</title>
+  <desc>Schematic body showing neuroendocrine sites in the lungs, digestive tract and pancreas connected with nervous and hormonal signals.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#faf5ff"/>
+      <stop offset="1" stop-color="#e0e7ff"/>
+    </linearGradient>
+    <radialGradient id="signal">
+      <stop offset="0" stop-color="#fb7185"/>
+      <stop offset="1" stop-color="#be123c"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" rx="48" fill="url(#bg)"/>
+  <circle cx="600" cy="400" r="340" fill="#fff" opacity=".76"/>
+  <path d="M600 120c-62 0-104 44-104 101 0 38 20 69 51 86l-22 62c-22 62-45 128-54 215l-22 133h302l-22-133c-9-87-32-153-54-215l-22-62c31-17 51-48 51-86 0-57-42-101-104-101Z" fill="#f5f3ff" stroke="#7c3aed" stroke-width="10"/>
+  <path d="M565 181c19-31 69-29 84 4 16 34-10 63-47 62-37-1-57-32-37-66Z" fill="#c4b5fd" stroke="#6d28d9" stroke-width="7"/>
+  <path d="M598 249v360" fill="none" stroke="#8b5cf6" stroke-width="14" stroke-linecap="round" stroke-dasharray="4 23"/>
+  <path d="M573 342c-68-45-119 9-107 83 8 50 43 73 83 49 32-20 38-75 24-132Zm54 0c68-45 119 9 107 83-8 50-43 73-83 49-32-20-38-75-24-132Z" fill="#ddd6fe" stroke="#7c3aed" stroke-width="8"/>
+  <path d="M536 516c42-45 113-36 134 12 23 51-31 70-79 58-38-10-81-42-55-70Z" fill="#fda4af" stroke="#be123c" stroke-width="8"/>
+  <path d="M515 617c37-42 130-49 177-1 30 31 4 69-35 63-26-4-31-31-57-29-28 3-34 36-66 29-36-8-43-35-19-62Z" fill="none" stroke="#a78bfa" stroke-width="17" stroke-linecap="round"/>
+  <g fill="url(#signal)" stroke="#fff" stroke-width="6">
+    <circle cx="492" cy="401" r="18"/>
+    <circle cx="711" cy="413" r="18"/>
+    <circle cx="636" cy="545" r="21"/>
+    <circle cx="544" cy="641" r="18"/>
+    <circle cx="661" cy="650" r="18"/>
+  </g>
+  <g fill="#7c3aed">
+    <circle cx="421" cy="233" r="10"/><circle cx="390" cy="276" r="8"/><circle cx="779" cy="236" r="10"/><circle cx="812" cy="282" r="8"/>
+  </g>
+  <path d="M431 239c60 18 77 64 103 109M769 242c-59 18-77 63-104 106" fill="none" stroke="#7c3aed" stroke-width="7" stroke-dasharray="10 12"/>
+</svg>
