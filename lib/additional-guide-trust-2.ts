@@ -11,9 +11,9 @@ type Copy = {
 type Definition = {urls: string[]; copy: Record<SiteLocale, Copy>};
 
 const UI = {
-  en: {heading: 'Sources and medical information', sourcesHeading: 'Official sources', checkedLabel: 'Sources checked', checkedDate: '28 July 2026', statsTitle: 'Key Facts'},
-  ro: {heading: 'Surse și informații medicale', sourcesHeading: 'Surse oficiale', checkedLabel: 'Surse verificate la data de', checkedDate: '28 iulie 2026', statsTitle: 'Date-cheie'},
-  es: {heading: 'Fuentes e información médica', sourcesHeading: 'Fuentes oficiales', checkedLabel: 'Fuentes verificadas el', checkedDate: '28 de julio de 2026', statsTitle: 'Datos clave'},
+  en: {heading: 'Sources and medical information', sourcesHeading: 'Official sources', checkedLabel: 'Sources checked', checkedDate: '29 July 2026', statsTitle: 'Key Facts'},
+  ro: {heading: 'Surse și informații medicale', sourcesHeading: 'Surse oficiale', checkedLabel: 'Surse verificate la data de', checkedDate: '29 iulie 2026', statsTitle: 'Date-cheie'},
+  es: {heading: 'Fuentes e información médica', sourcesHeading: 'Fuentes oficiales', checkedLabel: 'Fuentes verificadas el', checkedDate: '29 de julio de 2026', statsTitle: 'Datos clave'},
 } as const;
 
 const DEFINITIONS: Record<Batch2CancerGuideId, Definition> = {
