@@ -1,13 +1,14 @@
 import { randomUUID } from 'node:crypto';
 
 import { uploadTokensMatch } from '@/lib/dream-applications/crypto';
+import {
+  deleteGoogleDriveFile,
+  uploadDreamFileToGoogleDrive,
+} from '@/lib/dream-applications/google-drive';
 import { assertSameOrigin, DreamAuthorizationError, privateJson } from '@/lib/dream-applications/security';
 import {
-  createDreamFileKey,
-  deleteDreamFile,
   getDreamApplication,
   mutateDreamApplication,
-  saveDreamFile,
 } from '@/lib/dream-applications/store';
 import {
   DREAM_FILE_CATEGORIES,
@@ -102,7 +103,7 @@ function assertCategoryCapacity(
 }
 
 export async function POST(request: Request): Promise<Response> {
-  let storedKey: string | undefined;
+  let uploadedDriveFileId: string | undefined;
 
   try {
     assertSameOrigin(request);
@@ -145,8 +146,14 @@ export async function POST(request: Request): Promise<Response> {
     }
 
     const fileId = randomUUID();
-    storedKey = createDreamFileKey(applicationId, fileId);
-    await saveDreamFile(storedKey, buffer);
+    const uploaded = await uploadDreamFileToGoogleDrive({
+      buffer,
+      applicationReference: application.reference,
+      fileId,
+      category,
+      mimeType,
+    });
+    uploadedDriveFileId = uploaded.driveFileId;
 
     const uploadedAt = new Date().toISOString();
     const fileRecord: DreamApplicationFile = {
@@ -155,7 +162,8 @@ export async function POST(request: Request): Promise<Response> {
       originalName: cleanFilename(file.name),
       mimeType,
       size: file.size,
-      storageKey: storedKey,
+      provider: 'google-drive',
+      driveFileId: uploaded.driveFileId,
       uploadedAt,
     };
 
@@ -169,7 +177,7 @@ export async function POST(request: Request): Promise<Response> {
       throw new DreamUploadError('This upload session has expired.', 410);
     }
 
-    storedKey = undefined;
+    uploadedDriveFileId = undefined;
     return privateJson(
       {
         file: {
@@ -183,11 +191,11 @@ export async function POST(request: Request): Promise<Response> {
       {status: 201},
     );
   } catch (error) {
-    if (storedKey) {
+    if (uploadedDriveFileId) {
       try {
-        await deleteDreamFile(storedKey);
+        await deleteGoogleDriveFile(uploadedDriveFileId);
       } catch (cleanupError) {
-        console.error('Unable to clean up incomplete Dream file', cleanupError);
+        console.error('Unable to clean up incomplete Google Drive upload', cleanupError);
       }
     }
     if (error instanceof DreamAuthorizationError) {
