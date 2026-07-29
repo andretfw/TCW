@@ -29,19 +29,6 @@
     "kidneyCancer": "Ziua Mondială a Cancerului Renal",
     "pilates": "Eveniment de Pilates"
   },
-  "cookies": {
-    "title": "O prăjitură pentru a continua? 🍪",
-    "description": "Folosim cookie-uri pentru a vă face experiența la fel de puternică ca a unui războinic. Ajutați-ne să ne îmbunătățim acceptând politica noastră.",
-    "reject": "Refuză tot",
-    "cancel": "Anulare",
-    "settings": "Personalizare",
-    "accept": "Acceptă tot",
-    "save": "Salvează selecția",
-    "essential": "Esențiale (Întotdeauna active)",
-    "analytics": "Analize și rapoarte",
-    "marketing": "Marketing și Social Media",
-    "cookies_policy": "Politica de Cookie-uri"
-  },
   "warriorsPage": {
     "title": "Redăm Speranța,",
     "titleHighlight": "Un Vis pe Rând",
@@ -2012,249 +1999,6 @@
     "ctaText": "Bunăstarea ta emoțională contează. Contactează echipa noastră de sprijin oricând."
   },
   "calendar": {
-    "title": "Calendar de Conștientizare a Cancerului",
-    "subtitle": "Fiecare lună este dedicată conștientizării despre diferite tipuri de cancer. Alătură-te nouă în luptă.",
-    "january": "Ianuarie",
-    "cervical": "Cancer Cervical",
-    "february": "Februarie",
-    "gallbladder": "Cancer Biliar",
-    "march": "Martie",
-    "colorectal": "Cancer Colorectal",
-    "kidney": "Cancer Renal",
-    "april": "Aprilie",
-    "testicular": "Cancer Testicular",
-    "may": "Mai",
-    "skin": "Cancer de Piele",
-    "brain": "Tumoare Cerebrală",
-    "june": "Iunie",
-    "mensHealth": "Sănătatea Bărbaților",
-    "july": "Iulie",
-    "sarcoma": "Sarcom",
-    "august": "August",
-    "bone": "Cancer Osos",
-    "september": "Septembrie",
-    "thyroid": "Cancer Tiroidian",
-    "ovarian": "Cancer Ovarian",
-    "october": "Octombrie",
-    "breast": "Cancer de Sân",
-    "liver": "Cancer Hepatic",
-    "november": "Noiembrie",
-    "lung": "Cancer Pulmonar",
-    "pancreatic": "Cancer Pancreatic",
-    "december": "Decembrie",
-    "bladder": "Cancer de Vezică"
-  },
-  "getInvolved": {
-    "title": "Implică-te",
-    "subtitle": "Există multe modalități de a face diferența. Găsește-o pe cea care ți se potrivește cel mai bine.",
-    "donateTitle": "Donează",
-    "donateDesc": "Contribuția ta financiară ajută la împlinirea viselor și oferirea de sprijin esențial luptătorilor.",
-    "volunteerTitle": "Voluntariat",
-    "volunteerDesc": "Donează timpul și abilitățile tale pentru a sprijini direct comunitatea noastră de luptători.",
-    "peerTitle": "Sprijin între Colegi",
-    "peerDesc": "Conectează-te cu luptători și supraviețuitori pentru a împărtăși experiențe și a oferi sprijin reciproc.",
-    "dreamTitle": "Sprijină un Vis",
-    "dreamDesc": "Ajută să devină realitate visele luptătorilor sponsorizând experiențe specifice.",
-    "learnMore": "Află mai mult",
-    "impactTitle": "Impactul Nostru",
-    "warriorsHelped": "Luptători Ajutați",
-    "dreamsFulfilled": "Vise Împlinite",
-    "activeVolunteers": "Voluntari Activi",
-    "fundraiseTitle": "Începe propria strângere de fonduri",
-    "fundraiseDesc": "Sprijină războinicii împotriva cancerului inițiind propria campanie de strângere de fonduri prin Better Giving.",
-    "taxTitle": "Redirecționează 3.5% din impozit",
-    "taxDesc": "Dacă plătești impozite în România, poți redirecționa 3.5% din impozitul pe venit către Tutti Cancer Warriors fără niciun cost suplimentar."
-  },
-  "volunteer": {
-    "title": "Voluntariat cu TCW",
-    "subtitle": "Alătură-te echipei noastre de voluntari dedicați și fă o diferență reală în viețile luptătorilor.",
-    "rolesTitle": "Roluri de Voluntariat",
-    "role1": "Sprijin Emoțional",
-    "role1Desc": "Oferă companie și ascultare luptătorilor care au nevoie să vorbească.",
-    "role2": "Organizare Evenimente",
-    "role2Desc": "Ajută la planificarea și executarea evenimentelor de strângere de fonduri și conștientizare.",
-    "role3": "Suport Administrativ",
-    "role3Desc": "Asistă cu sarcini administrative, comunicații și gestionarea datelor.",
-    "benefitsTitle": "Beneficiile Voluntariatului",
-    "benefit1": "Fă o diferență tangibilă în viețile oamenilor",
-    "benefit2": "Dezvoltă abilități și experiență noi",
-    "benefit3": "Cunoaște oameni inspiratori și fă parte dintr-o comunitate",
-    "benefit4": "Flexibilitate pentru a se potrivi voluntariatului în programul tău",
-    "ctaTitle": "Pregătit să Începi?",
-    "ctaText": "Trimite-ne un email și te vom contacta cu mai multe informații despre cum să te alături echipei noastre.",
-    "ctaButton": "Contactează Voluntariatul"
-  },
-  "peerSupport": {
-    "title": "Program de Sprijin între Colegi",
-    "subtitle": "Conectează-te cu supraviețuitori și luptători care înțeleg prin ce treci.",
-    "featuresTitle": "Caracteristicile Programului",
-    "feature1": "Conexiune Personalizată",
-    "feature1Desc": "Te potrivim cu cineva care a avut experiențe similare cu cancerul.",
-    "feature2": "Confidențial și Sigur",
-    "feature2Desc": "Toate conversațiile sunt private și într-un mediu de susținere.",
-    "feature3": "Flexibil",
-    "feature3Desc": "Vorbește prin telefon, apel video sau personal în funcție de preferințele tale.",
-    "howItWorksTitle": "Cum Funcționează",
-    "step1": "Înregistrează-te",
-    "step1Desc": "Completează un formular scurt despre diagnosticul și preferințele tale de sprijin.",
-    "step2": "Potrivire",
-    "step2Desc": "Echipa noastră te conectează cu un suporter coleg potrivit.",
-    "step3": "Conectează-te",
-    "step3Desc": "Începe să vorbești cu suporterul tău coleg când te simți confortabil.",
-    "ctaTitle": "Interesat de Program?",
-    "ctaText": "Contactează-ne pentru a te înregistra sau pentru a afla mai multe despre cum să devii suporter coleg.",
-    "ctaButton": "Contactează Programul"
-  },
-  "footer": {
-    "description": "Împreună împotriva cancerului. Împlinim vise și oferim speranță luptătorilor care se luptă în fiecare zi.",
-    "copyright": "Tutti Cancer Warriors. Toate drepturile rezervate.",
-    "verified": "Verificat și Membru al",
-    "quickLinks": "Link-uri Rapide",
-    "contact": "Contact",
-    "address": "București, România",
-    "partnersTitle": "Sponsorii și Partenerii Noștri",
-    "supportTitle": "Susține-ne",
-    "recentAwards": "Premii Recente",
-    "supportText": "Donația ta ne ajută să îndeplinim visuri și să sprijinim luptătorii zilnic.",
-    "privacy": "Politică de Confidențialitate",
-    "terms": "Termeni și Condiții",
-    "peerPolicy": "Politica de Sprijin",
-    "financials": "Rapoarte Financiare"
-  },
-  "connectSurvivor": {
-    "title": "Conectează-te cu un Supraviețuitor",
-    "subtitle": "A vorbi cu cineva care a fost în locul tău poate schimba totul.",
-    "step1Title": "Înregistrează-te",
-    "step1Desc": "Spune-ne puțin despre tine și diagnosticul tău.",
-    "step2Title": "Găsește perechea",
-    "step2Desc": "Te conectăm cu cineva cu o experiență similară.",
-    "step3Title": "Conectează-te",
-    "step3Desc": "Începe o conversație sigură și de susținere."
-  },
-  "dreamApp": {
-    "title": "Aplică pentru un Vis",
-    "subtitle": "Suntem aici să îndeplinim acea dorință specială.",
-    "formTitle": "Formular de Aplicare",
-    "formIntro": "Te rugăm să verifici cerințele înainte de a aplica.",
-    "eligibilityTitle": "Cerințe",
-    "eligibility1": "Diagnostic activ de cancer sau în tratament.",
-    "eligibility2": "Rezident în țara de operare.",
-    "eligibility3": "Formular medical semnat.",
-    "applyButton": "Aplică Acum"
-  },
-  "shareJourney": {
-    "title": "Împărtășește Călătoria Ta",
-    "subtitle": "Vocea ta poate inspira și oferi speranță altora.",
-    "whyShareTitle": "De ce să împărtășești?",
-    "whyShareText": "Împărtășind călătoria ta, ajuți la ruperea stigmei și construiești comunitate.",
-    "benefit1Title": "Inspiră",
-    "benefit1Text": "Reziliența ta motivează alți luptători.",
-    "benefit2Title": "Vindecă",
-    "benefit2Text": "Exprimarea este parte din vindecare.",
-    "ctaTitle": "Gata să îți spui povestea?",
-    "ctaButton": "Trimite Povestea"
-  },
-  "moodBoost": {
-    "title": "Impuls de Stare pentru Luptători",
-    "subtitle": "Cum te simți astăzi?",
-    "intro": "Alege cum te simți astăzi. Fă clic pe o stare de mai jos pentru a dezvălui mesajul tău de sprijin, un sfat blând și cuvinte de la un coleg luptător — toate preluate din cartea “One Mission: Thrive”.",
-    "bookLinkText": "Vezi cartea aici",
-    "bookFooter": "Toate citatele luptătorilor sunt din cartea noastră “One Mission: Thrive” — scrisă cu și de supraviețuitori pentru luptători ca tine.",
-    "triedButton": "Am încercat acest sfat",
-    "triedSuccess": "Bravo!",
-    "moods": {
-      "anxious": {
-        "label": "Te simți anxios?",
-        "support": "A te simți anxios este valid. Hai să luăm o pauză împreună și să respirăm. Ai supraviețuit deja la atât de multe.",
-        "tip": "Oprește-te și respiră adânc. Inspiră 4, ține 4, expiră 6.",
-        "quote": "“Ești mai puternic decât crezi. Ia-o zi cu zi.”"
-      },
-      "sad": {
-        "label": "Te simți trist?",
-        "support": "Tristețea este parte din vindecare. Oferă-ți spațiu să simți fără vinovăție.",
-        "tip": "Dacă poți, pune un cântec care te liniștește. Sau stai cu sentimentul fără a judeca.",
-        "quote": "“Este în regulă să fii trist și furios din cauza diagnosticului, doar nu rămâne acolo. VA fi mai bine.”"
-      },
-      "overwhelmed": {
-        "label": "Te simți copleșit?",
-        "support": "Copleșirea se întâmplă. Concentrează-te pe un lucru mic pe care îl poți controla chiar acum.",
-        "tip": "Numește trei lucruri mici pe care le poți controla acum.",
-        "quote": "“O zi pe rând. Un pas în fața celuilalt.”"
-      },
-      "tired": {
-        "label": "Te simți obosit?",
-        "support": "Odihna nu înseamnă a renunța. Este o parte crucială a recuperării.",
-        "tip": "Lasă-ți corpul să facă o pauză. Chiar și 5 minute contează.",
-        "quote": "“Odihnește-te când ai nevoie. Luptă când poți.”"
-      },
-      "angry": {
-        "label": "Te simți furios?",
-        "support": "Furia ta este reală și justificată. Hai să o canalizăm în siguranță astăzi.",
-        "tip": "Dacă e posibil, elibereaz-o sigur: scutură-ți mâinile, scrie sau mergi la o plimbare.",
-        "quote": "“Durerea de astăzi dă un nou sens fericirii de mâine.”"
-      },
-      "lonely": {
-        "label": "Te simți singur?",
-        "support": "Singurătatea poate părea grea, dar ești parte dintr-o comunitate de luptători care te vede.",
-        "tip": "Trimite un mesaj sau uită-te la o poză preferată.",
-        "quote": "“Cancerul este înfricoșător, dar suntem toți împreună în această luptă. Nimeni nu luptă singur.”"
-      },
-      "hopeful": {
-        "label": "Te simți plin de speranță?",
-        "support": "Speranța trăiește în momente mici. Hai să o hrănim împreună azi.",
-        "tip": "Scrie un lucru pe care îl aștepți cu nerăbdare.",
-        "quote": "“Nu poți controla ce se întâmplă în viață, dar poți controla cum gestionezi situația.”"
-      },
-      "scared": {
-        "label": "Te simți speriat?",
-        "support": "Frica arată cât de mult îți pasă de viață. Hai să o înfruntăm o respirație pe rând.",
-        "tip": "Stai cu frica, numește-o și respiră prin ea. Spune-i cuiva de încredere.",
-        "quote": "“Fie-ți frică și fă-o oricum. Creșterea trăiește de cealaltă parte.”"
-      },
-      "numb": {
-        "label": "Te simți amorțit?",
-        "support": "Senzația de amorțeală este un răspuns natural. Emoțiile tale vor reveni când vor fi pregătite.",
-        "tip": "Încearcă să observi o senzație fizică: temperatura mâinilor, hainele.",
-        "quote": "“Este în regulă să iei o pauză. Dar nu renunța.”"
-      },
-      "guilty": {
-        "label": "Te simți vinovat?",
-        "support": "Nu trebuie să porți vinovăția. Nimic din toate astea nu e vina ta.",
-        "tip": "Scrie o propoziție de bunătate față de tine, chiar dacă pare ciudat.",
-        "quote": "“Nu ești stricat sau defect, doar ai fost rearanjat pentru mai bine.”"
-      },
-      "grateful": {
-        "label": "Te simți recunoscător?",
-        "support": "Recunoștința nu șterge durerea, dar o poate atenua pentru un moment.",
-        "tip": "Gândește-te la un lucru mic sau o persoană pentru care ești recunoscător azi.",
-        "quote": "“Această viață poate fi delicată... dar Dumnezeu țese o poveste frumoasă care este viața ta.”"
-      },
-      "motivated": {
-        "label": "Te simți motivat?",
-        "support": "Hai să folosim această scânteie. O acțiune mică azi este o victorie mare.",
-        "tip": "Alege o sarcină minusculă azi care te face să te simți în control.",
-        "quote": "“Nu uita niciodată cât ești de curajos. Mintea este puternică.”"
-      }
-    }
-  },
-  "legal": {
-    "terms": {
-      "title": "Politica de Granturi Tutti Cancer Warriors",
-      "lastUpdated": "Data intrării în vigoare: 3 Februarie 2025 | Versiunea politicii: 1.0",
-      "content": "<h3>Declarație de Misiune</h3><p>Tutti Cancer Warriors (TCW), o organizație nonprofit înființată și înregistrată în România, este dedicată aducerii speranței și vindecării luptătorilor împotriva cancerului din întreaga lume. Prin programul nostru de granturi de 500€, sprijinim bunăstarea emoțională și mentală a luptătorilor împotriva cancerului, ajutând la îndeplinirea unei dorințe personale care ajută în călătoria lor de vindecare. Acțiunile noastre se aliniază atât cu misiunea noastră caritabilă, cât și cu legea română.</p><h3>Scopul Grantului</h3><p>Grantul TCW oferă 500€ luptătorilor împotriva cancerului pentru o dorință personală (de exemplu, o experiență semnificativă, un obiect sau o activitate) care hrănește vindecarea emoțională sau mentală. Acest grant nu acoperă cheltuielile medicale.</p><h3>Țări Eligibile</h3><p>Granturile sunt disponibile pentru rezidenții din următoarele țări:</p><ul><li><strong>State Membre ale Uniunii Europene:</strong> Austria, Belgia, Bulgaria, Croația, Cipru, Republica Cehă, Danemarca, Estonia, Finlanda, Franța, Germania, Grecia, Ungaria, Irlanda, Italia, Letonia, Lituania, Luxemburg, Malta, Olanda, Polonia, Portugalia, România, Slovacia, Slovenia, Spania, Suedia.</li><li><strong>Țări din Spațiul Economic European:</strong> Elveția, Norvegia, Islanda.</li><li><strong>Alte Țări:</strong> Regatul Unit, Statele Unite, Canada, Australia, Noua Zeelandă, Japonia, Coreea de Sud, Singapore.</li><li><strong>Excluderi:</strong> Țări aflate sub sancțiuni UE sau internaționale (de exemplu, Rusia, Coreea de Nord). Eligibilitatea este supusă reglementărilor românești privind donațiile transfrontaliere și poate fi ajustată pe baza actualizărilor legale sau a sancțiunilor.</li></ul><h3>Criterii de Eligibilitate</h3><p>Pentru a se califica, solicitanții trebuie:</p><ul><li>Să fie un luptător împotriva cancerului (în prezent în tratament sau în remisie de până la 5 ani) și să aibă cel puțin 18 ani la momentul aplicării.</li><li>Să locuiască într-o țară eligibilă.</li><li>Să trimită o cerere care detaliază diagnosticul de cancer și o dorință personală care susține bunăstarea lor emoțională sau mentală.</li><li>Să fie de acord să furnizeze dovada utilizării fondurilor (de exemplu, chitanțe, fotografii) în termen de 9 luni de la primirea grantului.</li><li>Să furnizeze dovezi ale stării lor de cancer (de exemplu, notă medicală, trimitere de la grupul de sprijin) dacă li se solicită de către TCW în scopuri de verificare sau audit.</li></ul><h3>Procesul de Aplicare și Grant</h3><p><strong>Trimiterea Cererii:</strong> Solicitanții își trimit cererea prin formularul Google, incluzând: Nume, vârstă, țară și diagnostic de cancer (tip și stare); O explicație de 200-300 de cuvinte a dorinței lor și a beneficiului său de vindecare; Dovezi justificative (de exemplu, notă medicală, trimitere etc.).</p><p><strong>Revizuire și Aprobare:</strong> TCW revizuiește cererile în termen de 6 săptămâni, evaluând eligibilitatea și alinierea cu scopul grantului. Dacă este necesar, TCW poate solicita dovezi suplimentare ale stării cancerului în această etapă. Dacă este aprobat, solicitantul va primi o confirmare și un acord de grant pentru a semna.</p><p><strong>Strângerea de Fonduri și Plata:</strong> TCW strânge 500€ per beneficiar prin donații generale sau campanii publice (cu consimțământul beneficiarului de a-și împărtăși povestea). Fondurile sunt transferate prin transfer bancar în termen de 30 de zile de la atingerea țintei de 500€, în conformitate cu legile financiare românești. Beneficiarii trebuie să prezinte dovada utilizării în termen de 9 luni de la primirea grantului (extensii disponibile din motive medicale).</p><h3>Termeni și Condiții</h3><ul><li><strong>Utilizarea Fondurilor:</strong> Cei 500€ trebuie cheltuiți pentru dorința aprobată. Utilizarea greșită poate duce la cereri de rambursare, care vor fi revizuite de TCW.</li><li><strong>Publicitate:</strong> Beneficiarii aleg să-și împărtășească povestea, numele sau fotografiile în scopuri de strângere de fonduri TCW. Anonimatul este disponibil la cerere. TCW va solicita opinia beneficiarului cu privire la orice materiale publicitare.</li><li><strong>Responsabilitate Fiscală:</strong> Beneficiarii sunt singurii responsabili pentru raportarea grantului la autoritățile lor fiscale locale și plata oricăror taxe aplicabile. TCW nu oferă sfaturi fiscale sau deduceri din grant.</li><li><strong>Netransferabil:</strong> Grantul este doar pentru beneficiarul numit. Dacă nu este utilizat (de exemplu, din cauza decesului), fondurile se vor întoarce la TCW pentru un alt luptător.</li><li><strong>Costuri Administrative:</strong> TCW acoperă cheltuielile operaționale separat, astfel încât toți cei 500€ vor merge direct la beneficiar.</li></ul><h3>Conformitatea cu Legea Română</h3><p><strong>Baza Legală:</strong> TCW este înființată ca organizație nonprofit conform <strong>Ordonanței Guvernului nr. 26/2000</strong>, asigurând că toate granturile se aliniază cu scopul său nepatrimonial de a sprijini luptătorii împotriva cancerului, în conformitate cu Statutul organizației.</p><p><strong>Responsabilitate Financiară:</strong> Fondurile sunt urmărite conform <strong>Legii nr. 82/1991</strong> (legea contabilității românești) și <strong>Legii nr. 227/2015</strong> (Codul Fiscal), cu înregistrări ale cererilor, acordurilor și dovezilor păstrate timp de 5 ani pentru audituri de către Ministerul Justiției sau autoritățile fiscale.</p><h3>Procesul de Verificare</h3><p>Eligibilitatea necesită dovada unui diagnostic de cancer, cum ar fi o notă a medicului, raport de patologie sau document de tratament (de exemplu, factură sau rețetă) cu numele dvs. Dacă înregistrările sunt greu de obținut, funcționează și o declarație semnată de la un furnizor de asistență medicală sau asistent social. Este necesară dovada în avans pentru a asigura că fiecare grant merge la un luptător real împotriva cancerului și îndeplinește standardele de audit. Toate documentele sunt păstrate confidențiale.</p><p><strong>Protecția Datelor:</strong> TCW prelucrează datele personale în conformitate cu <strong>GDPR UE</strong> (Regulamentul 2016/679). Solicitanții își dau consimțământul pentru utilizarea datelor lor pentru procesarea granturilor și potențiale audituri. Toate datele personale vor fi stocate în siguranță și șterse după 5 ani, în conformitate cu regulile de păstrare fiscală din România.</p><p><strong>Reguli Transfrontaliere:</strong> TCW respectă reglementările UE pentru transferurile de fonduri și evită țările aflate sub sancțiuni, conform legii române și internaționale.</p><h3>Soluționarea Disputelor</h3><p><strong>Mediere:</strong> Disputele vor fi soluționate mai întâi prin mediere, fie în România, fie virtual pentru beneficiarii internaționali.</p><p><strong>Jurisdicție:</strong> Orice dispute nerezolvate vor fi guvernate de legea română. Procedurile legale vor avea loc în instanțele din București, așa cum este stipulat în legea de procedură civilă română, cu excepția cazului în care se specifică altfel în acordul de grant sau este cerut de legea aplicabilă.</p><h3>Încetarea Grantului</h3><p>TCW poate înceta un grant pentru utilizare greșită sau nefurnizarea dovezii de utilizare, după notificarea beneficiarului și încercarea medierii. Rambursarea poate fi solicitată, deși se poate renunța la aceasta pentru dificultăți (de exemplu, boală gravă).</p><p><strong>Neeligibilitate pentru Granturi Viitoare:</strong> Dacă un grant este încetat, beneficiarul poate fi neeligibil pentru granturi viitoare timp de 2 ani, sub rezerva revizuirii.</p><h3>Forță Majoră</h3><p>TCW nu este răspunzătoare pentru întârzierile cauzate de evenimente incontrolabile (de exemplu, dezastre naturale, acțiuni guvernamentale). Beneficiarii afectați de astfel de evenimente (de exemplu, întreruperi ale tratamentului) pot primi prelungiri ale termenelor limită.</p>"
-    },
-    "privacy": {
-      "title": "Politica de Confidențialitate și Protecția Datelor",
-      "lastUpdated": "Data intrării în vigoare: 07.02.2025",
-      "content": "<h3>1. Introducere</h3><p>La Tutti Cancer Warriors („noi”, „ne”, „nostru”), ne angajăm să vă protejăm confidențialitatea și să ne asigurăm că datele dvs. personale sunt tratate într-un mod sigur și responsabil. Această Politică de Confidențialitate și Protecția Datelor („Politica”) explică modul în care colectăm, utilizăm, dezvăluim și protejăm informațiile dvs. personale atunci când interacționați cu site-ul nostru web și participați la programul nostru de sprijin între colegi. Prin utilizarea site-ului nostru web, aplicarea pentru sprijin sau participarea la oricare dintre programele noastre, sunteți de acord cu practicile descrise în această Politică.</p><h3>2. Informații pe care le Colectăm</h3><p>Putem colecta următoarele tipuri de informații personale de la dvs.:</p><ul><li><strong>Informații de Contact:</strong> Nume, adresă de email, număr de telefon și alte detalii de contact.</li><li><strong>Informații Demografice:</strong> Vârstă, locație și informații relevante legate de sănătate.</li><li><strong>Date de Comunicare:</strong> Mesaje, interacțiuni și orice altă comunicare partajată cu noi sau cu alții în program.</li><li><strong>Date Tehnice:</strong> Informații despre dispozitivul dvs. și comportamentul de navigare, inclusiv adresa IP, tipul de browser și modelele de utilizare pe site-ul nostru web (prin cookie-uri).</li></ul><h3>3. Cum Folosim Informațiile Dvs.</h3><p>Folosim informațiile pe care le colectăm în următoarele scopuri:</p><ul><li>Pentru a facilita participarea dvs. la programul nostru de sprijin între colegi, inclusiv conectarea cu un supraviețuitor sau luptător.</li><li>Pentru a răspunde la întrebările dvs. și a oferi sprijin, resurse și informații.</li><li>Pentru a procesa și gestiona donațiile, cererile de granturi sau alte solicitări.</li><li>Pentru a comunica cu dvs. despre actualizări, evenimente și știri legate de organizația noastră.</li><li>Pentru a respecta obligațiile legale și a proteja interesele noastre legale.</li></ul><h3>4. Temeiul Legal pentru Prelucrarea Datelor Dvs.</h3><p>Prelucrăm datele dvs. personale pe baza următoarelor temeiuri legale:</p><ul><li><strong>Consimțământ:</strong> Prelucrăm datele personale atunci când oferiți consimțământul explicit, cum ar fi pentru comunicarea în programul de sprijin între colegi.</li><li><strong>Necesitate Contractuală:</strong> Prelucrăm datele personale pentru a îndeplini obligațiile noastre contractuale de a oferi servicii, granturi și alt sprijin.</li><li><strong>Obligații Legale:</strong> Prelucrăm datele personale așa cum este necesar pentru a respecta legile aplicabile, cum ar fi reglementările privind protecția datelor și fiscale.</li><li><strong>Interese Legitime:</strong> Prelucrăm date pentru interese legitime, inclusiv îmbunătățirea serviciilor noastre și comunicările de marketing, cu condiția ca aceste interese să nu prevaleze asupra drepturilor și libertăților dvs.</li></ul><h3>5. Partajarea și Dezvăluirea Datelor</h3><p>Nu partajăm datele dvs. personale cu terți, cu excepția următoarelor motive:</p><ul><li><strong>Pentru a Facilita Sprijinul între Colegi:</strong> Putem partaja detaliile dvs. de contact cu Voluntarul de sprijin între colegi atribuit (Supraviețuitor) pentru a permite comunicarea și sprijinul.</li><li><strong>Furnizori de Servicii:</strong> Putem partaja date cu furnizori terți de încredere care ne ajută să gestionăm site-ul nostru web, să facilităm programul de sprijin între colegi sau să procesăm donațiile (de exemplu, PayPal, bănci).</li><li><strong>Conformitate Legală:</strong> Putem dezvălui datele dvs. personale dacă este necesar pentru a respecta obligațiile legale, a răspunde la o cerere legală sau a proteja drepturile noastre.</li></ul><h3>6. Securitatea Datelor</h3><p>Luăm măsuri tehnice și organizatorice adecvate pentru a proteja datele dvs. personale împotriva accesului neautorizat, dezvăluirii, modificării sau distrugerii. Aceste măsuri includ stocarea securizată a datelor dvs., criptarea și accesul restricționat la informațiile personale. Cu toate acestea, nicio transmisie de date sau sistem de stocare nu este 100% sigur și nu putem garanta securitatea absolută a informațiilor dvs.</p><h3>7. Drepturile Dvs. cu Privire la Datele Dvs.</h3><p>Conform Regulamentului General privind Protecția Datelor (GDPR), aveți următoarele drepturi cu privire la datele dvs. personale:</p><ul><li><strong>Acces:</strong> Puteți solicita acces la datele personale pe care le deținem despre dvs.</li><li><strong>Corectare:</strong> Puteți solicita corectarea oricăror date personale inexacte sau incomplete.</li><li><strong>Ștergere:</strong> Puteți solicita ștergerea datelor dvs. personale în anumite circumstanțe.</li><li><strong>Restricționare:</strong> Puteți solicita restricții privind modul în care prelucrăm datele dvs.</li><li><strong>Portabilitatea Datelor:</strong> Puteți solicita să vă furnizăm datele dvs. personale într-un format structurat, utilizat în mod obișnuit.</li><li><strong>Obiecție:</strong> Vă puteți opune prelucrării datelor dvs. personale bazate pe interese legitime.</li><li><strong>Retragerea Consimțământului:</strong> Vă puteți retrage oricând consimțământul acordat pentru prelucrarea datelor dvs.</li></ul><p>Pentru a vă exercita drepturile, vă rugăm să ne contactați folosind detaliile furnizate la sfârșitul acestei Politici.</p><h3>8. Păstrarea Datelor</h3><p>Păstrăm datele dvs. personale atât timp cât este necesar pentru a îndeplini scopurile prezentate în această Politică, inclusiv respectarea obligațiilor legale, soluționarea disputelor și aplicarea acordurilor. Când datele personale nu mai sunt necesare, acestea vor fi șterse sau anonimizate în siguranță.</p><h3>9. Cookie-uri și Tehnologii de Urmărire</h3><p>Site-ul nostru utilizează cookie-uri și tehnologii similare pentru a vă îmbunătăți experiența. Aceste tehnologii pot colecta informații precum adresa IP, tipul de browser și modelele de utilizare a site-ului web. <strong>Cookie-uri:</strong> Fișiere mici stocate pe dispozitivul dvs. care ne ajută să urmărim utilizarea site-ului, să ne amintim preferințele dvs. și să oferim o experiență personalizată. <strong>Analize:</strong> Folosim instrumente precum Google Analytics pentru a analiza traficul pe site și modelele de utilizare pentru a ne îmbunătăți serviciile. Puteți controla preferințele cookie-urilor prin setările browserului dvs. Cu toate acestea, vă rugăm să rețineți că dezactivarea cookie-urilor poate afecta funcționalitatea site-ului nostru web.</p><h3>10. Transferuri Internaționale de Date</h3><p>Dacă vă aflați în afara României sau a Spațiului Economic European (SEE), vă rugăm să fiți conștienți că datele dvs. pot fi transferate și prelucrate în România sau în alte țări în care operăm sau avem furnizori de servicii. Ne asigurăm că astfel de transferuri respectă legile aplicabile privind protecția datelor.</p><h3>11. Confidențialitatea Copiilor</h3><p>Serviciile noastre nu sunt destinate copiilor sub 16 ani și nu colectăm cu bună știință date personale de la minori. Dacă aflăm că am colectat din greșeală date de la un copil sub 16 ani, vom lua măsuri pentru a șterge aceste date cât mai curând posibil.</p><h3>12. Modificări ale acestei Politici</h3><p>Putem actualiza această Politică din când în când pentru a reflecta modificările practicilor noastre, cerințelor legale sau altor factori. Orice actualizări vor fi postate pe site-ul nostru web cu data actualizată. Vă încurajăm să revizuiți periodic această Politică pentru a rămâne informat.</p><h3>13. Contactați-ne</h3><p>Dacă aveți întrebări despre această Politică de Confidențialitate și Protecția Datelor sau doriți să vă exercitați drepturile, vă rugăm să ne contactați la:<br><strong>Tutti Cancer Warriors</strong><br>Email: <a href='mailto:tcw@tutticancerwarriors.org'>tcw@tutticancerwarriors.org</a><br>Site web: <a href='http://www.tutticancerwarriors.org'>http://www.tutticancerwarriors.org</a></p>"
-    },
-    "peerPolicy": {
-      "title": "Politica și Ghidurile Programului de Sprijin între Colegi",
-      "lastUpdated": "Data intrării în vigoare: 2025",
-      "content": "<h3>1. Introducere</h3><p>La Tutti Cancer Warriors, înțelegem puterea experiențelor împărtășite și a conexiunilor pline de compasiune. Programul nostru de Sprijin între Colegi este conceput pentru a potrivi luptătorii împotriva cancerului cu supraviețuitori care au parcurs călătorii similare. Această pagină prezintă ghidurile și așteptările importante atât pentru luptători, cât și pentru supraviețuitorii implicați în program.</p><h3>2. Cum Funcționează</h3><p><strong>Procesul de Aplicare:</strong> Fie că ești un <strong>Luptător</strong> (în prezent sub tratament pentru cancer) sau un <strong>Supraviețuitor</strong> (care a finalizat tratamentul), te invităm să aplici pentru a participa la Programul nostru de Sprijin între Colegi. Luptătorii primesc sprijin de la cineva care a parcurs un drum similar. Supraviețuitorii își oferă experiența și puterea cuiva care se luptă în prezent cu cancerul. Potrivim Luptătorii cu Supraviețuitorii pe baza experiențelor și nevoilor comune.</p><p><strong>Canale de Comunicare:</strong> Odată ce ești potrivit, comunicarea va avea loc prin apeluri telefonice, apeluri video (Zoom sau altă platformă) sau mesagerie online (dacă este cazul). Toată comunicarea se va concentra pe sprijin emoțional, îndrumare și experiențe împărtășite legate de cancer.</p><h3>3. Mediu Respectuos și Sigur</h3><p>Rugăm toți participanții să abordeze conversațiile cu respect, înțelegere și bunătate. Programul nostru se bazează pe empatie și înțelegerea faptului că călătoriile cancerului sunt profund personale.</p><h3>4. Ghiduri pentru Participare</h3><h4>Pentru Supraviețuitori:</h4><ul><li><strong>Oferiți Sprijin:</strong> Oferiți empatie, îndrumare și sprijin emoțional luptătorilor pe baza propriei experiențe.</li><li><strong>Confidențialitate:</strong> Păstrați strict confidențiale orice informații împărtășite de luptător.</li><li><strong>Limite:</strong> Respectați limitele luptătorului și înțelegeți limitele sprijinului pe care îl puteți oferi. Sprijinul între colegi nu înlocuiește sfatul medical profesional.</li></ul><h4>Pentru Luptători:</h4><ul><li><strong>Respect:</strong> Fiți deschiși și respectuoși față de susținătorul dvs. coleg, împărtășindu-vă experiența în timp ce o ascultați pe a lor.</li><li><strong>Confidențialitate:</strong> Păstrați confidențialitatea informațiilor susținătorului dvs. coleg.</li><li><strong>Căutați Ajutor Profesional:</strong> Dacă aveți nevoie de sprijin medical sau de sănătate mintală profesional, vă încurajăm să contactați profesioniști autorizați.</li></ul><h3>5. Cod de Conduită</h3><ul><li><strong>Fiți Respectuoși:</strong> Ne așteptăm ca toți participanții să se angajeze în conversații cu respect, păstrând tonul de susținere și înțelegere.</li><li><strong>Mențineți Limitele:</strong> Este important ca ambele părți să respecte limitele personale și să nu împingă conversațiile dincolo de sfera sprijinului între colegi.</li><li><strong>Păstrați Confidențialitatea:</strong> Orice informație personală împărtășită în timpul sprijinului între colegi trebuie să rămână confidențială.</li></ul><h3>6. Confidențialitate și Intimitate</h3><p>Confidențialitatea dvs. este de cea mai mare importanță pentru noi. Toate informațiile personale împărtășite în timpul participării dvs. la Programul de Sprijin între Colegi vor fi păstrate confidențiale, în conformitate cu Politica noastră de Confidențialitate. Detaliile de contact personale și orice informații sensibile nu vor fi partajate în afara programului fără consimțământ explicit.</p><h3>7. Ce Împărtășiți</h3><p><strong>Luptătorii</strong> pot împărtăși călătoria lor cu cancerul și modul în care aceasta le afectează viața. <strong>Supraviețuitorii</strong> pot împărtăși experiența lor de recuperare și modul în care au gestionat provocările. Toate interacțiunile sunt gestionate cu grijă pentru a asigura siguranța și confortul ambelor părți.</p><h3>8. Contact și Sprijin</h3><p>Dacă aveți întrebări sau îngrijorări cu privire la program sau dacă vă simțiți inconfortabil în orice moment al procesului, vă rugăm să ne contactați la: <a href='mailto:tcw@tutticancerwarriors.org'>tcw@tutticancerwarriors.org</a></p><h3>9. Eligibilitate</h3><ul><li><strong>Luptători:</strong> Trebuie să fie în prezent sub tratament pentru cancer, în remisie sau în recuperare după cancer.</li><li><strong>Supraviețuitori:</strong> Trebuie să fie persoane care au finalizat tratamentul pentru cancer și sunt în remisie sau recuperare.</li></ul><h3>10. Încetarea Participării</h3><p>Vă puteți retrage voluntar din program în orice moment notificându-ne. În mod similar, dacă un participant nu respectă ghidurile sau încalcă codul de conduită, participarea sa poate fi încetată.</p><h3>11. Declinarea Responsabilității</h3><p>Deși Programul de Sprijin între Colegi este conceput pentru a oferi sprijin emoțional și de la egal la egal, acesta <strong>nu înlocuiește consilierea profesională sau tratamentul medical</strong>. Vă rugăm să consultați furnizorul dvs. de asistență medicală pentru sfaturi medicale.</p>"
-    }
-  },
-  "calendar": {
     "title": "Calendar de Conștientizare",
     "subtitle": "Fiecare lună este dedicată conștientizării despre diferite tipuri de cancer.",
     "january": "Ianuarie",
@@ -2348,6 +2092,22 @@
     "ctaText": "Contactează-ne pentru a te înregistra.",
     "ctaButton": "Contactează Programul"
   },
+  "footer": {
+    "description": "Împreună împotriva cancerului. Împlinim vise și oferim speranță luptătorilor care se luptă în fiecare zi.",
+    "copyright": "Tutti Cancer Warriors. Toate drepturile rezervate.",
+    "verified": "Verificat și Membru al",
+    "quickLinks": "Link-uri Rapide",
+    "contact": "Contact",
+    "address": "București, România",
+    "partnersTitle": "Sponsorii și Partenerii Noștri",
+    "supportTitle": "Susține-ne",
+    "recentAwards": "Premii Recente",
+    "supportText": "Donația ta ne ajută să îndeplinim visuri și să sprijinim luptătorii zilnic.",
+    "privacy": "Politică de Confidențialitate",
+    "terms": "Termeni și Condiții",
+    "peerPolicy": "Politica de Sprijin",
+    "financials": "Rapoarte Financiare"
+  },
   "connectSurvivor": {
     "title": "Conectează-te cu un Supraviețuitor",
     "subtitle": "A vorbi cu cineva care știe poate schimba totul.",
@@ -2357,6 +2117,19 @@
     "step2Desc": "Te conectăm cu cineva similar.",
     "step3Title": "Conectează-te",
     "step3Desc": "Începe o conversație de sprijin."
+  },
+  "dreamApp": {
+    "title": "Aplică pentru un Vis",
+    "subtitle": "Suntem aici să îndeplinim acea dorință specială.",
+    "formTitle": "Formular de Aplicare",
+    "formIntro": "Vă rugăm să consultați condițiile de eligibilitate și Politica de grant actuală înainte de a aplica.",
+    "eligibilityTitle": "Cerințe",
+    "eligibility1": "Aveți cel puțin 18 ani și puteți furniza o dovadă acceptabilă a unui diagnostic de cancer.",
+    "eligibility2": "Solicitarea este pentru un vis personal nemedical, în valoare de până la 500 €. TCW nu finanțează tratamente medicale sau medicamente.",
+    "eligibility3": "TCW trebuie să poată acorda sprijinul legal și operațional în țara dumneavoastră. Depunerea cererii nu garantează aprobarea.",
+    "applyButton": "Aplică Acum",
+    "privacyNotice": "Cererea se deschide în Google Forms și poate solicita informații despre sănătate. Citiți Nota de informare privind confidențialitatea înainte de trimitere.",
+    "privacyLink": "Citiți Nota de confidențialitate"
   },
   "shareJourney": {
     "title": "Împărtășește Povestea",
@@ -2369,6 +2142,106 @@
     "benefit2Text": "Exprimarea ajută la vindecare.",
     "ctaTitle": "Gata să povestești?",
     "ctaButton": "Trimite Povestea"
+  },
+  "moodBoost": {
+    "title": "Impuls de Stare pentru Luptători",
+    "subtitle": "Cum te simți astăzi?",
+    "intro": "Alege cum te simți astăzi. Fă clic pe o stare de mai jos pentru a dezvălui mesajul tău de sprijin, un sfat blând și cuvinte de la un coleg luptător — toate preluate din cartea “One Mission: Thrive”.",
+    "bookLinkText": "Vezi cartea aici",
+    "bookFooter": "Toate citatele luptătorilor sunt din cartea noastră “One Mission: Thrive” — scrisă cu și de supraviețuitori pentru luptători ca tine.",
+    "triedButton": "Am încercat acest sfat",
+    "triedSuccess": "Bravo!",
+    "moods": {
+      "anxious": {
+        "label": "Te simți anxios?",
+        "support": "A te simți anxios este valid. Hai să luăm o pauză împreună și să respirăm. Ai supraviețuit deja la atât de multe.",
+        "tip": "Oprește-te și respiră adânc. Inspiră 4, ține 4, expiră 6.",
+        "quote": "“Ești mai puternic decât crezi. Ia-o zi cu zi.”"
+      },
+      "sad": {
+        "label": "Te simți trist?",
+        "support": "Tristețea este parte din vindecare. Oferă-ți spațiu să simți fără vinovăție.",
+        "tip": "Dacă poți, pune un cântec care te liniștește. Sau stai cu sentimentul fără a judeca.",
+        "quote": "“Este în regulă să fii trist și furios din cauza diagnosticului, doar nu rămâne acolo. VA fi mai bine.”"
+      },
+      "overwhelmed": {
+        "label": "Te simți copleșit?",
+        "support": "Copleșirea se întâmplă. Concentrează-te pe un lucru mic pe care îl poți controla chiar acum.",
+        "tip": "Numește trei lucruri mici pe care le poți controla acum.",
+        "quote": "“O zi pe rând. Un pas în fața celuilalt.”"
+      },
+      "tired": {
+        "label": "Te simți obosit?",
+        "support": "Odihna nu înseamnă a renunța. Este o parte crucială a recuperării.",
+        "tip": "Lasă-ți corpul să facă o pauză. Chiar și 5 minute contează.",
+        "quote": "“Odihnește-te când ai nevoie. Luptă când poți.”"
+      },
+      "angry": {
+        "label": "Te simți furios?",
+        "support": "Furia ta este reală și justificată. Hai să o canalizăm în siguranță astăzi.",
+        "tip": "Dacă e posibil, elibereaz-o sigur: scutură-ți mâinile, scrie sau mergi la o plimbare.",
+        "quote": "“Durerea de astăzi dă un nou sens fericirii de mâine.”"
+      },
+      "lonely": {
+        "label": "Te simți singur?",
+        "support": "Singurătatea poate părea grea, dar ești parte dintr-o comunitate de luptători care te vede.",
+        "tip": "Trimite un mesaj sau uită-te la o poză preferată.",
+        "quote": "“Cancerul este înfricoșător, dar suntem toți împreună în această luptă. Nimeni nu luptă singur.”"
+      },
+      "hopeful": {
+        "label": "Te simți plin de speranță?",
+        "support": "Speranța trăiește în momente mici. Hai să o hrănim împreună azi.",
+        "tip": "Scrie un lucru pe care îl aștepți cu nerăbdare.",
+        "quote": "“Nu poți controla ce se întâmplă în viață, dar poți controla cum gestionezi situația.”"
+      },
+      "scared": {
+        "label": "Te simți speriat?",
+        "support": "Frica arată cât de mult îți pasă de viață. Hai să o înfruntăm o respirație pe rând.",
+        "tip": "Stai cu frica, numește-o și respiră prin ea. Spune-i cuiva de încredere.",
+        "quote": "“Fie-ți frică și fă-o oricum. Creșterea trăiește de cealaltă parte.”"
+      },
+      "numb": {
+        "label": "Te simți amorțit?",
+        "support": "Senzația de amorțeală este un răspuns natural. Emoțiile tale vor reveni când vor fi pregătite.",
+        "tip": "Încearcă să observi o senzație fizică: temperatura mâinilor, hainele.",
+        "quote": "“Este în regulă să iei o pauză. Dar nu renunța.”"
+      },
+      "guilty": {
+        "label": "Te simți vinovat?",
+        "support": "Nu trebuie să porți vinovăția. Nimic din toate astea nu e vina ta.",
+        "tip": "Scrie o propoziție de bunătate față de tine, chiar dacă pare ciudat.",
+        "quote": "“Nu ești stricat sau defect, doar ai fost rearanjat pentru mai bine.”"
+      },
+      "grateful": {
+        "label": "Te simți recunoscător?",
+        "support": "Recunoștința nu șterge durerea, dar o poate atenua pentru un moment.",
+        "tip": "Gândește-te la un lucru mic sau o persoană pentru care ești recunoscător azi.",
+        "quote": "“Această viață poate fi delicată... dar Dumnezeu țese o poveste frumoasă care este viața ta.”"
+      },
+      "motivated": {
+        "label": "Te simți motivat?",
+        "support": "Hai să folosim această scânteie. O acțiune mică azi este o victorie mare.",
+        "tip": "Alege o sarcină minusculă azi care te face să te simți în control.",
+        "quote": "“Nu uita niciodată cât ești de curajos. Mintea este puternică.”"
+      }
+    }
+  },
+  "legal": {
+    "terms": {
+      "title": "Termeni de utilizare a site-ului",
+      "lastUpdated": "Data intrării în vigoare: 29 iulie 2026",
+      "content": "<h3>1. Despre acești Termeni</h3><p>Acești Termeni reglementează utilizarea site-ului și a serviciilor online Tutti Cancer Warriors. Site-ul este operat de <strong>Asociația Tutti Cancer Warriors</strong> („TCW”), asociație nonprofit din România, CIF 50156252, cu sediul în București, România. Prin utilizarea site-ului acceptați acești Termeni. Dacă nu sunteți de acord, vă rugăm să nu utilizați site-ul.</p>\n<h3>2. Informații, nu sfaturi medicale</h3><p>Ghidurile despre cancer, poveștile și resursele comunitare au scop educativ general și de sprijin emoțional. Ele nu reprezintă sfaturi, diagnostic, tratament medical sau asistență de urgență și nu înlocuiesc un profesionist medical calificat. Discutați întotdeauna deciziile medicale cu echipa dumneavoastră medicală. În caz de urgență, apelați serviciul local de urgență.</p>\n<h3>3. Programe și cereri</h3><p>Informațiile despre granturi, sprijin între pacienți și alte programe se pot modifica în funcție de resurse și cerințe legale. Depunerea unei cereri nu garantează eligibilitatea, aprobarea, finanțarea, potrivirea cu un voluntar sau un anumit rezultat. Cererile de sprijin pentru un vis sunt reglementate de <a href='/ro/cerere-sprijin-vis'>Politica de grant</a> actuală și, dacă sunt aprobate, de contractul de grant semnat. În caz de conflict, legea obligatorie și contractul semnat prevalează pentru grantul respectiv.</p>\n<h3>4. Donații și plăți</h3><p>Donațiile pot fi procesate de bănci, PayPal, Better Giving sau rețele și furnizori de criptomonede. Se aplică și termenii și politicile lor de confidențialitate. TCW nu garantează că o donație este deductibilă fiscal în țara dumneavoastră. Cererile de rambursare sunt analizate potrivit legii aplicabile, regulilor furnizorului și circumstanțelor plății. Tranzacțiile cu criptomonede pot fi ireversibile.</p>\n<h3>5. Povești, fotografii și alte materiale</h3><p>Păstrați drepturile asupra conținutului transmis și confirmați că aveți dreptul de a-l transmite, fără a încălca ilegal drepturile altora. TCW poate publica o poveste, un nume, o imagine sau o înregistrare numai în limitele acordului separat oferit de dumneavoastră. Consimțământul pentru publicitate este opțional și nu condiționează eligibilitatea pentru grant. Ne puteți contacta pentru retragerea consimțământului pentru utilizări viitoare; retragerea nu afectează prelucrările anterioare legale și este posibil să nu elimine copii deja distribuite legal sau care trebuie păstrate.</p>\n<h3>6. Utilizare acceptabilă</h3><p>Nu utilizați abuziv site-ul, nu încercați accesul neautorizat, nu introduceți cod malițios, nu vă prezentați drept altă persoană, nu transmiteți cereri sau plăți frauduloase, nu colectați date personale, nu hărțuiți participanții și nu utilizați site-ul cu încălcarea legii sau a drepturilor altora. Putem restricționa accesul sau elimina conținutul când este rezonabil necesar pentru protejarea persoanelor, organizației sau serviciului.</p>\n<h3>7. Proprietate intelectuală</h3><p>Dacă nu se precizează altfel, designul site-ului, marca TCW și conținutul original aparțin TCW sau sunt utilizate cu permisiune. Puteți distribui linkuri și utiliza rezonabil conținutul în scop personal, necomercial. Alte reproduceri sau utilizări comerciale necesită acord scris prealabil. Materialele terților rămân supuse drepturilor și licențelor proprietarilor lor.</p>\n<h3>8. Servicii și linkuri externe</h3><p>Site-ul conține linkuri către servicii pe care nu le controlăm, inclusiv Google Forms, procesatori de plăți, rețele sociale și surse terțe de informații. Linkul este oferit pentru comoditate și nu garantează disponibilitatea, exactitatea sau aprobarea serviciului. Consultați termenii și nota de confidențialitate ale terțului înainte de utilizare.</p>\n<h3>9. Disponibilitate și răspundere</h3><p>Depunem eforturi pentru ca site-ul să fie corect, sigur și disponibil, dar nu putem garanta funcționarea neîntreruptă sau absența totală a erorilor. În limita permisă de lege, TCW nu răspunde pentru pierderi indirecte sau imprevizibile rezultate din utilizarea site-ului. Nimic din acești Termeni nu exclude răspunderea care nu poate fi exclusă legal și nu limitează drepturile dumneavoastră obligatorii.</p>\n<h3>10. Modificări și lege aplicabilă</h3><p>Putem actualiza acești Termeni când serviciile sau obligațiile legale se schimbă. Data de mai sus indică versiunea actuală. Se aplică legea română, fără a elimina protecția obligatorie aplicabilă la locul dumneavoastră de reședință. Contactați-ne mai întâi pentru a încerca rezolvarea amiabilă; orice litigiu nerezolvat este soluționat de instanțele competente potrivit legii aplicabile.</p>\n<h3>11. Contact</h3><p><strong>Asociația Tutti Cancer Warriors</strong><br>București, România · CIF 50156252<br>Email: <a href='mailto:tcw@tutticancerwarriors.org'>tcw@tutticancerwarriors.org</a><br>Site: <a href='https://tutticancerwarriors.org'>https://tutticancerwarriors.org</a></p>"
+    },
+    "privacy": {
+      "title": "Notă de informare privind confidențialitatea și protecția datelor",
+      "lastUpdated": "Data intrării în vigoare: 29 iulie 2026",
+      "content": "<h3>1. Cine răspunde de datele dumneavoastră?</h3><p>Operatorul este <strong>Asociația Tutti Cancer Warriors</strong> („TCW”), asociație nonprofit din România, CIF 50156252, cu sediul în București, România. Pentru întrebări sau exercitarea drepturilor, scrieți la <a href='mailto:tcw@tutticancerwarriors.org'>tcw@tutticancerwarriors.org</a>.</p>\n<h3>2. Datele pe care le colectăm</h3><ul><li><strong>Date despre site și securitate:</strong> adresa IP, informații despre dispozitiv/browser, paginile solicitate, data/ora și jurnale de securitate prelucrate de furnizorul de găzduire.</li><li><strong>Date de contact și sprijin între pacienți:</strong> nume, date de contact, mesaje, preferințe și informații pe care alegeți să le transmiteți pentru potrivire și sprijin.</li><li><strong>Cereri de sprijin pentru un vis:</strong> identitate și contact, vârstă, țară, visul solicitat, dovezi de eligibilitate, informații despre diagnosticul sau tratamentul oncologic, contract, date de plată și dovada utilizării sprijinului conform acordului.</li><li><strong>Donații:</strong> informații despre donator și tranzacție primite de la procesator, bancă sau de la dumneavoastră. Pentru verificarea criptomonedelor se pot verifica identificatorul tranzacției și datele publice din blockchain.</li><li><strong>Povești și publicitate:</strong> text, nume, fotografii, video, audio și opțiunile de consimțământ transmise.</li></ul>\n<h3>3. Scopuri și temeiuri legale</h3><ul><li>Pentru a răspunde solicitărilor, a efectua demersurile cerute și a administra un program sau contract.</li><li>Pentru gestionarea donațiilor, contabilitate, prevenirea fraudei, audit și obligații legale.</li><li>Pentru interesele noastre legitime de operare și securizare a site-ului, păstrare a evidențelor necesare și îmbunătățire a serviciilor caritabile, când drepturile dumneavoastră nu prevalează.</li><li>Pe baza consimțământului atunci când este necesar. <strong>Datele privind sănătatea sunt date din categorii speciale și sunt prelucrate pe baza consimțământului explicit</strong>, cu excepția situației în care se aplică în mod clar o altă condiție din articolul 9 GDPR. Utilizarea publică a poveștii, numelui sau imaginii are un consimțământ separat și opțional.</li></ul><p>Puteți retrage oricând consimțământul pentru viitor. Retragerea nu afectează prelucrarea legală efectuată anterior. Dacă o informație este necesară pentru evaluarea sau administrarea unei solicitări, este posibil să nu putem continua fără aceasta.</p>\n<h3>4. Formularele Google</h3><p>Butoanele de aplicare deschid Google Forms, serviciu operat de Google. Google poate prelucra date tehnice și datele din formular potrivit propriilor termeni și politici. Consultați informațiile afișate lângă formular înainte de a transmite date de sănătate. Nu trimiteți documente medicale prin email obișnuit decât dacă TCW v-a indicat o metodă securizată aprobată.</p>\n<h3>5. Cine primește datele?</h3><p>Accesul este limitat la persoanele autorizate din TCW și, când este necesar, participanții desemnați în programul de sprijin. Putem utiliza furnizori pentru găzduire (Netlify), formulare și colectare de documente (Google), baze de date (Supabase), donații și plăți (inclusiv PayPal, Better Giving, bănci și infrastructură pentru criptomonede), comunicații, contabilitate, consultanță juridică și securitate. Putem divulga informații autorităților publice când legea o cere. Furnizorii pot utiliza datele numai pentru serviciul convenit sau potrivit obligațiilor lor proprii de operator.</p>\n<h3>6. Transferuri internaționale</h3><p>Unii furnizori sau destinatari pot fi în afara României ori a Spațiului Economic European. Când se aplică regulile GDPR, folosim o decizie de adecvare, garanții contractuale aprobate sau alt mecanism legal, după caz. Informațiile din blockchainul public sunt accesibile global prin natura tehnologiei.</p>\n<h3>7. Durata păstrării</h3><p>Păstrăm datele numai cât este necesar pentru program, solicitare, contract, incident de siguranță sau pretenție juridică. Evidențele de grant și donație se păstrează pe perioadele cerute de regulile contabile, fiscale, de audit și prescripție aplicabile. Documentele de verificare medicală au acces restricționat și sunt păstrate numai cât este necesar pentru eligibilitate, administrare, audit ori obligații legale, apoi sunt șterse sau anonimizate când este posibil. Poveștile publice rămân publicate în limitele consimțământului până la eliminare sau retragerea consimțământului, sub rezerva arhivării sau evidențelor cerute de lege. Jurnalele de securitate urmează perioada configurată de furnizor.</p>\n<h3>8. Drepturile dumneavoastră</h3><p>În funcție de situație, puteți solicita accesul, rectificarea, ștergerea, restricționarea, portabilitatea sau vă puteți opune prelucrării bazate pe interes legitim. Puteți retrage consimțământul oricând și puteți depune plângere la <a href='https://www.dataprotection.ro/' target='_blank' rel='noopener noreferrer'>ANSPDCP</a> sau la altă autoritate competentă din țara dumneavoastră. Pentru o cerere, scrieți la <a href='mailto:tcw@tutticancerwarriors.org'>tcw@tutticancerwarriors.org</a>. Putem solicita verificarea identității.</p>\n<h3>9. Securitate</h3><p>Folosim măsuri tehnice și organizatorice proporționale, inclusiv controlul accesului și furnizori securizați. Nicio transmitere sau stocare online nu este complet sigură; transmiteți numai informațiile cerute și utilizați metoda desemnată.</p>\n<h3>10. Cookie-uri, stocare locală și analiză</h3><p><strong>TCW nu utilizează în prezent Google Analytics, pixeli publicitari sau trackere de marketing și nu setează cookie-uri de analiză ori marketing pe acest site.</strong> Site-ul folosește cookie-ul funcțional <code>NEXT_LOCALE</code> timp de până la un an pentru a reține limba selectată. Deoarece această preferință este necesară pentru alegerea de limbă solicitată, nu cerem consimțământ pentru categorii inactive de analiză sau marketing. Furnizorul de găzduire prelucrează în continuare jurnale tehnice și de securitate obișnuite. Când accesați Google Forms, un procesator de plăți, o rețea socială sau alt serviciu extern, acel serviciu poate utiliza propriile cookie-uri potrivit informării sale. Dacă TCW adaugă ulterior servicii neesențiale de analiză, publicitate sau conținut integrat, acestea nu vor fi activate înainte de implementarea informațiilor și mecanismelor de consimțământ necesare.</p>\n<h3>11. Minori</h3><p>Solicitanții pentru sprijinul de tip grant trebuie să aibă cel puțin 18 ani. Serviciile online nu sunt destinate copiilor care nu pot oferi legal consimțământul necesar. Dacă apreciați că datele unui copil au fost transmise fără autorizare adecvată, contactați-ne pentru a analiza și lua măsurile necesare.</p>\n<h3>12. Modificări și contact</h3><p>Putem actualiza această Notă când serviciile sau obligațiile legale se schimbă. Data de mai sus identifică versiunea actuală.</p><p><strong>Asociația Tutti Cancer Warriors</strong><br>București, România · CIF 50156252<br>Email: <a href='mailto:tcw@tutticancerwarriors.org'>tcw@tutticancerwarriors.org</a><br>Site: <a href='https://tutticancerwarriors.org'>https://tutticancerwarriors.org</a></p>"
+    },
+    "peerPolicy": {
+      "title": "Politica și Ghidurile Programului de Sprijin între Colegi",
+      "lastUpdated": "Data intrării în vigoare: 2025",
+      "content": "<h3>1. Introducere</h3><p>La Tutti Cancer Warriors, înțelegem puterea experiențelor împărtășite și a conexiunilor pline de compasiune. Programul nostru de Sprijin între Colegi este conceput pentru a potrivi luptătorii împotriva cancerului cu supraviețuitori care au parcurs călătorii similare. Această pagină prezintă ghidurile și așteptările importante atât pentru luptători, cât și pentru supraviețuitorii implicați în program.</p><h3>2. Cum Funcționează</h3><p><strong>Procesul de Aplicare:</strong> Fie că ești un <strong>Luptător</strong> (în prezent sub tratament pentru cancer) sau un <strong>Supraviețuitor</strong> (care a finalizat tratamentul), te invităm să aplici pentru a participa la Programul nostru de Sprijin între Colegi. Luptătorii primesc sprijin de la cineva care a parcurs un drum similar. Supraviețuitorii își oferă experiența și puterea cuiva care se luptă în prezent cu cancerul. Potrivim Luptătorii cu Supraviețuitorii pe baza experiențelor și nevoilor comune.</p><p><strong>Canale de Comunicare:</strong> Odată ce ești potrivit, comunicarea va avea loc prin apeluri telefonice, apeluri video (Zoom sau altă platformă) sau mesagerie online (dacă este cazul). Toată comunicarea se va concentra pe sprijin emoțional, îndrumare și experiențe împărtășite legate de cancer.</p><h3>3. Mediu Respectuos și Sigur</h3><p>Rugăm toți participanții să abordeze conversațiile cu respect, înțelegere și bunătate. Programul nostru se bazează pe empatie și înțelegerea faptului că călătoriile cancerului sunt profund personale.</p><h3>4. Ghiduri pentru Participare</h3><h4>Pentru Supraviețuitori:</h4><ul><li><strong>Oferiți Sprijin:</strong> Oferiți empatie, îndrumare și sprijin emoțional luptătorilor pe baza propriei experiențe.</li><li><strong>Confidențialitate:</strong> Păstrați strict confidențiale orice informații împărtășite de luptător.</li><li><strong>Limite:</strong> Respectați limitele luptătorului și înțelegeți limitele sprijinului pe care îl puteți oferi. Sprijinul între colegi nu înlocuiește sfatul medical profesional.</li></ul><h4>Pentru Luptători:</h4><ul><li><strong>Respect:</strong> Fiți deschiși și respectuoși față de susținătorul dvs. coleg, împărtășindu-vă experiența în timp ce o ascultați pe a lor.</li><li><strong>Confidențialitate:</strong> Păstrați confidențialitatea informațiilor susținătorului dvs. coleg.</li><li><strong>Căutați Ajutor Profesional:</strong> Dacă aveți nevoie de sprijin medical sau de sănătate mintală profesional, vă încurajăm să contactați profesioniști autorizați.</li></ul><h3>5. Cod de Conduită</h3><ul><li><strong>Fiți Respectuoși:</strong> Ne așteptăm ca toți participanții să se angajeze în conversații cu respect, păstrând tonul de susținere și înțelegere.</li><li><strong>Mențineți Limitele:</strong> Este important ca ambele părți să respecte limitele personale și să nu împingă conversațiile dincolo de sfera sprijinului între colegi.</li><li><strong>Păstrați Confidențialitatea:</strong> Orice informație personală împărtășită în timpul sprijinului între colegi trebuie să rămână confidențială.</li></ul><h3>6. Confidențialitate și Intimitate</h3><p>Confidențialitatea dvs. este de cea mai mare importanță pentru noi. Toate informațiile personale împărtășite în timpul participării dvs. la Programul de Sprijin între Colegi vor fi păstrate confidențiale, în conformitate cu Politica noastră de Confidențialitate. Detaliile de contact personale și orice informații sensibile nu vor fi partajate în afara programului fără consimțământ explicit.</p><h3>7. Ce Împărtășiți</h3><p><strong>Luptătorii</strong> pot împărtăși călătoria lor cu cancerul și modul în care aceasta le afectează viața. <strong>Supraviețuitorii</strong> pot împărtăși experiența lor de recuperare și modul în care au gestionat provocările. Toate interacțiunile sunt gestionate cu grijă pentru a asigura siguranța și confortul ambelor părți.</p><h3>8. Contact și Sprijin</h3><p>Dacă aveți întrebări sau îngrijorări cu privire la program sau dacă vă simțiți inconfortabil în orice moment al procesului, vă rugăm să ne contactați la: <a href='mailto:tcw@tutticancerwarriors.org'>tcw@tutticancerwarriors.org</a></p><h3>9. Eligibilitate</h3><ul><li><strong>Luptători:</strong> Trebuie să fie în prezent sub tratament pentru cancer, în remisie sau în recuperare după cancer.</li><li><strong>Supraviețuitori:</strong> Trebuie să fie persoane care au finalizat tratamentul pentru cancer și sunt în remisie sau recuperare.</li></ul><h3>10. Încetarea Participării</h3><p>Vă puteți retrage voluntar din program în orice moment notificându-ne. În mod similar, dacă un participant nu respectă ghidurile sau încalcă codul de conduită, participarea sa poate fi încetată.</p><h3>11. Declinarea Responsabilității</h3><p>Deși Programul de Sprijin între Colegi este conceput pentru a oferi sprijin emoțional și de la egal la egal, acesta <strong>nu înlocuiește consilierea profesională sau tratamentul medical</strong>. Vă rugăm să consultați furnizorul dvs. de asistență medicală pentru sfaturi medicale.</p>"
+    }
   },
   "mensHealthWeek": {
     "title": "Set de Instrumente Săptămâna Sănătății Bărbaților 2026",
@@ -2921,40 +2794,40 @@
     "ctaTitle": "Fii parte din următorul nostru capitol de speranță."
   },
   "grantPolicy": {
-    "title": "Politica de Granturi Tutti Cancer Warriors",
+    "title": "Politica de grant Tutti Cancer Warriors",
     "header": {
-      "effectiveDate": "Data intrării în vigoare: 8 Mai 2026",
-      "version": "Versiunea politicii: 3.0"
+      "effectiveDate": "Data intrării în vigoare: 29 iulie 2026",
+      "version": "Versiunea politicii: 3.1"
     },
     "sections": {
-      "mission": "Declarația de Misiune",
-      "scope": "Scopul Grantului",
-      "legislation": "Conformitatea cu Legislația din România",
-      "disputes": "Soluționarea Litigiilor şi Rezilierea"
+      "mission": "Misiune și eligibilitate",
+      "scope": "Scopul și procesul grantului",
+      "legislation": "Guvernanță, dovezi și confidențialitate",
+      "disputes": "Utilizare necorespunzătoare, litigii și forță majoră"
     },
     "fullContent": {
-      "missionText": "Tutti Cancer Warriors (TCW), o organizație non-profit înregistrată în România, există pentru a aduce speranță şi vindecare luptătorilor împotriva cancerului din întreaga lume. Scopul Asociației TCW este să creeze o rețea solidă de sprijin și să aducă speranță şi bucurie în viețile celor afectați de cancer, promovând în același timp conştientizarea în rândul publicului cu privire la impactul acestei boli şi la măsurile de prevenire. Prin programul nostru de granturi de 500 €, sprijinim dorințele personale care hrănesc starea de bine emoțională și mentală pe parcursul luptei cu cancerul, asigurându-ne că fiecare pas respectă scopul nostru caritabil şi legislația din România.",
-      "scopeIntro": "Grantul TCW oferă până la 500 € luptătorilor împotriva cancerului pentru o dorință personală (ex. o experiență de neuitat, un obiect sau o activitate) care promovează vindecarea emoțională sau mentală.",
-      "wishesTitle": "Îndeplinirea Dorințelor:",
-      "wishesText": "Ne concentrăm pe identificarea şi îndeplinirea dorințelor personale care contribuie la îmbunătățirea stării emoționale a pacienților. Aceasta include organizarea de activități recreative, călătorii sau sprijin pentru bunăstare.",
-      "nonTransferableTitle": "Netransferabil",
-      "nonTransferableText": "Grantul este strict pentru beneficiarul numit.",
-      "adminCostsTitle": "Costuri Administrative",
-      "adminCostsText": "TCW acoperă cheltuielile operaționale separat, întreaga valoare de 500 € merge către îndeplinirea dorinței.",
-      "legalBasisTitle": "Baza Legală",
-      "legalBasisText": "TCW este înființată în baza OG nr. 26/2000, asigurându-se că toate granturile respectă scopul său nepatrimonial, conform Statutului.",
-      "financeTitle": "Responsabilitate Financiară",
-      "financeText": "Fondurile sunt urmărite conform Legii nr. 82/1991, cu păstrarea registrelor timp de 5 ani pentru audit.",
-      "auditTitle": "Proces de Verificare",
-      "auditText": "TCW verifică anual cel puțin 10% dintre beneficiari (prin dovezi medicale) pentru integritatea programului.",
-      "gdprTitle": "Protecția Datelor",
-      "gdprText": "Datele sunt procesate conform GDPR (Regulamentul UE 2016/679).",
-      "crossBorderTitle": "Reguli Transfrontaliere",
-      "crossBorderText": "TCW respectă reglementările UE privind transferurile de fonduri şi evită țările sancționate.",
-      "disputesText": "Orice dispută va fi soluționată mai întâi prin mediere. Litigiile nesoluționate intră sub jurisdicția instanțelor din Bucureşti, conform Legii 246/2005.",
-      "terminationText": "TCW poate rezilia un grant pentru utilizare abuzivă. Solicitanții cărora li se reziliază grantul devin ineligibili pentru viitoare cereri pe o perioadă de 2 ani.",
-      "forceMajeureTitle": "Forţă Majoră",
-      "forceMajeureText": "TCW nu este responsabilă pentru întârzieri sau neîndeplinirea obligațiilor din cauza unor evenimente în afara controlului său (dezastre naturale, schimbări legislative, etc.)."
+      "missionText": "Asociația Tutti Cancer Warriors (TCW) sprijină bunăstarea emoțională și practică a adulților afectați de cancer. Solicitantul trebuie să aibă cel puțin 18 ani, să furnizeze o dovadă acceptabilă a diagnosticului de cancer și să se afle într-o țară în care TCW poate acorda sprijinul legal și operațional. Fiecare cerere este evaluată individual de TCW; depunerea cererii nu garantează aprobarea.",
+      "scopeIntro": "Un grant aprobat sprijină un vis personal nemedical, în valoare de până la 500 €. TCW nu finanțează tratamente medicale sau medicamente. Scopul, suma, metoda și condițiile aprobate sunt prevăzute în contractul de grant.",
+      "wishesTitle": "Aprobare și îndeplinire",
+      "wishesText": "Visul poate include o experiență, un obiect sau o activitate adecvată pentru starea de bine. Potrivit contractului, TCW poate cumpăra direct produsul sau serviciul, plăti furnizorul, rambursa costuri aprobate și documentate sau transfera fonduri beneficiarului. Sprijinul se acordă în mod normal în 30 de zile după finalizarea aprobării, disponibilitatea fondurilor necesare și îndeplinirea tuturor condițiilor contractuale.",
+      "nonTransferableTitle": "Personal și netransferabil",
+      "nonTransferableText": "Sprijinul este destinat exclusiv beneficiarului nominalizat și visului aprobat. Nu poate fi transferat, vândut sau utilizat în alt scop fără acordul scris al TCW.",
+      "adminCostsTitle": "Valoare și disponibilitate",
+      "adminCostsText": "Valoarea maximă este 500 €, nu o plată fixă garantată. Valoarea finală poate fi mai mică și depinde de visul aprobat, fondurile disponibile, metodele legale de plată și contractul semnat.",
+      "legalBasisTitle": "Baza legală și organizațională",
+      "legalBasisText": "TCW este o asociație nonprofit din România care funcționează în temeiul Ordonanței Guvernului nr. 26/2000, aprobată și modificată prin Legea nr. 246/2005, al Statutului și al celorlalte norme aplicabile. Sprijinul transfrontalier rămâne supus sancțiunilor, regulilor de plată și restricțiilor legale locale.",
+      "financeTitle": "Evidențe și dovada utilizării",
+      "financeText": "Beneficiarul trebuie să transmită dovezile prevăzute în contract, precum chitanțe sau confirmarea furnizorului, în cel mult 3 luni de la îndeplinirea sprijinului sau primirea fondurilor. TCW păstrează evidențele financiare și de grant pe perioadele prevăzute de legea aplicabilă.",
+      "auditTitle": "Verificare și clarificări",
+      "auditText": "TCW verifică dovezile transmise în 15 zile calendaristice de la primire. Dacă dovezile sunt incomplete, TCW poate solicita clarificări rezonabile sau documente înlocuitoare și consemnează rezultatul. Documentele medicale și justificative sunt confidențiale, cu acces limitat la persoanele autorizate.",
+      "gdprTitle": "Date și publicitate",
+      "gdprText": "Datele personale sunt prelucrate conform Notei de confidențialitate și GDPR. Datele de sănătate necesită un temei aplicabil din articolul 9, de regulă consimțământ explicit. Permisiunea de publicare a numelui, poveștii, imaginii sau campaniei este separată, opțională și nu afectează eligibilitatea; este disponibil anonimatul.",
+      "crossBorderTitle": "Plăți și impozite",
+      "crossBorderText": "TCW alege o metodă legală și practică de îndeplinire. Beneficiarii sunt responsabili să verifice obligațiile fiscale sau de declarare personale din țara lor; TCW nu oferă consultanță fiscală.",
+      "disputesText": "Orice problemă trebuie semnalată mai întâi TCW pentru a căuta o soluție echitabilă și documentată. Se aplică legea română, fără a elimina drepturile obligatorii prevăzute de altă lege aplicabilă. Litigiile nerezolvate sunt soluționate de instanțele competente, dacă acordul de grant nu prevede legal altfel.",
+      "terminationText": "Frauda, declarațiile false semnificative, transferul sau utilizarea necorespunzătoare a sprijinului ori neprezentarea nejustificată a dovezilor convenite pot duce la suspendare, încetare sau o cerere proporțională de restituire, după notificare și posibilitatea de a oferi explicații. TCW poate renunța la remediu sau îl poate adapta când o boală gravă ori dificultățile fac acest lucru echitabil și legal.",
+      "forceMajeureTitle": "Forță majoră și prelungiri",
+      "forceMajeureText": "Dacă o boală gravă, forța majoră sau alt eveniment aflat în afara controlului rezonabil al beneficiarului împiedică îndeplinirea ori dovada la timp, TCW poate aproba în scris o prelungire de până la 6 luni. Beneficiarul trebuie să contacteze TCW cât mai curând posibil în mod rezonabil."
     }
   }
 }

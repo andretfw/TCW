@@ -3,7 +3,6 @@ import {notFound} from 'next/navigation';
 import '../globals.css';
 import Header from './Header';
 import Footer from './Footer';
-import CookieBanner from '@/components/CookieBanner';
 import IntlProvider from '@/components/IntlProvider';
 import MobileHeaderInteractionBoundary from '@/components/MobileHeaderInteractionBoundary';
 import {SITE_LOCALES, type SiteLocale} from '@/lib/routes';
@@ -90,7 +89,6 @@ export default async function LocaleLayout({
           </MobileHeaderInteractionBoundary>
           <main className="min-h-screen">{children}</main>
           <Footer />
-          <CookieBanner />
         </IntlProvider>
       </body>
     </html>
