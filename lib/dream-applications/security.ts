@@ -31,7 +31,7 @@ export async function requireDreamReviewer(): Promise<User> {
     .map((email) => email.trim().toLowerCase())
     .filter(Boolean);
   const roles = user.roles || [];
-  const isRoleAllowed = roles.includes('dream-reviewer') || roles.includes('admin');
+  const isRoleAllowed = roles.includes('dream-reviewer');
   const isEmailAllowed = Boolean(user.email && allowedEmails.includes(user.email.toLowerCase()));
 
   if (!isRoleAllowed && !isEmailAllowed) {
@@ -48,4 +48,3 @@ export function privateJson(data: unknown, init: ResponseInit = {}): Response {
   headers.set('X-Content-Type-Options', 'nosniff');
   return new Response(JSON.stringify(data), {...init, headers});
 }
-
