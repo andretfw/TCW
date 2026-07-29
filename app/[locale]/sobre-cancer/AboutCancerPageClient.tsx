@@ -8,6 +8,7 @@ import { Activity, ArrowRight } from 'lucide-react';
 import { getAdditionalCancerGuideContent, getCancerGuideCountLabel } from '@/lib/additional-cancer-guides';
 import { getAdditionalCancerGuideBatch2Content } from '@/lib/additional-cancer-guides-2';
 import { getAdditionalCancerGuideBatch3Content } from '@/lib/additional-cancer-guides-3';
+import { getCancerGuideImageAlt } from '@/lib/cancer-image-seo';
 import { CANCER_GUIDE_IDS, CANCER_GUIDE_IMAGES } from '@/lib/cancer-images';
 import { localizedCancerPath } from '@/lib/routes';
 
@@ -46,8 +47,9 @@ export default function AboutCancerPageClient({ params }: { params: Promise<{ lo
                 <div className="relative h-56 w-full overflow-hidden bg-gradient-to-br from-brand-50 via-white to-brand-100">
                   <Image
                     src={image.src}
-                    alt={title}
+                    alt={getCancerGuideImageAlt(title, locale, 'card', image.presentation)}
                     fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                     className={
                       image.presentation === 'illustration'
                         ? 'object-contain p-4 transition-transform duration-700 group-hover:scale-105'
