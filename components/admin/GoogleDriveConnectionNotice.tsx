@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { ExternalLink, HardDrive, LoaderCircle, ShieldCheck, TriangleAlert } from 'lucide-react';
 import { getUser } from '@netlify/identity';
 
@@ -75,14 +76,14 @@ export default function GoogleDriveConnectionNotice() {
             </p>
           </div>
         </div>
-        <a
+        <Link
           href="/api/admin/google-drive/oauth/start"
           className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-slate-950 px-5 py-2.5 text-xs font-black text-white"
         >
           <HardDrive className="h-4 w-4" />
           Connect Google Drive
           <ExternalLink className="h-3.5 w-3.5" />
-        </a>
+        </Link>
       </div>
     </div>
   );
