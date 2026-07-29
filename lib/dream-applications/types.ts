@@ -112,6 +112,7 @@ export interface DreamApplicantEmailDelivery {
   kind: DreamApplicantEmailKind;
   subject: string;
   body: string;
+  informationRequest?: string;
   requestedBy: string;
   attemptedAt: string;
   sentAt?: string;
