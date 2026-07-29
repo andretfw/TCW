@@ -45,6 +45,43 @@ export const DREAM_APPLICANT_EMAIL_KINDS = [
 
 export type DreamApplicantEmailKind = (typeof DREAM_APPLICANT_EMAIL_KINDS)[number];
 
+export const DREAM_CONTRACT_LANGUAGES = ['ro', 'en'] as const;
+
+export type DreamContractLanguage = (typeof DREAM_CONTRACT_LANGUAGES)[number];
+
+export const DREAM_CONTRACT_PAYMENT_METHODS = [
+  'direct_supplier_payment',
+  'direct_tcw_purchase',
+  'direct_tcw_booking',
+  'beneficiary_bank_transfer',
+] as const;
+
+export type DreamContractPaymentMethod = (typeof DREAM_CONTRACT_PAYMENT_METHODS)[number];
+
+export interface DreamContractDetails {
+  language: DreamContractLanguage;
+  fullAddress: string;
+  birthDate: string;
+  nationality: string;
+  idDocumentType: string;
+  idSeriesNumber: string;
+  approvedAmountEur: number;
+  approvedRequest: string;
+  paymentMethod: DreamContractPaymentMethod;
+  contractDate: string;
+}
+
+export interface DreamContractDocument {
+  contractNumber: number;
+  language: DreamContractLanguage;
+  contractDate: string;
+  filename: string;
+  driveFileId: string;
+  generatedAt: string;
+  generatedBy: string;
+  sha256: string;
+}
+
 export interface DreamApplicationInput {
   locale: 'en' | 'ro' | 'es';
   fullName: string;
@@ -121,7 +158,12 @@ export interface DreamApplicantEmailDelivery {
 
 export interface DreamApplicationEvent {
   id: string;
-  type: 'submitted' | 'status_changed' | 'note_added' | 'board_vote_cast';
+  type:
+    | 'submitted'
+    | 'status_changed'
+    | 'note_added'
+    | 'board_vote_cast'
+    | 'contract_generated';
   fromStatus?: DreamApplicationStatus;
   toStatus?: DreamApplicationStatus;
   decision?: DreamBoardDecision;
@@ -151,6 +193,14 @@ export interface DreamApplicationRecord extends DreamApplicationInput {
   boardReminderClaimedAt?: Record<string, string>;
   /** Applicant decision and information-request email attempts, retained in encrypted storage. */
   applicantEmailDeliveries?: DreamApplicantEmailDelivery[];
+  /** Contract details are stored only after approval and remain encrypted with the application. */
+  contractDetails?: DreamContractDetails;
+  /** Assigned once and never changed. Historical contracts 1-19 predate this portal. */
+  contractNumber?: number;
+  /** Prevents overlapping generation requests from producing duplicate Drive files. */
+  contractGenerationClaimedAt?: string;
+  /** Latest generated contract. Google Drive retains previous file revisions. */
+  contractDocument?: DreamContractDocument;
   history: DreamApplicationEvent[];
   consentVersion: 'dream-application-v1';
   grantPolicyVersion: '3.1';
@@ -179,3 +229,4 @@ export const DRAFT_RETENTION_HOURS = 24;
 export const DECLINED_APPLICATION_RETENTION_DAYS = 365;
 export const DREAM_BOARD_APPROVAL_THRESHOLD = 2;
 export const DREAM_BOARD_REMINDER_DELAY_HOURS = 72;
+export const DREAM_FIRST_PORTAL_CONTRACT_NUMBER = 20;
