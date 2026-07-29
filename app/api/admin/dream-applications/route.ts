@@ -1,10 +1,13 @@
 import { randomUUID } from 'node:crypto';
 
+import { sendDreamBoardReviewEmails } from '@/lib/dream-applications/email';
 import {
   assertSameOrigin,
   DreamAuthorizationError,
   privateJson,
-  requireDreamReviewer,
+  requireConfiguredDreamBoard,
+  requireDreamAdmin,
+  requireDreamReviewerContext,
 } from '@/lib/dream-applications/security';
 import {
   deleteDreamApplication,
@@ -48,6 +51,7 @@ function authorizationResponse(error: unknown): Response | null {
 function applicationForReviewer(application: DreamApplicationRecord) {
   return {
     ...application,
+    boardVotes: application.boardVotes || [],
     files: application.files.map((file: DreamApplicationFile) => ({
       id: file.id,
       category: file.category,
@@ -61,11 +65,19 @@ function applicationForReviewer(application: DreamApplicationRecord) {
 
 export async function GET(): Promise<Response> {
   try {
-    await requireDreamReviewer();
+    const reviewer = await requireDreamReviewerContext();
     const applications = (await listDreamApplications())
       .filter((application) => application.status !== 'draft')
+      .filter((application) => reviewer.isAdmin || application.status === 'board_review')
       .map(toDreamListItem);
-    return privateJson({applications});
+    return privateJson({
+      applications,
+      viewer: {
+        email: reviewer.email,
+        isAdmin: reviewer.isAdmin,
+        isBoardMember: reviewer.isBoardMember,
+      },
+    });
   } catch (error) {
     const authResponse = authorizationResponse(error);
     if (authResponse) return authResponse;
@@ -77,7 +89,7 @@ export async function GET(): Promise<Response> {
 export async function PATCH(request: Request): Promise<Response> {
   try {
     assertSameOrigin(request);
-    const reviewer = await requireDreamReviewer();
+    const reviewer = await requireDreamReviewerContext();
     const body = await request.json() as {
       applicationId?: string;
       status?: unknown;
@@ -94,16 +106,23 @@ export async function PATCH(request: Request): Promise<Response> {
     if (requestedStatus === 'draft') {
       return privateJson({error: 'A submitted application cannot return to draft.'}, {status: 400});
     }
+    if (requestedStatus && !reviewer.isAdmin) {
+      throw new DreamAuthorizationError('Only the TCW administrator can change workflow status.', 403);
+    }
 
+    const boardEmails = requestedStatus === 'board_review'
+      ? requireConfiguredDreamBoard()
+      : [];
     const now = new Date();
     const nowIso = now.toISOString();
-    const actor = reviewer.email || reviewer.id;
+    const actor = reviewer.email;
     const mutation = await mutateDreamApplication(body.applicationId, (application) => {
       if (application.status === 'draft') {
         throw new DreamAdminUpdateError('Application not found.', 404);
       }
 
       const nextStatus = requestedStatus || application.status;
+      const enteredBoardReview = nextStatus === 'board_review' && application.status !== 'board_review';
       if (nextStatus !== application.status) {
         application.history.push({
           id: randomUUID(),
@@ -114,6 +133,10 @@ export async function PATCH(request: Request): Promise<Response> {
           createdAt: nowIso,
         });
         application.status = nextStatus;
+      }
+
+      if (enteredBoardReview) {
+        application.boardVotes = [];
       }
 
       if (note) {
@@ -131,20 +154,40 @@ export async function PATCH(request: Request): Promise<Response> {
         });
       }
 
-      // Only unsuccessful applications are scheduled for deletion. Closed funded
-      // cases remain available as an audit record and never receive an automatic
-      // deletion date.
       application.retentionDeleteAt = nextStatus === 'declined'
         ? application.retentionDeleteAt || retentionDateFrom(now)
         : undefined;
       application.updatedAt = nowIso;
+      return {enteredBoardReview};
     });
     if (!mutation) {
       return privateJson({error: 'Application not found.'}, {status: 404});
     }
 
+    let boardNotification: {sent: string[]; failed: Array<{email: string; error: string}>} | undefined;
+    if (mutation.result.enteredBoardReview) {
+      try {
+        boardNotification = await sendDreamBoardReviewEmails({
+          application: mutation.record,
+          recipients: boardEmails.filter((email) => email !== actor),
+        });
+        if (boardNotification.failed.length > 0) {
+          console.error(
+            `Board review email delivery failed for ${mutation.record.reference}.`,
+            boardNotification.failed,
+          );
+        }
+      } catch (notificationError) {
+        console.error(
+          `Application ${mutation.record.reference} entered board review, but board notifications failed.`,
+          notificationError,
+        );
+      }
+    }
+
     return privateJson({
       application: applicationForReviewer(mutation.record),
+      boardNotification,
     });
   } catch (error) {
     const authResponse = authorizationResponse(error);
@@ -163,7 +206,7 @@ export async function PATCH(request: Request): Promise<Response> {
 export async function DELETE(request: Request): Promise<Response> {
   try {
     assertSameOrigin(request);
-    await requireDreamReviewer();
+    await requireDreamAdmin();
     const body = await request.json() as {applicationId?: string};
     if (!body.applicationId) {
       return privateJson({error: 'Application ID is required.'}, {status: 400});
