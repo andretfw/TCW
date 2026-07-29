@@ -2455,143 +2455,143 @@
     "types": {
       "breast": {
         "title": "Cancer Mamar",
-        "shortDesc": "Detectarea timpurie salvează vieți."
+        "shortDesc": "Cancer care începe în țesutul mamar, cel mai des în canale sau lobuli, și poate afecta persoane de orice sex."
       },
       "lung": {
         "title": "Cancer Pulmonar",
-        "shortDesc": "Înțelegerea factorilor de risc."
+        "shortDesc": "Cancer care se formează în țesutul pulmonar, de obicei în celulele căilor respiratorii, cu tipuri ce necesită tratamente diferite."
       },
       "colorectal": {
         "title": "Cancer Colorectal",
-        "shortDesc": "Screeningul previne dezvoltarea."
+        "shortDesc": "Cancer al colonului sau rectului care începe adesea într-un polip și poate provoca schimbări de tranzit, sângerare sau disconfort abdominal."
       },
       "prostate": {
         "title": "Cancer de Prostată",
-        "shortDesc": "Sănătatea bărbaților și prevenție."
+        "shortDesc": "Cancer care începe în prostată; unele tumori cresc lent, iar altele se pot răspândi mai repede."
       },
       "skin": {
         "title": "Cancer de Piele",
-        "shortDesc": "Protejează-ți pielea, protejează viața."
+        "shortDesc": "Acest ghid se concentrează pe melanom, un cancer al pielii care începe în celulele pigmentare și se poate răspândi."
       },
       "kidney": {
         "title": "Cancer Renal",
-        "shortDesc": "Simptome silențioase de urmărit."
+        "shortDesc": "Cancer care începe în țesutul rinichiului, cel mai frecvent carcinom cu celule renale la adulți."
       },
       "leukemia": {
         "title": "Leucemie",
-        "shortDesc": "Cancerul celulelor sanguine."
+        "shortDesc": "Un grup de cancere ale țesuturilor care formează sângele, cu acumularea de celule anormale în sânge și măduva osoasă."
       },
       "liver": {
         "title": "Cancer Hepatic",
-        "shortDesc": "Sănătatea ficatului contează."
+        "shortDesc": "Cancer care începe în ficat, cel mai des carcinom hepatocelular, frecvent într-un ficat afectat de o boală cronică."
       },
       "pancreatic": {
         "title": "Cancer Pancreatic",
-        "shortDesc": "Greu de detectat, crucial de tratat."
+        "shortDesc": "Cancer care începe în pancreas; tipul cel mai frecvent apare în celulele care produc enzime digestive."
       },
       "ovarian": {
         "title": "Cancer Ovarian",
-        "shortDesc": "Cunoaște semnele subtile."
+        "shortDesc": "Un grup de cancere care afectează ovarele, tumorile epiteliale fiind cele mai frecvente; simptomele pot fi persistente, dar nespecifice."
       },
       "childhood": {
         "title": "Cancer Infantil",
-        "shortDesc": "Susținem micii noștri luptători."
+        "shortDesc": "Un grup larg de cancere diagnosticate la copii, inclusiv leucemii, tumori cerebrale, limfoame și tumori solide."
       },
       "brain": {
         "title": "Tumori Cerebrale",
-        "shortDesc": "Afectând centrul de control."
+        "shortDesc": "Tumori care încep în creier sau sistemul nervos central; pot fi benigne ori maligne, dar pot necesita îngrijire specializată."
       },
       "bladder": {
         "title": "Cancer de Vezică",
-        "shortDesc": "Atenție la schimbările urinare."
+        "shortDesc": "Cancer care începe de obicei în celulele uroteliale ale vezicii și apare adesea mai întâi prin sânge în urină."
       },
       "cervical": {
         "title": "Cancer Cervical",
-        "shortDesc": "Prevenibil prin vaccinare și teste."
+        "shortDesc": "Cancer al colului uterin, de obicei asociat infecției persistente cu HPV cu risc înalt și adesea prevenibil prin vaccinare și screening."
       },
       "stomach": {
         "title": "Cancer Gastric",
-        "shortDesc": "Sănătatea digestivă și semnale."
+        "shortDesc": "Cancer care începe în stomac, cel mai frecvent în celulele glandulare ale mucoasei interne."
       },
       "testicular": {
         "title": "Cancer Testicular",
-        "shortDesc": "Autoexaminarea este vitală."
+        "shortDesc": "Cancer care începe într-un testicul, de obicei în celulele germinale, și afectează mai ales bărbații tineri și de vârstă mijlocie."
       },
       "thyroid": {
         "title": "Cancer Tiroidian",
-        "shortDesc": "Glandă mică, impact mare."
+        "shortDesc": "Cancer care începe în glanda tiroidă de la nivelul gâtului și include mai multe tipuri cu evoluție foarte diferită."
       },
       "uterine": {
         "title": "Cancer Uterin",
-        "shortDesc": "Cunoașterea corpului este putere."
+        "shortDesc": "Cancer al corpului uterin, cel mai frecvent cancer endometrial, care provoacă adesea sângerare vaginală anormală."
       },
       "lymphoma": {
         "title": "Limfom",
-        "shortDesc": "Afectând sistemul imunitar."
+        "shortDesc": "Un grup mare de cancere ale sistemului limfatic, inclusiv limfomul Hodgkin și numeroase tipuri de limfom non-Hodgkin."
       },
       "myeloma": {
         "title": "Mielom Multiplu",
-        "shortDesc": "Cancerul celulelor plasmatice."
+        "shortDesc": "Cancer al plasmocitelor din măduva osoasă care poate afecta oasele, rinichii, valorile sanguine și imunitatea."
       },
       "esophageal": {
         "title": "Cancer Esofagian",
-        "shortDesc": "Dificultăți la înghițire și riscuri."
+        "shortDesc": "Cancer care începe în esofag, tubul care transportă alimentele de la gât la stomac."
       },
       "head-neck": {
         "title": "Cap și Gât",
-        "shortDesc": "Gură, gât și glande."
+        "shortDesc": "Un grup de cancere care pot începe în gură, gât, laringe, nas, sinusuri sau glandele salivare."
       },
       "bone": {
         "title": "Cancer Osos",
-        "shortDesc": "Dureri osoase și tratamente."
+        "shortDesc": "Cancere rare care încep în os, inclusiv osteosarcomul, condrosarcomul și sarcomul Ewing."
       },
       "sarcoma": {
         "title": "Sarcom",
-        "shortDesc": "Țesuturi moi ale corpului."
+        "shortDesc": "Un grup divers de cancere care încep în țesuturi moi precum mușchi, grăsime, nervi, vase de sânge și țesut conjunctiv."
       },
       "gallbladder": {
         "title": "Vezica Biliară",
-        "shortDesc": "Rar dar important."
+        "shortDesc": "Un cancer rar care începe în vezica biliară și este adesea descoperit după ce a depășit acest organ mic."
       },
       "bile-duct": {
         "title": "Căi Biliare",
-        "shortDesc": "Afectând digestia."
+        "shortDesc": "Numit și colangiocarcinom, acest cancer începe în căile biliare din interiorul sau exteriorul ficatului."
       },
       "anal": {
         "title": "Cancer Anal",
-        "shortDesc": "Rupând stigmatul."
+        "shortDesc": "Cancer care începe în țesuturile anusului, majoritatea cazurilor fiind asociate infecției persistente cu HPV cu risc înalt."
       },
       "penile": {
         "title": "Cancer Penian",
-        "shortDesc": "Sănătatea intimă masculină."
+        "shortDesc": "Un cancer rar care începe în țesuturile penisului, cel mai adesea în celulele scuamoase ale pielii."
       },
       "vaginal": {
         "title": "Cancer Vaginal",
-        "shortDesc": "Detectare ginecologică."
+        "shortDesc": "Un cancer rar care începe în vagin, cel mai frecvent în celulele scuamoase ale mucoasei."
       },
       "vulvar": {
         "title": "Cancer Vulvar",
-        "shortDesc": "Semne externe de urmărit."
+        "shortDesc": "Cancer care începe în țesuturile genitale externe și poate apărea ca mâncărime, durere sau modificări persistente ale pielii."
       },
       "eye": {
         "title": "Cancer Ocular",
-        "shortDesc": "Melanom și retinoblastom."
+        "shortDesc": "Un grup de cancere rare ale ochiului, inclusiv melanomul uveal la adulți și retinoblastomul la copii."
       },
       "oral": {
         "title": "Cancer Oral",
-        "shortDesc": "Gură, limbă și gingii."
+        "shortDesc": "Cancer care începe în buze sau cavitatea orală, inclusiv limba, gingiile, obrajii și planșeul ori cerul gurii."
       },
       "throat": {
         "title": "Cancer de Gât",
-        "shortDesc": "Faringe și laringe."
+        "shortDesc": "Un termen informal pentru cancerele care apar în părți ale faringelui sau laringelui, fiecare cu riscuri și tratamente distincte."
       },
       "small-intestine": {
         "title": "Intestin Subțire",
-        "shortDesc": "Un cancer mai puțin frecvent."
+        "shortDesc": "Un grup rar de cancere ale intestinului subțire, inclusiv adenocarcinom, tumori neuroendocrine, limfom și sarcom."
       },
       "thymus": {
         "title": "Timus",
-        "shortDesc": "Glanda din piept."
+        "shortDesc": "Tumori rare care încep în timus, în spatele sternului, în principal timomul și carcinomul timic."
       }
     }
   },

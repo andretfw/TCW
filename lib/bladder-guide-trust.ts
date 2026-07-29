@@ -35,7 +35,7 @@ const BLADDER_GUIDE_TRUST: Record<SiteLocale, BladderGuideTrustContent> = {
       'This page provides general educational information. It does not replace medical advice, diagnosis or treatment from a qualified healthcare professional. Blood in the urine is the most common symptom of bladder cancer, but urinary tract infections, kidney or bladder stones and other conditions can cause similar symptoms. Contact a healthcare professional about visible or laboratory-detected blood in the urine, persistent urinary frequency or urgency, pain or burning during urination, difficulty urinating, one-sided lower back pain or another persistent urinary change. IARC estimates 635,264 new bladder cancer cases and 227,626 deaths worldwide in 2024. These population figures cannot predict an individual outcome; prognosis and treatment depend on the cancer type, grade, stage, whether it has invaded the bladder muscle, overall health and response to treatment.',
     sourcesHeading: 'Official sources',
     checkedLabel: 'Sources checked',
-    checkedDate: '28 July 2026',
+    checkedDate: '29 July 2026',
     statsTitle: 'Key Facts',
     stats: [
       {
@@ -76,7 +76,7 @@ const BLADDER_GUIDE_TRUST: Record<SiteLocale, BladderGuideTrustContent> = {
       'Această pagină oferă informații educaționale generale. Nu înlocuiește sfatul, diagnosticul sau tratamentul oferit de un profesionist medical calificat. Sângele în urină este cel mai frecvent simptom al cancerului de vezică urinară, însă infecțiile urinare, pietrele la rinichi sau vezică și alte afecțiuni pot provoca simptome asemănătoare. Adresează-te unui medic pentru sânge vizibil sau detectat la analize în urină, urinări frecvente ori urgente persistente, durere sau usturime la urinare, dificultăți la urinare, durere lombară pe o singură parte sau orice altă modificare urinară persistentă. IARC estimează 635.264 de cazuri noi de cancer de vezică urinară și 227.626 de decese la nivel mondial în 2024. Aceste cifre populaționale nu pot prezice rezultatul unei persoane; prognosticul și tratamentul depind de tipul, gradul și stadiul cancerului, de invazia mușchiului vezicii, de starea generală de sănătate și de răspunsul la tratament.',
     sourcesHeading: 'Surse oficiale',
     checkedLabel: 'Surse verificate la data de',
-    checkedDate: '28 iulie 2026',
+    checkedDate: '29 iulie 2026',
     statsTitle: 'Date-cheie',
     stats: [
       {
@@ -117,7 +117,7 @@ const BLADDER_GUIDE_TRUST: Record<SiteLocale, BladderGuideTrustContent> = {
       'Esta página ofrece información educativa general. No sustituye el consejo, diagnóstico ni tratamiento de un profesional sanitario cualificado. La sangre en la orina es el síntoma más común del cáncer de vejiga, pero las infecciones urinarias, los cálculos renales o vesicales y otras afecciones pueden causar síntomas parecidos. Consulta a un profesional sanitario por sangre visible o detectada en un análisis de orina, aumento persistente de la frecuencia o urgencia urinaria, dolor o ardor al orinar, dificultad para orinar, dolor lumbar en un lado u otro cambio urinario persistente. El IARC estima 635.264 casos nuevos de cáncer de vejiga y 227.626 muertes en todo el mundo en 2024. Estas cifras poblacionales no pueden predecir el resultado de una persona; el pronóstico y el tratamiento dependen del tipo, grado y estadio del cáncer, de si ha invadido el músculo de la vejiga, del estado general de salud y de la respuesta al tratamiento.',
     sourcesHeading: 'Fuentes oficiales',
     checkedLabel: 'Fuentes verificadas el',
-    checkedDate: '28 de julio de 2026',
+    checkedDate: '29 de julio de 2026',
     statsTitle: 'Datos clave',
     stats: [
       {
