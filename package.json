@@ -9,6 +9,7 @@
     "build": "npm run lint && next build",
     "start": "next start",
     "lint": "eslint .",
+    "smoke:routes": "node scripts/smoke-routes.mjs",
     "typecheck": "tsc --noEmit"
   },
   "engines": {

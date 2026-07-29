@@ -1,14 +1,11 @@
 import createMiddleware from 'next-intl/middleware';
 import {NextRequest, NextResponse} from 'next/server';
-import {
-  cancerIdFromSlug,
-  localizedCancerPath,
-  localizedPath,
-  resolveRouteKey,
-  ROUTES,
-  SITE_LOCALES,
-  type SiteLocale,
-} from './lib/routes';
+import {SITE_LOCALES} from './lib/routes';
+
+const LEGACY_REDIRECTS: Record<string, string> = {
+  '/peer-support-program': '/es/apoyo-entre-pares',
+  '/donate-to-tutti-cancer-warriors': '/es/donar',
+};
 
 const intlMiddleware = createMiddleware({
   locales: [...SITE_LOCALES],
@@ -44,37 +41,18 @@ const intlMiddleware = createMiddleware({
 });
 
 export default function proxy(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
-  const segments = pathname.split('/').filter(Boolean);
-  const locale = segments[0] as SiteLocale | undefined;
+  // Next.js 16 can run proxy.ts again for next-intl's internal rewrite.
+  // Let that rewritten request reach the physical App Router route instead of
+  // re-canonicalizing it back to the same public URL in a redirect loop.
+  if (request.headers.has('x-next-intl-locale')) {
+    return NextResponse.next();
+  }
 
-  if (locale && SITE_LOCALES.includes(locale)) {
-    const pageSegments = segments.slice(1);
-    const localizedCancerRoot = ROUTES[locale].aboutCancer;
-
-    if (pageSegments[0] === localizedCancerRoot && pageSegments[1]) {
-      const cancerId = cancerIdFromSlug(locale, pageSegments[1]);
-      if (cancerId) {
-        const canonicalPath = localizedCancerPath(locale, cancerId);
-        if (pathname !== canonicalPath) {
-          const url = request.nextUrl.clone();
-          url.pathname = canonicalPath;
-          return NextResponse.redirect(url, 308);
-        }
-      }
-    } else {
-      const slug = pageSegments.join('/');
-      const routeKey = resolveRouteKey(slug);
-
-      if (routeKey) {
-        const canonicalPath = localizedPath(locale, routeKey);
-        if (pathname !== canonicalPath) {
-          const url = request.nextUrl.clone();
-          url.pathname = canonicalPath;
-          return NextResponse.redirect(url, 308);
-        }
-      }
-    }
+  const legacyDestination = LEGACY_REDIRECTS[request.nextUrl.pathname];
+  if (legacyDestination) {
+    const url = request.nextUrl.clone();
+    url.pathname = legacyDestination;
+    return NextResponse.redirect(url, 308);
   }
 
   return intlMiddleware(request);
