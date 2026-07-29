@@ -17,7 +17,7 @@
     "node": ">=20.12.2 <23"
   },
   "dependencies": {
-    "@netlify/blobs": "^10.7.10",
+    "@netlify/blobs": "^10.7.11",
     "@netlify/identity": "^1.2.0",
     "@supabase/supabase-js": "^2.45.4",
     "clsx": "^2.1.1",
