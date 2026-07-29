@@ -11,6 +11,7 @@ type CancerGuideTrustContent = {
   sourcesHeading: string;
   checkedLabel: string;
   checkedDate: string;
+  statsTitle?: string;
   stats: [
     {value: string; label: string},
     {value: string; label: string},
