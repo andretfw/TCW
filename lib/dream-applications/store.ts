@@ -101,6 +101,7 @@ export function toDreamListItem(record: DreamApplicationRecord): DreamApplicatio
     country: record.country,
     diagnosis: record.diagnosis,
     dream: record.dream,
+    estimatedCost: record.estimatedCost,
     requestedAmountEur: record.requestedAmountEur,
     locale: record.locale,
     submittedAt: record.submittedAt,
