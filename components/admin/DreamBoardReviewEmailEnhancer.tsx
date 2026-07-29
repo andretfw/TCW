@@ -67,6 +67,7 @@ async function readResponse(response: Response): Promise<BoardReviewResponse> {
 
 export default function DreamBoardReviewEmailEnhancer() {
   const [triggerHost, setTriggerHost] = useState<HTMLDivElement | null>(null);
+  const [currentStatus, setCurrentStatus] = useState('');
   const [applicationId, setApplicationId] = useState<string>();
   const [sourceStatus, setSourceStatus] = useState<string>();
   const [preview, setPreview] = useState<BoardReviewPreview>();
@@ -132,11 +133,13 @@ export default function DreamBoardReviewEmailEnhancer() {
     hostRef.current = null;
     listenersRef.current = undefined;
     setTriggerHost(null);
+    setCurrentStatus('');
   }, []);
 
   const installEnhancement = useCallback((select: HTMLSelectElement) => {
     removeEnhancement();
     previousStatusRef.current = select.value;
+    setCurrentStatus(select.value);
 
     const host = document.createElement('div');
     host.dataset.dreamBoardReviewEmail = 'true';
@@ -150,6 +153,7 @@ export default function DreamBoardReviewEmailEnhancer() {
       const previousStatus = previousStatusRef.current;
       if (nextStatus !== 'board_review' || previousStatus === 'board_review') {
         previousStatusRef.current = nextStatus;
+        setCurrentStatus(nextStatus);
         return;
       }
 
@@ -157,6 +161,7 @@ export default function DreamBoardReviewEmailEnhancer() {
       event.stopPropagation();
       event.stopImmediatePropagation();
       setNativeSelectValue(select, previousStatus);
+      setCurrentStatus(previousStatus);
 
       const id = selectedApplicationId();
       if (!id) {
@@ -188,6 +193,7 @@ export default function DreamBoardReviewEmailEnhancer() {
         return;
       }
       if (selectRef.current === select && hostRef.current?.isConnected) {
+        setCurrentStatus(select.value);
         if (!applicationId) previousStatusRef.current = select.value;
         return;
       }
@@ -240,7 +246,6 @@ export default function DreamBoardReviewEmailEnhancer() {
     }
   }
 
-  const currentStatus = selectRef.current?.value;
   const showResendTrigger = Boolean(triggerHost && currentStatus === 'board_review');
   const modal = Boolean(applicationId);
   const allSent = Boolean(preview && pendingRecipients.length === 0);
