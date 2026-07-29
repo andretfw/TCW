@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img">
+  <title>Mesothelioma and the pleural lining</title>
+  <desc>Schematic chest illustration with the pleural lining around the lungs highlighted.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#faf5ff"/>
+      <stop offset="1" stop-color="#ede9fe"/>
+    </linearGradient>
+    <linearGradient id="lung" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ddd6fe"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" rx="48" fill="url(#bg)"/>
+  <circle cx="600" cy="410" r="330" fill="#fff" opacity=".72"/>
+  <path d="M600 138v155" fill="none" stroke="#7c3aed" stroke-width="34" stroke-linecap="round"/>
+  <path d="M600 274c-38 30-70 57-96 86M600 274c38 30 70 57 96 86" fill="none" stroke="#7c3aed" stroke-width="24" stroke-linecap="round"/>
+  <path d="M551 301C421 279 319 383 319 541c0 91 55 137 132 112 75-25 116-110 115-221 0-55-4-97-15-131Z" fill="url(#lung)" stroke="#6d28d9" stroke-width="8"/>
+  <path d="M649 301c130-22 232 82 232 240 0 91-55 137-132 112-75-25-116-110-115-221 0-55 4-97 15-131Z" fill="url(#lung)" stroke="#6d28d9" stroke-width="8"/>
+  <path d="M548 282C388 248 277 374 278 548c0 124 82 184 187 145" fill="none" stroke="#e11d48" stroke-width="25" stroke-linecap="round"/>
+  <path d="M652 282c160-34 271 92 270 266 0 124-82 184-187 145" fill="none" stroke="#e11d48" stroke-width="25" stroke-linecap="round" opacity=".55"/>
+  <g fill="#be123c" stroke="#fff" stroke-width="7">
+    <circle cx="318" cy="399" r="24"/>
+    <circle cx="293" cy="492" r="18"/>
+    <circle cx="326" cy="600" r="28"/>
+    <circle cx="402" cy="685" r="19"/>
+  </g>
+  <path d="M264 203c-82 116-119 251-105 404M936 203c82 116 119 251 105 404" fill="none" stroke="#c4b5fd" stroke-width="18" stroke-linecap="round"/>
+</svg>
