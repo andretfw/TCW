@@ -2455,143 +2455,143 @@
     "types": {
       "breast": {
         "title": "Cáncer de Mama",
-        "shortDesc": "La detección temprana salva vidas."
+        "shortDesc": "Cáncer que comienza en el tejido mamario, sobre todo en conductos o lobulillos, y puede afectar a personas de cualquier sexo."
       },
       "lung": {
         "title": "Cáncer de Pulmón",
-        "shortDesc": "Entender los riesgos es clave."
+        "shortDesc": "Cáncer que se forma en el tejido pulmonar, normalmente en las células de las vías respiratorias, con tipos que requieren tratamientos distintos."
       },
       "colorectal": {
         "title": "Cáncer Colorrectal",
-        "shortDesc": "El cribado previene el desarrollo."
+        "shortDesc": "Cáncer de colon o recto que suele comenzar en un pólipo y puede causar cambios intestinales, sangrado o molestias abdominales."
       },
       "prostate": {
         "title": "Cáncer de Próstata",
-        "shortDesc": "Salud masculina y prevención."
+        "shortDesc": "Cáncer que comienza en la próstata; algunos tumores crecen lentamente y otros pueden diseminarse con mayor rapidez."
       },
       "skin": {
         "title": "Cáncer de Piel",
-        "shortDesc": "Protege tu piel, protege tu vida."
+        "shortDesc": "Esta guía se centra en el melanoma, un cáncer de piel que comienza en las células pigmentarias y puede diseminarse."
       },
       "kidney": {
         "title": "Cáncer de Riñón",
-        "shortDesc": "Síntomas silenciosos a vigilar."
+        "shortDesc": "Cáncer que comienza en el tejido renal, con mayor frecuencia como carcinoma de células renales en adultos."
       },
       "leukemia": {
         "title": "Leucemia",
-        "shortDesc": "Cáncer de las células sanguíneas."
+        "shortDesc": "Un grupo de cánceres de los tejidos que forman la sangre que acumulan células anormales en la sangre y la médula ósea."
       },
       "liver": {
         "title": "Cáncer de Hígado",
-        "shortDesc": "La salud hepática importa."
+        "shortDesc": "Cáncer que comienza en el hígado, sobre todo carcinoma hepatocelular, a menudo en un hígado afectado por enfermedad crónica."
       },
       "pancreatic": {
         "title": "Cáncer de Páncreas",
-        "shortDesc": "Difícil de detectar, crucial de tratar."
+        "shortDesc": "Cáncer que comienza en el páncreas; el tipo más frecuente surge en las células que producen enzimas digestivas."
       },
       "ovarian": {
         "title": "Cáncer de Ovario",
-        "shortDesc": "Conoce los signos sutiles."
+        "shortDesc": "Un grupo de cánceres que afectan a los ovarios, principalmente tumores epiteliales; los síntomas pueden ser persistentes pero inespecíficos."
       },
       "childhood": {
         "title": "Cáncer Infantil",
-        "shortDesc": "Apoyando a nuestros pequeños guerreros."
+        "shortDesc": "Un grupo amplio de cánceres diagnosticados en niños, como leucemias, tumores cerebrales, linfomas y tumores sólidos."
       },
       "brain": {
         "title": "Tumor Cerebral",
-        "shortDesc": "Afectando el centro de control."
+        "shortDesc": "Tumores que comienzan en el cerebro o sistema nervioso central; pueden ser benignos o malignos, pero requerir atención especializada."
       },
       "bladder": {
         "title": "Cáncer de Vejiga",
-        "shortDesc": "Atención a los cambios urinarios."
+        "shortDesc": "Cáncer que suele comenzar en las células uroteliales de la vejiga y a menudo se manifiesta primero con sangre en la orina."
       },
       "cervical": {
         "title": "Cáncer Cervical",
-        "shortDesc": "Prevenible con vacunas y tests."
+        "shortDesc": "Cáncer del cuello uterino, generalmente ligado a infección persistente por VPH de alto riesgo y a menudo prevenible con vacunación y cribado."
       },
       "stomach": {
         "title": "Cáncer de Estómago",
-        "shortDesc": "Salud digestiva y señales."
+        "shortDesc": "Cáncer que comienza en el estómago, principalmente en las células glandulares de su revestimiento interno."
       },
       "testicular": {
         "title": "Cáncer Testicular",
-        "shortDesc": "El autoexamen es vital."
+        "shortDesc": "Cáncer que comienza en un testículo, normalmente en células germinales, y afecta sobre todo a hombres jóvenes y de mediana edad."
       },
       "thyroid": {
         "title": "Cáncer de Tiroides",
-        "shortDesc": "Glándula pequeña, gran impacto."
+        "shortDesc": "Cáncer que comienza en la glándula tiroides del cuello e incluye varios tipos con comportamientos muy distintos."
       },
       "uterine": {
         "title": "Cáncer de Útero",
-        "shortDesc": "Conocer tu cuerpo es poder."
+        "shortDesc": "Cáncer del cuerpo uterino, principalmente cáncer de endometrio, que suele causar sangrado vaginal anormal."
       },
       "lymphoma": {
         "title": "Linfoma",
-        "shortDesc": "Afectando el sistema inmune."
+        "shortDesc": "Un gran grupo de cánceres del sistema linfático, incluido el linfoma de Hodgkin y muchos linfomas no Hodgkin."
       },
       "myeloma": {
         "title": "Mieloma Múltiple",
-        "shortDesc": "Cáncer de células plasmáticas."
+        "shortDesc": "Cáncer de las células plasmáticas de la médula ósea que puede afectar a huesos, riñones, recuentos sanguíneos e inmunidad."
       },
       "esophageal": {
         "title": "Cáncer de Esófago",
-        "shortDesc": "Dificultad al tragar y riesgos."
+        "shortDesc": "Cáncer que comienza en el esófago, el conducto que lleva los alimentos desde la garganta hasta el estómago."
       },
       "head-neck": {
         "title": "Cabeza y Cuello",
-        "shortDesc": "Boca, garganta y glándulas."
+        "shortDesc": "Un grupo de cánceres que pueden comenzar en la boca, garganta, laringe, nariz, senos paranasales o glándulas salivales."
       },
       "bone": {
         "title": "Cáncer de Huesos",
-        "shortDesc": "Dolor óseo y tratamientos."
+        "shortDesc": "Cánceres poco frecuentes que comienzan en el hueso, como osteosarcoma, condrosarcoma y sarcoma de Ewing."
       },
       "sarcoma": {
         "title": "Sarcoma",
-        "shortDesc": "Tejidos blandos del cuerpo."
+        "shortDesc": "Un grupo diverso de cánceres de tejidos blandos como músculo, grasa, nervios, vasos sanguíneos y tejido conjuntivo."
       },
       "gallbladder": {
         "title": "Vesícula Biliar",
-        "shortDesc": "Poco común pero importante."
+        "shortDesc": "Un cáncer poco frecuente que comienza en la vesícula biliar y suele descubrirse después de crecer fuera de este pequeño órgano."
       },
       "bile-duct": {
         "title": "Conducto Biliar",
-        "shortDesc": "Afectando la digestión."
+        "shortDesc": "También llamado colangiocarcinoma, este cáncer comienza en los conductos biliares dentro o fuera del hígado."
       },
       "anal": {
         "title": "Cáncer Anal",
-        "shortDesc": "Rompiendo el estigma."
+        "shortDesc": "Cáncer que comienza en los tejidos del ano, con la mayoría de los casos ligados a infección persistente por VPH de alto riesgo."
       },
       "penile": {
         "title": "Cáncer de Pene",
-        "shortDesc": "Salud íntima masculina."
+        "shortDesc": "Un cáncer poco frecuente que comienza en el tejido del pene, generalmente en las células escamosas de la piel."
       },
       "vaginal": {
         "title": "Cáncer Vaginal",
-        "shortDesc": "Detección ginecológica."
+        "shortDesc": "Un cáncer poco frecuente que comienza en la vagina, normalmente en las células escamosas de su revestimiento."
       },
       "vulvar": {
         "title": "Cáncer de Vulva",
-        "shortDesc": "Signos externos a vigilar."
+        "shortDesc": "Cáncer que comienza en los tejidos genitales externos y puede presentarse con picor, dolor o cambios cutáneos persistentes."
       },
       "eye": {
         "title": "Cáncer Ocular",
-        "shortDesc": "Melanoma y retinoblastoma."
+        "shortDesc": "Un grupo de cánceres oculares poco frecuentes, como melanoma uveal en adultos y retinoblastoma en niños."
       },
       "oral": {
         "title": "Cáncer Oral",
-        "shortDesc": "Boca, lengua y encías."
+        "shortDesc": "Cáncer que comienza en los labios o cavidad oral, incluida la lengua, encías, mejillas y el suelo o techo de la boca."
       },
       "throat": {
         "title": "Cáncer de Garganta",
-        "shortDesc": "Faringe y laringe."
+        "shortDesc": "Un término informal para cánceres que surgen en partes de la faringe o laringe, cada uno con riesgos y tratamientos distintos."
       },
       "small-intestine": {
         "title": "Intestino Delgado",
-        "shortDesc": "Un cáncer poco frecuente."
+        "shortDesc": "Un grupo poco frecuente de cánceres del intestino delgado, como adenocarcinoma, tumores neuroendocrinos, linfoma y sarcoma."
       },
       "thymus": {
         "title": "Timo",
-        "shortDesc": "Glándula del pecho."
+        "shortDesc": "Tumores poco frecuentes que comienzan en el timo detrás del esternón, principalmente timoma y carcinoma tímico."
       }
     }
   },
