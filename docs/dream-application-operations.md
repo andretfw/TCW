@@ -65,13 +65,15 @@ The admin API checks authentication on every list, detail, status, note, delete 
 
 After the first deploy:
 
-1. Open **Forms** in Netlify and confirm that `dream-application-alert` was detected.
+1. Open **Forms** in Netlify and confirm that `dream-application-server-alert` was detected.
 2. Add an email notification for that form to `tcw@tutticancerwarriors.org`.
 3. Submit one test application.
 4. Confirm the email contains only:
    - application reference;
    - application language;
    - submission time.
+
+The final application API sends this alert from the server after the encrypted application has been saved. It retries transient failures three times and records a server error if all attempts fail. The applicant's browser is not responsible for notifying TCW.
 
 Applicant names, contact details, answers, photographs and medical documents must never be added to the Netlify form or email notification.
 
@@ -119,7 +121,7 @@ Before marking an approved grant `Closed`, record any limited accounting, paymen
 - [ ] A disallowed or oversized file is rejected.
 - [ ] Optional photographs work and publicity can be set to `None`.
 - [ ] The success screen shows a TCW reference.
-- [ ] The Netlify email contains reference-only data.
+- [ ] The server-side Netlify email contains reference-only data and arrives once.
 - [ ] The application appears in the private queue.
 - [ ] A reviewer can download a file only while signed in and authorised.
 - [ ] Status updates, notes and retention dates work.
