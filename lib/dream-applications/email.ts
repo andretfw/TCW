@@ -1,0 +1,205 @@
+import 'server-only';
+
+import {
+  getGoogleWorkspaceAccessToken,
+  GOOGLE_GMAIL_SEND_SCOPE,
+  googleWorkspaceAccountEmail,
+} from './google-drive';
+import type {DreamApplicationRecord} from './types';
+
+const GMAIL_SEND_URL = 'https://gmail.googleapis.com/gmail/v1/users/me/messages/send';
+const DEFAULT_SITE_URL = 'https://tutticancerwarriors.org';
+
+interface GmailSendResponse {
+  id?: string;
+  error?: {
+    message?: string;
+  };
+}
+
+interface EmailMessage {
+  to: string;
+  subject: string;
+  body: string;
+}
+
+export interface DreamSubmissionEmailResult {
+  applicantSent: boolean;
+  tcwSent: boolean;
+  applicantError?: string;
+  tcwError?: string;
+}
+
+const APPLICANT_COPY = {
+  en: {
+    subject: (reference: string) => `We received your TCW Dream application — ${reference}`,
+    body: (firstName: string, reference: string) => `Hi, dear ${firstName} 💜
+
+We have received your Dream Support application.
+Your application number is ${reference}.
+
+Our board will review it soon, and we’ll contact you if we need any additional information.
+
+With hugs,
+Tutti Cancer Warriors
+tutticancerwarriors.org`,
+  },
+  ro: {
+    subject: (reference: string) => `Am primit cererea ta TCW Dream — ${reference}`,
+    body: (firstName: string, reference: string) => `Bună, dragă ${firstName} 💜
+
+Am primit cererea ta pentru Dream Support.
+Numărul cererii tale este ${reference}.
+
+Consiliul nostru o va analiza în curând și te vom contacta dacă avem nevoie de informații suplimentare.
+
+Cu drag,
+Tutti Cancer Warriors
+tutticancerwarriors.org`,
+  },
+  es: {
+    subject: (reference: string) => `Hemos recibido tu solicitud TCW Dream — ${reference}`,
+    body: (firstName: string, reference: string) => `Hola, querida ${firstName} 💜
+
+Hemos recibido tu solicitud de Dream Support.
+El número de tu solicitud es ${reference}.
+
+Nuestro equipo la revisará pronto y nos pondremos en contacto contigo si necesitamos información adicional.
+
+Con cariño,
+Tutti Cancer Warriors
+tutticancerwarriors.org`,
+  },
+} satisfies Record<
+  DreamApplicationRecord['locale'],
+  {
+    subject: (reference: string) => string;
+    body: (firstName: string, reference: string) => string;
+  }
+>;
+
+function firstName(fullName: string): string {
+  return fullName.trim().split(/\s+/)[0] || fullName.trim();
+}
+
+function sanitizeHeader(value: string): string {
+  return value.replace(/[\r\n]+/g, ' ').trim();
+}
+
+function encodeHeader(value: string): string {
+  const clean = sanitizeHeader(value);
+  if (/^[\x20-\x7E]*$/.test(clean)) return clean;
+  return `=?UTF-8?B?${Buffer.from(clean, 'utf8').toString('base64')}?=`;
+}
+
+function wrapBase64(value: string): string {
+  return value.match(/.{1,76}/g)?.join('\r\n') || '';
+}
+
+function rawMessage(from: string, message: EmailMessage): string {
+  const safeFrom = sanitizeHeader(from);
+  const safeTo = sanitizeHeader(message.to);
+  if (!safeFrom || !safeTo || /[<>]/.test(safeTo)) {
+    throw new Error('The email address is invalid.');
+  }
+
+  const encodedBody = wrapBase64(Buffer.from(message.body, 'utf8').toString('base64'));
+  const mime = [
+    `From: Tutti Cancer Warriors <${safeFrom}>`,
+    `Reply-To: ${safeFrom}`,
+    `To: ${safeTo}`,
+    `Subject: ${encodeHeader(message.subject)}`,
+    'MIME-Version: 1.0',
+    'Content-Type: text/plain; charset="UTF-8"',
+    'Content-Transfer-Encoding: base64',
+    '',
+    encodedBody,
+  ].join('\r\n');
+
+  return Buffer.from(mime, 'utf8').toString('base64url');
+}
+
+async function sendGmailMessage(
+  accessToken: string,
+  from: string,
+  message: EmailMessage,
+): Promise<void> {
+  const response = await fetch(GMAIL_SEND_URL, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({raw: rawMessage(from, message)}),
+    cache: 'no-store',
+    signal: AbortSignal.timeout(15_000),
+  });
+  const payload = await response.json().catch(() => ({})) as GmailSendResponse;
+  if (!response.ok || !payload.id) {
+    throw new Error(payload.error?.message || `Gmail returned ${response.status}.`);
+  }
+}
+
+function tcwAlertBody(
+  reference: string,
+  locale: DreamApplicationRecord['locale'],
+  submittedAt: string,
+  dashboardUrl: string,
+): string {
+  return `A new Dream Support application has been submitted.
+
+Application: ${reference}
+Language: ${locale.toUpperCase()}
+Submitted: ${submittedAt}
+
+Review it securely in the TCW dashboard:
+${dashboardUrl}
+
+For privacy, applicant details and medical information are not included in this email.`;
+}
+
+function errorMessage(result: PromiseRejectedResult): string {
+  return result.reason instanceof Error ? result.reason.message : 'Email delivery failed.';
+}
+
+export async function sendDreamSubmissionEmails(input: {
+  application: DreamApplicationRecord;
+  submittedAt: string;
+  dashboardUrl?: string;
+}): Promise<DreamSubmissionEmailResult> {
+  const accessToken = await getGoogleWorkspaceAccessToken(GOOGLE_GMAIL_SEND_SCOPE);
+  const from = googleWorkspaceAccountEmail();
+  const copy = APPLICANT_COPY[input.application.locale];
+  const dashboardUrl =
+    input.dashboardUrl ||
+    new URL('/admin/dream-applications', process.env.NEXT_PUBLIC_SITE_URL || DEFAULT_SITE_URL).toString();
+
+  const applicantMessage: EmailMessage = {
+    to: input.application.email,
+    subject: copy.subject(input.application.reference),
+    body: copy.body(firstName(input.application.fullName), input.application.reference),
+  };
+  const tcwMessage: EmailMessage = {
+    to: from,
+    subject: `New Dream Support application — ${input.application.reference}`,
+    body: tcwAlertBody(
+      input.application.reference,
+      input.application.locale,
+      input.submittedAt,
+      dashboardUrl,
+    ),
+  };
+
+  const [applicantResult, tcwResult] = await Promise.allSettled([
+    sendGmailMessage(accessToken, from, applicantMessage),
+    sendGmailMessage(accessToken, from, tcwMessage),
+  ]);
+
+  return {
+    applicantSent: applicantResult.status === 'fulfilled',
+    tcwSent: tcwResult.status === 'fulfilled',
+    applicantError:
+      applicantResult.status === 'rejected' ? errorMessage(applicantResult) : undefined,
+    tcwError: tcwResult.status === 'rejected' ? errorMessage(tcwResult) : undefined,
+  };
+}

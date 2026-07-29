@@ -15,10 +15,15 @@ const DRIVE_UPLOAD_URL = 'https://www.googleapis.com/upload/drive/v3/files';
 const DRIVE_API_URL = 'https://www.googleapis.com/drive/v3/files';
 const DEFAULT_REDIRECT_URI = 'https://tutticancerwarriors.org/api/google-drive/oauth/callback';
 const DEFAULT_ACCOUNT_EMAIL = 'tcw@tutticancerwarriors.org';
+
+export const GOOGLE_DRIVE_FILE_SCOPE = 'https://www.googleapis.com/auth/drive.file';
+export const GOOGLE_GMAIL_SEND_SCOPE = 'https://www.googleapis.com/auth/gmail.send';
+
 const OAUTH_SCOPES = [
   'openid',
   'email',
-  'https://www.googleapis.com/auth/drive.file',
+  GOOGLE_DRIVE_FILE_SCOPE,
+  GOOGLE_GMAIL_SEND_SCOPE,
 ] as const;
 
 interface GoogleDriveConnection {
@@ -67,7 +72,7 @@ function redirectUri(): string {
   return process.env.GOOGLE_DRIVE_OAUTH_REDIRECT_URI?.trim() || DEFAULT_REDIRECT_URI;
 }
 
-function expectedAccountEmail(): string {
+export function googleWorkspaceAccountEmail(): string {
   return (process.env.GOOGLE_DRIVE_ACCOUNT_EMAIL?.trim() || DEFAULT_ACCOUNT_EMAIL).toLowerCase();
 }
 
@@ -101,6 +106,11 @@ async function readJsonResponse<T>(response: Response, fallback: string): Promis
   return payload;
 }
 
+function hasGrantedScope(connection: GoogleDriveConnection | null, scope: string): boolean {
+  if (!connection?.grantedScope) return false;
+  return connection.grantedScope.split(/\s+/).includes(scope);
+}
+
 export function createGoogleDriveOAuthState(): string {
   return randomBytes(32).toString('base64url');
 }
@@ -116,8 +126,8 @@ export function buildGoogleDriveAuthorizationUrl(state: string): string {
     include_granted_scopes: 'false',
     scope: OAUTH_SCOPES.join(' '),
     state,
-    login_hint: expectedAccountEmail(),
-    hd: expectedAccountEmail().split('@')[1] || '',
+    login_hint: googleWorkspaceAccountEmail(),
+    hd: googleWorkspaceAccountEmail().split('@')[1] || '',
   }).toString();
   return url.toString();
 }
@@ -140,7 +150,7 @@ export async function connectGoogleDriveFromAuthorizationCode(code: string): Pro
   });
   const tokens = await readJsonResponse<GoogleTokenResponse>(
     tokenResponse,
-    'Google did not accept the Drive authorization code.',
+    'Google did not accept the Workspace authorization code.',
   );
   if (!tokens.access_token || !tokens.refresh_token) {
     throw new Error('Google did not return the required offline access token. Reconnect and approve access again.');
@@ -156,8 +166,8 @@ export async function connectGoogleDriveFromAuthorizationCode(code: string): Pro
     'Unable to verify the connected Google Workspace account.',
   );
   const email = user.email?.toLowerCase();
-  if (!email || user.email_verified !== true || email !== expectedAccountEmail()) {
-    throw new Error(`Connect Google Drive using ${expectedAccountEmail()}.`);
+  if (!email || user.email_verified !== true || email !== googleWorkspaceAccountEmail()) {
+    throw new Error(`Connect Google Workspace using ${googleWorkspaceAccountEmail()}.`);
   }
 
   const connection: GoogleDriveConnection = {
@@ -181,7 +191,7 @@ async function getGoogleDriveConnection(): Promise<GoogleDriveConnection | null>
   if (!payload) return null;
   const connection = decryptJson<GoogleDriveConnection>(payload);
   if (connection.v !== 1 || !connection.refreshToken || !connection.connectedEmail) {
-    throw new Error('The stored Google Drive connection is invalid.');
+    throw new Error('The stored Google Workspace connection is invalid.');
   }
   return connection;
 }
@@ -191,6 +201,7 @@ export async function getGoogleDriveConnectionStatus(): Promise<{
   connectedEmail?: string;
   connectedAt?: string;
   folderConfigured: boolean;
+  emailSendingConfigured: boolean;
 }> {
   const connection = await getGoogleDriveConnection();
   return {
@@ -198,6 +209,7 @@ export async function getGoogleDriveConnectionStatus(): Promise<{
     connectedEmail: connection?.connectedEmail,
     connectedAt: connection?.connectedAt,
     folderConfigured: Boolean(process.env.GOOGLE_DRIVE_UPLOAD_FOLDER_ID?.trim()),
+    emailSendingConfigured: hasGrantedScope(connection, GOOGLE_GMAIL_SEND_SCOPE),
   };
 }
 
@@ -205,9 +217,12 @@ export async function disconnectGoogleDrive(): Promise<void> {
   await configStore().delete(CONNECTION_KEY);
 }
 
-async function getGoogleDriveAccessToken(): Promise<string> {
+export async function getGoogleWorkspaceAccessToken(requiredScope?: string): Promise<string> {
   const connection = await getGoogleDriveConnection();
-  if (!connection) throw new Error('Google Drive is not connected.');
+  if (!connection) throw new Error('Google Workspace is not connected.');
+  if (requiredScope && !hasGrantedScope(connection, requiredScope)) {
+    throw new Error('Google Workspace must be reconnected to approve the required permission.');
+  }
 
   const response = await fetch(GOOGLE_TOKEN_URL, {
     method: 'POST',
@@ -223,7 +238,7 @@ async function getGoogleDriveAccessToken(): Promise<string> {
   });
   const tokens = await readJsonResponse<GoogleTokenResponse>(
     response,
-    'Unable to refresh Google Drive access.',
+    'Unable to refresh Google Workspace access.',
   );
   if (!tokens.access_token) throw new Error('Google did not return an access token.');
   return tokens.access_token;
@@ -242,7 +257,7 @@ export async function uploadDreamFileToGoogleDrive(input: {
   category: 'medical' | 'identity' | 'photo';
   mimeType: 'application/pdf' | 'image/jpeg' | 'image/png';
 }): Promise<{driveFileId: string}> {
-  const accessToken = await getGoogleDriveAccessToken();
+  const accessToken = await getGoogleWorkspaceAccessToken();
   const folderId = uploadFolderId();
   const extension = extensionForMimeType(input.mimeType);
   const driveName = `${input.applicationReference}-${input.category}-${input.fileId}.${extension}`;
@@ -291,7 +306,7 @@ export async function uploadDreamFileToGoogleDrive(input: {
 
 export async function deleteGoogleDriveFile(driveFileId: string): Promise<void> {
   if (!driveFileId) return;
-  const accessToken = await getGoogleDriveAccessToken();
+  const accessToken = await getGoogleWorkspaceAccessToken();
   const url = new URL(`${DRIVE_API_URL}/${encodeURIComponent(driveFileId)}`);
   url.searchParams.set('supportsAllDrives', 'true');
   const response = await fetch(url, {
