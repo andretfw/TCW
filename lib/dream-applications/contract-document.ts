@@ -1,10 +1,9 @@
 import 'server-only';
 
 import {createHash} from 'node:crypto';
-import {readFile} from 'node:fs/promises';
-import path from 'node:path';
 
 import {fillDocxTemplate} from './docx-template';
+import {getDreamContractTemplate} from './contract-templates';
 import type {
   DreamApplicationRecord,
   DreamContractDetails,
@@ -12,11 +11,6 @@ import type {
   DreamContractPaymentMethod,
   PublicityChoice,
 } from './types';
-
-const TEMPLATE_FILES: Record<DreamContractLanguage, string> = {
-  ro: 'TCW_Contract_RO.docx',
-  en: 'TCW_Contract_EN.docx',
-};
 
 const PAYMENT_METHOD_COPY: Record<
   DreamContractLanguage,
@@ -109,16 +103,6 @@ function formatContractDate(value: string, language: DreamContractLanguage): str
   }).format(date);
 }
 
-async function readContractTemplate(language: DreamContractLanguage): Promise<Buffer> {
-  const templatePath = path.join(
-    process.cwd(),
-    'public',
-    'contract-templates',
-    TEMPLATE_FILES[language],
-  );
-  return readFile(templatePath);
-}
-
 export interface GeneratedDreamContract {
   buffer: Buffer;
   filename: string;
@@ -131,7 +115,7 @@ export async function generateDreamContract(input: {
   contractNumber: number;
 }): Promise<GeneratedDreamContract> {
   const {application, details, contractNumber} = input;
-  const template = await readContractTemplate(details.language);
+  const template = await getDreamContractTemplate(details.language);
   const values: Record<string, string> = {
     CONTRACT_NUMBER: String(contractNumber),
     CONTRACT_DATE: formatContractDate(details.contractDate, details.language),
