@@ -1,6 +1,7 @@
 import { randomBytes, randomUUID } from 'node:crypto';
 
 import { hashUploadToken } from '@/lib/dream-applications/crypto';
+import { getGoogleDriveConnectionStatus } from '@/lib/dream-applications/google-drive';
 import { assertSameOrigin, DreamAuthorizationError, privateJson } from '@/lib/dream-applications/security';
 import {
   enforceDreamStartRateLimit,
@@ -40,6 +41,15 @@ export async function POST(request: Request): Promise<Response> {
     const payload = validateDreamApplicationInput(await request.json());
     if (payload.website) {
       return privateJson({error: 'Unable to submit this application.'}, {status: 400});
+    }
+
+    const driveStatus = await getGoogleDriveConnectionStatus();
+    if (!driveStatus.connected || !driveStatus.folderConfigured) {
+      console.error('Dream application start blocked because private Google Drive storage is not ready.');
+      return privateJson(
+        {error: 'The secure document service is temporarily unavailable. Please try again later.'},
+        {status: 503},
+      );
     }
 
     await enforceDreamStartRateLimit(getRateIdentifier(request));
@@ -104,4 +114,3 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
 }
-
