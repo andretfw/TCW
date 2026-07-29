@@ -7,6 +7,24 @@ This runbook is for the private Dream Support application system at:
 
 The public form stores applications and uploads in a private Netlify Blobs store. Answers and files are encrypted by the application with AES-256-GCM before they are written. No public Blob URL is created. The Netlify Forms notification contains only the reference, language and submission time.
 
+## Local development
+
+Use Node.js 20.12.2 or newer within the supported Node 20-22 range.
+
+```bash
+npm run dev
+```
+
+The default development command runs the site through the pinned Netlify CLI so Netlify Identity, Blobs and Functions are available to the Dream Support portal. On the first run, complete any Netlify login or site-linking prompt and make sure the local project is linked to the correct TCW Netlify site.
+
+For public-page styling work that does not need Netlify services, plain Next.js remains available:
+
+```bash
+npm run dev:next
+```
+
+Do not use `npm run dev:next` to test the private admin login, application storage, uploads, reviewer APIs or retention function. Those features require the Netlify runtime.
+
 ## Required setup before the first production deployment
 
 ### 1. Add Netlify environment variables
