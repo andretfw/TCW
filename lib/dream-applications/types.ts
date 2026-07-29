@@ -33,6 +33,10 @@ export const DREAM_FILE_CATEGORIES = ['medical', 'identity', 'photo'] as const;
 
 export type DreamFileCategory = (typeof DREAM_FILE_CATEGORIES)[number];
 
+export const DREAM_BOARD_DECISIONS = ['approve', 'reject'] as const;
+
+export type DreamBoardDecision = (typeof DREAM_BOARD_DECISIONS)[number];
+
 export interface DreamApplicationInput {
   locale: 'en' | 'ro' | 'es';
   fullName: string;
@@ -87,11 +91,20 @@ export interface DreamApplicationNote {
   createdAt: string;
 }
 
+export interface DreamBoardVote {
+  id: string;
+  voterEmail: string;
+  decision: DreamBoardDecision;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface DreamApplicationEvent {
   id: string;
-  type: 'submitted' | 'status_changed' | 'note_added';
+  type: 'submitted' | 'status_changed' | 'note_added' | 'board_vote_cast';
   fromStatus?: DreamApplicationStatus;
   toStatus?: DreamApplicationStatus;
+  decision?: DreamBoardDecision;
   actor: string;
   createdAt: string;
 }
@@ -109,6 +122,7 @@ export interface DreamApplicationRecord extends DreamApplicationInput {
   uploadTokenHash?: string;
   files: DreamApplicationFile[];
   reviewerNotes: DreamApplicationNote[];
+  boardVotes?: DreamBoardVote[];
   history: DreamApplicationEvent[];
   consentVersion: 'dream-application-v1';
   grantPolicyVersion: '3.1';
@@ -135,3 +149,4 @@ export const MAX_DREAM_FILE_BYTES = 4 * 1024 * 1024;
 export const MAX_DREAM_PHOTOS = 3;
 export const DRAFT_RETENTION_HOURS = 24;
 export const DECLINED_APPLICATION_RETENTION_DAYS = 365;
+export const DREAM_BOARD_APPROVAL_THRESHOLD = 2;
