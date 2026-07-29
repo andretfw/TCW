@@ -1,3 +1,5 @@
+import 'server-only';
+
 import { getStore } from '@netlify/blobs';
 
 import { decryptFile, decryptJson, encryptFile, encryptJson, hashRateLimitIdentifier } from './crypto';
