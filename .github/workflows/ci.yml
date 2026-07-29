@@ -5,9 +5,10 @@ on:
   push:
     branches:
       - main
+      - fix/dream-portal-hardening
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify:
@@ -27,12 +28,18 @@ jobs:
       - name: Regenerate lockfile and install dependencies
         run: npm install
 
-      - name: Upload regenerated lockfile
-        uses: actions/upload-artifact@v7
-        with:
-          name: regenerated-package-lock
-          path: package-lock.json
-          retention-days: 1
+      - name: Commit regenerated lockfile
+        if: github.event_name == 'push' && github.ref == 'refs/heads/fix/dream-portal-hardening'
+        run: |
+          if git diff --quiet -- package-lock.json; then
+            echo "package-lock.json is already current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          git commit -m "Update npm lockfile [skip netlify]"
+          git push
 
       - name: Type-check
         run: npm run typecheck
