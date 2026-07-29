@@ -52,7 +52,7 @@ export async function POST(
 ): Promise<Response> {
   try {
     assertSameOrigin(request);
-    const adminEmail = await requireDreamAdmin();
+    const admin = await requireDreamAdmin();
     const {id} = await params;
     const body = await request.json() as {
       mode?: unknown;
@@ -89,7 +89,8 @@ export async function POST(
       kind,
       subject: preview.subject,
       body: preview.body,
-      requestedBy: adminEmail,
+      informationRequest,
+      requestedBy: admin.email,
       attemptedAt,
     };
 
