@@ -551,7 +551,6 @@ export default function AdminDreamApplications() {
                     <LabelValue label="Emotional meaning" value={selected.emotionalImpact} />
                     <div className="grid gap-5 rounded-2xl bg-brand-50 p-5 md:grid-cols-2">
                       <LabelValue label="Estimated total cost" value={selected.estimatedCost} />
-                      <LabelValue label="Requested from TCW" value={`€${selected.requestedAmountEur.toFixed(2)}`} />
                       <LabelValue label="Difference plan" value={selected.differencePlan} />
                       <LabelValue label="Supplier link" value={selected.supplierLink ? <a className="inline-flex items-center gap-1 text-brand-700 hover:underline" href={selected.supplierLink} target="_blank" rel="noopener noreferrer">Open link <ExternalLink className="h-3.5 w-3.5" /></a> : undefined} />
                     </div>
@@ -737,7 +736,7 @@ export default function AdminDreamApplications() {
                         </div>
                         <div>
                           <p className="line-clamp-2 text-sm leading-relaxed text-slate-600">{application.dream}</p>
-                          <p className="mt-1 text-xs font-bold text-brand-700">Requested €{application.requestedAmountEur.toFixed(2)}</p>
+                          <p className="mt-1 text-xs font-bold text-brand-700">Estimated cost: {application.estimatedCost}</p>
                         </div>
                         <div className="flex items-center justify-between gap-4 md:justify-end">
                           <span className="text-xs font-semibold text-slate-400">{formatDate(application.submittedAt)}</span>

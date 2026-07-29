@@ -239,7 +239,7 @@ export async function uploadDreamFileToGoogleDrive(input: {
   buffer: Buffer;
   applicationReference: string;
   fileId: string;
-  category: 'medical' | 'photo';
+  category: 'medical' | 'identity' | 'photo';
   mimeType: 'application/pdf' | 'image/jpeg' | 'image/png';
 }): Promise<{driveFileId: string}> {
   const accessToken = await getGoogleDriveAccessToken();

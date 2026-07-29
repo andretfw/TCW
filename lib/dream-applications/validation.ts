@@ -87,6 +87,13 @@ export function validateDreamApplicationInput(
     throw new DreamValidationError('Please enter a valid email address.', 'email');
   }
 
+  const phone = requiredString(input.phone, 'phone', 7, 50);
+  const normalizedPhone = phone.replace(/[()\s.\-]/g, '');
+  const phoneDigits = normalizedPhone.replace(/\D/g, '');
+  if (!/^\+?\d{7,15}$/.test(normalizedPhone) || /^(\d)\1+$/.test(phoneDigits)) {
+    throw new DreamValidationError('Please enter a valid phone number.', 'phone');
+  }
+
   const diagnosisDate = requiredString(input.diagnosisDate, 'diagnosisDate', 4, 10);
   if (!/^\d{4}-(?:0[1-9]|1[0-2])$/.test(diagnosisDate)) {
     throw new DreamValidationError('Please provide a valid diagnosis date.', 'diagnosisDate');
@@ -124,7 +131,7 @@ export function validateDreamApplicationInput(
     locale,
     fullName: requiredString(input.fullName, 'fullName', 2, 160),
     email,
-    phone: requiredString(input.phone, 'phone', 5, 50),
+    phone,
     city: requiredString(input.city, 'city', 2, 120),
     country: requiredString(input.country, 'country', 2, 120),
     socialProfile: optionalUrl(input.socialProfile, 'socialProfile'),

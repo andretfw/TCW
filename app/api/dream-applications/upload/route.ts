@@ -97,6 +97,9 @@ function assertCategoryCapacity(
   if (category === 'medical' && categoryFiles.length >= 1) {
     throw new DreamUploadError('Only one diagnosis document is requested.', 400);
   }
+  if (category === 'identity' && categoryFiles.length >= 1) {
+    throw new DreamUploadError('Only one ID or passport document is requested.', 400);
+  }
   if (category === 'photo' && categoryFiles.length >= MAX_DREAM_PHOTOS) {
     throw new DreamUploadError(`You can upload up to ${MAX_DREAM_PHOTOS} photographs.`, 400);
   }

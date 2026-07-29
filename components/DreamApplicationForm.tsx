@@ -89,6 +89,9 @@ const COPY = {
     medicalFile: 'Diagnosis-verification document',
     medicalFileHelp: 'One PDF, JPG or PNG, no larger than 4 MB.',
     medicalRequired: 'Please select one diagnosis-verification document.',
+    identityFile: 'ID or passport',
+    identityFileHelp: 'Upload one clear PDF, JPG or PNG of the photo/details page, no larger than 4 MB. You may cover information that is not needed to verify your identity.',
+    identityRequired: 'Please select one ID or passport document.',
     fileTooLarge: 'Each file must be smaller than 4 MB.',
     wrongMedicalType: 'Use a PDF, JPG or PNG file.',
     dreamTitle: 'Now tell us about your dream',
@@ -142,6 +145,7 @@ const COPY = {
     genericRequired: 'This field is required.',
     moreDetail: 'Please provide a little more detail.',
     validEmail: 'Enter a valid email address.',
+    validPhone: 'Enter a valid phone number with 7 to 15 digits.',
     validUrl: 'Enter a complete link beginning with https://',
     amountRange: 'Enter an amount between €1 and €500.',
     submissionError:
@@ -214,6 +218,9 @@ const COPY = {
     medicalFile: 'Document care confirmă diagnosticul',
     medicalFileHelp: 'Un singur PDF, JPG sau PNG, de maximum 4 MB.',
     medicalRequired: 'Selectează un document care confirmă diagnosticul.',
+    identityFile: 'Carte de identitate sau pașaport',
+    identityFileHelp: 'Încarcă un singur PDF, JPG sau PNG clar cu pagina care conține fotografia și datele, de maximum 4 MB. Poți acoperi informațiile care nu sunt necesare pentru verificarea identității.',
+    identityRequired: 'Selectează o carte de identitate sau un pașaport.',
     fileTooLarge: 'Fiecare fișier trebuie să fie mai mic de 4 MB.',
     wrongMedicalType: 'Folosește un fișier PDF, JPG sau PNG.',
     dreamTitle: 'Acum povestește-ne despre visul tău',
@@ -267,6 +274,7 @@ const COPY = {
     genericRequired: 'Acest câmp este obligatoriu.',
     moreDetail: 'Te rugăm să ne oferi puțin mai multe detalii.',
     validEmail: 'Introdu o adresă de email validă.',
+    validPhone: 'Introdu un număr de telefon valid, cu 7 până la 15 cifre.',
     validUrl: 'Introdu un link complet care începe cu https://',
     amountRange: 'Introdu o sumă între 1 € și 500 €.',
     submissionError:
@@ -339,6 +347,9 @@ const COPY = {
     medicalFile: 'Documento que verifica el diagnóstico',
     medicalFileHelp: 'Un PDF, JPG o PNG, de máximo 4 MB.',
     medicalRequired: 'Selecciona un documento que verifique el diagnóstico.',
+    identityFile: 'Documento de identidad o pasaporte',
+    identityFileHelp: 'Sube un PDF, JPG o PNG claro de la página con la foto y los datos, de máximo 4 MB. Puedes ocultar la información que no sea necesaria para verificar tu identidad.',
+    identityRequired: 'Selecciona un documento de identidad o pasaporte.',
     fileTooLarge: 'Cada archivo debe pesar menos de 4 MB.',
     wrongMedicalType: 'Utiliza un archivo PDF, JPG o PNG.',
     dreamTitle: 'Ahora cuéntanos sobre tu sueño',
@@ -392,6 +403,7 @@ const COPY = {
     genericRequired: 'Este campo es obligatorio.',
     moreDetail: 'Proporciona un poco más de información.',
     validEmail: 'Introduce un correo electrónico válido.',
+    validPhone: 'Introduce un número de teléfono válido de 7 a 15 dígitos.',
     validUrl: 'Introduce un enlace completo que comience por https://',
     amountRange: 'Introduce un importe entre 1 € y 500 €.',
     submissionError:
@@ -416,7 +428,7 @@ const STEP_FIELDS: Array<Array<FieldPath<FormValues>>> = [
   ['confirmsAdult', 'confirmsSelfApplication', 'confirmsNonMedical'],
   ['fullName', 'email', 'phone', 'city', 'country', 'preferredContact'],
   ['diagnosis', 'diagnosisDate', 'treatmentStatus', 'treatmentStatusOther'],
-  ['story', 'dream', 'emotionalImpact', 'estimatedCost', 'requestedAmountEur'],
+  ['story', 'dream', 'emotionalImpact', 'estimatedCost'],
   [
     'publicityChoice',
     'confirmsAccuracy',
@@ -468,6 +480,8 @@ export default function DreamApplicationForm() {
   const [step, setStep] = useState(0);
   const [medicalFile, setMedicalFile] = useState<File | null>(null);
   const [medicalError, setMedicalError] = useState<string>();
+  const [identityFile, setIdentityFile] = useState<File | null>(null);
+  const [identityError, setIdentityError] = useState<string>();
   const [photos, setPhotos] = useState<File[]>([]);
   const [photoError, setPhotoError] = useState<string>();
   const [submissionError, setSubmissionError] = useState<string>();
@@ -505,7 +519,6 @@ export default function DreamApplicationForm() {
       requestedAmountEur: 500,
       supplierLink: '',
       differencePlan: '',
-      publicityChoice: 'none',
       confirmsAdult: false,
       confirmsSelfApplication: false,
       confirmsNonMedical: false,
@@ -528,9 +541,17 @@ export default function DreamApplicationForm() {
 
   async function goNext() {
     const valid = await trigger(STEP_FIELDS[step], {shouldFocus: true});
-    if (step === 2 && !medicalFile) {
-      setMedicalError(c.medicalRequired);
-      return;
+    if (step === 2) {
+      let missingDocument = false;
+      if (!medicalFile) {
+        setMedicalError(c.medicalRequired);
+        missingDocument = true;
+      }
+      if (!identityFile) {
+        setIdentityError(c.identityRequired);
+        missingDocument = true;
+      }
+      if (missingDocument) return;
     }
     if (!valid) return;
     setStep((current) => Math.min(current + 1, c.steps.length - 1));
@@ -554,6 +575,23 @@ export default function DreamApplicationForm() {
     setMedicalFile(file);
   }
 
+  function chooseIdentityFile(file?: File) {
+    setIdentityError(undefined);
+    if (!file) {
+      setIdentityFile(null);
+      return;
+    }
+    if (file.size > MAX_DREAM_FILE_BYTES) {
+      setIdentityError(c.fileTooLarge);
+      return;
+    }
+    if (!['application/pdf', 'image/jpeg', 'image/png'].includes(file.type)) {
+      setIdentityError(c.wrongMedicalType);
+      return;
+    }
+    setIdentityFile(file);
+  }
+
   function choosePhotos(files: File[]) {
     setPhotoError(undefined);
     if (files.length > MAX_DREAM_PHOTOS) {
@@ -575,7 +613,7 @@ export default function DreamApplicationForm() {
   async function uploadFile(
     applicationId: string,
     uploadToken: string,
-    category: 'medical' | 'photo',
+    category: 'medical' | 'identity' | 'photo',
     file: File,
   ) {
     const body = new FormData();
@@ -606,8 +644,9 @@ export default function DreamApplicationForm() {
   // React Hook Form intentionally builds a stable submit handler from its internal refs.
   // eslint-disable-next-line react-hooks/refs
   const submitApplication = handleSubmit(async (values) => {
-    if (!medicalFile) {
-      setMedicalError(c.medicalRequired);
+    if (!medicalFile || !identityFile) {
+      if (!medicalFile) setMedicalError(c.medicalRequired);
+      if (!identityFile) setIdentityError(c.identityRequired);
       setStep(2);
       window.setTimeout(scrollToForm, 50);
       return;
@@ -626,6 +665,7 @@ export default function DreamApplicationForm() {
 
       const files = [
         {category: 'medical' as const, file: medicalFile},
+        {category: 'identity' as const, file: identityFile},
         ...photos.map((file) => ({category: 'photo' as const, file})),
       ];
       for (let index = 0; index < files.length; index += 1) {
@@ -661,6 +701,7 @@ export default function DreamApplicationForm() {
     reset();
     setStep(0);
     setMedicalFile(null);
+    setIdentityFile(null);
     setPhotos([]);
     setSuccessReference(undefined);
     setSubmissionError(undefined);
@@ -819,7 +860,7 @@ export default function DreamApplicationForm() {
               </label>
               <label className={LABEL_CLASS}>
                 {c.phone}<RequiredMark />
-                <input type="tel" className={INPUT_CLASS} autoComplete="tel" {...register('phone', {required: c.genericRequired, minLength: {value: 5, message: c.moreDetail}})} />
+                <input type="tel" className={INPUT_CLASS} autoComplete="tel" {...register('phone', {required: c.genericRequired, validate: (value) => { const normalized = value.trim().replace(/[()\s.\-]/g, ''); const digits = normalized.replace(/\D/g, ''); return (/^\+?\d{7,15}$/.test(normalized) && !/^(\d)\1+$/.test(digits)) || c.validPhone; }})} />
                 <ErrorText message={errors.phone?.message} />
               </label>
               <label className={LABEL_CLASS}>
@@ -936,6 +977,34 @@ export default function DreamApplicationForm() {
               )}
               <ErrorText message={medicalError} />
             </div>
+
+            <div className="mt-6 rounded-3xl border-2 border-dashed border-violet-200 bg-violet-50/50 p-6">
+              <label className="block cursor-pointer">
+                <span className="flex items-center gap-3 text-base font-black text-violet-950">
+                  <Paperclip className="h-5 w-5 text-violet-600" />
+                  {c.identityFile}<RequiredMark />
+                </span>
+                <span className="mt-2 block text-sm leading-relaxed text-neutral-600">{c.identityFileHelp}</span>
+                <input
+                  type="file"
+                  accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
+                  className="mt-5 block w-full text-sm text-neutral-600 file:mr-4 file:rounded-full file:border-0 file:bg-violet-600 file:px-5 file:py-3 file:font-bold file:text-white hover:file:bg-violet-700"
+                  onChange={(event) => chooseIdentityFile(event.target.files?.[0])}
+                />
+              </label>
+              {identityFile && (
+                <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl bg-white p-4 shadow-sm">
+                  <span className="min-w-0">
+                    <span className="block truncate text-sm font-bold text-neutral-800">{identityFile.name}</span>
+                    <span className="text-xs text-neutral-500">{formatBytes(identityFile.size)}</span>
+                  </span>
+                  <button type="button" onClick={() => setIdentityFile(null)} className="rounded-full p-2 text-neutral-500 hover:bg-red-50 hover:text-red-600" aria-label={c.remove}>
+                    <Trash2 className="h-5 w-5" />
+                  </button>
+                </div>
+              )}
+              <ErrorText message={identityError} />
+            </div>
           </section>
         )}
 
@@ -971,14 +1040,6 @@ export default function DreamApplicationForm() {
                   {c.estimatedCost}<RequiredMark />
                   <input className={INPUT_CLASS} placeholder={c.estimatedCostHint} {...register('estimatedCost', {required: c.genericRequired})} />
                   <ErrorText message={errors.estimatedCost?.message} />
-                </label>
-                <label className={LABEL_CLASS}>
-                  <span className="flex items-center justify-between gap-3">
-                    <span>{c.requestedAmountEur}<RequiredMark /></span>
-                    <span className="rounded-full bg-brand-100 px-2.5 py-1 text-[11px] text-brand-700">{c.maxGrant}</span>
-                  </span>
-                  <input type="number" min="1" max="500" step="0.01" className={INPUT_CLASS} {...register('requestedAmountEur', {required: c.genericRequired, valueAsNumber: true, min: {value: 1, message: c.amountRange}, max: {value: 500, message: c.amountRange}})} />
-                  <ErrorText message={errors.requestedAmountEur?.message} />
                 </label>
                 <label className={LABEL_CLASS}>
                   {c.supplierLink} <span className="font-medium text-neutral-400">({c.optional})</span>

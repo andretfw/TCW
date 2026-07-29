@@ -29,7 +29,7 @@ export const PREFERRED_CONTACT_METHODS = ['email', 'phone', 'whatsapp'] as const
 
 export type PreferredContactMethod = (typeof PREFERRED_CONTACT_METHODS)[number];
 
-export const DREAM_FILE_CATEGORIES = ['medical', 'photo'] as const;
+export const DREAM_FILE_CATEGORIES = ['medical', 'identity', 'photo'] as const;
 
 export type DreamFileCategory = (typeof DREAM_FILE_CATEGORIES)[number];
 
@@ -122,6 +122,7 @@ export interface DreamApplicationListItem {
   country: string;
   diagnosis: string;
   dream: string;
+  estimatedCost: string;
   requestedAmountEur: number;
   locale: DreamApplicationInput['locale'];
   submittedAt?: string;
