@@ -271,7 +271,76 @@ async function main() {
     }
   }
 
-  const failures = [...sitemapFailures, ...redirectFailures];
+  const featureFailures = [];
+  const localizedDreamChecks = [
+    {
+      path: '/en/dream-support-application',
+      formText: 'Tell us about the dream waiting for you',
+      privacyPath: '/en/privacy',
+      privacyText: 'Dream Support applications and medical evidence',
+    },
+    {
+      path: '/ro/cerere-sprijin-vis',
+      formText: 'Povestește-ne despre visul care te așteaptă',
+      privacyPath: '/ro/confidentialitate',
+      privacyText: 'Cererile Dream Support și documentele medicale',
+    },
+    {
+      path: '/es/solicitud-sueno',
+      formText: 'Cuéntanos sobre el sueño que te espera',
+      privacyPath: '/es/privacidad',
+      privacyText: 'Solicitudes de Dream Support y documentación médica',
+    },
+  ];
+
+  for (const check of localizedDreamChecks) {
+    try {
+      const application = await inspectPath(check.path);
+      assertDocument(check.path, application);
+      if (!application.html.includes(check.formText)) {
+        throw new Error(`missing localized application text: ${check.formText}`);
+      }
+
+      const privacy = await inspectPath(check.privacyPath);
+      assertDocument(check.privacyPath, privacy);
+      if (!privacy.html.includes(check.privacyText)) {
+        throw new Error(`missing native privacy wording: ${check.privacyText}`);
+      }
+    } catch (error) {
+      featureFailures.push(`${check.path}: ${error.message}`);
+    }
+  }
+
+  try {
+    const admin = await inspectPath('/admin/dream-applications');
+    if (admin.finalStatus !== 200) {
+      throw new Error(`finished with HTTP ${admin.finalStatus}`);
+    }
+    if (!admin.html.includes('Dream applications')) {
+      throw new Error('rendered without the private review login');
+    }
+    if (!/name="robots" content="noindex/i.test(admin.html)) {
+      throw new Error('rendered without noindex protection');
+    }
+
+    const unauthorisedApi = await fetch(
+      `${BASE_URL}/api/admin/dream-applications`,
+      {redirect: 'manual'},
+    );
+    if (unauthorisedApi.status !== 401) {
+      throw new Error(
+        `private API returned HTTP ${unauthorisedApi.status} without a reviewer session`,
+      );
+    }
+  } catch (error) {
+    featureFailures.push(`/admin/dream-applications: ${error.message}`);
+  }
+
+  const failures = [
+    ...sitemapFailures,
+    ...redirectFailures,
+    ...featureFailures,
+  ];
   if (failures.length > 0) {
     throw new Error(
       `Route smoke test found ${failures.length} failure(s):\n${failures
@@ -281,7 +350,7 @@ async function main() {
   }
 
   console.log(
-    `Route and SEO smoke test passed: ${sitemapUrls.length} sitemap URLs and ${redirectCases.length} redirect cases.`,
+    `Route and SEO smoke test passed: ${sitemapUrls.length} sitemap URLs, ${redirectCases.length} redirect cases and ${localizedDreamChecks.length + 1} Dream Support feature checks.`,
   );
 }
 

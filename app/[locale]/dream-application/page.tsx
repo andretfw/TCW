@@ -1,13 +1,11 @@
 'use client';
-import Link from 'next/link';
-import { useLocale, useTranslations } from 'next-intl';
-import { ClipboardCheck, Sparkles, Languages, ShieldCheck, Scale, Gavel, AlertCircle, Info } from 'lucide-react';
-import {localizedPath} from '@/lib/routes';
+import { useTranslations } from 'next-intl';
+import { Sparkles, ShieldCheck, Scale, Gavel, AlertCircle, Info } from 'lucide-react';
+import DreamApplicationForm from '@/components/DreamApplicationForm';
 
 export default function DreamApplicationPage() {
   const t = useTranslations('dreamApp');
   const tGrant = useTranslations('grantPolicy');
-  const locale = useLocale();
 
   return (
     <div className="pt-20 min-h-screen bg-white">
@@ -23,52 +21,11 @@ export default function DreamApplicationPage() {
       {/* Contenido Principal */}
       <section className="py-12 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-neutral-100 animate-fade-in-up">
-            <div className="p-6 md:p-12">
-                <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-6 text-center">{t('formTitle')}</h2>
-                <p className="mx-auto mb-8 max-w-2xl text-center text-neutral-600">{t('formIntro')}</p>
-                
-                {/* Caja de Elegibilidad */}
-                <div className="bg-amber-50 rounded-2xl p-6 md:p-8 mb-10 border border-amber-100">
-                    <h3 className="text-lg md:text-xl font-bold text-amber-800 mb-4 flex items-center gap-2">
-                        <ClipboardCheck className="w-6 h-6 shrink-0" />
-                        {t('eligibilityTitle')}
-                    </h3>
-                    <ul className="space-y-3">
-                        {[1, 2, 3].map((i) => (
-                            <li key={i} className="flex gap-3 text-neutral-700 text-sm md:text-base">
-                                <span className="w-2 h-2 bg-amber-500 rounded-full mt-2 shrink-0"></span>
-                                {t(`eligibility${i}`)}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-
-                {/* Botones de Formulario - Responsive Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSffC9zT7zJ2dLp0aO7mPXEngDkX3cqcabD1Ck_2IRrpV9DbVQ/viewform" 
-                       target="_blank" rel="noopener noreferrer" 
-                       className="py-4 bg-brand-600 text-white font-bold rounded-xl text-center hover:bg-brand-700 hover:scale-[1.02] active:scale-95 transition-all shadow-lg">
-                        {t('applyButton')} (English)
-                    </a>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSf10pd0dBE35zsleulROh2nItiZpbXOCrNI5vHjo8KGYWeebQ/viewform" 
-                       target="_blank" rel="noopener noreferrer" 
-                       className="py-4 bg-white text-brand-600 font-bold rounded-xl text-center border-2 border-brand-100 hover:border-brand-600 transition-all flex items-center justify-center gap-2 active:scale-95">
-                        <Languages className="w-5 h-5" /> Aplică în Română
-                    </a>
-                </div>
-                <div className="-mt-10 mb-16 rounded-xl border border-blue-100 bg-blue-50 p-4 text-sm leading-relaxed text-blue-950">
-                    <p>{t('privacyNotice')}</p>
-                    <Link
-                      href={localizedPath(locale, 'privacy')}
-                      className="mt-2 inline-block font-semibold text-blue-700 underline decoration-blue-300 underline-offset-4 hover:text-blue-900"
-                    >
-                      {t('privacyLink')}
-                    </Link>
-                </div>
+          <div className="max-w-5xl mx-auto animate-fade-in-up">
+                <DreamApplicationForm />
 
                 {/* --- SECCIÓN POLÍTICA INTEGRAL (TEXTO COMPLETO PDF) --- */}
-                <div className="mt-16 pt-12 border-t-2 border-neutral-100">
+                <div id="grant-policy" className="mt-16 rounded-[2rem] border border-neutral-100 bg-white p-6 shadow-xl scroll-mt-28 md:p-12">
                     <div className="text-center mb-12">
                         <ShieldCheck className="w-12 h-12 text-brand-600 mx-auto mb-4" />
                         <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-2">{tGrant('title')}</h2>
@@ -160,7 +117,6 @@ export default function DreamApplicationPage() {
                         </div>
                     </div>
                 </div>
-            </div>
           </div>
         </div>
       </section>
