@@ -17,13 +17,14 @@ export async function GET(): Promise<Response> {
   try {
     await requireDreamReviewer();
     const state = createGoogleDriveOAuthState();
-    const response = Response.redirect(buildGoogleDriveAuthorizationUrl(state), 302);
-    response.headers.set('Cache-Control', 'no-store, private');
-    response.headers.append(
-      'Set-Cookie',
-      `${STATE_COOKIE}=${state}; Max-Age=600; Path=/api/google-drive/oauth/callback; HttpOnly; Secure; SameSite=Lax`,
-    );
-    return response;
+    return new Response(null, {
+      status: 302,
+      headers: {
+        'Cache-Control': 'no-store, private',
+        Location: buildGoogleDriveAuthorizationUrl(state),
+        'Set-Cookie': `${STATE_COOKIE}=${state}; Max-Age=600; Path=/api/google-drive/oauth/callback; HttpOnly; Secure; SameSite=Lax`,
+      },
+    });
   } catch (error) {
     if (error instanceof DreamAuthorizationError) {
       return privateJson({error: error.message}, {status: error.status});
