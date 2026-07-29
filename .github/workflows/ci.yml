@@ -44,7 +44,7 @@ jobs:
         run: npm run smoke:routes
 
   apply-dream-status-cards:
-    if: github.event_name == 'pull_request' && github.head_ref == 'trigger/dream-status-cards'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: write
