@@ -5,7 +5,7 @@ import { getStore } from '@netlify/blobs';
 import { decryptJson, encryptJson, hashRateLimitIdentifier } from './crypto';
 import { deleteGoogleDriveFile } from './google-drive';
 import {
-  CLOSED_MEDICAL_RETENTION_DAYS,
+  DECLINED_APPLICATION_RETENTION_DAYS,
   type DreamApplicationListItem,
   type DreamApplicationRecord,
 } from './types';
@@ -166,35 +166,42 @@ export async function enforceDreamStartRateLimit(identifier: string): Promise<vo
   throw new Error('RATE_LIMIT_BUSY');
 }
 
+/** Returns the deletion date for an unsuccessful application. */
 export function retentionDateFrom(now: Date): string {
   return new Date(
-    now.getTime() + CLOSED_MEDICAL_RETENTION_DAYS * 24 * 60 * 60 * 1000,
+    now.getTime() + DECLINED_APPLICATION_RETENTION_DAYS * 24 * 60 * 60 * 1000,
   ).toISOString();
 }
 
 export async function purgeExpiredDreamApplications(now = new Date()): Promise<{
   deletedDrafts: number;
+  deletedDeclined: number;
   deletedClosed: number;
 }> {
   const records = await listDreamApplications();
   let deletedDrafts = 0;
-  let deletedClosed = 0;
+  let deletedDeclined = 0;
 
   for (const record of records) {
     const expiredDraft =
       record.status === 'draft' &&
       Boolean(record.draftExpiresAt) &&
       new Date(record.draftExpiresAt as string) <= now;
-    const expiredClosed =
-      ['declined', 'closed'].includes(record.status) &&
+    const expiredDeclined =
+      record.status === 'declined' &&
       Boolean(record.retentionDeleteAt) &&
       new Date(record.retentionDeleteAt as string) <= now;
 
-    if (!expiredDraft && !expiredClosed) continue;
+    if (!expiredDraft && !expiredDeclined) continue;
     await deleteDreamApplication(record);
     if (expiredDraft) deletedDrafts += 1;
-    if (expiredClosed) deletedClosed += 1;
+    if (expiredDeclined) deletedDeclined += 1;
   }
 
-  return {deletedDrafts, deletedClosed};
+  return {
+    deletedDrafts,
+    deletedDeclined,
+    // Kept for compatibility with any existing monitoring response.
+    deletedClosed: 0,
+  };
 }
