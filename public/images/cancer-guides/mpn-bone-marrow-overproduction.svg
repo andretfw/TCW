@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img">
+  <title>Myeloproliferative neoplasms and blood-cell overproduction</title>
+  <desc>Schematic bone marrow releasing excess red cells, white cells and platelets.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff7ed"/>
+      <stop offset="1" stop-color="#ede9fe"/>
+    </linearGradient>
+    <linearGradient id="bone" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fef3c7"/>
+      <stop offset="1" stop-color="#d6b889"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" rx="48" fill="url(#bg)"/>
+  <circle cx="600" cy="400" r="340" fill="#fff" opacity=".76"/>
+  <path d="M297 142c-67 15-101 83-72 137 13 24 41 42 76 47l71 3 199 342c21 36 67 47 102 26 35-20 48-65 29-101L504 253l28-65c12-31 8-64-11-89-42-55-133-40-159 24-10 25-7 50 5 73l22 37-69 2c-27 1-45-14-49-33-6-26 5-51 26-60Z" fill="url(#bone)" stroke="#92400e" stroke-width="11"/>
+  <path d="M405 252 632 648" fill="none" stroke="#7f1d1d" stroke-width="86" stroke-linecap="round"/>
+  <path d="M411 253 634 643" fill="none" stroke="#fecaca" stroke-width="58" stroke-linecap="round" stroke-dasharray="8 12"/>
+  <path d="M697 265c86 1 145 38 177 95" fill="none" stroke="#7c3aed" stroke-width="14" stroke-linecap="round"/>
+  <path d="m846 337 39 39 23-49" fill="none" stroke="#7c3aed" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <g stroke-width="6">
+    <g fill="#ef4444" stroke="#991b1b">
+      <circle cx="752" cy="283" r="27"/><circle cx="824" cy="246" r="25"/><circle cx="909" cy="259" r="28"/>
+      <circle cx="987" cy="301" r="26"/><circle cx="782" cy="389" r="29"/><circle cx="879" cy="371" r="27"/>
+      <circle cx="975" cy="403" r="29"/><circle cx="730" cy="500" r="24"/><circle cx="841" cy="480" r="28"/>
+      <circle cx="955" cy="511" r="26"/><circle cx="790" cy="608" r="27"/><circle cx="902" cy="596" r="30"/>
+    </g>
+    <g fill="#f8fafc" stroke="#7c3aed">
+      <circle cx="736" cy="342" r="35"/><circle cx="923" cy="328" r="37"/><circle cx="849" cy="430" r="35"/>
+      <circle cx="1014" cy="469" r="36"/><circle cx="742" cy="574" r="34"/><circle cx="1016" cy="587" r="38"/>
+    </g>
+    <g fill="#f59e0b" stroke="#b45309">
+      <circle cx="1031" cy="250" r="10"/><circle cx="1059" cy="277" r="9"/><circle cx="948" cy="455" r="10"/>
+      <circle cx="881" cy="530" r="9"/><circle cx="868" cy="557" r="8"/><circle cx="942" cy="641" r="10"/>
+      <circle cx="1055" cy="539" r="9"/><circle cx="717" cy="443" r="9"/>
+    </g>
+  </g>
+</svg>
