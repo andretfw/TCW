@@ -2,7 +2,8 @@ import 'server-only';
 
 import { getStore } from '@netlify/blobs';
 
-import { decryptFile, decryptJson, encryptFile, encryptJson, hashRateLimitIdentifier } from './crypto';
+import { decryptJson, encryptJson, hashRateLimitIdentifier } from './crypto';
+import { deleteGoogleDriveFile } from './google-drive';
 import {
   CLOSED_MEDICAL_RETENTION_DAYS,
   type DreamApplicationListItem,
@@ -11,7 +12,6 @@ import {
 
 const STORE_NAME = 'tcw-dream-applications';
 const APPLICATION_PREFIX = 'applications/';
-const FILE_PREFIX = 'files/';
 const RATE_PREFIX = 'rate/';
 const CONDITIONAL_WRITE_ATTEMPTS = 5;
 
@@ -29,13 +29,6 @@ function applicationMetadata(record: DreamApplicationRecord) {
     status: record.status,
     updatedAt: record.updatedAt,
   };
-}
-
-function bufferToArrayBuffer(value: Buffer): ArrayBuffer {
-  return value.buffer.slice(
-    value.byteOffset,
-    value.byteOffset + value.byteLength,
-  ) as ArrayBuffer;
 }
 
 export async function saveDreamApplication(record: DreamApplicationRecord): Promise<void> {
@@ -116,28 +109,10 @@ export function toDreamListItem(record: DreamApplicationRecord): DreamApplicatio
   };
 }
 
-export async function saveDreamFile(key: string, value: Buffer): Promise<void> {
-  await store().set(key, bufferToArrayBuffer(encryptFile(value)), {
-    metadata: {kind: 'encrypted-file'},
-  });
-}
-
-export async function getDreamFile(key: string): Promise<Buffer | null> {
-  const value = await store().get(key, {type: 'arrayBuffer', consistency: 'strong'});
-  if (!value) return null;
-  return decryptFile(Buffer.from(value));
-}
-
-export function createDreamFileKey(applicationId: string, fileId: string): string {
-  return `${FILE_PREFIX}${applicationId}/${fileId}.bin`;
-}
-
-export async function deleteDreamFile(key: string): Promise<void> {
-  await store().delete(key);
-}
-
 export async function deleteDreamApplication(record: DreamApplicationRecord): Promise<void> {
-  await Promise.all(record.files.map((file) => deleteDreamFile(file.storageKey)));
+  for (const file of record.files) {
+    await deleteGoogleDriveFile(file.driveFileId);
+  }
   await store().delete(applicationKey(record.id));
 }
 
