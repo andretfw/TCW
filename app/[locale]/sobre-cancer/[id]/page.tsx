@@ -8,6 +8,8 @@ import {getAdditionalCancerGuideContent} from '@/lib/additional-cancer-guides';
 import {getAdditionalCancerGuideBatch2Content} from '@/lib/additional-cancer-guides-2';
 import {getAdditionalCancerGuideBatch3Content} from '@/lib/additional-cancer-guides-3';
 import {getCancerData} from '@/lib/cancer-data';
+import {getCancerGuideImageAlt} from '@/lib/cancer-image-seo';
+import type {CancerImagePresentation} from '@/lib/cancer-images';
 import {
   CANCER_SLUGS,
   SITE_LOCALES,
@@ -56,6 +58,7 @@ type ResolvedGuide = {
   homeLabel: string;
   libraryLabel: string;
   image: string;
+  imagePresentation: CancerImagePresentation;
 };
 
 function isSupportedLocale(locale: string): locale is SiteLocale {
@@ -90,6 +93,7 @@ function resolveGuide(localeParam: string, slug: string): ResolvedGuide | null {
     homeLabel: messages.nav?.home || 'Home',
     libraryLabel: messages.nav?.aboutCancer || 'About Cancer',
     image: cancerData.image,
+    imagePresentation: cancerData.imagePresentation,
   };
 }
 
@@ -122,6 +126,12 @@ export async function generateMetadata({
   if (!guide) notFound();
 
   const canonical = absoluteCancerUrl(guide.locale, guide.cancerId);
+  const socialImageAlt = getCancerGuideImageAlt(
+    guide.title,
+    guide.locale,
+    'social',
+    guide.imagePresentation,
+  );
 
   return {
     title: guide.title,
@@ -148,7 +158,7 @@ export async function generateMetadata({
       images: [
         {
           url: guide.image,
-          alt: `${guide.title} - Tutti Cancer Warriors`,
+          alt: socialImageAlt,
         },
       ],
     },
@@ -156,7 +166,12 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: `${guide.title} | Tutti Cancer Warriors`,
       description: guide.description,
-      images: [guide.image],
+      images: [
+        {
+          url: guide.image,
+          alt: socialImageAlt,
+        },
+      ],
     },
   };
 }
