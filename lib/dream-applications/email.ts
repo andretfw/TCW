@@ -35,6 +35,13 @@ export interface DreamBoardReviewEmailResult {
   failed: Array<{email: string; error: string}>;
 }
 
+export interface DreamBoardReviewEmailPreview {
+  recipients: string[];
+  subject: string;
+  body: string;
+  reviewUrl: string;
+}
+
 const APPLICANT_COPY = {
   en: {
     subject: (reference: string) => `We received your TCW Dream application — ${reference}`,
@@ -198,6 +205,24 @@ function boardReviewUrl(applicationId: string): string {
   ).toString();
 }
 
+export function buildDreamBoardReviewEmailPreview(input: {
+  application: DreamApplicationRecord;
+  recipients: string[];
+}): DreamBoardReviewEmailPreview {
+  const recipients = [...new Set(
+    input.recipients
+      .map((email) => email.trim().toLowerCase())
+      .filter(Boolean),
+  )];
+  const reviewUrl = boardReviewUrl(input.application.id);
+  return {
+    recipients,
+    subject: `Board review requested — ${input.application.reference}`,
+    body: boardReviewBody(input.application.reference, reviewUrl),
+    reviewUrl,
+  };
+}
+
 function errorMessage(result: PromiseRejectedResult): string {
   return result.reason instanceof Error ? result.reason.message : 'Email delivery failed.';
 }
@@ -248,25 +273,24 @@ export async function sendDreamBoardReviewEmails(input: {
   application: DreamApplicationRecord;
   recipients: string[];
 }): Promise<DreamBoardReviewEmailResult> {
-  const recipients = [...new Set(input.recipients.map((email) => email.trim().toLowerCase()).filter(Boolean))];
-  if (recipients.length === 0) return {sent: [], failed: []};
+  const preview = buildDreamBoardReviewEmailPreview(input);
+  if (preview.recipients.length === 0) return {sent: [], failed: []};
 
   const accessToken = await getGoogleWorkspaceAccessToken(GOOGLE_GMAIL_SEND_SCOPE);
   const from = googleWorkspaceAccountEmail();
-  const reviewUrl = boardReviewUrl(input.application.id);
 
   const results = await Promise.allSettled(
-    recipients.map((email) => sendGmailMessage(accessToken, from, {
+    preview.recipients.map((email) => sendGmailMessage(accessToken, from, {
       to: email,
-      subject: `Board review requested — ${input.application.reference}`,
-      body: boardReviewBody(input.application.reference, reviewUrl),
+      subject: preview.subject,
+      body: preview.body,
     })),
   );
 
   const sent: string[] = [];
   const failed: Array<{email: string; error: string}> = [];
   results.forEach((result, index) => {
-    const email = recipients[index];
+    const email = preview.recipients[index];
     if (result.status === 'fulfilled') sent.push(email);
     else failed.push({email, error: errorMessage(result)});
   });
