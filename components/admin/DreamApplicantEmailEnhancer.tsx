@@ -191,22 +191,25 @@ export default function DreamApplicantEmailEnhancer() {
     () => kind ? deliveries.filter((delivery) => delivery.kind === kind) : [],
     [deliveries, kind],
   );
-  const successfulDelivery = kindDeliveries.findLast((delivery) => Boolean(delivery.sentAt));
+  const successfulDelivery = [...kindDeliveries]
+    .reverse()
+    .find((delivery) => Boolean(delivery.sentAt));
   const latestDelivery = kindDeliveries.at(-1);
+  const failedInformationRequest = kind === 'more_info_requested'
+    ? [...kindDeliveries]
+      .reverse()
+      .find((delivery) => delivery.error && delivery.informationRequest)
+      ?.informationRequest
+    : undefined;
 
   useEffect(() => {
-    setPreview(null);
-    setError(undefined);
-    if (kind === 'more_info_requested') {
-      const failedRequest = [...kindDeliveries]
-        .reverse()
-        .find((delivery) => delivery.error && delivery.informationRequest)
-        ?.informationRequest;
-      setInformationRequest(failedRequest || '');
-    } else {
-      setInformationRequest('');
-    }
-  }, [application?.id, kind]);
+    const timeout = window.setTimeout(() => {
+      setPreview(null);
+      setError(undefined);
+      setInformationRequest(kind === 'more_info_requested' ? failedInformationRequest || '' : '');
+    }, 0);
+    return () => window.clearTimeout(timeout);
+  }, [application?.id, failedInformationRequest, kind]);
 
   async function performAction(mode: 'preview' | 'send') {
     if (!application || !kind) return;
