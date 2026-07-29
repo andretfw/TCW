@@ -1,8 +1,11 @@
 'use client';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import {PRIVACY_NOTICE_CONTENT} from '@/lib/privacy-notice-content';
+import {normalizeLocale} from '@/lib/routes';
 
 export default function PrivacyPage() {
   const t = useTranslations('legal.privacy');
+  const locale = normalizeLocale(useLocale());
 
   return (
     <div className="pt-24 pb-20 min-h-screen bg-neutral-50">
@@ -48,7 +51,7 @@ export default function PrivacyPage() {
                 /* Estilos para Negritas y Enlaces */
                 prose-strong:text-blue-800 prose-strong:font-bold
                 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline hover:prose-a:text-blue-800 transition-colors"
-                dangerouslySetInnerHTML={{ __html: t.raw('content') }} 
+                dangerouslySetInnerHTML={{__html: PRIVACY_NOTICE_CONTENT[locale]}}
             />
         </div>
       </div>
