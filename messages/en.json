@@ -2342,143 +2342,143 @@
     "types": {
       "breast": {
         "title": "Breast Cancer",
-        "shortDesc": "Early detection saves lives."
+        "shortDesc": "Cancer that begins in breast tissue, most often in the ducts or lobules, and can affect people of any sex."
       },
       "lung": {
         "title": "Lung Cancer",
-        "shortDesc": "Understanding risk factors is key."
+        "shortDesc": "Cancer that forms in lung tissue, usually in cells lining the airways, with several types that require different treatment."
       },
       "colorectal": {
         "title": "Colorectal Cancer",
-        "shortDesc": "Screening prevents development."
+        "shortDesc": "Cancer of the colon or rectum that often begins in a polyp and may cause bowel changes, bleeding or abdominal discomfort."
       },
       "prostate": {
         "title": "Prostate Cancer",
-        "shortDesc": "Men's health and prevention."
+        "shortDesc": "Cancer that begins in the prostate gland; some tumours grow slowly while others can spread more quickly."
       },
       "skin": {
         "title": "Skin Cancer",
-        "shortDesc": "Protect your skin, protect your life."
+        "shortDesc": "This guide focuses on melanoma, a skin cancer that begins in pigment-producing cells and can spread if not treated early."
       },
       "kidney": {
         "title": "Kidney Cancer",
-        "shortDesc": "Silent symptoms to watch for."
+        "shortDesc": "Cancer that begins in kidney tissue, most commonly as renal cell carcinoma in adults."
       },
       "leukemia": {
         "title": "Leukemia",
-        "shortDesc": "Cancer of the blood cells."
+        "shortDesc": "A group of cancers of blood-forming tissues that cause abnormal blood cells to build up in blood and bone marrow."
       },
       "liver": {
         "title": "Liver Cancer",
-        "shortDesc": "Liver health matters."
+        "shortDesc": "Cancer that begins in the liver, most often hepatocellular carcinoma, frequently in a liver already affected by chronic disease."
       },
       "pancreatic": {
         "title": "Pancreatic Cancer",
-        "shortDesc": "Hard to detect, crucial to treat."
+        "shortDesc": "Cancer that begins in the pancreas; the most common type forms in cells that make digestive enzymes."
       },
       "ovarian": {
         "title": "Ovarian Cancer",
-        "shortDesc": "Know the subtle signs."
+        "shortDesc": "A group of cancers affecting the ovaries, with epithelial tumours the most common; symptoms can be persistent but nonspecific."
       },
       "childhood": {
         "title": "Childhood Cancer",
-        "shortDesc": "Supporting our little warriors."
+        "shortDesc": "A broad group of cancers diagnosed in children, including leukemias, brain tumours, lymphomas and solid tumours."
       },
       "brain": {
         "title": "Brain Tumor",
-        "shortDesc": "Affecting the control center."
+        "shortDesc": "Tumours that begin in the brain or central nervous system; they may be benign or malignant but can still require specialist care."
       },
       "bladder": {
         "title": "Bladder Cancer",
-        "shortDesc": "Watch for urinary changes."
+        "shortDesc": "Cancer that usually begins in the urothelial cells lining the bladder and often first appears as blood in the urine."
       },
       "cervical": {
         "title": "Cervical Cancer",
-        "shortDesc": "Preventable with vaccines and tests."
+        "shortDesc": "Cancer of the cervix that is usually linked to persistent high-risk HPV infection and can often be prevented through vaccination and screening."
       },
       "stomach": {
         "title": "Stomach Cancer",
-        "shortDesc": "Digestive health and signals."
+        "shortDesc": "Cancer that begins in the stomach, most often in gland-forming cells of its inner lining."
       },
       "testicular": {
         "title": "Testicular Cancer",
-        "shortDesc": "Self-exam is vital."
+        "shortDesc": "Cancer that begins in a testicle, usually in germ cells, and most often affects younger and middle-aged men."
       },
       "thyroid": {
         "title": "Thyroid Cancer",
-        "shortDesc": "Small gland, big impact."
+        "shortDesc": "Cancer that begins in the thyroid gland in the neck and includes several types with very different behaviour."
       },
       "uterine": {
         "title": "Uterine Cancer",
-        "shortDesc": "Knowing your body is power."
+        "shortDesc": "Cancer of the uterine body, most commonly endometrial cancer, which often causes abnormal vaginal bleeding."
       },
       "lymphoma": {
         "title": "Lymphoma",
-        "shortDesc": "Affecting the immune system."
+        "shortDesc": "A large group of cancers of the lymphatic system, including Hodgkin and many types of non-Hodgkin lymphoma."
       },
       "myeloma": {
         "title": "Multiple Myeloma",
-        "shortDesc": "Plasma cell cancer."
+        "shortDesc": "Cancer of plasma cells in the bone marrow that can affect bones, kidneys, blood counts and immunity."
       },
       "esophageal": {
         "title": "Esophageal Cancer",
-        "shortDesc": "Swallowing difficulties and risks."
+        "shortDesc": "Cancer that begins in the oesophagus, the tube carrying food from the throat to the stomach."
       },
       "head-neck": {
         "title": "Head & Neck",
-        "shortDesc": "Mouth, throat, and glands."
+        "shortDesc": "A group of cancers that can begin in the mouth, throat, voice box, nose, sinuses or salivary glands."
       },
       "bone": {
         "title": "Bone Cancer",
-        "shortDesc": "Bone pain and treatments."
+        "shortDesc": "Rare cancers that begin in bone, including osteosarcoma, chondrosarcoma and Ewing sarcoma."
       },
       "sarcoma": {
         "title": "Sarcoma",
-        "shortDesc": "Soft tissues of the body."
+        "shortDesc": "A diverse group of cancers that begin in soft tissues such as muscle, fat, nerves, blood vessels and connective tissue."
       },
       "gallbladder": {
         "title": "Gallbladder Cancer",
-        "shortDesc": "Rare but important."
+        "shortDesc": "A rare cancer that begins in the gallbladder and is often found after it has grown beyond this small organ."
       },
       "bile-duct": {
         "title": "Bile Duct Cancer",
-        "shortDesc": "Affecting digestion."
+        "shortDesc": "Also called cholangiocarcinoma, this cancer begins in bile ducts inside or outside the liver."
       },
       "anal": {
         "title": "Anal Cancer",
-        "shortDesc": "Breaking the stigma."
+        "shortDesc": "Cancer that begins in the tissues of the anus, with most cases linked to persistent high-risk HPV infection."
       },
       "penile": {
         "title": "Penile Cancer",
-        "shortDesc": "Male intimate health."
+        "shortDesc": "A rare cancer that begins in penile tissue, most often in squamous cells of the skin."
       },
       "vaginal": {
         "title": "Vaginal Cancer",
-        "shortDesc": "Gynecological detection."
+        "shortDesc": "A rare cancer that begins in the vagina, most commonly in squamous cells lining its surface."
       },
       "vulvar": {
         "title": "Vulvar Cancer",
-        "shortDesc": "External signs to watch."
+        "shortDesc": "Cancer that begins on the external female genital tissues and may appear as persistent itching, pain or skin changes."
       },
       "eye": {
         "title": "Eye Cancer",
-        "shortDesc": "Melanoma and retinoblastoma."
+        "shortDesc": "A group of rare cancers affecting the eye, including uveal melanoma in adults and retinoblastoma in children."
       },
       "oral": {
         "title": "Oral Cancer",
-        "shortDesc": "Mouth, tongue, and gums."
+        "shortDesc": "Cancer that begins in the lips or oral cavity, including the tongue, gums, inner cheeks and floor or roof of the mouth."
       },
       "throat": {
         "title": "Throat Cancer",
-        "shortDesc": "Pharynx and larynx."
+        "shortDesc": "An informal term for cancers that arise in parts of the pharynx or larynx, each with distinct risks and treatments."
       },
       "small-intestine": {
         "title": "Small Intestine",
-        "shortDesc": "A less common cancer."
+        "shortDesc": "A rare group of cancers that begin in the small intestine, including adenocarcinoma, neuroendocrine tumours, lymphoma and sarcoma."
       },
       "thymus": {
         "title": "Thymus Cancer",
-        "shortDesc": "Chest gland."
+        "shortDesc": "Rare tumours that begin in the thymus behind the breastbone, mainly thymoma and thymic carcinoma."
       }
     }
   },
