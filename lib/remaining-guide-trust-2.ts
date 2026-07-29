@@ -6,15 +6,15 @@ type LocaleCopy={intro:string;warning:string;note:string;stats:[GuideStat,GuideS
 type GuideDefinition={nciHref:string;includeGlobalStats:boolean;copy:Record<SiteLocale,LocaleCopy>};
 export type RemainingGuideTrustContent={heading:string;disclaimer:string;sourcesHeading:string;checkedLabel:string;checkedDate:string;statsTitle:string;stats:[GuideStat,GuideStat];sources:GuideSource[]};
 
-const GLOBAL_REPORT_URL='https://www.cancer.org/content/dam/cancer-org/research/cancer-facts-and-statistics/global-cancer-facts-and-figures/global-cancer-statistics-2024.pdf';
+const GLOBAL_REPORT_URL='https://gco.iarc.who.int/today/home/incidence';
 const UI={
   "en": {
     "heading": "Sources and medical information",
     "sourcesHeading": "Official sources",
     "checkedLabel": "Sources checked",
-    "checkedDate": "28 July 2026",
+    "checkedDate": "29 July 2026",
     "statsTitle": "Key Facts",
-    "globalSourceLabel": "IARC/ACS — Global Cancer Statistics 2024, published July 2026",
+    "globalSourceLabel": "IARC — Global Cancer Observatory, Cancer Today (GLOBOCAN 2024)",
     "nciSourceLabel": "National Cancer Institute — Patient information",
     "opening": "This page provides general educational information and does not replace medical advice, diagnosis or treatment.",
     "globalNote": "The global figures are GLOBOCAN 2024 estimates published in July 2026 and cannot predict an individual outcome."
@@ -23,9 +23,9 @@ const UI={
     "heading": "Surse și informații medicale",
     "sourcesHeading": "Surse oficiale",
     "checkedLabel": "Surse verificate la data de",
-    "checkedDate": "28 iulie 2026",
+    "checkedDate": "29 iulie 2026",
     "statsTitle": "Date-cheie",
-    "globalSourceLabel": "IARC/ACS — Statistici globale privind cancerul 2024, publicate în iulie 2026",
+    "globalSourceLabel": "IARC — Observatorul Global al Cancerului, Cancer Today (GLOBOCAN 2024)",
     "nciSourceLabel": "Institutul Național al Cancerului — Informații pentru pacienți",
     "opening": "Această pagină oferă informații educaționale generale și nu înlocuiește sfatul, diagnosticul sau tratamentul medical.",
     "globalNote": "Cifrele globale sunt estimări GLOBOCAN 2024 publicate în iulie 2026 și nu pot prezice evoluția unei persoane."
@@ -34,9 +34,9 @@ const UI={
     "heading": "Fuentes e información médica",
     "sourcesHeading": "Fuentes oficiales",
     "checkedLabel": "Fuentes verificadas el",
-    "checkedDate": "28 de julio de 2026",
+    "checkedDate": "29 de julio de 2026",
     "statsTitle": "Datos clave",
-    "globalSourceLabel": "IARC/ACS — Estadísticas mundiales del cáncer 2024, publicadas en julio de 2026",
+    "globalSourceLabel": "IARC — Observatorio Mundial del Cáncer, Cancer Today (GLOBOCAN 2024)",
     "nciSourceLabel": "Instituto Nacional del Cáncer — Información para pacientes",
     "opening": "Esta página ofrece información educativa general y no sustituye el consejo, diagnóstico ni tratamiento médico.",
     "globalNote": "Las cifras mundiales son estimaciones de GLOBOCAN 2024 publicadas en julio de 2026 y no predicen el resultado de una persona."
