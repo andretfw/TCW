@@ -2,13 +2,23 @@ import { randomUUID } from 'node:crypto';
 
 import { uploadTokensMatch } from '@/lib/dream-applications/crypto';
 import { assertSameOrigin, DreamAuthorizationError, privateJson } from '@/lib/dream-applications/security';
-import { getDreamApplication, saveDreamApplication } from '@/lib/dream-applications/store';
+import { mutateDreamApplication } from '@/lib/dream-applications/store';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const ALERT_FORM_NAME = 'dream-application-server-alert';
 const ALERT_ATTEMPTS = 3;
+
+class DreamSubmissionError extends Error {
+  constructor(
+    message: string,
+    public readonly status: 400 | 410,
+  ) {
+    super(message);
+    this.name = 'DreamSubmissionError';
+  }
+}
 
 async function sendReferenceOnlyAlert(
   request: Request,
@@ -62,35 +72,40 @@ export async function POST(request: Request): Promise<Response> {
       return privateJson({error: 'Invalid submission session.'}, {status: 400});
     }
 
-    const application = await getDreamApplication(body.applicationId);
-    if (
-      !application ||
-      application.status !== 'draft' ||
-      !uploadTokensMatch(body.uploadToken, application.uploadTokenHash) ||
-      !application.draftExpiresAt ||
-      new Date(application.draftExpiresAt) <= new Date()
-    ) {
-      return privateJson({error: 'This submission session has expired.'}, {status: 410});
-    }
-    if (!application.files.some((file) => file.category === 'medical')) {
-      return privateJson({error: 'A diagnosis-verification document is required.'}, {status: 400});
-    }
-
+    const applicationId = body.applicationId;
+    const uploadToken = body.uploadToken;
     const now = new Date().toISOString();
-    application.status = 'new';
-    application.submittedAt = now;
-    application.updatedAt = now;
-    application.draftExpiresAt = undefined;
-    application.uploadTokenHash = undefined;
-    application.history.push({
-      id: randomUUID(),
-      type: 'submitted',
-      toStatus: 'new',
-      actor: 'applicant',
-      createdAt: now,
-    });
-    await saveDreamApplication(application);
+    const mutation = await mutateDreamApplication(applicationId, (application) => {
+      if (
+        application.status !== 'draft' ||
+        !uploadTokensMatch(uploadToken, application.uploadTokenHash) ||
+        !application.draftExpiresAt ||
+        new Date(application.draftExpiresAt) <= new Date()
+      ) {
+        throw new DreamSubmissionError('This submission session has expired.', 410);
+      }
+      if (!application.files.some((file) => file.category === 'medical')) {
+        throw new DreamSubmissionError('A diagnosis-verification document is required.', 400);
+      }
 
+      application.status = 'new';
+      application.submittedAt = now;
+      application.updatedAt = now;
+      application.draftExpiresAt = undefined;
+      application.uploadTokenHash = undefined;
+      application.history.push({
+        id: randomUUID(),
+        type: 'submitted',
+        toStatus: 'new',
+        actor: 'applicant',
+        createdAt: now,
+      });
+    });
+    if (!mutation) {
+      throw new DreamSubmissionError('This submission session has expired.', 410);
+    }
+
+    const application = mutation.record;
     let notificationSent = true;
     try {
       await sendReferenceOnlyAlert(
@@ -115,6 +130,9 @@ export async function POST(request: Request): Promise<Response> {
     });
   } catch (error) {
     if (error instanceof DreamAuthorizationError) {
+      return privateJson({error: error.message}, {status: error.status});
+    }
+    if (error instanceof DreamSubmissionError) {
       return privateJson({error: error.message}, {status: error.status});
     }
 
