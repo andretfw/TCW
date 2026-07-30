@@ -4,7 +4,7 @@ import { connectGoogleDriveFromAuthorizationCode } from '@/lib/dream-application
 import {
   DreamAuthorizationError,
   privateJson,
-  requireDreamReviewer,
+  requireDreamAdmin,
 } from '@/lib/dream-applications/security';
 
 export const runtime = 'nodejs';
@@ -39,7 +39,7 @@ function clearStateCookie(response: Response): Response {
 
 export async function GET(request: Request): Promise<Response> {
   try {
-    await requireDreamReviewer();
+    await requireDreamAdmin();
     const url = new URL(request.url);
     const oauthError = url.searchParams.get('error');
     if (oauthError) {

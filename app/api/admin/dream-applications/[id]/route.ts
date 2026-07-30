@@ -17,13 +17,10 @@ export async function GET(
     const reviewer = await requireDreamReviewerContext();
     const {id} = await params;
     const application = await getDreamApplication(id);
-    const hasRecordedVote = Boolean(
-      application?.boardVotes?.some((vote) => vote.voterEmail === reviewer.email),
-    );
     if (
       !application ||
       application.status === 'draft' ||
-      (!reviewer.isAdmin && application.status !== 'board_review' && !hasRecordedVote)
+      (!reviewer.isAdmin && application.status !== 'board_review')
     ) {
       return privateJson({error: 'Application not found.'}, {status: 404});
     }
