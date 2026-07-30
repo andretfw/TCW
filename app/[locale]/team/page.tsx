@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import {useLocale, useTranslations} from 'next-intl';
-import {useState} from 'react';
 import {
   ArrowRight,
   BookOpen,
@@ -27,16 +26,8 @@ function ButterflyMark({className = ''}: {className?: string}) {
 export default function TeamPage() {
   const t = useTranslations('teamPage');
   const locale = useLocale();
-  const [activeMemberId, setActiveMemberId] = useState<string | null>(null);
 
-  const mobileCopy =
-    locale === 'ro'
-      ? {open: 'Vezi biografia', close: 'Înapoi', email: 'Trimite un email'}
-      : locale === 'es'
-        ? {open: 'Ver biografía', close: 'Volver', email: 'Enviar un correo'}
-        : {open: 'View biography', close: 'Back', email: 'Send an email'};
-
-  const teamMembers = ['1', '2', '3'].map((id) => ({
+  const boardMembers = ['1', '2', '3'].map((id) => ({
     id,
     name: t(`members.${id}.name`),
     role: t(`members.${id}.role`),
@@ -174,128 +165,44 @@ export default function TeamPage() {
             </p>
           </div>
 
-          <div className="mx-auto mt-14 grid max-w-6xl gap-6 md:grid-cols-3">
-            {teamMembers.map((member) => (
+          <div className="mx-auto mt-14 grid max-w-6xl gap-7 md:grid-cols-3">
+            {boardMembers.map((member) => (
               <article
                 key={member.id}
-                className="group rounded-[2rem] border border-white/10 bg-white/[0.07] p-7 backdrop-blur transition duration-300 hover:-translate-y-1 hover:bg-white/[0.11]"
+                className="group flex h-full flex-col items-center rounded-[2rem] border border-white/10 bg-white/[0.07] p-8 text-center backdrop-blur transition duration-300 hover:-translate-y-1 hover:bg-white/[0.11]"
               >
-                <div className="flex items-center gap-5">
-                  <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border-2 border-white/20">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      sizes="80px"
-                      className="object-cover object-center transition duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-purple-300">
-                      {t('board.memberLabel')}
-                    </p>
-                    <h3 className="mt-2 text-xl font-bold text-white">{member.name}</h3>
-                    <p className="mt-1 text-sm font-semibold text-purple-200">{member.role}</p>
-                  </div>
+                <div className="relative h-40 w-40 overflow-hidden rounded-full border-4 border-white/15 shadow-xl">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    sizes="160px"
+                    className="object-cover object-center transition duration-500 group-hover:scale-105"
+                  />
                 </div>
+                <p className="mt-7 text-xs font-bold uppercase tracking-[0.16em] text-purple-300">
+                  {t('board.memberLabel')}
+                </p>
+                <h3 className="mt-3 text-2xl font-bold text-white">{member.name}</h3>
+                <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-purple-200">
+                  {member.role}
+                </p>
+                <div className="my-6 h-px w-16 bg-purple-300/30" />
+                <p className="flex-1 leading-relaxed text-purple-100/80">
+                  {member.description}
+                </p>
+                <a
+                  href={`mailto:${member.email}`}
+                  aria-label={member.email}
+                  className="mt-7 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:-translate-y-0.5 hover:bg-white/20"
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    <rect width="20" height="16" x="2" y="4" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg>
+                </a>
               </article>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#f8f3fb] py-20 md:py-28">
-        <div className="container mx-auto px-5 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-bold uppercase tracking-[0.22em] text-brand-600">
-              {t('team.eyebrow')}
-            </p>
-            <h2 className="mt-4 text-4xl font-bold tracking-[-0.035em] text-purple-950 md:text-5xl">
-              {t('team.title')}
-            </h2>
-            <p className="mt-6 text-lg leading-relaxed text-neutral-600">
-              {t('team.body')}
-            </p>
-          </div>
-
-          <div className="mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-8 lg:grid-cols-3">
-            {teamMembers.map((member) => {
-              const isFlipped = activeMemberId === member.id;
-
-              return (
-                <div key={member.id} className="group h-[540px] w-full [perspective:1000px] sm:h-[500px]">
-                  <div
-                    className={`relative h-full w-full rounded-[2rem] shadow-xl transition-all duration-700 [transform-style:preserve-3d] lg:group-hover:[transform:rotateY(180deg)] ${
-                      isFlipped ? '[transform:rotateY(180deg)]' : ''
-                    }`}
-                  >
-                    <div className="absolute inset-0 flex h-full w-full flex-col items-center justify-center rounded-[2rem] border border-purple-100 bg-white p-8 [backface-visibility:hidden]">
-                      <div className="mb-8 h-48 w-48 overflow-hidden rounded-full border-4 border-purple-50 shadow-inner">
-                        <Image
-                          src={member.image}
-                          alt={member.name}
-                          width={192}
-                          height={192}
-                          className="h-full w-full object-cover object-center"
-                        />
-                      </div>
-                      <h3 className="mb-2 text-center text-2xl font-bold text-purple-950">
-                        {member.name}
-                      </h3>
-                      <div className="mb-3 h-1 w-12 rounded-full bg-brand-500" />
-                      <p className="text-center text-sm font-semibold uppercase tracking-wide text-brand-600">
-                        {member.role}
-                      </p>
-                      <p className="mt-6 hidden text-xs font-medium tracking-wide text-neutral-400 lg:block">
-                        {t('hoverHint')}
-                      </p>
-                      <button
-                        type="button"
-                        onClick={() => setActiveMemberId(member.id)}
-                        className="mt-6 min-h-11 rounded-full bg-brand-600 px-6 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-brand-700 lg:hidden"
-                        aria-label={`${mobileCopy.open}: ${member.name}`}
-                      >
-                        {mobileCopy.open}
-                      </button>
-                    </div>
-
-                    <div className="absolute inset-0 flex h-full w-full flex-col items-center justify-between overflow-y-auto rounded-[2rem] bg-gradient-to-br from-brand-600 to-purple-950 px-8 py-10 text-center text-white shadow-2xl [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                      <div className="flex w-full flex-col items-center">
-                        <Sparkles className="mb-6 h-10 w-10 shrink-0 text-brand-200 opacity-70" />
-                        <h3 className="mb-1 text-2xl font-bold">{member.name}</h3>
-                        <p className="mb-6 text-sm font-medium uppercase tracking-wider text-brand-100">
-                          {member.role}
-                        </p>
-                        <p className="max-w-sm text-base font-light leading-relaxed text-white/90">
-                          {member.description}
-                        </p>
-                      </div>
-
-                      <div className="mt-6 flex items-center gap-4">
-                        <a
-                          href={`mailto:${member.email}`}
-                          aria-label={`${mobileCopy.email}: ${member.name}`}
-                          className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 transition-all duration-300 hover:-translate-y-1 hover:bg-white/20"
-                        >
-                          <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                            <rect width="20" height="16" x="2" y="4" rx="2" />
-                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                          </svg>
-                        </a>
-                        <button
-                          type="button"
-                          onClick={() => setActiveMemberId(null)}
-                          className="min-h-11 rounded-full border border-white/30 bg-white/10 px-5 py-2 text-sm font-bold transition-colors hover:bg-white/20 lg:hidden"
-                          aria-label={`${mobileCopy.close}: ${member.name}`}
-                        >
-                          {mobileCopy.close}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
           </div>
         </div>
       </section>
