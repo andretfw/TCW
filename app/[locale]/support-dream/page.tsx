@@ -282,12 +282,11 @@ function readCryptoDonationLock(): CryptoDonationLock | null {
     if (!stored) return null;
 
     const parsed = JSON.parse(stored) as Partial<CryptoDonationLock>;
-    const isExpired =
-      typeof parsed.createdAt !== 'number' ||
-      Date.now() - parsed.createdAt > CRYPTO_DONATION_LOCK_MAX_AGE_MS;
+    const createdAt = parsed.createdAt;
 
     if (
-      isExpired ||
+      typeof createdAt !== 'number' ||
+      Date.now() - createdAt > CRYPTO_DONATION_LOCK_MAX_AGE_MS ||
       !isCampaignId(parsed.campaignId) ||
       !isCryptoAsset(parsed.asset) ||
       !isDestination(parsed.destination)
@@ -300,7 +299,7 @@ function readCryptoDonationLock(): CryptoDonationLock | null {
       campaignId: parsed.campaignId,
       asset: parsed.asset,
       destination: parsed.destination,
-      createdAt: parsed.createdAt,
+      createdAt,
     };
   } catch {
     window.sessionStorage.removeItem(CRYPTO_DONATION_LOCK_KEY);
