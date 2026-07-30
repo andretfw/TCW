@@ -43,5 +43,8 @@ jobs:
       - name: OAuth callback response regression check
         run: node scripts/check-oauth-callback-response.mjs
 
+      - name: Diagnosis support CTA regression check
+        run: node scripts/check-diagnosis-support-link.mjs
+
       - name: Route and security smoke test
         run: npm run smoke:routes
