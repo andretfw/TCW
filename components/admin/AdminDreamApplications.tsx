@@ -46,7 +46,6 @@ import {
   type DreamApplicationStatus,
   type DreamApplicationFile,
 } from '@/lib/dream-applications/types';
-import DreamHistoricalImport from './DreamHistoricalImport';
 
 type AdminFile = Omit<DreamApplicationFile, 'storageKey'>;
 
@@ -670,7 +669,6 @@ export default function AdminDreamApplications() {
           </div>
         ) : (
           <>
-            {isAdmin && <DreamHistoricalImport onImported={loadApplications} />}
             <div className="grid gap-4 sm:grid-cols-3">
               {[
                 {label: 'New applications', value: counts.new, icon: <Sparkles className="h-6 w-6" />, color: 'from-fuchsia-500 to-brand-600'},
