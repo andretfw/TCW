@@ -5,7 +5,7 @@ import {
 import {
   DreamAuthorizationError,
   privateJson,
-  requireDreamReviewer,
+  requireDreamAdmin,
 } from '@/lib/dream-applications/security';
 
 export const runtime = 'nodejs';
@@ -15,7 +15,7 @@ const STATE_COOKIE = 'tcw_google_drive_oauth_state';
 
 export async function GET(): Promise<Response> {
   try {
-    await requireDreamReviewer();
+    await requireDreamAdmin();
     const state = createGoogleDriveOAuthState();
     return new Response(null, {
       status: 302,
