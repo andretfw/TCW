@@ -68,11 +68,10 @@ export default function WarriorsPage() {
       : 'Image';
 
   const stories = [
-    { id: '1', name: t('featured.anetra.name'), age: t('featured.anetra.age'), dream: t('featured.anetra.dream'), shortDesc: t('featured.anetra.shortDesc'), fullStory: t('featured.anetra.fullStory'), image: '/anetra-home.jpg', position: 'object-[center_25%]', color: 'bg-purple-100 text-purple-700' },
+    { id: '1', name: t('featured.anetra.name'), dream: t('featured.anetra.dream'), shortDesc: t('featured.anetra.shortDesc'), fullStory: t('featured.anetra.fullStory'), image: '/anetra-home.jpg', position: 'object-[center_25%]', color: 'bg-purple-100 text-purple-700' },
     {
       id: '2',
       name: t('featured.janelle.name'),
-      age: t('featured.janelle.age'),
       dream: t('featured.janelle.dream'),
       shortDesc: t('featured.janelle.shortDesc'),
       fullStory: t('featured.janelle.fullStory'),
@@ -81,14 +80,13 @@ export default function WarriorsPage() {
       position: 'object-top',
       color: 'bg-blue-100 text-blue-700',
     },
-    { id: '3', name: t('featured.jeanelle.name'), age: t('featured.jeanelle.age'), dream: t('featured.jeanelle.dream'), shortDesc: t('featured.jeanelle.shortDesc'), fullStory: t('featured.jeanelle.fullStory'), image: '/jeanelle-home.jpg', position: 'object-center', color: 'bg-teal-100 text-teal-700' },
-    { id: '4', name: t('featured.susan.name'), age: t('featured.susan.age'), dream: t('featured.susan.dream'), shortDesc: t('featured.susan.shortDesc'), fullStory: t('featured.susan.fullStory'), image: '/susan.jpg', position: 'object-[center_35%]', color: 'bg-pink-100 text-pink-700' },
-    { id: '5', name: t('featured.taya.name'), age: t('featured.taya.age'), dream: t('featured.taya.dream'), shortDesc: t('featured.taya.shortDesc'), fullStory: t('featured.taya.fullStory'), image: '/taya.jpg', position: 'object-center', color: 'bg-orange-100 text-orange-700' },
-    { id: '6', name: t('featured.anonymous.name'), age: t('featured.anonymous.age'), dream: t('featured.anonymous.dream'), shortDesc: t('featured.anonymous.shortDesc'), fullStory: t('featured.anonymous.fullStory'), image: '/warrior.jpg', position: 'object-center', color: 'bg-indigo-100 text-indigo-700' },
+    { id: '3', name: t('featured.jeanelle.name'), dream: t('featured.jeanelle.dream'), shortDesc: t('featured.jeanelle.shortDesc'), fullStory: t('featured.jeanelle.fullStory'), image: '/jeanelle-home.jpg', position: 'object-center', color: 'bg-teal-100 text-teal-700' },
+    { id: '4', name: t('featured.susan.name'), dream: t('featured.susan.dream'), shortDesc: t('featured.susan.shortDesc'), fullStory: t('featured.susan.fullStory'), image: '/susan.jpg', position: 'object-[center_35%]', color: 'bg-pink-100 text-pink-700' },
+    { id: '5', name: t('featured.taya.name'), dream: t('featured.taya.dream'), shortDesc: t('featured.taya.shortDesc'), fullStory: t('featured.taya.fullStory'), image: '/taya.jpg', position: 'object-center', color: 'bg-orange-100 text-orange-700' },
+    { id: '6', name: t('featured.anonymous.name'), dream: t('featured.anonymous.dream'), shortDesc: t('featured.anonymous.shortDesc'), fullStory: t('featured.anonymous.fullStory'), image: '/warrior.jpg', position: 'object-center', color: 'bg-indigo-100 text-indigo-700' },
     {
       id: '7',
       name: t('featured.jocelyn.name'),
-      age: t('featured.jocelyn.age'),
       dream: t('featured.jocelyn.dream'),
       shortDesc: t('featured.jocelyn.shortDesc'),
       fullStory: t('featured.jocelyn.fullStory'),
@@ -99,7 +97,6 @@ export default function WarriorsPage() {
     {
       id: '8',
       name: t('featured.monica.name'),
-      age: t('featured.monica.age'),
       dream: t('featured.monica.dream'),
       shortDesc: t('featured.monica.shortDesc'),
       fullStory: t('featured.monica.fullStory'),
@@ -110,7 +107,6 @@ export default function WarriorsPage() {
     {
       id: '9',
       name: t('featured.penny.name'),
-      age: t('featured.penny.age'),
       dream: t('featured.penny.dream'),
       shortDesc: t('featured.penny.shortDesc'),
       fullStory: t('featured.penny.fullStory'),
@@ -121,7 +117,6 @@ export default function WarriorsPage() {
     {
       id: 'wren',
       name: t('featured.wren.name'),
-      age: t('featured.wren.age'),
       dream: t('featured.wren.dream'),
       shortDesc: t('featured.wren.shortDesc'),
       fullStory: t('featured.wren.fullStory'),
@@ -232,7 +227,7 @@ export default function WarriorsPage() {
                   className={`object-cover transition-transform duration-700 group-hover:scale-105 ${story.position}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
-                <div className="absolute bottom-4 left-4 text-white"><h3 className="text-2xl font-bold">{story.name}, {story.age}</h3></div>
+                <div className="absolute bottom-4 left-4 text-white"><h3 className="text-2xl font-bold">{story.name}</h3></div>
                 <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${story.color}`}>{t('dreamFulfilled')}</div>
               </div>
 
@@ -329,7 +324,7 @@ export default function WarriorsPage() {
 
               <div className="p-8 md:p-12">
                 <div className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6 ${selectedStory.color}`}>{t('dreamFulfilled')}</div>
-                <h2 className="text-4xl font-bold text-neutral-900 mb-2">{selectedStory.name}, {selectedStory.age}</h2>
+                <h2 className="text-4xl font-bold text-neutral-900 mb-2">{selectedStory.name}</h2>
                 <h3 className="text-xl text-brand-600 font-bold mb-6">{selectedStory.dream}</h3>
                 <div className="prose prose-neutral mb-8 text-neutral-600 whitespace-pre-line leading-relaxed">{selectedStory.fullStory}</div>
 
