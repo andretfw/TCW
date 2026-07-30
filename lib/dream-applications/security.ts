@@ -53,7 +53,18 @@ export function assertSameOrigin(request: Request): void {
   if (!origin) throw new DreamAuthorizationError('Missing request origin.', 403);
 
   const requestUrl = new URL(request.url);
-  if (origin !== requestUrl.origin) {
+  // Netlify may forward a request for the custom domain to an internal origin.
+  // Compare with both the runtime URL and the browser-facing proxy origin so
+  // legitimate same-site form submissions are not rejected in production.
+  const forwardedHost = request.headers.get('x-forwarded-host')?.split(',')[0]?.trim();
+  const host = forwardedHost || request.headers.get('host')?.trim();
+  const forwardedProtocol = request.headers.get('x-forwarded-proto')?.split(',')[0]?.trim();
+  const protocol = forwardedProtocol === 'http' || forwardedProtocol === 'https'
+    ? forwardedProtocol
+    : requestUrl.protocol.slice(0, -1);
+  const forwardedOrigin = host ? `${protocol}://${host}` : requestUrl.origin;
+
+  if (origin !== requestUrl.origin && origin !== forwardedOrigin) {
     throw new DreamAuthorizationError('Cross-origin request rejected.', 403);
   }
 }
