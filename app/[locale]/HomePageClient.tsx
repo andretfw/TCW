@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import {useLocale, useTranslations} from 'next-intl';
 import Link from 'next/link';
+import {useEffect, useState} from 'react';
 import {
   ArrowRight,
   Heart,
@@ -14,9 +15,21 @@ import {
 import {IMPACT} from '@/lib/impact';
 import {localizedPath} from '@/lib/routes';
 
+function ButterflyMark({className = ''}: {className?: string}) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" className={className} aria-hidden="true">
+      <path d="M23.7 24.8C16.8 10.8 5.8 11.9 7.5 22.1c1.5 9 10.8 9.2 16.2 3.6Z" fill="currentColor" />
+      <path d="M24.3 24.8C31.2 10.8 42.2 11.9 40.5 22.1c-1.5 9-10.8 9.2-16.2 3.6Z" fill="currentColor" />
+      <path d="M23.8 25.1c-5.2 3.8-9.3 10.5-5.2 13.4 3.3 2.3 5.7-3 5.4-11.3h.1c-.3 8.3 2.1 13.6 5.4 11.3 4.1-2.9 0-9.6-5.2-13.4h-.5Z" fill="currentColor" />
+      <path d="M24 25v-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export default function HomePageClient() {
   const t = useTranslations();
   const locale = useLocale();
+  const [activeHeroStory, setActiveHeroStory] = useState(0);
 
   const heroBadge =
     locale === 'ro'
@@ -49,52 +62,113 @@ export default function HomePageClient() {
     },
   ];
 
+  const heroCopy = locale === 'ro'
+    ? {
+        eyebrow: '18 WARRIORI SPRIJINIȚI',
+        title: 'Oamenii care trăiesc cu cancer merită mai mult decât să supraviețuiască.',
+        body: 'Împreună, susținem dorințe importante, ajutor practic și momente care fac viața să se simtă din nou ca viață.',
+        support: 'Sprijină un warrior',
+        learn: 'Cum ajutăm',
+      }
+    : locale === 'es'
+      ? {
+          eyebrow: '18 WARRIORS APOYADOS',
+          title: 'Las personas que viven con cáncer merecen más que sobrevivir.',
+          body: 'Juntos, apoyamos deseos importantes, ayuda práctica y momentos que hacen que la vida vuelva a sentirse como vida.',
+          support: 'Apoya a un warrior',
+          learn: 'Cómo ayudamos',
+        }
+      : {
+          eyebrow: '18 WARRIORS SUPPORTED',
+          title: 'People living with cancer deserve more than survival.',
+          body: 'Together, we help fund meaningful wishes, practical relief and moments that feel like life again.',
+          support: 'Support a warrior',
+          learn: 'How we help',
+        };
+
+  const heroStories = warriors.map((warrior, index) => ({
+    ...warrior,
+    caption: locale === 'ro'
+      ? ['Un loc liniștit pentru odihnă', 'Sprijin pentru un nou început', 'Mai mult loc pentru viață'][index]
+      : locale === 'es'
+        ? ['Un lugar tranquilo para descansar', 'Apoyo para un nuevo comienzo', 'Más espacio para la vida'][index]
+        : ['A peaceful place to rest', 'Support for a new beginning', 'More room for life'][index],
+  }));
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveHeroStory((current) => (current + 1) % heroStories.length);
+    }, 6500);
+    return () => window.clearInterval(timer);
+  }, [heroStories.length]);
+
   return (
     <>
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-            <source
-              src="https://cdn.pixabay.com/video/2023/03/01/152798-803733100_large.mp4"
-              type="video/mp4"
-            />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
-        </div>
-
-        <div className="relative z-10 container mx-auto px-4 py-32 text-center">
-          <div className="inline-flex items-center gap-2 px-5 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-medium mb-8 shadow-lg border border-white/30 animate-pulse">
-            <Sparkles className="w-4 h-4" />
-            <span>{heroBadge}</span>
+      <section className="relative overflow-hidden bg-[#f5edfa]">
+        <ButterflyMark className="pointer-events-none absolute left-[7%] top-16 h-7 w-7 rotate-[-18deg] text-purple-300/80" />
+        <ButterflyMark className="pointer-events-none absolute bottom-14 left-[43%] h-5 w-5 rotate-[24deg] text-purple-300/60" />
+        <ButterflyMark className="pointer-events-none absolute right-[6%] top-24 h-6 w-6 rotate-[20deg] text-purple-300/70" />
+        <div className="relative mx-auto grid min-h-[760px] max-w-[1600px] items-stretch lg:grid-cols-[minmax(0,1.08fr)_minmax(460px,.92fr)]">
+          <div className="relative z-10 flex items-center px-6 py-24 md:px-12 lg:px-20 xl:px-28">
+            <div className="max-w-2xl">
+              <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white/70 px-4 py-2 text-xs font-bold tracking-[0.16em] text-purple-900 shadow-sm backdrop-blur">
+                <ButterflyMark className="h-4 w-4 text-purple-500" />
+                <span>{heroCopy.eyebrow}</span>
+              </div>
+              <h1 className="max-w-xl text-5xl font-bold leading-[1.04] tracking-[-0.04em] text-purple-950 md:text-6xl xl:text-7xl">
+                {heroCopy.title}
+              </h1>
+              <p className="mt-7 max-w-xl text-lg leading-relaxed text-purple-950/75 md:text-xl">
+                {heroCopy.body}
+              </p>
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href={localizedPath(locale, 'donate')}
+                  className="group flex items-center justify-center gap-2 rounded-full bg-brand-600 px-7 py-4 font-semibold text-white shadow-xl shadow-brand-500/20 transition hover:scale-[1.03] hover:bg-brand-700"
+                >
+                  <Heart className="w-5 h-5" fill="currentColor" />
+                  {heroCopy.support}
+                </Link>
+                <Link
+                  href={localizedPath(locale, 'warriors')}
+                  className="group flex items-center justify-center gap-2 rounded-full border border-purple-300 bg-white/60 px-7 py-4 font-semibold text-purple-950 shadow-sm transition hover:border-purple-500 hover:bg-white"
+                >
+                  {heroCopy.learn}
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
           </div>
-
-          <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight mb-6 drop-shadow-2xl">
-            {t('hero.title1')}
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 via-purple-300 to-pink-300">
-              {t('hero.title2')}
-            </span>
-          </h1>
-
-          <p className="text-xl md:text-2xl text-white/95 max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow-lg">
-            {t('hero.subtitle')}
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href={localizedPath(locale, 'donate')}
-              className="group px-8 py-4 bg-brand-600 text-white font-semibold rounded-full shadow-2xl hover:bg-brand-700 hover:shadow-brand-300/50 hover:scale-110 transition-all flex items-center justify-center gap-2"
-            >
-              <Heart className="w-5 h-5" fill="currentColor" />
-              {t('hero.ctaDonate')}
-            </Link>
-            <Link
-              href={localizedPath(locale, 'warriors')}
-              className="px-8 py-4 bg-white/20 backdrop-blur-md text-white font-semibold rounded-full shadow-2xl hover:bg-white/30 border-2 border-white/40 hover:border-white/60 hover:scale-105 transition-all flex items-center justify-center gap-2"
-            >
-              {t('hero.ctaStories')}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
+          <div className="relative min-h-[520px] overflow-hidden bg-gradient-to-br from-[#e8d8f2] via-[#f2def0] to-[#e6d8f5] p-6 md:p-10 lg:min-h-0">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,.65),transparent_38%),radial-gradient(circle_at_90%_78%,rgba(255,255,255,.42),transparent_38%)]" />
+            <div className="relative h-full min-h-[460px]">
+              {heroStories.map((story, index) => (
+                <article
+                  key={story.name}
+                  className={`absolute inset-0 overflow-hidden rounded-[2rem] bg-white shadow-2xl transition-all duration-700 ${index === activeHeroStory ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
+                  aria-hidden={index !== activeHeroStory}
+                >
+                  <Image
+                    src={story.image}
+                    alt={`${story.name}: ${story.caption}`}
+                    fill
+                    priority={index === 0}
+                    sizes="(min-width: 1024px) 46vw, 100vw"
+                    className={`object-cover ${index === 0 ? 'object-[center_25%]' : index === 1 ? 'object-top' : 'object-center'}`}
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-purple-950/80 via-purple-950/30 to-transparent p-7 pt-28 text-white">
+                    <p className="text-xs font-bold uppercase tracking-[0.17em] text-purple-100">{heroBadge}</p>
+                    <h2 className="mt-2 text-3xl font-bold">{story.caption}</h2>
+                    <p className="mt-2 max-w-md text-sm leading-relaxed text-white/90">{story.dream}</p>
+                  </div>
+                </article>
+              ))}
+              <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2" aria-label="Warrior stories">
+                {heroStories.map((story, index) => (
+                  <button key={story.name} type="button" onClick={() => setActiveHeroStory(index)} className={`h-2.5 rounded-full transition-all ${index === activeHeroStory ? 'w-8 bg-white' : 'w-2.5 bg-white/55 hover:bg-white/80'}`} aria-label={`${story.name} story`} aria-current={index === activeHeroStory} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
