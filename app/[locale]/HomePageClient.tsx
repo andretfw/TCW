@@ -419,7 +419,7 @@ export default function HomePageClient() {
           <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-purple-100">{copy.final.body}</p>
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
-              href={localizedPath(routeLocale, 'donate')}
+              href={localizedPath(routeLocale, 'supportDream')}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 font-bold text-purple-800 shadow-xl transition hover:scale-[1.03]"
             >
               <Heart className="h-5 w-5" fill="currentColor" />
