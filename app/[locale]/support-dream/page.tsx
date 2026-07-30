@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import {
   ACTIVE_DREAM_CAMPAIGNS,
+  isCampaignId,
   type ActiveDreamCampaign,
   type CampaignId,
 } from '@/lib/campaigns';
@@ -24,7 +25,16 @@ type Destination = 'kraken' | 'metamask';
 type CampaignKey = keyof typeof ACTIVE_DREAM_CAMPAIGNS;
 type Locale = 'en' | 'ro' | 'es';
 
+type CryptoDonationLock = {
+  campaignId: CampaignId;
+  asset: CryptoAsset;
+  destination: Destination;
+  createdAt: number;
+};
+
 const PAYPAL_BUTTON_ID = '6JXEDTNATW3PS';
+const CRYPTO_DONATION_LOCK_KEY = 'tcw_crypto_donation_campaign';
+const CRYPTO_DONATION_LOCK_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 
 const CRYPTO_ADDRESSES = {
   btc: '3BuBreK55MS2fF9MfzMTXL4cG6GQDot3aD',
@@ -53,7 +63,7 @@ const copy = {
     attribution: 'Every verified donation is assigned to this specific dream.',
     cryptoTitle: 'Donate crypto to this dream',
     cryptoHelp:
-      'Send to the TCW wallet, then paste the transaction hash. The site verifies it and adds it to this dream automatically.',
+      'Copy the TCW wallet from this campaign, send your donation, then paste the transaction hash. The site verifies it and adds it to this dream automatically.',
     asset: 'Asset',
     destination: 'Destination',
     kraken: 'Kraken',
@@ -65,6 +75,18 @@ const copy = {
     verified: 'Donation verified and added to the progress bar.',
     copyAddress: 'Copy address',
     close: 'Close',
+    copyFirst:
+      'Copy the TCW address first. This links the donation to this dream before you send it.',
+    addressLinked: 'Address copied. This donation is linked to “{campaign}”.',
+    campaignMismatch:
+      'This crypto donation is linked to “{campaign}”, not the campaign currently open.',
+    alreadyValidated:
+      'This transaction was already validated for “{campaign}” and cannot be counted again.',
+    openCorrectCampaign: 'Open the correct campaign',
+    startNewDonation: 'Start a new donation for this campaign',
+    selectionChanged:
+      'The asset or destination changed. Copy the address again before verifying.',
+    copyFailed: 'Unable to copy the address. Please try again.',
     campaigns: {
       peacefulWeekend: {
         title: 'Fund a Weekend of Peace for a Grandmother Facing Cancer',
@@ -107,7 +129,7 @@ const copy = {
     attribution: 'Fiecare donație verificată este atribuită acestui vis.',
     cryptoTitle: 'Donează crypto pentru acest vis',
     cryptoHelp:
-      'Trimite către walletul TCW, apoi introdu hash-ul tranzacției. Site-ul îl verifică și adaugă automat donația la acest vis.',
+      'Copiază walletul TCW din această campanie, trimite donația, apoi introdu hash-ul tranzacției. Site-ul îl verifică și adaugă automat donația la acest vis.',
     asset: 'Monedă',
     destination: 'Destinație',
     kraken: 'Kraken',
@@ -119,6 +141,18 @@ const copy = {
     verified: 'Donația a fost verificată și adăugată în bara de progres.',
     copyAddress: 'Copiază adresa',
     close: 'Închide',
+    copyFirst:
+      'Copiază mai întâi adresa TCW. Astfel, donația este asociată acestui vis înainte să o trimiți.',
+    addressLinked: 'Adresa a fost copiată. Donația este asociată cu „{campaign}”.',
+    campaignMismatch:
+      'Această donație crypto este asociată campaniei „{campaign}”, nu campaniei deschise acum.',
+    alreadyValidated:
+      'Această tranzacție a fost deja validată pentru „{campaign}” și nu poate fi înregistrată din nou.',
+    openCorrectCampaign: 'Deschide campania corectă',
+    startNewDonation: 'Începe o donație nouă pentru această campanie',
+    selectionChanged:
+      'Moneda sau destinația s-a schimbat. Copiază din nou adresa înainte de verificare.',
+    copyFailed: 'Adresa nu a putut fi copiată. Încearcă din nou.',
     campaigns: {
       peacefulWeekend: {
         title: 'Oferă un weekend de liniște unei bunici care înfruntă cancerul',
@@ -161,7 +195,7 @@ const copy = {
     attribution: 'Cada donación verificada se asigna a este sueño.',
     cryptoTitle: 'Dona cripto a este sueño',
     cryptoHelp:
-      'Envía a la wallet de TCW y pega el hash de la transacción. El sitio la verifica y la añade automáticamente a este sueño.',
+      'Copia la wallet de TCW desde esta campaña, envía la donación y pega el hash de la transacción. El sitio la verifica y la añade automáticamente a este sueño.',
     asset: 'Activo',
     destination: 'Destino',
     kraken: 'Kraken',
@@ -173,6 +207,18 @@ const copy = {
     verified: 'La donación fue verificada y añadida a la barra de progreso.',
     copyAddress: 'Copiar dirección',
     close: 'Cerrar',
+    copyFirst:
+      'Copia primero la dirección de TCW. Esto vincula la donación a este sueño antes de enviarla.',
+    addressLinked: 'Dirección copiada. Esta donación está vinculada a “{campaign}”.',
+    campaignMismatch:
+      'Esta donación cripto está vinculada a “{campaign}”, no a la campaña abierta ahora.',
+    alreadyValidated:
+      'Esta transacción ya fue validada para “{campaign}” y no puede contarse otra vez.',
+    openCorrectCampaign: 'Abrir la campaña correcta',
+    startNewDonation: 'Iniciar una nueva donación para esta campaña',
+    selectionChanged:
+      'El activo o el destino cambió. Copia de nuevo la dirección antes de verificar.',
+    copyFailed: 'No se pudo copiar la dirección. Inténtalo de nuevo.',
     campaigns: {
       peacefulWeekend: {
         title: 'Regala un fin de semana de paz a una abuela que enfrenta el cáncer',
@@ -209,6 +255,69 @@ function formatEur(value: number) {
   return value.toFixed(2).replace('.00', '');
 }
 
+function isCryptoAsset(value: unknown): value is CryptoAsset {
+  return value === 'btc' || value === 'eth' || value === 'usdc';
+}
+
+function isDestination(value: unknown): value is Destination {
+  return value === 'kraken' || value === 'metamask';
+}
+
+function campaignKeyFromId(campaignId: string | null | undefined) {
+  const entry = CAMPAIGN_ENTRIES.find(
+    ([, campaign]) => campaign.id === campaignId,
+  );
+  return entry?.[0] ?? null;
+}
+
+function formatCampaignMessage(template: string, campaignTitle: string) {
+  return template.replace('{campaign}', campaignTitle);
+}
+
+function readCryptoDonationLock(): CryptoDonationLock | null {
+  if (typeof window === 'undefined') return null;
+
+  try {
+    const stored = window.sessionStorage.getItem(CRYPTO_DONATION_LOCK_KEY);
+    if (!stored) return null;
+
+    const parsed = JSON.parse(stored) as Partial<CryptoDonationLock>;
+    const isExpired =
+      typeof parsed.createdAt !== 'number' ||
+      Date.now() - parsed.createdAt > CRYPTO_DONATION_LOCK_MAX_AGE_MS;
+
+    if (
+      isExpired ||
+      !isCampaignId(parsed.campaignId) ||
+      !isCryptoAsset(parsed.asset) ||
+      !isDestination(parsed.destination)
+    ) {
+      window.sessionStorage.removeItem(CRYPTO_DONATION_LOCK_KEY);
+      return null;
+    }
+
+    return {
+      campaignId: parsed.campaignId,
+      asset: parsed.asset,
+      destination: parsed.destination,
+      createdAt: parsed.createdAt,
+    };
+  } catch {
+    window.sessionStorage.removeItem(CRYPTO_DONATION_LOCK_KEY);
+    return null;
+  }
+}
+
+function writeCryptoDonationLock(lock: CryptoDonationLock) {
+  window.sessionStorage.setItem(CRYPTO_DONATION_LOCK_KEY, JSON.stringify(lock));
+}
+
+function clearCryptoDonationLock() {
+  if (typeof window !== 'undefined') {
+    window.sessionStorage.removeItem(CRYPTO_DONATION_LOCK_KEY);
+  }
+}
+
 export default function SupportDreamPage() {
   const locale = useLocale() as Locale;
   const text = copy[locale] ?? copy.en;
@@ -223,6 +332,10 @@ export default function SupportDreamPage() {
     'idle' | 'loading' | 'success' | 'error'
   >('idle');
   const [verificationMessage, setVerificationMessage] = useState('');
+  const [lockedDonation, setLockedDonation] =
+    useState<CryptoDonationLock | null>(null);
+  const [suggestedCampaignKey, setSuggestedCampaignKey] =
+    useState<CampaignKey | null>(null);
 
   const selectedCampaign = selectedCampaignKey
     ? ACTIVE_DREAM_CAMPAIGNS[selectedCampaignKey]
@@ -262,6 +375,10 @@ export default function SupportDreamPage() {
     return () => window.clearInterval(interval);
   }, [loadProgress]);
 
+  useEffect(() => {
+    setLockedDonation(readCryptoDonationLock());
+  }, []);
+
   const cryptoAddress = useMemo(() => {
     if (asset === 'btc') return CRYPTO_ADDRESSES.btc;
 
@@ -270,11 +387,175 @@ export default function SupportDreamPage() {
       : CRYPTO_ADDRESSES.ethKraken;
   }, [asset, destination]);
 
+  const campaignTitleById = (campaignId: string) => {
+    const key = campaignKeyFromId(campaignId);
+    return key ? text.campaigns[key].title : text.pageTitle;
+  };
+
+  const showCampaignMismatch = (campaignId: string) => {
+    const key = campaignKeyFromId(campaignId);
+    setSuggestedCampaignKey(key);
+    setVerificationState('error');
+    setVerificationMessage(
+      formatCampaignMessage(
+        text.campaignMismatch,
+        campaignTitleById(campaignId),
+      ),
+    );
+  };
+
+  const openCryptoCampaign = (key: CampaignKey) => {
+    const campaign = ACTIVE_DREAM_CAMPAIGNS[key];
+    const activeLock = readCryptoDonationLock();
+
+    setSelectedCampaignKey(key);
+    setLockedDonation(activeLock);
+    setTxHash('');
+    setVerificationState('idle');
+    setVerificationMessage('');
+    setSuggestedCampaignKey(null);
+
+    if (!activeLock) return;
+
+    if (activeLock.campaignId !== campaign.id) {
+      showCampaignMismatch(activeLock.campaignId);
+      return;
+    }
+
+    setAsset(activeLock.asset);
+    setDestination(activeLock.destination);
+    setVerificationState('success');
+    setVerificationMessage(
+      formatCampaignMessage(text.addressLinked, text.campaigns[key].title),
+    );
+  };
+
+  const invalidateCurrentLock = () => {
+    const activeLock = readCryptoDonationLock();
+
+    if (
+      !selectedCampaign ||
+      !activeLock ||
+      activeLock.campaignId !== selectedCampaign.id
+    ) {
+      return;
+    }
+
+    clearCryptoDonationLock();
+    setLockedDonation(null);
+    setSuggestedCampaignKey(null);
+    setVerificationState('error');
+    setVerificationMessage(text.selectionChanged);
+  };
+
+  const changeAsset = (nextAsset: CryptoAsset) => {
+    if (nextAsset === asset) return;
+    setAsset(nextAsset);
+    invalidateCurrentLock();
+  };
+
+  const changeDestination = (nextDestination: Destination) => {
+    if (nextDestination === destination) return;
+    setDestination(nextDestination);
+    invalidateCurrentLock();
+  };
+
+  const copyCryptoAddress = async () => {
+    if (!selectedCampaign || !selectedCampaignText) return;
+
+    const activeLock = readCryptoDonationLock();
+    if (activeLock && activeLock.campaignId !== selectedCampaign.id) {
+      showCampaignMismatch(activeLock.campaignId);
+      return;
+    }
+
+    const lock: CryptoDonationLock = {
+      campaignId: selectedCampaign.id,
+      asset,
+      destination,
+      createdAt: Date.now(),
+    };
+
+    writeCryptoDonationLock(lock);
+    setLockedDonation(lock);
+    setSuggestedCampaignKey(null);
+
+    try {
+      await navigator.clipboard.writeText(cryptoAddress);
+      setVerificationState('success');
+      setVerificationMessage(
+        formatCampaignMessage(text.addressLinked, selectedCampaignText.title),
+      );
+    } catch {
+      setVerificationState('error');
+      setVerificationMessage(text.copyFailed);
+    }
+  };
+
+  const openSuggestedCampaign = () => {
+    if (!suggestedCampaignKey) return;
+
+    const activeLock = readCryptoDonationLock();
+    const key = suggestedCampaignKey;
+
+    setSelectedCampaignKey(key);
+    setSuggestedCampaignKey(null);
+    setTxHash('');
+
+    if (activeLock && activeLock.campaignId === ACTIVE_DREAM_CAMPAIGNS[key].id) {
+      setAsset(activeLock.asset);
+      setDestination(activeLock.destination);
+      setLockedDonation(activeLock);
+      setVerificationState('success');
+      setVerificationMessage(
+        formatCampaignMessage(text.addressLinked, text.campaigns[key].title),
+      );
+    } else {
+      setVerificationState('idle');
+      setVerificationMessage('');
+    }
+  };
+
+  const startNewDonation = () => {
+    clearCryptoDonationLock();
+    setLockedDonation(null);
+    setSuggestedCampaignKey(null);
+    setTxHash('');
+    setVerificationState('idle');
+    setVerificationMessage('');
+  };
+
   const verifyCrypto = async () => {
     if (!selectedCampaign) return;
 
+    const activeLock = readCryptoDonationLock();
+    setLockedDonation(activeLock);
+
+    if (!activeLock) {
+      setVerificationState('error');
+      setVerificationMessage(text.copyFirst);
+      return;
+    }
+
+    if (activeLock.campaignId !== selectedCampaign.id) {
+      showCampaignMismatch(activeLock.campaignId);
+      return;
+    }
+
+    if (
+      activeLock.asset !== asset ||
+      (asset !== 'btc' && activeLock.destination !== destination)
+    ) {
+      clearCryptoDonationLock();
+      setLockedDonation(null);
+      setVerificationState('error');
+      setVerificationMessage(text.selectionChanged);
+      return;
+    }
+
     setVerificationState('loading');
     setVerificationMessage('');
+    setSuggestedCampaignKey(null);
 
     try {
       const response = await fetch('/api/crypto-verify', {
@@ -290,6 +571,26 @@ export default function SupportDreamPage() {
       const result = await response.json();
 
       if (!response.ok) {
+        const recordedCampaignId = String(result.campaignId || '');
+        const recordedCampaignKey = campaignKeyFromId(recordedCampaignId);
+
+        if (result.code === 'campaign_mismatch' && recordedCampaignKey) {
+          showCampaignMismatch(recordedCampaignId);
+          return;
+        }
+
+        if (result.code === 'already_validated' && recordedCampaignKey) {
+          setSuggestedCampaignKey(null);
+          setVerificationState('error');
+          setVerificationMessage(
+            formatCampaignMessage(
+              text.alreadyValidated,
+              text.campaigns[recordedCampaignKey].title,
+            ),
+          );
+          return;
+        }
+
         throw new Error(result.error || 'Unable to verify donation.');
       }
 
@@ -427,12 +728,7 @@ export default function SupportDreamPage() {
 
                     <button
                       type="button"
-                      onClick={() => {
-                        setSelectedCampaignKey(key);
-                        setVerificationState('idle');
-                        setVerificationMessage('');
-                        setTxHash('');
-                      }}
+                      onClick={() => openCryptoCampaign(key)}
                       className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-3 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-brand-700"
                     >
                       <Bitcoin className="h-4 w-4" />
@@ -489,7 +785,7 @@ export default function SupportDreamPage() {
                     <button
                       key={option}
                       type="button"
-                      onClick={() => setAsset(option)}
+                      onClick={() => changeAsset(option)}
                       className={`rounded-xl border py-2.5 text-sm font-bold transition-colors ${
                         asset === option
                           ? 'border-brand-600 bg-brand-600 text-white'
@@ -512,7 +808,7 @@ export default function SupportDreamPage() {
                       <button
                         key={option}
                         type="button"
-                        onClick={() => setDestination(option)}
+                        onClick={() => changeDestination(option)}
                         className={`rounded-xl border py-2.5 text-sm font-bold transition-colors ${
                           destination === option
                             ? 'border-neutral-900 bg-neutral-900 text-white'
@@ -536,7 +832,7 @@ export default function SupportDreamPage() {
                   </code>
                   <button
                     type="button"
-                    onClick={() => navigator.clipboard.writeText(cryptoAddress)}
+                    onClick={copyCryptoAddress}
                     className="rounded-lg border border-neutral-200 bg-white p-2 hover:bg-neutral-100"
                     aria-label={text.copyAddress}
                   >
@@ -563,16 +859,37 @@ export default function SupportDreamPage() {
 
               {verificationMessage && (
                 <div
-                  className={`flex items-start gap-2 rounded-xl p-3 text-sm ${
+                  className={`rounded-xl p-3 text-sm ${
                     verificationState === 'success'
                       ? 'bg-green-50 text-green-700'
                       : 'bg-red-50 text-red-700'
                   }`}
                 >
-                  {verificationState === 'success' && (
-                    <CheckCircle2 className="h-5 w-5 shrink-0" />
+                  <div className="flex items-start gap-2">
+                    {verificationState === 'success' && (
+                      <CheckCircle2 className="h-5 w-5 shrink-0" />
+                    )}
+                    <span>{verificationMessage}</span>
+                  </div>
+
+                  {suggestedCampaignKey && (
+                    <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                      <button
+                        type="button"
+                        onClick={openSuggestedCampaign}
+                        className="rounded-lg bg-white px-3 py-2 text-xs font-bold text-brand-700 shadow-sm ring-1 ring-brand-200"
+                      >
+                        {text.openCorrectCampaign}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={startNewDonation}
+                        className="rounded-lg px-3 py-2 text-xs font-bold text-neutral-700 ring-1 ring-neutral-300"
+                      >
+                        {text.startNewDonation}
+                      </button>
+                    </div>
                   )}
-                  <span>{verificationMessage}</span>
                 </div>
               )}
 
@@ -584,6 +901,16 @@ export default function SupportDreamPage() {
               >
                 {verificationState === 'loading' ? text.verifying : text.verify}
               </button>
+
+              {lockedDonation && lockedDonation.campaignId === selectedCampaign.id && (
+                <button
+                  type="button"
+                  onClick={startNewDonation}
+                  className="w-full text-center text-xs font-semibold text-neutral-500 underline-offset-4 hover:underline"
+                >
+                  {text.startNewDonation}
+                </button>
+              )}
             </div>
           </div>
         </div>
