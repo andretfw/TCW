@@ -200,7 +200,7 @@ const warriorStories: Record<
         'Jocelyn îmbina tratamentul, rolul de părinte și presiunea financiară. Sprijinul a adus mai multă stabilitate acasă, în timp ce ea s-a concentrat pe sănătate și familie.',
     },
     {
-      support: 'Ateliere creative pentru alți warriors',
+      support: 'Ateliere creative pentru alți luptători',
       story:
         'Monica și-a dorit să transforme bucuria lucrului manual în momente de apropiere. Visul ei a susținut ateliere în care oamenii se pot întâlni, crea și simți mai puțin singuri.',
     },
@@ -439,20 +439,20 @@ export const homepageCopy = {
     impact: {
       funds: 'oferiți ca sprijin direct',
       dreams: 'dorințe importante susținute',
-      warriors: 'warriors sprijiniți',
+      warriors: 'luptători sprijiniți',
     },
     stories: {
-      eyebrow: '18 WARRIORS · 18 POVEȘTI',
+      eyebrow: '18 LUPTĂTORI · 18 POVEȘTI',
       title: 'Sprijinul arată diferit pentru fiecare om.',
       body:
         'Fiecare dorință începe cu un om, nu cu un diagnostic. Acestea sunt momentele, nevoile practice și noile începuturi pe care comunitatea noastră le-a făcut posibile.',
       supported: 'Ce am susținut',
       memorial: 'În memoriam',
       photoProtected: 'Identitate protejată',
-      previous: 'Warriorii anteriori',
-      next: 'Warriorii următori',
+      previous: 'Luptătorii anteriori',
+      next: 'Luptătorii următori',
       viewAll: 'Descoperă toate cele 18 povești',
-      carouselLabel: 'Poveștile warriorilor sprijiniți',
+      carouselLabel: 'Poveștile luptătorilor sprijiniți',
     },
     next: {
       eyebrow: 'ALEGE URMĂTORUL PAS',
@@ -475,11 +475,11 @@ export const homepageCopy = {
     },
     final: {
       eyebrow: 'MAI MULT LOC PENTRU VIAȚĂ',
-      title: 'Ajută un alt warrior să se simtă văzut, sprijinit și liber să prospere.',
+      title: 'Ajută un alt luptător să se simtă văzut, sprijinit și liber să prospere.',
       body:
         'Fiecare donație ajută o dorință personală să devină realitate: mai multă stabilitate acasă, o amintire luminoasă, un început creativ sau un moment de odihnă.',
       donate: 'Susține următoarea dorință',
-      stories: 'Cunoaște-i pe warriors',
+      stories: 'Cunoaște-i pe luptători',
     },
   },
   es: {

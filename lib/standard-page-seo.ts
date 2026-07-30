@@ -240,7 +240,7 @@ const SEO_COPY: Record<
         'Find a gentle dose of encouragement, grounding ideas and small mood-lifting moments created for cancer warriors and their loved ones.',
     },
     ro: {
-      title: 'O doză de încurajare pentru cancer warriors',
+      title: 'O doză de încurajare pentru luptătorii cu cancer',
       description:
         'Găsește o doză blândă de încurajare, idei pentru echilibru și mici momente care pot aduce lumină persoanelor afectate de cancer și celor dragi.',
     },
@@ -291,9 +291,9 @@ const SEO_COPY: Record<
         'Discover our community Pilates event bringing people together through movement, connection and support for cancer warriors.',
     },
     ro: {
-      title: 'Eveniment Pilates pentru Cancer Warriors',
+      title: 'Eveniment Pilates pentru luptătorii cu cancer',
       description:
-        'Descoperă evenimentul nostru comunitar de Pilates, care aduce oamenii împreună prin mișcare, conexiune și sprijin pentru cancer warriors.',
+        'Descoperă evenimentul nostru comunitar de Pilates, care aduce oamenii împreună prin mișcare, conexiune și sprijin pentru luptătorii cu cancer.',
     },
     es: {
       title: 'Evento de Pilates para Cancer Warriors',

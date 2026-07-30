@@ -12,7 +12,7 @@ const SEO_COPY: Record<SiteLocale, {title: string; description: string}> = {
       'Help Tutti Cancer Warriors fund meaningful €500 dreams for people living with cancer. Follow each campaign’s verified donation progress.',
   },
   ro: {
-    title: 'Susține visul unui warrior oncologic',
+    title: 'Susține visul unui luptător oncologic',
     description:
       'Ajută Tutti Cancer Warriors să finanțeze dorințe de până la 500 € pentru persoane care trăiesc cu cancer și urmărește progresul donațiilor verificate.',
   },

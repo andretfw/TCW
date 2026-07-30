@@ -52,16 +52,16 @@ export default function HomePageClient() {
   const heroCopy =
     locale === 'ro'
       ? {
-          eyebrow: '18 WARRIORI SPRIJINIȚI',
+          eyebrow: '18 LUPTĂTORI SPRIJINIȚI',
           titleLines: [
             'Oamenii care trăiesc cu cancer',
             'merită mai mult decât',
             'să supraviețuiască.',
           ],
           body: 'Împreună, susținem dorințe importante, ajutor practic și momente care fac viața să se simtă din nou ca viață.',
-          support: 'Sprijină un warrior',
-          learn: 'Cunoaște-i pe warriors',
-          carousel: 'Povești ale warriorilor',
+          support: 'Sprijină un luptător',
+          learn: 'Cunoaște-i pe luptători',
+          carousel: 'Poveștile luptătorilor',
         }
       : locale === 'es'
         ? {
