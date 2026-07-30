@@ -184,10 +184,7 @@ export default function Header({locale}: {locale: string}) {
     setIsMobileMenuOpen(false);
   };
 
-  const navTextClass =
-    isScrolled || !isHomepage
-      ? 'text-neutral-700 hover:text-brand-600'
-      : 'text-white hover:text-brand-200 drop-shadow-md';
+  const navTextClass = 'text-neutral-700 hover:text-brand-600';
 
   return (
     <header
@@ -195,7 +192,7 @@ export default function Header({locale}: {locale: string}) {
         isScrolled
           ? 'bg-white shadow-lg'
           : isHomepage
-            ? 'bg-transparent'
+            ? 'border-b border-purple-100/80 bg-white/90 shadow-sm backdrop-blur-xl'
             : 'bg-white/95 shadow-md backdrop-blur-sm'
       }`}
     >
@@ -303,16 +300,12 @@ export default function Header({locale}: {locale: string}) {
                 className={`flex items-center gap-2 rounded-lg px-4 py-2 transition-colors ${
                   isScrolled || !isHomepage
                     ? 'hover:bg-neutral-100'
-                    : 'bg-white/10 hover:bg-white/20'
+                    : 'bg-purple-50 hover:bg-purple-100'
                 }`}
                 aria-label="Change language"
               >
                 <Globe
-                  className={`h-5 w-5 ${
-                    isScrolled || !isHomepage
-                      ? 'text-neutral-600'
-                      : 'text-white'
-                  }`}
+                  className="h-5 w-5 text-neutral-600"
                 />
                 <span className="text-xl">{currentLang.flag}</span>
               </button>
@@ -350,7 +343,7 @@ export default function Header({locale}: {locale: string}) {
             type="button"
             onClick={() => setIsMobileMenuOpen((open) => !open)}
             className={`p-2 md:hidden ${
-              isScrolled || !isHomepage ? 'text-neutral-900' : 'text-white'
+              isScrolled || !isHomepage ? 'text-neutral-900' : 'text-purple-950'
             }`}
             aria-label="Toggle navigation"
           >

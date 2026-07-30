@@ -8,6 +8,8 @@ import {
   ArrowRight,
   BookOpen,
   Briefcase,
+  ChevronLeft,
+  ChevronRight,
   Heart,
   Home,
   MessageCircle,
@@ -45,12 +47,17 @@ export default function HomePageClient() {
   const copy = homepageCopy[locale];
   const warriors = getHomepageWarriors(locale);
   const [activeHeroStory, setActiveHeroStory] = useState(0);
+  const [storyCarouselStart, setStoryCarouselStart] = useState(0);
 
   const heroCopy =
     locale === 'ro'
       ? {
           eyebrow: '18 WARRIORI SPRIJINIȚI',
-          title: 'Oamenii care trăiesc cu cancer merită mai mult decât să supraviețuiască.',
+          titleLines: [
+            'Oamenii care trăiesc cu cancer',
+            'merită mai mult decât',
+            'să supraviețuiască.',
+          ],
           body: 'Împreună, susținem dorințe importante, ajutor practic și momente care fac viața să se simtă din nou ca viață.',
           support: 'Sprijină un warrior',
           learn: 'Cunoaște-i pe warriors',
@@ -59,7 +66,11 @@ export default function HomePageClient() {
       : locale === 'es'
         ? {
             eyebrow: '18 WARRIORS APOYADOS',
-            title: 'Las personas que viven con cáncer merecen más que sobrevivir.',
+            titleLines: [
+              'Las personas que viven con cáncer',
+              'merecen más que',
+              'sobrevivir.',
+            ],
             body: 'Juntos, apoyamos deseos importantes, ayuda práctica y momentos que hacen que la vida vuelva a sentirse como vida.',
             support: 'Apoya a un warrior',
             learn: 'Conoce a los warriors',
@@ -67,7 +78,11 @@ export default function HomePageClient() {
           }
         : {
             eyebrow: '18 WARRIORS SUPPORTED',
-            title: 'People living with cancer deserve more than survival.',
+            titleLines: [
+              'People living with cancer',
+              'deserve more than',
+              'survival.',
+            ],
             body: 'Together, we help fund meaningful wishes, practical relief and moments that feel like life again.',
             support: 'Support a warrior',
             learn: 'Meet the warriors',
@@ -85,6 +100,9 @@ export default function HomePageClient() {
     ...warrior,
     caption: heroCaptions[index],
   }));
+  const visibleWarriorStories = Array.from({length: 4}, (_, offset) =>
+    warriors[(storyCarouselStart + offset) % warriors.length],
+  );
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -102,12 +120,12 @@ export default function HomePageClient() {
         <div className="relative mx-auto grid min-h-[760px] max-w-[1600px] items-stretch lg:grid-cols-[minmax(0,1.08fr)_minmax(460px,.92fr)]">
           <div className="relative z-10 flex items-center px-6 py-24 md:px-12 lg:px-20 xl:px-28">
             <div className="max-w-2xl">
-              <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white/70 px-4 py-2 text-xs font-bold tracking-[0.16em] text-purple-900 shadow-sm backdrop-blur">
-                <ButterflyMark className="h-4 w-4 text-purple-500" />
-                <span>{heroCopy.eyebrow}</span>
-              </div>
-              <h1 className="max-w-xl text-5xl font-bold leading-[1.04] tracking-[-0.04em] text-purple-950 md:text-6xl xl:text-7xl">
-                {heroCopy.title}
+              <h1 className="max-w-3xl text-5xl font-bold leading-[1.05] tracking-[-0.04em] text-purple-950 md:text-6xl xl:text-[4rem]">
+                {heroCopy.titleLines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
               </h1>
               <p className="mt-7 max-w-xl text-lg leading-relaxed text-purple-950/75 md:text-xl">
                 {heroCopy.body}
@@ -249,38 +267,53 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      <section id="warrior-stories" className="scroll-mt-24 bg-white py-24 md:py-32">
+      <section id="warrior-stories" className="scroll-mt-24 bg-white py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-bold tracking-[0.18em] text-purple-600">{copy.stories.eyebrow}</p>
-            <h2 className="mt-4 text-4xl font-bold tracking-[-0.03em] text-purple-950 md:text-5xl">
-              {copy.stories.title}
-            </h2>
-            <p className="mt-6 text-lg leading-relaxed text-neutral-600">{copy.stories.body}</p>
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <p className="text-sm font-bold tracking-[0.18em] text-purple-600">{copy.stories.eyebrow}</p>
+              <h2 className="mt-4 text-4xl font-bold tracking-[-0.03em] text-purple-950 md:text-5xl">
+                {copy.stories.title}
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-neutral-600">{copy.stories.body}</p>
+            </div>
+            <Link
+              href={localizedPath(routeLocale, 'warriors')}
+              className="group inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-purple-200 px-6 py-3 font-semibold text-purple-800 transition hover:border-purple-500 hover:bg-purple-50 lg:self-auto"
+            >
+              {copy.stories.viewAll}
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
 
-          <div className="mt-16 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-            {warriors.map((warrior) => {
+          <div
+            className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+            aria-label={copy.stories.carouselLabel}
+            aria-live="polite"
+          >
+            {visibleWarriorStories.map((warrior, index) => {
               const photoProtected = warrior.name === 'D.' || warrior.name === 'Mirela' || warrior.name === 'Iulia';
+              const responsiveVisibility =
+                index === 0
+                  ? 'flex'
+                  : index === 1
+                    ? 'hidden sm:flex'
+                    : 'hidden lg:flex';
               return (
-                <article
+                <Link
                   key={warrior.name}
-                  className="group overflow-hidden rounded-[2rem] border border-purple-100 bg-[#fdfbfe] shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+                  href={localizedPath(routeLocale, 'warriors')}
+                  className={`group flex-col overflow-hidden rounded-[1.6rem] border border-purple-100 bg-[#fdfbfe] shadow-sm transition hover:-translate-y-1 hover:shadow-xl ${responsiveVisibility}`}
                 >
-                  <div className="relative h-72 overflow-hidden bg-gradient-to-br from-purple-100 via-[#f6eefa] to-pink-50">
-                    {warrior.image ? (
-                      <Image
-                        src={warrior.image}
-                        alt={photoProtected ? `${warrior.name}, ${copy.stories.photoProtected.toLowerCase()}` : warrior.name}
-                        fill
-                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                        className={`object-cover transition duration-700 group-hover:scale-[1.03] ${warrior.imagePosition ?? 'object-center'}`}
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center">
-                        <ButterflyMark className="h-20 w-20 text-purple-300" />
-                      </div>
-                    )}
+                  <div className="relative h-56 overflow-hidden bg-gradient-to-br from-purple-100 via-[#f6eefa] to-pink-50">
+                    <Image
+                      src={warrior.image}
+                      alt={photoProtected ? `${warrior.name}, ${copy.stories.photoProtected.toLowerCase()}` : warrior.name}
+                      fill
+                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                      className={`object-cover transition duration-700 group-hover:scale-[1.04] ${warrior.imagePosition ?? 'object-center'}`}
+                    />
+                    <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-purple-950/70 to-transparent" />
                     <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-bold text-purple-950 shadow-sm backdrop-blur">
                       {countryFlags[warrior.country]} {getCountryName(locale, warrior.country)}
                     </div>
@@ -290,23 +323,52 @@ export default function HomePageClient() {
                       </div>
                     )}
                     {photoProtected && (
-                      <div className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 rounded-full bg-purple-950/80 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
+                      <div className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-purple-950/80 px-2.5 py-1.5 text-xs font-semibold text-white backdrop-blur">
                         <Shield className="h-3.5 w-3.5" />
-                        {copy.stories.photoProtected}
+                        <span className="sr-only">{copy.stories.photoProtected}</span>
                       </div>
                     )}
+                    <h3 className="absolute bottom-4 left-5 text-2xl font-bold text-white">{warrior.name}</h3>
                   </div>
-                  <div className="p-7">
-                    <h3 className="text-2xl font-bold text-purple-950">{warrior.name}</h3>
-                    <p className="mt-5 text-xs font-bold uppercase tracking-[0.14em] text-purple-600">
+                  <div className="flex flex-1 flex-col p-5">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-purple-600">
                       {copy.stories.supported}
                     </p>
-                    <p className="mt-2 text-lg font-semibold leading-snug text-neutral-900">{warrior.support}</p>
-                    <p className="mt-4 leading-relaxed text-neutral-600">{warrior.story}</p>
+                    <p className="mt-2 line-clamp-2 text-base font-semibold leading-snug text-neutral-900">
+                      {warrior.support}
+                    </p>
                   </div>
-                </article>
+                </Link>
               );
             })}
+          </div>
+
+          <div className="mt-7 flex items-center justify-between">
+            <p className="text-sm font-semibold text-purple-800">
+              {storyCarouselStart + 1} / {warriors.length}
+            </p>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() =>
+                  setStoryCarouselStart((current) => (current - 1 + warriors.length) % warriors.length)
+                }
+                aria-label={copy.stories.previous}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-purple-200 bg-white text-purple-800 transition hover:border-purple-500 hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() =>
+                  setStoryCarouselStart((current) => (current + 1) % warriors.length)
+                }
+                aria-label={copy.stories.next}
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-purple-700 text-white shadow-lg shadow-purple-500/20 transition hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
           </div>
         </div>
       </section>

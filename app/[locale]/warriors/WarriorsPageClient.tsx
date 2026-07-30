@@ -1,345 +1,523 @@
 'use client';
+
 import Image from 'next/image';
-import { useTranslations, useLocale } from 'next-intl';
-import { useState, useEffect } from 'react';
+import {useLocale} from 'next-intl';
+import Link from 'next/link';
+import {useEffect, useState} from 'react';
 import {
-  X,
-  Heart,
-  Sparkles,
   ArrowRight,
-  TrendingUp,
-  Target,
-  Users,
   ChevronLeft,
   ChevronRight,
+  Heart,
+  MapPin,
+  Shield,
+  Sparkles,
+  X,
 } from 'lucide-react';
-import Link from 'next/link';
-import { IMPACT } from '@/lib/impact';
-import { localizedPath } from '@/lib/routes';
+import {
+  countryFlags,
+  getCountryName,
+  getHomepageLocale,
+  getHomepageWarriors,
+  type HomepageWarrior,
+  type WarriorCountry,
+} from '@/lib/homepage-content';
+import {IMPACT} from '@/lib/impact';
+import {localizedPath} from '@/lib/routes';
 
-function AnimatedCounter({ end, duration = 2000, prefix = '' }: { end: number, duration?: number, prefix?: string }) {
-  const [count, setCount] = useState(0);
+type CountryFilter = 'ALL' | WarriorCountry;
 
-  useEffect(() => {
-    let startTime: number | null = null;
-    let animationFrameId: number;
-
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = timestamp - startTime;
-      const percentage = Math.min(progress / duration, 1);
-      const ease = (x: number) => 1 - Math.pow(1 - x, 3);
-      setCount(Math.floor(ease(percentage) * end));
-
-      if (progress < duration) animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animationFrameId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [end, duration]);
-
-  return <>{prefix}{new Intl.NumberFormat('en-US').format(count)}</>;
+function ButterflyMark({className = ''}: {className?: string}) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" className={className} aria-hidden="true">
+      <path d="M23.7 24.8C16.8 10.8 5.8 11.9 7.5 22.1c1.5 9 10.8 9.2 16.2 3.6Z" fill="currentColor" />
+      <path d="M24.3 24.8C31.2 10.8 42.2 11.9 40.5 22.1c-1.5 9-10.8 9.2-16.2 3.6Z" fill="currentColor" />
+      <path d="M23.8 25.1c-5.2 3.8-9.3 10.5-5.2 13.4 3.3 2.3 5.7-3 5.4-11.3h.1c-.3 8.3 2.1 13.6 5.4 11.3 4.1-2.9 0-9.6-5.2-13.4h-.5Z" fill="currentColor" />
+      <path d="M24 25v-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
 }
 
-export default function WarriorsPage() {
-  const t = useTranslations('warriorsPage');
-  const locale = useLocale();
-  const [selectedStory, setSelectedStory] = useState<null | any>(null);
-  const [selectedGalleryIndex, setSelectedGalleryIndex] = useState(0);
-  const warriorsSupportedLabel = locale === 'ro'
-    ? 'Warriors sprijiniți'
-    : locale === 'es'
-      ? 'Warriors apoyados'
-      : 'Warriors Supported';
-  const previousImageLabel = locale === 'ro'
-    ? 'Imaginea anterioară'
-    : locale === 'es'
-      ? 'Imagen anterior'
-      : 'Previous image';
-  const nextImageLabel = locale === 'ro'
-    ? 'Imaginea următoare'
-    : locale === 'es'
-      ? 'Imagen siguiente'
-      : 'Next image';
-  const imageLabel = locale === 'ro'
-    ? 'Imaginea'
-    : locale === 'es'
-      ? 'Imagen'
-      : 'Image';
+function storyImages(warrior: HomepageWarrior): string[] {
+  if (warrior.name === 'Janelle') {
+    return ['/janelle-ysc-summit-1.jpg', '/janelle-ysc-summit-2.jpg'];
+  }
+  return [warrior.image];
+}
 
-  const stories = [
-    { id: '1', name: t('featured.anetra.name'), dream: t('featured.anetra.dream'), shortDesc: t('featured.anetra.shortDesc'), fullStory: t('featured.anetra.fullStory'), image: '/anetra-home.jpg', position: 'object-[center_25%]', color: 'bg-purple-100 text-purple-700' },
-    {
-      id: '2',
-      name: t('featured.janelle.name'),
-      dream: t('featured.janelle.dream'),
-      shortDesc: t('featured.janelle.shortDesc'),
-      fullStory: t('featured.janelle.fullStory'),
-      image: '/janelle-ysc-summit-1.jpg',
-      gallery: ['/janelle-ysc-summit-1.jpg', '/janelle-ysc-summit-2.jpg'],
-      position: 'object-top',
-      color: 'bg-blue-100 text-blue-700',
-    },
-    { id: '3', name: t('featured.jeanelle.name'), dream: t('featured.jeanelle.dream'), shortDesc: t('featured.jeanelle.shortDesc'), fullStory: t('featured.jeanelle.fullStory'), image: '/jeanelle-home.jpg', position: 'object-center', color: 'bg-teal-100 text-teal-700' },
-    { id: '4', name: t('featured.susan.name'), dream: t('featured.susan.dream'), shortDesc: t('featured.susan.shortDesc'), fullStory: t('featured.susan.fullStory'), image: '/susan.jpg', position: 'object-[center_35%]', color: 'bg-pink-100 text-pink-700' },
-    { id: '5', name: t('featured.taya.name'), dream: t('featured.taya.dream'), shortDesc: t('featured.taya.shortDesc'), fullStory: t('featured.taya.fullStory'), image: '/taya.jpg', position: 'object-center', color: 'bg-orange-100 text-orange-700' },
-    { id: '6', name: t('featured.anonymous.name'), dream: t('featured.anonymous.dream'), shortDesc: t('featured.anonymous.shortDesc'), fullStory: t('featured.anonymous.fullStory'), image: '/warrior.jpg', position: 'object-center', color: 'bg-indigo-100 text-indigo-700' },
-    {
-      id: '7',
-      name: t('featured.jocelyn.name'),
-      dream: t('featured.jocelyn.dream'),
-      shortDesc: t('featured.jocelyn.shortDesc'),
-      fullStory: t('featured.jocelyn.fullStory'),
-      image: 'https://plus.unsplash.com/premium_photo-1708371355671-07c6bfab983c?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      position: 'object-center',
-      color: 'bg-rose-100 text-rose-700',
-    },
-    {
-      id: '8',
-      name: t('featured.monica.name'),
-      dream: t('featured.monica.dream'),
-      shortDesc: t('featured.monica.shortDesc'),
-      fullStory: t('featured.monica.fullStory'),
-      image: '/Monica RO (1).jpg',
-      position: 'object-center',
-      color: 'bg-emerald-100 text-emerald-700',
-    },
-    {
-      id: '9',
-      name: t('featured.penny.name'),
-      dream: t('featured.penny.dream'),
-      shortDesc: t('featured.penny.shortDesc'),
-      fullStory: t('featured.penny.fullStory'),
-      image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=800',
-      position: 'object-center',
-      color: 'bg-sky-100 text-sky-700',
-    },
-    {
-      id: 'wren',
-      name: t('featured.wren.name'),
-      dream: t('featured.wren.dream'),
-      shortDesc: t('featured.wren.shortDesc'),
-      fullStory: t('featured.wren.fullStory'),
-      image: '/wren.jpg',
-      position: 'object-center',
-      color: 'bg-fuchsia-100 text-fuchsia-700',
-    },
-  ];
+export default function WarriorsPageClient() {
+  const routeLocale = useLocale();
+  const locale = getHomepageLocale(routeLocale);
+  const warriors = getHomepageWarriors(locale);
+  const [countryFilter, setCountryFilter] = useState<CountryFilter>('ALL');
+  const [selectedStory, setSelectedStory] = useState<HomepageWarrior | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
-  const openStory = (story: any) => {
-    setSelectedGalleryIndex(0);
-    setSelectedStory(story);
-  };
+  const copy =
+    locale === 'ro'
+      ? {
+          eyebrow: '18 OAMENI · 18 POVEȘTI',
+          title: 'Fiecare om este mai mult decât un diagnostic.',
+          subtitle:
+            'Descoperă oamenii pe care comunitatea noastră i-a sprijinit și dorințele personale care au adus odihnă, stabilitate, bucurie sau un nou început.',
+          supported: 'warriors sprijiniți',
+          wishes: 'dorințe importante susținute',
+          funds: 'oferiți ca sprijin direct',
+          galleryEyebrow: 'POVEȘTILE WARRIORILOR',
+          galleryTitle: 'Sprijinul arată diferit pentru fiecare om.',
+          galleryBody:
+            'Poți vedea toate poveștile sau le poți filtra după țară. Fiecare dorință a pornit de la ceea ce conta cu adevărat pentru persoana respectivă.',
+          all: 'Toate țările',
+          filterLabel: 'Filtrează poveștile după țară',
+          supportLabel: 'Ce am susținut',
+          readStory: 'Citește povestea',
+          identityProtected: 'Identitate protejată',
+          memorial: 'În memoriam',
+          close: 'Închide povestea',
+          previous: 'Imaginea anterioară',
+          next: 'Imaginea următoare',
+          image: 'Imaginea',
+          modalEyebrow: 'O DORINȚĂ SUSȚINUTĂ',
+          donate: 'Susține următoarea dorință',
+          apply: 'Aplică pentru sprijin',
+          finalEyebrow: 'MAI MULT LOC PENTRU VIAȚĂ',
+          finalTitle: 'Următoarea poveste poate începe cu tine.',
+          finalBody:
+            'O donație sau o cerere de sprijin poate transforma o nevoie personală într-un moment concret de ușurare, apropiere sau speranță.',
+        }
+      : locale === 'es'
+        ? {
+            eyebrow: '18 PERSONAS · 18 HISTORIAS',
+            title: 'Cada persona es mucho más que un diagnóstico.',
+            subtitle:
+              'Conoce a las personas apoyadas por nuestra comunidad y los deseos personales que aportaron descanso, estabilidad, alegría o un nuevo comienzo.',
+            supported: 'warriors apoyados',
+            wishes: 'deseos importantes apoyados',
+            funds: 'entregados en apoyo directo',
+            galleryEyebrow: 'HISTORIAS DE WARRIORS',
+            galleryTitle: 'El apoyo es diferente para cada persona.',
+            galleryBody:
+              'Puedes ver todas las historias o filtrarlas por país. Cada deseo nació de lo que realmente importaba para esa persona.',
+            all: 'Todos los países',
+            filterLabel: 'Filtrar historias por país',
+            supportLabel: 'Lo que apoyamos',
+            readStory: 'Leer la historia',
+            identityProtected: 'Identidad protegida',
+            memorial: 'En memoria',
+            close: 'Cerrar la historia',
+            previous: 'Imagen anterior',
+            next: 'Imagen siguiente',
+            image: 'Imagen',
+            modalEyebrow: 'UN DESEO APOYADO',
+            donate: 'Apoya el próximo deseo',
+            apply: 'Solicita apoyo',
+            finalEyebrow: 'MÁS ESPACIO PARA LA VIDA',
+            finalTitle: 'La próxima historia puede empezar contigo.',
+            finalBody:
+              'Una donación o una solicitud puede convertir una necesidad personal en un momento real de alivio, conexión o esperanza.',
+          }
+        : {
+            eyebrow: '18 PEOPLE · 18 STORIES',
+            title: 'Every person is more than a diagnosis.',
+            subtitle:
+              'Meet the people our community has supported and the personal wishes that created rest, stability, joy or a meaningful new beginning.',
+            supported: 'warriors supported',
+            wishes: 'meaningful wishes supported',
+            funds: 'provided in direct support',
+            galleryEyebrow: 'WARRIOR STORIES',
+            galleryTitle: 'Support looks different for everyone.',
+            galleryBody:
+              'View every story or filter by country. Each wish began with what genuinely mattered to that person at that moment.',
+            all: 'All countries',
+            filterLabel: 'Filter stories by country',
+            supportLabel: 'What we supported',
+            readStory: 'Read their story',
+            identityProtected: 'Identity protected',
+            memorial: 'In memory',
+            close: 'Close story',
+            previous: 'Previous image',
+            next: 'Next image',
+            image: 'Image',
+            modalEyebrow: 'A WISH SUPPORTED',
+            donate: 'Support the next wish',
+            apply: 'Apply for support',
+            finalEyebrow: 'MORE ROOM FOR LIFE',
+            finalTitle: 'The next story can begin with you.',
+            finalBody:
+              'A donation or an application can turn a personal need into a real moment of relief, connection or hope.',
+          };
+
+  const filteredWarriors =
+    countryFilter === 'ALL'
+      ? warriors
+      : warriors.filter((warrior) => warrior.country === countryFilter);
+
+  const selectedImages = selectedStory ? storyImages(selectedStory) : [];
 
   const closeStory = () => {
     setSelectedStory(null);
-    setSelectedGalleryIndex(0);
+    setSelectedImageIndex(0);
   };
 
-  const galleryImages = selectedStory?.gallery ?? [];
-  const showPreviousImage = () => {
-    setSelectedGalleryIndex((currentIndex) =>
-      (currentIndex - 1 + galleryImages.length) % galleryImages.length,
-    );
+  const openStory = (warrior: HomepageWarrior) => {
+    setSelectedImageIndex(0);
+    setSelectedStory(warrior);
   };
+
+  const showPreviousImage = () => {
+    setSelectedImageIndex((current) => (current - 1 + selectedImages.length) % selectedImages.length);
+  };
+
   const showNextImage = () => {
-    setSelectedGalleryIndex((currentIndex) =>
-      (currentIndex + 1) % galleryImages.length,
-    );
+    setSelectedImageIndex((current) => (current + 1) % selectedImages.length);
   };
 
   useEffect(() => {
     if (!selectedStory) return;
 
-    const galleryLength = selectedStory.gallery?.length ?? 0;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setSelectedStory(null);
-        setSelectedGalleryIndex(0);
-      } else if (galleryLength > 1 && event.key === 'ArrowLeft') {
-        setSelectedGalleryIndex((currentIndex) =>
-          (currentIndex - 1 + galleryLength) % galleryLength,
+        setSelectedImageIndex(0);
+      }
+      if (selectedImages.length > 1 && event.key === 'ArrowLeft') {
+        setSelectedImageIndex(
+          (current) => (current - 1 + selectedImages.length) % selectedImages.length,
         );
-      } else if (galleryLength > 1 && event.key === 'ArrowRight') {
-        setSelectedGalleryIndex((currentIndex) =>
-          (currentIndex + 1) % galleryLength,
-        );
+      }
+      if (selectedImages.length > 1 && event.key === 'ArrowRight') {
+        setSelectedImageIndex((current) => (current + 1) % selectedImages.length);
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedStory]);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedImages.length, selectedStory]);
+
+  const countries: WarriorCountry[] = ['US', 'UK', 'RO'];
 
   return (
-    <div className="pt-20 min-h-screen bg-neutral-50">
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-bold mb-6">
-            <Sparkles className="w-4 h-4" />
-            <span>Tutti Cancer Warriors</span>
+    <main className="min-h-screen bg-white pt-20">
+      <section className="relative overflow-hidden bg-[#f5edfa]">
+        <ButterflyMark className="pointer-events-none absolute left-[6%] top-20 h-7 w-7 -rotate-12 text-purple-300/70" />
+        <ButterflyMark className="pointer-events-none absolute bottom-16 right-[7%] h-10 w-10 rotate-[18deg] text-purple-300/50" />
+        <div className="mx-auto grid min-h-[650px] max-w-7xl items-center gap-14 px-6 py-20 lg:grid-cols-[1.02fr_.98fr] lg:py-24">
+          <div className="relative z-10">
+            <div className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white/70 px-4 py-2 text-xs font-bold tracking-[0.16em] text-purple-900 shadow-sm">
+              <ButterflyMark className="h-4 w-4 text-purple-500" />
+              {copy.eyebrow}
+            </div>
+            <h1 className="mt-7 max-w-2xl text-5xl font-bold leading-[1.04] tracking-[-0.04em] text-purple-950 md:text-6xl">
+              {copy.title}
+            </h1>
+            <p className="mt-7 max-w-2xl text-lg leading-relaxed text-purple-950/75 md:text-xl">
+              {copy.subtitle}
+            </p>
+            <a
+              href="#stories"
+              className="mt-9 inline-flex items-center gap-2 rounded-full bg-purple-700 px-7 py-4 font-semibold text-white shadow-xl shadow-purple-500/20 transition hover:scale-[1.02] hover:bg-purple-800"
+            >
+              {copy.galleryEyebrow}
+              <ArrowRight className="h-5 w-5" />
+            </a>
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-neutral-900 mb-6">{t('title')}</h1>
-          <p className="text-xl text-neutral-600 max-w-2xl mx-auto mb-12">{t('subtitle')}</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="bg-neutral-50 rounded-2xl p-6 border border-neutral-100 flex items-center justify-center gap-4 shadow-sm hover:shadow-md transition-shadow">
-              <div className="p-3 bg-white rounded-xl text-brand-600 shadow-sm"><TrendingUp className="w-6 h-6" /></div>
-              <div className="text-left">
-                <div className="text-3xl font-bold text-neutral-900 tabular-nums"><AnimatedCounter end={IMPACT.fundsGrantedEur} prefix="€" /></div>
-                <div className="text-sm text-neutral-500 font-medium uppercase tracking-wide">{t('stats.investment')}</div>
-              </div>
+          <div className="relative mx-auto h-[470px] w-full max-w-xl">
+            <div className="absolute left-[2%] top-[12%] h-[72%] w-[42%] -rotate-6 overflow-hidden rounded-[2rem] border-4 border-white shadow-2xl">
+              <Image
+                src="/anetra-home.jpg"
+                alt="Anetra"
+                fill
+                priority
+                sizes="(min-width: 1024px) 22vw, 42vw"
+                className="object-cover object-[center_25%]"
+              />
             </div>
-
-            <div className="bg-neutral-50 rounded-2xl p-6 border border-neutral-100 flex items-center justify-center gap-4 shadow-sm hover:shadow-md transition-shadow">
-              <div className="p-3 bg-white rounded-xl text-purple-600 shadow-sm"><Target className="w-6 h-6" /></div>
-              <div className="text-left">
-                <div className="text-3xl font-bold text-neutral-900 tabular-nums"><AnimatedCounter end={IMPACT.dreamsFulfilled} /></div>
-                <div className="text-sm text-neutral-500 font-medium uppercase tracking-wide">{t('stats.dreams')}</div>
-              </div>
+            <div className="absolute left-[31%] top-0 z-10 h-[82%] w-[43%] rotate-2 overflow-hidden rounded-[2rem] border-4 border-white shadow-2xl">
+              <Image
+                src="/warriors/cristina.webp"
+                alt="Cristina"
+                fill
+                priority
+                sizes="(min-width: 1024px) 22vw, 42vw"
+                className="object-cover"
+              />
             </div>
-
-            <div className="bg-neutral-50 rounded-2xl p-6 border border-neutral-100 flex items-center justify-center gap-4 shadow-sm hover:shadow-md transition-shadow">
-              <div className="p-3 bg-white rounded-xl text-indigo-600 shadow-sm"><Users className="w-6 h-6" /></div>
-              <div className="text-left">
-                <div className="text-3xl font-bold text-neutral-900 tabular-nums"><AnimatedCounter end={IMPACT.warriorsSupported} /></div>
-                <div className="text-sm text-neutral-500 font-medium uppercase tracking-wide">{warriorsSupportedLabel}</div>
-              </div>
+            <div className="absolute bottom-0 right-[1%] h-[70%] w-[40%] rotate-6 overflow-hidden rounded-[2rem] border-4 border-white shadow-2xl">
+              <Image
+                src="/warriors/laura.webp"
+                alt="Laura"
+                fill
+                priority
+                sizes="(min-width: 1024px) 20vw, 40vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="absolute bottom-5 left-[24%] z-20 flex h-16 w-16 items-center justify-center rounded-full border-4 border-white bg-purple-600 text-white shadow-xl">
+              <Heart className="h-7 w-7" fill="currentColor" />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="pb-24 px-4 container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {stories.map((story) => (
-            <div
-              key={story.id}
-              className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer border border-neutral-100 flex flex-col h-full"
-              onClick={() => openStory(story)}
-            >
-              <div className="relative h-80 overflow-hidden">
-                <Image
-                  src={story.image}
-                  alt={story.name}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                  className={`object-cover transition-transform duration-700 group-hover:scale-105 ${story.position}`}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
-                <div className="absolute bottom-4 left-4 text-white"><h3 className="text-2xl font-bold">{story.name}</h3></div>
-                <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${story.color}`}>{t('dreamFulfilled')}</div>
-              </div>
+      <section className="relative z-20 -mt-8 px-6">
+        <div className="mx-auto grid max-w-5xl overflow-hidden rounded-[2rem] border border-purple-100 bg-white shadow-xl sm:grid-cols-3 sm:divide-x sm:divide-purple-100">
+          <div className="px-7 py-7 text-center">
+            <p className="text-4xl font-bold text-purple-950">{IMPACT.warriorsSupported}</p>
+            <p className="mt-1 text-sm text-neutral-500">{copy.supported}</p>
+          </div>
+          <div className="border-t border-purple-100 px-7 py-7 text-center sm:border-t-0">
+            <p className="text-4xl font-bold text-purple-950">{IMPACT.dreamsFulfilled}</p>
+            <p className="mt-1 text-sm text-neutral-500">{copy.wishes}</p>
+          </div>
+          <div className="border-t border-purple-100 px-7 py-7 text-center sm:border-t-0">
+            <p className="text-4xl font-bold text-purple-950">
+              €{IMPACT.fundsGrantedEur.toLocaleString('en-US')}
+            </p>
+            <p className="mt-1 text-sm text-neutral-500">{copy.funds}</p>
+          </div>
+        </div>
+      </section>
 
-              <div className="p-8 flex flex-col flex-grow">
-                <div className="mb-4">
-                  <h4 className="text-sm font-bold text-neutral-400 uppercase tracking-wide mb-1">Dream</h4>
-                  <p className="text-lg font-bold text-brand-600">{story.dream}</p>
-                </div>
-                <p className="text-neutral-600 mb-6 line-clamp-3 flex-grow">{story.shortDesc}</p>
-                <button className="flex items-center gap-2 text-neutral-900 font-bold group-hover:text-brand-600 transition-colors mt-auto">
-                  {t('readStory')}
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+      <section id="stories" className="scroll-mt-24 py-24 md:py-32">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="max-w-3xl">
+            <p className="text-sm font-bold tracking-[0.18em] text-purple-600">{copy.galleryEyebrow}</p>
+            <h2 className="mt-4 text-4xl font-bold tracking-[-0.03em] text-purple-950 md:text-5xl">
+              {copy.galleryTitle}
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-neutral-600">{copy.galleryBody}</p>
+          </div>
+
+          <div className="mt-10 flex flex-wrap gap-3" role="group" aria-label={copy.filterLabel}>
+            <button
+              type="button"
+              onClick={() => setCountryFilter('ALL')}
+              aria-pressed={countryFilter === 'ALL'}
+              className={`rounded-full px-5 py-2.5 text-sm font-semibold transition ${
+                countryFilter === 'ALL'
+                  ? 'bg-purple-700 text-white shadow-lg shadow-purple-500/20'
+                  : 'border border-purple-200 bg-white text-purple-900 hover:border-purple-400'
+              }`}
+            >
+              {copy.all} · {warriors.length}
+            </button>
+            {countries.map((country) => {
+              const count = warriors.filter((warrior) => warrior.country === country).length;
+              return (
+                <button
+                  key={country}
+                  type="button"
+                  onClick={() => setCountryFilter(country)}
+                  aria-pressed={countryFilter === country}
+                  className={`rounded-full px-5 py-2.5 text-sm font-semibold transition ${
+                    countryFilter === country
+                      ? 'bg-purple-700 text-white shadow-lg shadow-purple-500/20'
+                      : 'border border-purple-200 bg-white text-purple-900 hover:border-purple-400'
+                  }`}
+                >
+                  {countryFlags[country]} {getCountryName(locale, country)} · {count}
                 </button>
-              </div>
-            </div>
-          ))}
+              );
+            })}
+          </div>
+
+          <div className="mt-14 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+            {filteredWarriors.map((warrior) => {
+              const photoProtected =
+                warrior.name === 'D.' || warrior.name === 'Mirela' || warrior.name === 'Iulia';
+              return (
+                <article
+                  key={warrior.name}
+                  className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-purple-100 bg-[#fdfbfe] shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+                >
+                  <div className="relative h-80 overflow-hidden bg-purple-100">
+                    <Image
+                      src={warrior.image}
+                      alt={
+                        photoProtected
+                          ? `${warrior.name}, ${copy.identityProtected.toLowerCase()}`
+                          : warrior.name
+                      }
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className={`object-cover transition duration-700 group-hover:scale-[1.03] ${
+                        warrior.imagePosition ?? 'object-center'
+                      }`}
+                    />
+                    <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-purple-950/70 to-transparent" />
+                    <div className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-xs font-bold text-purple-950 shadow-sm backdrop-blur">
+                      <MapPin className="h-3.5 w-3.5 text-purple-600" />
+                      {countryFlags[warrior.country]} {getCountryName(locale, warrior.country)}
+                    </div>
+                    {warrior.memorial && (
+                      <div className="absolute right-4 top-4 rounded-full bg-purple-950/85 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
+                        {copy.memorial}
+                      </div>
+                    )}
+                    {photoProtected && (
+                      <div className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 rounded-full bg-purple-950/80 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
+                        <Shield className="h-3.5 w-3.5" />
+                        {copy.identityProtected}
+                      </div>
+                    )}
+                    <h3 className="absolute bottom-4 left-5 text-3xl font-bold text-white">{warrior.name}</h3>
+                  </div>
+
+                  <div className="flex flex-1 flex-col p-7">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-purple-600">
+                      {copy.supportLabel}
+                    </p>
+                    <p className="mt-2 text-xl font-bold leading-snug text-purple-950">{warrior.support}</p>
+                    <p className="mt-4 line-clamp-3 leading-relaxed text-neutral-600">{warrior.story}</p>
+                    <button
+                      type="button"
+                      onClick={() => openStory(warrior)}
+                      className="mt-7 inline-flex items-center gap-2 self-start font-semibold text-purple-700 transition hover:text-purple-900"
+                    >
+                      {copy.readStory}
+                      <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                    </button>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-gradient-to-br from-purple-950 via-purple-800 to-brand-700 py-24 text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_25%,rgba(255,255,255,.12),transparent_30%),radial-gradient(circle_at_80%_70%,rgba(216,180,254,.18),transparent_34%)]" />
+        <ButterflyMark className="pointer-events-none absolute left-[9%] top-14 h-8 w-8 -rotate-12 text-purple-300/70" />
+        <div className="relative mx-auto max-w-4xl px-6 text-center">
+          <p className="text-sm font-bold tracking-[0.2em] text-purple-200">{copy.finalEyebrow}</p>
+          <h2 className="mt-5 text-4xl font-bold tracking-[-0.03em] md:text-6xl">{copy.finalTitle}</h2>
+          <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-purple-100">{copy.finalBody}</p>
+          <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link
+              href={localizedPath(routeLocale, 'donate')}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 font-bold text-purple-800 shadow-xl transition hover:scale-[1.03]"
+            >
+              <Heart className="h-5 w-5" fill="currentColor" />
+              {copy.donate}
+            </Link>
+            <Link
+              href={localizedPath(routeLocale, 'dreamApplication')}
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-8 py-4 font-bold text-white backdrop-blur transition hover:bg-white/20"
+            >
+              {copy.apply}
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+          </div>
         </div>
       </section>
 
       {selectedStory && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeStory} />
-
-          <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-300">
-            <button onClick={closeStory} className="absolute top-4 right-4 p-2 bg-white/80 hover:bg-white rounded-full transition-colors z-20">
-              <X className="w-6 h-6 text-neutral-900" />
+          <button
+            type="button"
+            className="absolute inset-0 cursor-default bg-purple-950/75 backdrop-blur-sm"
+            onClick={closeStory}
+            aria-label={copy.close}
+          />
+          <article
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="warrior-story-title"
+            className="relative grid max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-[2rem] bg-white shadow-2xl md:grid-cols-[.95fr_1.05fr]"
+          >
+            <button
+              type="button"
+              onClick={closeStory}
+              aria-label={copy.close}
+              className="absolute right-4 top-4 z-30 rounded-full bg-white/90 p-2.5 text-purple-950 shadow-lg transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-purple-600"
+            >
+              <X className="h-6 w-6" />
             </button>
 
-            <div className="grid md:grid-cols-2">
-              {galleryImages.length > 0 ? (
-                <div className="relative h-[58vh] min-h-[28rem] max-h-[42rem] overflow-hidden bg-neutral-100 md:h-auto md:max-h-none">
-                  <Image
-                    src={galleryImages[selectedGalleryIndex]}
-                    alt={`${selectedStory.name} at the YSC Summit ${selectedGalleryIndex + 1}`}
-                    fill
-                    priority
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                    className="object-contain"
-                  />
-
-                  <div className="absolute left-4 top-4 rounded-full bg-black/60 px-3 py-1 text-sm font-bold text-white">
-                    {selectedGalleryIndex + 1} / {galleryImages.length}
+            <div className="relative min-h-[22rem] overflow-hidden bg-purple-100 md:min-h-[42rem]">
+              <Image
+                src={selectedImages[selectedImageIndex]}
+                alt={`${selectedStory.name}: ${copy.image} ${selectedImageIndex + 1}`}
+                fill
+                priority
+                sizes="(min-width: 768px) 48vw, 100vw"
+                className={
+                  selectedStory.name === 'Janelle'
+                    ? 'object-contain'
+                    : `object-cover ${selectedStory.imagePosition ?? 'object-center'}`
+                }
+              />
+              {selectedImages.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={showPreviousImage}
+                    aria-label={copy.previous}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-3 text-purple-950 shadow-lg transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-purple-600"
+                  >
+                    <ChevronLeft className="h-6 w-6" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={showNextImage}
+                    aria-label={copy.next}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-3 text-purple-950 shadow-lg transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-purple-600"
+                  >
+                    <ChevronRight className="h-6 w-6" />
+                  </button>
+                  <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-purple-950/65 px-3 py-2 backdrop-blur">
+                    {selectedImages.map((image, index) => (
+                      <button
+                        key={image}
+                        type="button"
+                        onClick={() => setSelectedImageIndex(index)}
+                        aria-label={`${copy.image} ${index + 1}`}
+                        aria-current={selectedImageIndex === index}
+                        className={`h-2.5 rounded-full transition ${
+                          selectedImageIndex === index ? 'w-7 bg-white' : 'w-2.5 bg-white/50 hover:bg-white/80'
+                        }`}
+                      />
+                    ))}
                   </div>
-
-                  {galleryImages.length > 1 && (
-                    <>
-                      <button
-                        type="button"
-                        onClick={showPreviousImage}
-                        aria-label={previousImageLabel}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-3 text-neutral-900 shadow-lg transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-600"
-                      >
-                        <ChevronLeft className="h-6 w-6" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={showNextImage}
-                        aria-label={nextImageLabel}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-3 text-neutral-900 shadow-lg transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-600"
-                      >
-                        <ChevronRight className="h-6 w-6" />
-                      </button>
-
-                      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-black/50 px-3 py-2">
-                        {galleryImages.map((image: string, index: number) => (
-                          <button
-                            key={image}
-                            type="button"
-                            onClick={() => setSelectedGalleryIndex(index)}
-                            aria-label={`${imageLabel} ${index + 1}`}
-                            aria-current={index === selectedGalleryIndex}
-                            className={`h-2.5 w-2.5 rounded-full transition ${
-                              index === selectedGalleryIndex
-                                ? 'bg-white'
-                                : 'bg-white/50 hover:bg-white/80'
-                            }`}
-                          />
-                        ))}
-                      </div>
-                    </>
-                  )}
-                </div>
-              ) : (
-                <div className="h-64 md:h-auto relative">
-                  <Image
-                    src={selectedStory.image}
-                    alt={selectedStory.name}
-                    fill
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                    className={`object-cover ${selectedStory.position}`}
-                  />
-                </div>
+                </>
               )}
-
-              <div className="p-8 md:p-12">
-                <div className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6 ${selectedStory.color}`}>{t('dreamFulfilled')}</div>
-                <h2 className="text-4xl font-bold text-neutral-900 mb-2">{selectedStory.name}</h2>
-                <h3 className="text-xl text-brand-600 font-bold mb-6">{selectedStory.dream}</h3>
-                <div className="prose prose-neutral mb-8 text-neutral-600 whitespace-pre-line leading-relaxed">{selectedStory.fullStory}</div>
-
-                <Link
-                  href={localizedPath(locale, 'donate')}
-                  className="flex-1 bg-brand-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-700 transition-colors flex items-center justify-center gap-2 shadow-lg hover:shadow-brand-200"
-                >
-                  <Heart className="w-5 h-5" fill="currentColor" />
-                  {t('supportBtn')}
-                </Link>
-              </div>
             </div>
-          </div>
+
+            <div className="flex flex-col justify-center p-8 md:p-12">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-purple-100 px-3 py-1.5 text-xs font-bold text-purple-800">
+                  {countryFlags[selectedStory.country]} {getCountryName(locale, selectedStory.country)}
+                </span>
+                {selectedStory.memorial && (
+                  <span className="rounded-full bg-purple-950 px-3 py-1.5 text-xs font-bold text-white">
+                    {copy.memorial}
+                  </span>
+                )}
+              </div>
+              <p className="mt-8 text-xs font-bold tracking-[0.16em] text-purple-600">{copy.modalEyebrow}</p>
+              <h2 id="warrior-story-title" className="mt-3 text-4xl font-bold tracking-[-0.03em] text-purple-950">
+                {selectedStory.name}
+              </h2>
+              <h3 className="mt-5 text-2xl font-bold leading-snug text-purple-700">{selectedStory.support}</h3>
+              <p className="mt-6 text-lg leading-relaxed text-neutral-600">{selectedStory.story}</p>
+              <Link
+                href={localizedPath(routeLocale, 'donate')}
+                className="mt-9 inline-flex items-center justify-center gap-2 rounded-full bg-purple-700 px-7 py-4 font-bold text-white shadow-lg transition hover:bg-purple-800"
+              >
+                <Heart className="h-5 w-5" fill="currentColor" />
+                {copy.donate}
+              </Link>
+            </div>
+          </article>
         </div>
       )}
-    </div>
+    </main>
   );
 }
