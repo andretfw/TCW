@@ -485,7 +485,7 @@ export default function AdminDreamApplications() {
         )}
 
         {selected ? (
-          <div>
+          <div data-dream-application-id={selected.id}>
             <button type="button" onClick={() => setSelected(null)} className="mb-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-black text-slate-700 shadow-sm hover:text-brand-700">
               <ArrowLeft className="h-4 w-4" />
               All applications
