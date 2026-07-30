@@ -6,7 +6,7 @@ import {
   assertSameOrigin,
   DreamAuthorizationError,
   privateJson,
-  requireDreamReviewer,
+  requireDreamAdmin,
 } from '@/lib/dream-applications/security';
 
 export const runtime = 'nodejs';
@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(): Promise<Response> {
   try {
-    await requireDreamReviewer();
+    await requireDreamAdmin();
     return privateJson(await getGoogleDriveConnectionStatus());
   } catch (error) {
     if (error instanceof DreamAuthorizationError) {
@@ -28,7 +28,7 @@ export async function GET(): Promise<Response> {
 export async function DELETE(request: Request): Promise<Response> {
   try {
     assertSameOrigin(request);
-    await requireDreamReviewer();
+    await requireDreamAdmin();
     await disconnectGoogleDrive();
     return privateJson({ok: true});
   } catch (error) {
