@@ -89,17 +89,19 @@ export default function HomePageClient() {
             carousel: 'Warrior stories',
           };
 
-  const heroCaptions =
-    locale === 'ro'
-      ? ['Un loc liniștit pentru odihnă', 'Sprijin pentru un nou început', 'Mai mult loc pentru viață']
-      : locale === 'es'
-        ? ['Un lugar tranquilo para descansar', 'Apoyo para un nuevo comienzo', 'Más espacio para la vida']
-        : ['A peaceful place to rest', 'Support for a new beginning', 'More room for life'];
-
-  const heroStories = warriors.slice(0, 3).map((warrior, index) => ({
-    ...warrior,
-    caption: heroCaptions[index],
-  }));
+  const heroStoryNames = [
+    'Anetra',
+    'Janelle',
+    'Jeanelle',
+    'Elise',
+    'Giulia',
+    'Maria',
+    'Cristina',
+    'Laura',
+  ];
+  const heroStories = heroStoryNames.map(
+    (name) => warriors.find((warrior) => warrior.name === name)!,
+  );
   const visibleWarriorStories = Array.from({length: 4}, (_, offset) =>
     warriors[(storyCarouselStart + offset) % warriors.length],
   );
@@ -162,7 +164,7 @@ export default function HomePageClient() {
                 >
                   <Image
                     src={story.image}
-                    alt={`${story.name}: ${story.caption}`}
+                    alt={`${story.name}: ${story.support}`}
                     fill
                     priority={index === 0}
                     sizes="(min-width: 1024px) 46vw, 100vw"
@@ -172,7 +174,7 @@ export default function HomePageClient() {
                     <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-purple-100">
                       <span>{countryFlags[story.country]} {getCountryName(locale, story.country)}</span>
                     </div>
-                    <h2 className="mt-2 text-3xl font-bold">{story.caption}</h2>
+                    <h2 className="mt-2 text-3xl font-bold">{story.name}</h2>
                     <p className="mt-2 max-w-md text-sm leading-relaxed text-white/90">{story.support}</p>
                   </div>
                 </article>
@@ -189,7 +191,7 @@ export default function HomePageClient() {
                     className={`h-2.5 rounded-full transition-all ${
                       index === activeHeroStory ? 'w-8 bg-white' : 'w-2.5 bg-white/55 hover:bg-white/80'
                     }`}
-                    aria-label={`${story.name}: ${story.caption}`}
+                    aria-label={`${story.name}: ${story.support}`}
                     aria-current={index === activeHeroStory}
                   />
                 ))}
