@@ -14,6 +14,7 @@ export const dynamic = 'force-dynamic';
 
 const STATE_COOKIE = 'tcw_google_drive_oauth_state';
 const DEFAULT_SITE_URL = 'https://tutticancerwarriors.org';
+const CLEARED_STATE_COOKIE = `${STATE_COOKIE}=; Max-Age=0; Path=/api/google-drive/oauth/callback; HttpOnly; Secure; SameSite=Lax`;
 
 function readCookie(request: Request, name: string): string | undefined {
   const header = request.headers.get('cookie');
@@ -31,11 +32,16 @@ function readCookie(request: Request, name: string): string | undefined {
 }
 
 function clearStateCookie(response: Response): Response {
-  response.headers.append(
-    'Set-Cookie',
-    `${STATE_COOKIE}=; Max-Age=0; Path=/api/google-drive/oauth/callback; HttpOnly; Secure; SameSite=Lax`,
-  );
-  return response;
+  // `Response.redirect()` uses immutable headers in Node's Fetch API. Clone
+  // the response into a new mutable response before adding Set-Cookie.
+  const headers = new Headers(response.headers);
+  headers.set('Cache-Control', 'no-store, private');
+  headers.append('Set-Cookie', CLEARED_STATE_COOKIE);
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
 }
 
 function adminRedirect(status: 'connected' | 'error'): URL {

@@ -40,5 +40,8 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: OAuth callback response regression check
+        run: node scripts/check-oauth-callback-response.mjs
+
       - name: Route and security smoke test
         run: npm run smoke:routes
