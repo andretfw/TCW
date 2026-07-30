@@ -1,7 +1,5 @@
-import {
-  buildGoogleDriveAuthorizationUrl,
-  createGoogleDriveOAuthState,
-} from '@/lib/dream-applications/google-drive';
+import {buildGoogleDriveAuthorizationUrl} from '@/lib/dream-applications/google-drive';
+import {createGoogleDriveOAuthState} from '@/lib/dream-applications/google-drive-oauth-state';
 import {
   DreamAuthorizationError,
   privateJson,
@@ -15,8 +13,8 @@ const STATE_COOKIE = 'tcw_google_drive_oauth_state';
 
 export async function GET(): Promise<Response> {
   try {
-    await requireDreamAdmin();
-    const state = createGoogleDriveOAuthState();
+    const admin = await requireDreamAdmin();
+    const state = await createGoogleDriveOAuthState(admin.email);
     return new Response(null, {
       status: 302,
       headers: {
@@ -29,7 +27,7 @@ export async function GET(): Promise<Response> {
     if (error instanceof DreamAuthorizationError) {
       return privateJson({error: error.message}, {status: error.status});
     }
-    console.error('Unable to start Google Drive authorization', error);
+    console.error('Unable to start Google Drive authorization.');
     return privateJson(
       {error: 'Google Drive authorization is temporarily unavailable.'},
       {status: 503},
