@@ -115,10 +115,10 @@ export default function HomePageClient() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[#f5edfa]">
-        <ButterflyMark className="pointer-events-none absolute left-[7%] top-16 h-7 w-7 -rotate-[18deg] text-purple-300/80" />
+      <section className="relative overflow-hidden bg-[#f5edfa] pt-36">
+        <ButterflyMark className="pointer-events-none absolute left-[7%] top-44 h-7 w-7 -rotate-[18deg] text-purple-300/80" />
         <ButterflyMark className="pointer-events-none absolute bottom-14 left-[43%] h-5 w-5 rotate-[24deg] text-purple-300/60" />
-        <ButterflyMark className="pointer-events-none absolute right-[6%] top-24 h-6 w-6 rotate-[20deg] text-purple-300/70" />
+        <ButterflyMark className="pointer-events-none absolute right-[6%] top-52 h-6 w-6 rotate-[20deg] text-purple-300/70" />
         <div className="relative mx-auto grid min-h-[760px] max-w-[1600px] items-stretch lg:grid-cols-[minmax(0,1.08fr)_minmax(460px,.92fr)]">
           <div className="relative z-10 flex items-center px-6 py-24 md:px-12 lg:px-20 xl:px-28">
             <div className="max-w-2xl">
