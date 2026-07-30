@@ -205,6 +205,15 @@ export interface DreamApplicationRecord extends DreamApplicationInput {
   consentVersion: 'dream-application-v1';
   grantPolicyVersion: '3.1';
   privacyNoticeVersion: '2026-07-29';
+  /** Original Google Form fields retained privately for a historical CSV import. */
+  legacyImport?: {
+    source: 'google-forms-csv';
+    locale: 'en' | 'ro';
+    importedAt: string;
+    importedBy: string;
+    sourceRowFingerprint: string;
+    originalFields: Record<string, string>;
+  };
 }
 
 export interface DreamApplicationListItem {
