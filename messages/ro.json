@@ -25,7 +25,7 @@
     "shareJourney": "Împărtășește Povestea Ta",
     "moodBoost": "Încurajare pentru Luptători",
     "mensHealth": "Săptămâna Sănătății Bărbaților",
-    "team": "Echipa Noastră",
+    "team": "Despre Noi",
     "kidneyCancer": "Ziua Mondială a Cancerului Renal",
     "pilates": "Eveniment de Pilates"
   },
@@ -2747,8 +2747,33 @@
     }
   },
   "teamPage": {
-    "title": "Echipa Noastră",
-    "subtitle": "Cunoaște inimile dedicate care lucrează în culise pentru a îndeplini visuri.",
+    "eyebrow": "DESPRE NOI",
+    "title": "Sprijinul trebuie să fie personal.",
+    "subtitle": "Suntem o asociație nonprofit din România care sprijină adulții afectați de cancer, în țară și dincolo de granițe.",
+    "meetBoard": "Cunoaște Consiliul Director",
+    "seeImpact": "Vezi impactul nostru",
+    "mission": {
+      "eyebrow": "MISIUNEA NOASTRĂ",
+      "title": "Oamenii care trăiesc cu cancer merită mai mult decât să supraviețuiască.",
+      "body": "Misiunea noastră este să creăm momente reale de ușurare, bucurie și posibilitate, ajutând oamenii să se simtă informați, conectați și văzuți. Îmbinăm sprijinul direct, nemedical, cu educația despre cancer și programele comunitare.",
+      "wishesTitle": "Dorințe cu sens",
+      "wishesBody": "Transformăm dorințe personale și nevoi practice în sprijin concret, construit în jurul lucrurilor care contează pentru fiecare om.",
+      "educationTitle": "Educație despre cancer",
+      "educationBody": "Oferim informații clare pentru conștientizare, prevenție, depistare precoce și conversații mai bine informate.",
+      "communityTitle": "Conexiune umană",
+      "communityBody": "Creăm oportunități pentru sprijin între pacienți, înțelegere și o comunitate în care nimeni nu trebuie să se simtă singur."
+    },
+    "board": {
+      "eyebrow": "CONDUCERE",
+      "title": "Consiliul Director",
+      "body": "Consiliul Director protejează misiunea noastră, stabilește direcția organizației și ia deciziile necesare pentru ca fiecare program să rămână responsabil, transparent și centrat pe oamenii pe care îi sprijinim.",
+      "memberLabel": "Membru al Consiliului Director"
+    },
+    "team": {
+      "eyebrow": "OAMENII DIN SPATELE MISIUNII",
+      "title": "Cunoaște echipa",
+      "body": "Membrii Consiliului Director sunt implicați direct și în activitatea zilnică, parteneriatele și programele organizației."
+    },
     "members": {
       "1": {
         "name": "Andreea Pantiru",

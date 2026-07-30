@@ -30,7 +30,7 @@ export type RouteKey =
 
 export const ROUTES: Record<SiteLocale, Record<RouteKey, string>> = {
   es: {
-    home: '', team: 'equipo', aboutCancer: 'sobre-cancer', understandingDiagnosis: 'entender-diagnostico',
+    home: '', team: 'sobre-nosotros', aboutCancer: 'sobre-cancer', understandingDiagnosis: 'entender-diagnostico',
     questionsForDoctor: 'preguntas-doctor', emotionalWellBeing: 'bienestar-emocional', awarenessCalendar: 'calendario-cancer',
     getInvolved: 'involucrate', donate: 'donar', volunteers: 'voluntarios', peerSupport: 'apoyo-entre-pares',
     supportDream: 'apoya-un-sueno', warriors: 'guerreros', connectSurvivor: 'conecta-con-un-superviviente',
@@ -39,7 +39,7 @@ export const ROUTES: Record<SiteLocale, Record<RouteKey, string>> = {
     privacy: 'privacidad', terms: 'terminos', peerPolicy: 'politica-apoyo-entre-pares', financials: 'transparencia',
   },
   en: {
-    home: '', team: 'team', aboutCancer: 'about-cancer', understandingDiagnosis: 'understanding-diagnosis',
+    home: '', team: 'about-us', aboutCancer: 'about-cancer', understandingDiagnosis: 'understanding-diagnosis',
     questionsForDoctor: 'questions-for-doctor', emotionalWellBeing: 'emotional-wellbeing', awarenessCalendar: 'cancer-awareness-calendar',
     getInvolved: 'get-involved', donate: 'donate', volunteers: 'volunteers', peerSupport: 'peer-support',
     supportDream: 'support-a-dream', warriors: 'warriors', connectSurvivor: 'connect-with-a-survivor',
@@ -48,7 +48,7 @@ export const ROUTES: Record<SiteLocale, Record<RouteKey, string>> = {
     privacy: 'privacy', terms: 'terms', peerPolicy: 'peer-support-policy', financials: 'financials',
   },
   ro: {
-    home: '', team: 'echipa', aboutCancer: 'despre-cancer', understandingDiagnosis: 'intelegerea-diagnosticului',
+    home: '', team: 'despre-noi', aboutCancer: 'despre-cancer', understandingDiagnosis: 'intelegerea-diagnosticului',
     questionsForDoctor: 'intrebari-pentru-medic', emotionalWellBeing: 'bunastare-emotionala', awarenessCalendar: 'calendar-oncologic',
     getInvolved: 'implica-te', donate: 'doneaza', volunteers: 'voluntari', peerSupport: 'sprijin-intre-pacienti',
     supportDream: 'sustine-un-vis', warriors: 'luptatori', connectSurvivor: 'conecteaza-te-cu-un-supravietuitor',

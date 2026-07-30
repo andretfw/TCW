@@ -253,6 +253,9 @@ async function main() {
       source: '/donate-to-tutti-cancer-warriors/',
       destination: '/es/donar',
     },
+    {source: '/en/team', destination: '/en/about-us'},
+    {source: '/ro/echipa', destination: '/ro/despre-noi'},
+    {source: '/es/equipo', destination: '/es/sobre-nosotros'},
   ];
   const redirectFailures = [];
 
