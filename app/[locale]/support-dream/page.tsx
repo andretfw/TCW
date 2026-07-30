@@ -374,10 +374,6 @@ export default function SupportDreamPage() {
     return () => window.clearInterval(interval);
   }, [loadProgress]);
 
-  useEffect(() => {
-    setLockedDonation(readCryptoDonationLock());
-  }, []);
-
   const cryptoAddress = useMemo(() => {
     if (asset === 'btc') return CRYPTO_ADDRESSES.btc;
 
