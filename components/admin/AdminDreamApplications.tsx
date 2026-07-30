@@ -46,6 +46,7 @@ import {
   type DreamApplicationStatus,
   type DreamApplicationFile,
 } from '@/lib/dream-applications/types';
+import DreamHistoricalImport from './DreamHistoricalImport';
 
 type AdminFile = Omit<DreamApplicationFile, 'storageKey'>;
 
@@ -63,6 +64,7 @@ interface AdminApplication extends DreamApplicationInput {
   consentVersion: string;
   grantPolicyVersion: string;
   privacyNoticeVersion: string;
+  legacyImport?: {originalFields: Record<string, string>};
 }
 
 const STATUS_COPY: Record<DreamApplicationStatus, {label: string; className: string}> = {
@@ -266,6 +268,7 @@ export default function AdminDreamApplications() {
   const [selected, setSelected] = useState<AdminApplication | null>(null);
   const [loading, setLoading] = useState(false);
   const [accessDenied, setAccessDenied] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [query, setQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | DreamApplicationStatus>('all');
   const [note, setNote] = useState('');
@@ -304,10 +307,11 @@ export default function AdminDreamApplications() {
     setLoading(true);
     setError(undefined);
     try {
-      const payload = await readJson<{applications: DreamApplicationListItem[]}>(
+      const payload = await readJson<{applications: DreamApplicationListItem[]; viewer: {isAdmin: boolean}}>(
         await fetch('/api/admin/dream-applications', {cache: 'no-store'}),
       );
       setApplications(payload.applications);
+      setIsAdmin(payload.viewer.isAdmin);
       setAccessDenied(false);
     } catch (loadError) {
       const status = (loadError as Error & {status?: number}).status;
@@ -400,6 +404,7 @@ export default function AdminDreamApplications() {
     await logout();
     setUser(null);
     setApplications([]);
+    setIsAdmin(false);
     setSelected(null);
   }
 
@@ -567,6 +572,16 @@ export default function AdminDreamApplications() {
                     <LabelValue label="Proof within 3 months" value={selected.confirmsProofOfUse ? 'Confirmed' : 'Missing'} />
                   </dl>
                 </DetailCard>
+
+                {selected.legacyImport && (
+                  <DetailCard icon={<ClipboardList className="h-5 w-5" />} title="Original Google Form fields">
+                    <dl className="grid gap-5 md:grid-cols-2">
+                      {Object.entries(selected.legacyImport.originalFields).map(([label, value]) => (
+                        <LabelValue key={label} label={label} value={value} />
+                      ))}
+                    </dl>
+                  </DetailCard>
+                )}
               </div>
 
               <aside className="space-y-6">
@@ -655,6 +670,7 @@ export default function AdminDreamApplications() {
           </div>
         ) : (
           <>
+            {isAdmin && <DreamHistoricalImport onImported={loadApplications} />}
             <div className="grid gap-4 sm:grid-cols-3">
               {[
                 {label: 'New applications', value: counts.new, icon: <Sparkles className="h-6 w-6" />, color: 'from-fuchsia-500 to-brand-600'},
