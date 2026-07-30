@@ -9,7 +9,9 @@ const ETH_METAMASK_ADDRESS = '0x66e4cfe637e73a4c5f34fdf6539c849c3366a0ab';
 const BTC_ADDRESS = '3BuBreK55MS2fF9MfzMTXL4cG6GQDot3aD';
 const TRANSFER_TOPIC =
   '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
+const BITCOIN_TRANSACTION_HASH_PATTERN = /^[a-fA-F0-9]{64}$/;
 const EVM_TRANSACTION_HASH_PATTERN = /^0x[a-fA-F0-9]{64}$/;
+const EXTERNAL_REQUEST_TIMEOUT_MS = 10_000;
 
 type EvmNetwork = 'ethereum' | 'base';
 type EvmAsset = 'eth' | 'usdc';
@@ -111,8 +113,18 @@ function ensureCampaignStart(transactionTimeMs: number, startedAt: string) {
 }
 
 async function verifyBitcoin(txHash: string, startedAt: string) {
-  const response = await fetch(`https://blockstream.info/api/tx/${txHash}`, {
+  if (!BITCOIN_TRANSACTION_HASH_PATTERN.test(txHash)) {
+    throw new Error('Invalid Bitcoin transaction hash.');
+  }
+
+  const transactionUrl = new URL(
+    `/api/tx/${txHash.toLowerCase()}`,
+    'https://blockstream.info',
+  );
+  const response = await fetch(transactionUrl, {
     cache: 'no-store',
+    redirect: 'error',
+    signal: AbortSignal.timeout(EXTERNAL_REQUEST_TIMEOUT_MS),
   });
   if (!response.ok) throw new Error('Bitcoin transaction was not found.');
 
@@ -265,6 +277,12 @@ export async function POST(request: NextRequest) {
         {status: 400},
       );
     }
+    if (asset === 'btc' && !BITCOIN_TRANSACTION_HASH_PATTERN.test(txHash)) {
+      return NextResponse.json(
+        {error: 'Enter a valid Bitcoin transaction hash.'},
+        {status: 400},
+      );
+    }
     if (asset !== 'btc' && !EVM_TRANSACTION_HASH_PATTERN.test(txHash)) {
       return NextResponse.json(
         {error: 'Enter a valid Ethereum transaction hash.'},
@@ -274,16 +292,17 @@ export async function POST(request: NextRequest) {
 
     const campaign = getCampaignById(campaignId);
     const typedAsset = asset as 'btc' | 'eth' | 'usdc';
+    const normalizedHash = txHash.toLowerCase();
 
     let amountOriginal: number;
     let network: 'bitcoin' | EvmNetwork;
 
     if (typedAsset === 'btc') {
-      amountOriginal = await verifyBitcoin(txHash, campaign.startedAt);
+      amountOriginal = await verifyBitcoin(normalizedHash, campaign.startedAt);
       network = 'bitcoin';
     } else {
       const verified = await verifyOnSelectedOrDetectedNetwork(
-        txHash.toLowerCase(),
+        normalizedHash,
         typedAsset,
         destination,
         campaign.startedAt,
@@ -295,7 +314,6 @@ export async function POST(request: NextRequest) {
 
     const rate = await getKrakenEurRate(typedAsset);
     const amountEur = Math.round(amountOriginal * rate * 100) / 100;
-    const normalizedHash = txHash.toLowerCase();
     const transactionId =
       network === 'ethereum' || network === 'bitcoin'
         ? `${typedAsset}:${normalizedHash}`
