@@ -83,7 +83,7 @@ export default function UnderstandingDiagnosisPage() {
             </div>
             <div className="flex flex-wrap justify-center gap-4">
               <Link
-                href={localizedPath(locale, 'volunteers')}
+                href={localizedPath(locale, 'dreamApplication')}
                 className="rounded-full bg-white px-8 py-4 font-bold text-brand-600 transition-all hover:scale-105 hover:shadow-2xl"
               >
                 {t('btnSupport')}
