@@ -5,6 +5,9 @@ import {SITE_LOCALES} from './lib/routes';
 const LEGACY_REDIRECTS: Record<string, string> = {
   '/peer-support-program': '/es/apoyo-entre-pares',
   '/donate-to-tutti-cancer-warriors': '/es/donar',
+  '/en/team': '/en/about-us',
+  '/ro/echipa': '/ro/despre-noi',
+  '/es/equipo': '/es/sobre-nosotros',
 };
 
 const intlMiddleware = createMiddleware({
@@ -13,7 +16,7 @@ const intlMiddleware = createMiddleware({
   localePrefix: 'always',
   pathnames: {
     '/': '/',
-    '/team': {es: '/equipo', en: '/team', ro: '/echipa'},
+    '/team': {es: '/sobre-nosotros', en: '/about-us', ro: '/despre-noi'},
     '/sobre-cancer': {es: '/sobre-cancer', en: '/about-cancer', ro: '/despre-cancer'},
     '/sobre-cancer/[id]': {es: '/sobre-cancer/[id]', en: '/about-cancer/[id]', ro: '/despre-cancer/[id]'},
     '/entender-diagnostico': {es: '/entender-diagnostico', en: '/understanding-diagnosis', ro: '/intelegerea-diagnosticului'},

@@ -25,7 +25,7 @@
     "shareJourney": "Comparte tu Historia",
     "moodBoost": "Ánima a Warriors",
     "mensHealth": "Semana de la Salud Masculina",
-    "team": "Nuestro Equipo",
+    "team": "Sobre Nosotros",
     "kidneyCancer": "Cáncer de Riñón",
     "pilates": "Evento de Pilates"
   },
@@ -2747,8 +2747,33 @@
     }
   },
   "teamPage": {
-    "title": "Nuestro Equipo",
-    "subtitle": "Conoce a los corazones dedicados que trabajan entre bastidores para cumplir sueños.",
+    "eyebrow": "SOBRE NOSOTROS",
+    "title": "El apoyo debe sentirse personal.",
+    "subtitle": "Somos una organización sin ánimo de lucro rumana que apoya a personas adultas afectadas por el cáncer, en Rumanía y más allá.",
+    "meetBoard": "Conoce la Junta",
+    "seeImpact": "Conoce nuestro impacto",
+    "mission": {
+      "eyebrow": "NUESTRA MISIÓN",
+      "title": "Las personas que viven con cáncer merecen más que sobrevivir.",
+      "body": "Nuestra misión es crear momentos reales de alivio, alegría y posibilidad, ayudando a las personas a sentirse informadas, conectadas y vistas. Combinamos apoyo directo no médico con educación sobre el cáncer y programas comunitarios.",
+      "wishesTitle": "Deseos con sentido",
+      "wishesBody": "Convertimos deseos personales y necesidades prácticas en apoyo real, centrado en lo que importa a cada persona.",
+      "educationTitle": "Educación sobre el cáncer",
+      "educationBody": "Compartimos información clara para apoyar la concienciación, la prevención, la detección temprana y conversaciones mejor informadas.",
+      "communityTitle": "Conexión humana",
+      "communityBody": "Creamos oportunidades de apoyo entre pacientes, comprensión compartida y una comunidad donde nadie tenga que sentirse solo."
+    },
+    "board": {
+      "eyebrow": "GOBERNANZA",
+      "title": "Nuestra Junta Directiva",
+      "body": "La Junta protege nuestra misión, guía la dirección de la organización y toma las decisiones necesarias para que cada programa sea responsable, transparente y centrado en las personas que apoyamos.",
+      "memberLabel": "Miembro de la Junta"
+    },
+    "team": {
+      "eyebrow": "LAS PERSONAS DETRÁS DEL TRABAJO",
+      "title": "Conoce a nuestro equipo",
+      "body": "Los miembros de la Junta también participan activamente en el trabajo diario, las alianzas y los programas de la organización."
+    },
     "members": {
       "1": {
         "name": "Andreea Pantiru",

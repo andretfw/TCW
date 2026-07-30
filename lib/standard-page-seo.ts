@@ -48,19 +48,19 @@ const SEO_COPY: Record<
 > = {
   team: {
     en: {
-      title: 'Meet Our Team',
+      title: 'About Us',
       description:
-        'Meet the team behind Tutti Cancer Warriors and learn how we combine practical support, cancer awareness and community for people affected by cancer.',
+        'Learn about our mission, Board of Directors and the people behind our meaningful wishes, practical support, cancer education and community programs.',
     },
     ro: {
-      title: 'Cunoaște echipa noastră',
+      title: 'Despre noi',
       description:
-        'Cunoaște echipa Tutti Cancer Warriors și află cum îmbinăm sprijinul practic, informarea despre cancer și comunitatea pentru persoanele afectate.',
+        'Descoperă misiunea noastră, Consiliul Director și oamenii din spatele dorințelor împlinite, sprijinului practic, educației despre cancer și programelor comunitare.',
     },
     es: {
-      title: 'Conoce a nuestro equipo',
+      title: 'Sobre nosotros',
       description:
-        'Conoce al equipo de Tutti Cancer Warriors y cómo unimos apoyo práctico, concienciación sobre el cáncer y comunidad para las personas afectadas.',
+        'Conoce nuestra misión, la Junta Directiva y las personas detrás de nuestros deseos, apoyo práctico, educación sobre el cáncer y programas comunitarios.',
     },
   },
   understandingDiagnosis: {

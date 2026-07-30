@@ -25,7 +25,7 @@
     "shareJourney": "Share your Journey",
     "moodBoost": "Warrior Mood Boost",
     "mensHealth": "Men's Health Week",
-    "team": "Our Team",
+    "team": "About Us",
     "kidneyCancer": "World Kidney Cancer Day",
     "pilates": "Pilates Event"
   },
@@ -2194,8 +2194,33 @@
     }
   },
   "teamPage": {
-    "title": "Our Team",
-    "subtitle": "Meet the dedicated hearts working behind the scenes to fulfill dreams.",
+    "eyebrow": "ABOUT US",
+    "title": "Support should feel personal.",
+    "subtitle": "We are a Romanian nonprofit supporting adults affected by cancer in Romania and beyond.",
+    "meetBoard": "Meet the Board",
+    "seeImpact": "See our impact",
+    "mission": {
+      "eyebrow": "OUR MISSION",
+      "title": "People living with cancer deserve more than survival.",
+      "body": "Our mission is to create meaningful moments of relief, joy and possibility while helping people feel informed, connected and seen. We combine direct, non-medical support with cancer education and community programs.",
+      "wishesTitle": "Meaningful wishes",
+      "wishesBody": "We help turn personal wishes and practical needs into real support, shaped around what matters to each person.",
+      "educationTitle": "Cancer education",
+      "educationBody": "We share clear information that supports awareness, prevention, early detection and more confident conversations.",
+      "communityTitle": "Human connection",
+      "communityBody": "We create opportunities for peer support, shared understanding and a community where no one has to feel alone."
+    },
+    "board": {
+      "eyebrow": "GOVERNANCE",
+      "title": "Our Board of Directors",
+      "body": "The Board protects our mission, guides the organisation’s direction and makes the decisions that keep every program responsible, transparent and centred on the people we support.",
+      "memberLabel": "Board member"
+    },
+    "team": {
+      "eyebrow": "THE PEOPLE BEHIND THE WORK",
+      "title": "Meet our team",
+      "body": "Our Board members are also actively involved in the organisation’s daily work, partnerships and programs."
+    },
     "members": {
       "1": {
         "name": "Andreea Pantiru",
