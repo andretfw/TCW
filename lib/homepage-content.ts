@@ -47,13 +47,14 @@ const sharedWarriorDetails: Array<
   {
     name: 'Jocelyn',
     country: 'US',
-    image: '',
+    image:
+      'https://plus.unsplash.com/premium_photo-1708371355671-07c6bfab983c?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   {name: 'Monica', country: 'RO', image: '/Monica RO (1).jpg'},
   {
     name: 'Penny',
     country: 'UK',
-    image: '',
+    image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=800',
   },
   {name: 'Wren', country: 'US', image: '/wren.jpg'},
   {name: 'Elise', country: 'UK', image: '/warriors/elise.webp'},
@@ -382,6 +383,10 @@ export const homepageCopy = {
       supported: 'What we supported',
       memorial: 'In memory',
       photoProtected: 'Identity protected',
+      previous: 'Previous warriors',
+      next: 'Next warriors',
+      viewAll: 'Explore all 18 stories',
+      carouselLabel: 'Supported warrior stories',
     },
     next: {
       eyebrow: 'FIND YOUR NEXT STEP',
@@ -444,6 +449,10 @@ export const homepageCopy = {
       supported: 'Ce am susținut',
       memorial: 'În memoriam',
       photoProtected: 'Identitate protejată',
+      previous: 'Warriorii anteriori',
+      next: 'Warriorii următori',
+      viewAll: 'Descoperă toate cele 18 povești',
+      carouselLabel: 'Poveștile warriorilor sprijiniți',
     },
     next: {
       eyebrow: 'ALEGE URMĂTORUL PAS',
@@ -506,6 +515,10 @@ export const homepageCopy = {
       supported: 'Lo que apoyamos',
       memorial: 'En memoria',
       photoProtected: 'Identidad protegida',
+      previous: 'Warriors anteriores',
+      next: 'Warriors siguientes',
+      viewAll: 'Descubre las 18 historias',
+      carouselLabel: 'Historias de warriors apoyados',
     },
     next: {
       eyebrow: 'ENCUENTRA TU PRÓXIMO PASO',

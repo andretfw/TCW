@@ -38,11 +38,19 @@ const STORY_NAMES = [
   'Jeanelle',
   'Susan',
   'Taya',
-  'Anonymous warrior',
+  'D.',
   'Jocelyn',
   'Monica',
   'Penny',
   'Wren',
+  'Elise',
+  'Giulia',
+  'Maria',
+  'Dan',
+  'Laura',
+  'Cristina',
+  'Mirela',
+  'Iulia',
 ];
 
 function absoluteWarriorsUrl(locale: SiteLocale) {
