@@ -60,6 +60,10 @@ function today(): string {
 }
 
 function selectedApplicationId(): string | null {
+  const selected = document.querySelector<HTMLElement>('[data-dream-application-id]');
+  const selectedId = selected?.dataset.dreamApplicationId;
+  if (selectedId) return selectedId;
+
   const link = Array.from(document.querySelectorAll<HTMLAnchorElement>('a[href]')).find((element) => (
     element.getAttribute('href')?.includes('/api/admin/dream-applications/')
     && element.getAttribute('href')?.includes('/files/')
