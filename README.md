@@ -38,9 +38,7 @@ npm run build
 
 ## Deployment
 
-Netlify reads the deployment settings from `netlify.toml` and builds the site using Node.js 20.
-
-Work intended for the Netlify migration should be prepared on the `netlify-migration` branch and reviewed before it is merged into `main`.
+Netlify reads the deployment settings from `netlify.toml` and builds the site using Node.js 20. Changes should be reviewed before they are merged into `main`.
 
 ## Important ownership note
 
