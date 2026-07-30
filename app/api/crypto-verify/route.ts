@@ -1,6 +1,13 @@
 import {NextRequest, NextResponse} from 'next/server';
-import {getCampaignById, isCampaignId} from '@/lib/campaigns';
-import {recordVerifiedDonation} from '@/lib/donation-tracking';
+import {
+  getCampaignById,
+  isCampaignId,
+  type CampaignId,
+} from '@/lib/campaigns';
+import {
+  findDonationByTransactionIds,
+  recordVerifiedDonation,
+} from '@/lib/donation-tracking';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,6 +22,7 @@ const EXTERNAL_REQUEST_TIMEOUT_MS = 10_000;
 
 type EvmNetwork = 'ethereum' | 'base';
 type EvmAsset = 'eth' | 'usdc';
+type CryptoAsset = 'btc' | EvmAsset;
 type Destination = 'kraken' | 'metamask';
 
 function uniqueRpcUrls(...urls: Array<string | undefined>) {
@@ -48,6 +56,48 @@ const EVM_NETWORKS: Record<
     label: 'Base',
   },
 };
+
+function getTransactionLookupIds(asset: CryptoAsset, normalizedHash: string) {
+  if (asset === 'btc') return [`btc:${normalizedHash}`];
+
+  // Older records included the asset and sometimes the Base network in the
+  // identifier. Include every historical shape so one EVM transaction can
+  // never be claimed again as a different asset or for another campaign.
+  return [
+    `evm:${normalizedHash}`,
+    `eth:${normalizedHash}`,
+    `usdc:${normalizedHash}`,
+    `base:eth:${normalizedHash}`,
+    `base:usdc:${normalizedHash}`,
+  ];
+}
+
+function getCanonicalTransactionId(
+  asset: CryptoAsset,
+  normalizedHash: string,
+) {
+  return asset === 'btc'
+    ? `btc:${normalizedHash}`
+    : `evm:${normalizedHash}`;
+}
+
+function duplicateDonationResponse(
+  recordedCampaignId: string,
+  requestedCampaignId: CampaignId,
+) {
+  const sameCampaign = recordedCampaignId === requestedCampaignId;
+
+  return NextResponse.json(
+    {
+      error: sameCampaign
+        ? 'This transaction has already been validated.'
+        : 'This transaction was already validated for another campaign.',
+      code: sameCampaign ? 'already_validated' : 'campaign_mismatch',
+      campaignId: recordedCampaignId,
+    },
+    {status: 409},
+  );
+}
 
 async function evmRpc(
   network: EvmNetwork,
@@ -84,7 +134,7 @@ async function evmRpc(
   throw new Error(`${networkConfig.label} RPC request failed.`);
 }
 
-async function getKrakenEurRate(asset: 'btc' | 'eth' | 'usdc') {
+async function getKrakenEurRate(asset: CryptoAsset) {
   const pair =
     asset === 'btc' ? 'XBTEUR' : asset === 'eth' ? 'ETHEUR' : 'USDCEUR';
   const response = await fetch(
@@ -291,8 +341,19 @@ export async function POST(request: NextRequest) {
     }
 
     const campaign = getCampaignById(campaignId);
-    const typedAsset = asset as 'btc' | 'eth' | 'usdc';
+    const typedAsset = asset as CryptoAsset;
     const normalizedHash = txHash.toLowerCase();
+    const transactionLookupIds = getTransactionLookupIds(
+      typedAsset,
+      normalizedHash,
+    );
+    const existingDonation = await findDonationByTransactionIds(
+      transactionLookupIds,
+    );
+
+    if (existingDonation) {
+      return duplicateDonationResponse(existingDonation.campaignId, campaignId);
+    }
 
     let amountOriginal: number;
     let network: 'bitcoin' | EvmNetwork;
@@ -314,12 +375,11 @@ export async function POST(request: NextRequest) {
 
     const rate = await getKrakenEurRate(typedAsset);
     const amountEur = Math.round(amountOriginal * rate * 100) / 100;
-    const transactionId =
-      network === 'ethereum' || network === 'bitcoin'
-        ? `${typedAsset}:${normalizedHash}`
-        : `${network}:${typedAsset}:${normalizedHash}`;
-
-    await recordVerifiedDonation({
+    const transactionId = getCanonicalTransactionId(
+      typedAsset,
+      normalizedHash,
+    );
+    const recordResult = await recordVerifiedDonation({
       campaignId,
       provider: typedAsset,
       transactionId,
@@ -328,6 +388,10 @@ export async function POST(request: NextRequest) {
       amountEur,
       metadata: {destination, network},
     });
+
+    if (recordResult.status === 'duplicate') {
+      return duplicateDonationResponse(recordResult.campaignId, campaignId);
+    }
 
     return NextResponse.json({
       verified: true,
@@ -338,7 +402,9 @@ export async function POST(request: NextRequest) {
       amountEur,
     });
   } catch (error) {
-    console.error('Crypto verification failed:', error);
+    // Keep user-controlled transaction values and provider error bodies out of
+    // plain-text server logs. The donor still receives the controlled message.
+    console.error('Crypto verification failed.');
     const message =
       error instanceof Error ? error.message : 'Unable to verify transaction.';
     return NextResponse.json({error: message}, {status: 400});

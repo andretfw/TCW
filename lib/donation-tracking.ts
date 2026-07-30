@@ -12,10 +12,30 @@ export type VerifiedDonation = {
   metadata?: Record<string, unknown>;
 };
 
+export type ExistingDonation = {
+  campaignId: string;
+  transactionId: string;
+  status: string;
+};
+
+export type RecordVerifiedDonationResult =
+  | {status: 'recorded'}
+  | {
+      status: 'duplicate';
+      campaignId: string;
+      transactionId: string;
+    };
+
 type DonationRow = {
   provider: DonationProvider;
   amount_original: number | string;
   amount_eur: number | string;
+};
+
+type ExistingDonationRow = {
+  campaign_id: string;
+  transaction_id: string;
+  status: string;
 };
 
 const KRAKEN_EUR_PAIRS: Record<Exclude<DonationProvider, 'paypal'>, string> = {
@@ -58,33 +78,81 @@ async function getCurrentEurRate(
   return rate;
 }
 
-export async function recordVerifiedDonation(donation: VerifiedDonation) {
+export async function findDonationByTransactionIds(
+  transactionIds: string[],
+): Promise<ExistingDonation | null> {
+  const uniqueTransactionIds = Array.from(
+    new Set(transactionIds.map((transactionId) => transactionId.trim()).filter(Boolean)),
+  );
+
+  if (uniqueTransactionIds.length === 0) return null;
+
   const supabase = getSupabaseAdmin();
 
   if (!supabase) {
     throw new Error('Donation storage is not configured.');
   }
 
-  const {error} = await supabase.from('campaign_donations').upsert(
-    {
-      campaign_id: donation.campaignId,
-      provider: donation.provider,
-      transaction_id: donation.transactionId,
-      amount_original: donation.amountOriginal,
-      currency: donation.currency,
-      // Keep the EUR value at verification time as an audit/fallback value.
-      // The public progress total revalues crypto at the current market rate.
-      amount_eur: donation.amountEur,
-      status: 'verified',
-      metadata: donation.metadata ?? {},
-    },
-    {
-      onConflict: 'transaction_id',
-      ignoreDuplicates: true,
-    },
-  );
+  const {data, error} = await supabase
+    .from('campaign_donations')
+    .select('campaign_id, transaction_id, status')
+    .in('transaction_id', uniqueTransactionIds)
+    .limit(1);
 
   if (error) throw error;
+
+  const row = (data?.[0] ?? null) as ExistingDonationRow | null;
+  if (!row) return null;
+
+  return {
+    campaignId: row.campaign_id,
+    transactionId: row.transaction_id,
+    status: row.status,
+  };
+}
+
+export async function recordVerifiedDonation(
+  donation: VerifiedDonation,
+): Promise<RecordVerifiedDonationResult> {
+  const supabase = getSupabaseAdmin();
+
+  if (!supabase) {
+    throw new Error('Donation storage is not configured.');
+  }
+
+  const {error} = await supabase.from('campaign_donations').insert({
+    campaign_id: donation.campaignId,
+    provider: donation.provider,
+    transaction_id: donation.transactionId,
+    amount_original: donation.amountOriginal,
+    currency: donation.currency,
+    // Keep the EUR value at verification time as an audit/fallback value.
+    // The public progress total revalues crypto at the current market rate.
+    amount_eur: donation.amountEur,
+    status: 'verified',
+    metadata: donation.metadata ?? {},
+  });
+
+  if (!error) return {status: 'recorded'};
+
+  // The database has a global unique constraint on transaction_id. If two
+  // requests race, return the campaign that won instead of silently ignoring
+  // the duplicate or moving it to another campaign.
+  if (error.code === '23505') {
+    const existingDonation = await findDonationByTransactionIds([
+      donation.transactionId,
+    ]);
+
+    if (existingDonation) {
+      return {
+        status: 'duplicate',
+        campaignId: existingDonation.campaignId,
+        transactionId: existingDonation.transactionId,
+      };
+    }
+  }
+
+  throw error;
 }
 
 export async function getCampaignTotalEur(campaignId: string) {
