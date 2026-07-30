@@ -401,7 +401,7 @@ export default function WarriorsPageClient() {
           <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-purple-100">{copy.finalBody}</p>
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
-              href={localizedPath(routeLocale, 'donate')}
+              href={localizedPath(routeLocale, 'supportDream')}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 font-bold text-purple-800 shadow-xl transition hover:scale-[1.03]"
             >
               <Heart className="h-5 w-5" fill="currentColor" />
@@ -508,7 +508,7 @@ export default function WarriorsPageClient() {
               <h3 className="mt-5 text-2xl font-bold leading-snug text-purple-700">{selectedStory.support}</h3>
               <p className="mt-6 text-lg leading-relaxed text-neutral-600">{selectedStory.story}</p>
               <Link
-                href={localizedPath(routeLocale, 'donate')}
+                href={localizedPath(routeLocale, 'supportDream')}
                 className="mt-9 inline-flex items-center justify-center gap-2 rounded-full bg-purple-700 px-7 py-4 font-bold text-white shadow-lg transition hover:bg-purple-800"
               >
                 <Heart className="h-5 w-5" fill="currentColor" />
