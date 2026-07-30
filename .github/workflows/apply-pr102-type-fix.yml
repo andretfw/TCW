@@ -1,0 +1,86 @@
+name: Apply PR 102 type fix
+
+on:
+  push:
+    branches:
+      - fix/crypto-campaign-attribution
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v6
+        with:
+          ref: fix/crypto-campaign-attribution
+
+      - name: Apply the focused TypeScript fix
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path('app/[locale]/support-dream/page.tsx')
+          source = path.read_text(encoding='utf-8')
+
+          old = """    const parsed = JSON.parse(stored) as Partial<CryptoDonationLock>;
+    const isExpired =
+      typeof parsed.createdAt !== 'number' ||
+      Date.now() - parsed.createdAt > CRYPTO_DONATION_LOCK_MAX_AGE_MS;
+
+    if (
+      isExpired ||
+      !isCampaignId(parsed.campaignId) ||
+      !isCryptoAsset(parsed.asset) ||
+      !isDestination(parsed.destination)
+    ) {
+      window.sessionStorage.removeItem(CRYPTO_DONATION_LOCK_KEY);
+      return null;
+    }
+
+    return {
+      campaignId: parsed.campaignId,
+      asset: parsed.asset,
+      destination: parsed.destination,
+      createdAt: parsed.createdAt,
+    };
+"""
+
+          new = """    const parsed = JSON.parse(stored) as Partial<CryptoDonationLock>;
+    const createdAt = parsed.createdAt;
+
+    if (
+      typeof createdAt !== 'number' ||
+      Date.now() - createdAt > CRYPTO_DONATION_LOCK_MAX_AGE_MS ||
+      !isCampaignId(parsed.campaignId) ||
+      !isCryptoAsset(parsed.asset) ||
+      !isDestination(parsed.destination)
+    ) {
+      window.sessionStorage.removeItem(CRYPTO_DONATION_LOCK_KEY);
+      return null;
+    }
+
+    return {
+      campaignId: parsed.campaignId,
+      asset: parsed.asset,
+      destination: parsed.destination,
+      createdAt,
+    };
+"""
+
+          if old not in source:
+              raise SystemExit('Expected source block was not found; refusing to modify the file.')
+
+          path.write_text(source.replace(old, new, 1), encoding='utf-8')
+
+      - name: Remove temporary workflow and commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/apply-pr102-type-fix.yml
+          git add 'app/[locale]/support-dream/page.tsx'
+          git commit -m "Fix crypto campaign lock type narrowing [skip netlify]"
+          git push origin HEAD:fix/crypto-campaign-attribution
