@@ -1,8 +1,9 @@
 'use client';
-import { useTranslations } from 'next-intl';
+import { useLocale } from 'next-intl';
 import Link from 'next/link';
 
 export default function MensHealthWeekPage() {
+  const locale = useLocale();
   // 🎯 EDITABLE: Cambia estas fechas y contenido
   const eventData = {
     title: "Men's Health Week",
@@ -17,7 +18,11 @@ export default function MensHealthWeekPage() {
     activities: [
       { day: "Monday", title: "Kick-off Webinar", desc: "Understanding Men's Cancer Risks" },
       { day: "Tuesday", title: "Nutrition Workshop", desc: "Healthy Eating for Cancer Prevention" },
-      { day: "Wednesday", title: "Exercise Challenge", desc: "30-Day Fitness for Warriors" },
+      {
+        day: "Wednesday",
+        title: "Exercise Challenge",
+        desc: locale === 'ro' ? "Provocare de fitness de 30 de zile pentru luptători" : "30-Day Fitness for Warriors",
+      },
       { day: "Thursday", title: "Mental Health Session", desc: "Coping Strategies & Support" },
       { day: "Friday", title: "Q&A with Doctors", desc: "Ask Anything About Men's Health" },
       { day: "Saturday", title: "Community Walk", desc: "5K Walk for Awareness" },

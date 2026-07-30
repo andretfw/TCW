@@ -1,5 +1,5 @@
 'use client';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { 
   CloudRain, Sun, Zap, BatteryLow, HeartHandshake, 
@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 
 export default function MoodBoostPage() {
+  const locale = useLocale();
   const t = useTranslations('moodBoost');
   const [activeMood, setActiveMood] = useState<string | null>(null);
   const [triedTips, setTriedTips] = useState<string[]>([]);
@@ -144,7 +145,7 @@ export default function MoodBoostPage() {
                       </p>
                       <div className="flex justify-center">
                           <span className="bg-white/10 backdrop-blur-md px-4 py-1 rounded-full text-xs text-neutral-300 uppercase tracking-widest font-bold border border-white/10">
-                            Words from a Warrior
+                            {locale === 'ro' ? 'Cuvinte de la un luptător' : 'Words from a Warrior'}
                           </span>
                       </div>
                     </div>

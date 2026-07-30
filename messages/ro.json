@@ -101,7 +101,7 @@
       },
       "wren": {
         "name": "Wren",
-        "age": "Warrior",
+        "age": "Luptător",
         "dream": "Să participe la Conferința Living Beyond Breast Cancer",
         "shortDesc": "Diagnosticată în 2019 cu cancer de sân triplu negativ în stadiul 4.",
         "fullStory": "Wren a fost diagnosticată în 2019 cu cancer de sân triplu negativ în stadiul 4. Prin intermediul Programului nostru de Sprijin pentru Visuri, a ales să participe la Conferința 'Living Beyond Breast Cancer' din Philadelphia, un spațiu pentru învățare, conectare și sprijin alături de alte persoane care trăiesc cu cancer metastatic."
@@ -2048,7 +2048,7 @@
     "dreamsFulfilled": "Vise Împlinite",
     "activeVolunteers": "Voluntari Activi",
     "fundraiseTitle": "Începe propria strângere de fonduri",
-    "fundraiseDesc": "Sprijină războinicii împotriva cancerului inițiind propria campanie de strângere de fonduri prin Better Giving.",
+    "fundraiseDesc": "Sprijină luptătorii împotriva cancerului inițiind propria campanie de strângere de fonduri prin Better Giving.",
     "taxTitle": "Redirecționează 3.5% din impozit",
     "taxDesc": "Dacă plătești impozite în România, poți redirecționa 3.5% din impozitul pe venit către Tutti Cancer Warriors fără niciun cost suplimentar."
   },
@@ -2771,7 +2771,7 @@
     },
     "hoverHint": "Treceți mouse-ul ↪",
     "cta": {
-      "title": "Susține Războinicii Noștri",
+      "title": "Susține Luptătorii Noștri",
       "description": "În spatele fiecărui vis împlinit, se află o comunitate de susținători. Poți face parte din această călătorie frumoasă pentru a-i sprijini pe cei care luptă împotriva cancerului.",
       "buttonInvolved": "Implică-te",
       "buttonDonate": "Donează Acum"
@@ -2781,8 +2781,8 @@
     "badge": "Ziua Internațională a Femeii",
     "title": "Forță în Solidaritate: Evenimentul Nostru de Pilates",
     "quote": "Nu a fost doar un antrenament, a fost un moment de sprijin și conectare reală.",
-    "p1": "De Ziua Internațională a Femeii, ne-am mișcat pentru o cauză. Împreună cu GT Race Marbella, am găzduit o sesiune specială de Pilates în care fiecare bilet a devenit un sprijin direct pentru războinicii noștri.",
-    "p2": "Datorită fiecărei femei care a participat, acum putem ajuta mai mulți războinici în călătoria lor. Mulțumim partenerilor noștri și fiecărei femei care ni s-a alăturat. Împreună suntem mai puternice.",
+    "p1": "De Ziua Internațională a Femeii, ne-am mișcat pentru o cauză. Împreună cu GT Race Marbella, am găzduit o sesiune specială de Pilates în care fiecare bilet a devenit un sprijin direct pentru luptătorii noștri.",
+    "p2": "Datorită fiecărei femei care a participat, acum putem ajuta mai mulți luptători în călătoria lor. Mulțumim partenerilor noștri și fiecărei femei care ni s-a alăturat. Împreună suntem mai puternice.",
     "galleryTitle": "Momente de Solidaritate",
     "gallerySubtitle": "O privire asupra unei dimineți pline de energie, zâmbete și scop.",
     "stats": {
@@ -2790,7 +2790,7 @@
       "purpose": "Scop Comun",
       "impact": "Impact Direct"
     },
-    "button": "Susține Războinicii Noștri",
+    "button": "Susține Luptătorii Noștri",
     "ctaTitle": "Fii parte din următorul nostru capitol de speranță."
   },
   "grantPolicy": {

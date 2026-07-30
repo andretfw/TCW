@@ -60,10 +60,10 @@ export default function WarriorsPageClient() {
           title: 'Fiecare om este mai mult decât un diagnostic.',
           subtitle:
             'Descoperă oamenii pe care comunitatea noastră i-a sprijinit și dorințele personale care au adus odihnă, stabilitate, bucurie sau un nou început.',
-          supported: 'warriors sprijiniți',
+          supported: 'luptători sprijiniți',
           wishes: 'dorințe importante susținute',
           funds: 'oferiți ca sprijin direct',
-          galleryEyebrow: 'POVEȘTILE WARRIORILOR',
+          galleryEyebrow: 'POVEȘTILE LUPTĂTORILOR',
           galleryTitle: 'Sprijinul arată diferit pentru fiecare om.',
           galleryBody:
             'Poți vedea toate poveștile sau le poți filtra după țară. Fiecare dorință a pornit de la ceea ce conta cu adevărat pentru persoana respectivă.',

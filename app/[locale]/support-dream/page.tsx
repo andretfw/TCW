@@ -98,7 +98,7 @@ const copy = {
   ro: {
     pageTitle: 'Susține un vis',
     pageSubtitle:
-      'Ajută-ne să transformăm în realitate momente importante pentru warriorii ale căror vise încă așteaptă să fie împlinite.',
+      'Ajută-ne să transformăm în realitate momente importante pentru luptătorii ale căror vise încă așteaptă să fie împlinite.',
     goal: 'Obiectiv',
     raised: 'strânși',
     of: 'din',
