@@ -41,21 +41,18 @@ export default function HomePageClient() {
   const warriors = [
     {
       name: 'Anetra',
-      age: 46,
       dream: t('warriorsList.anetra.dream'),
       story: t('warriorsList.anetra.story'),
       image: '/anetra-home.jpg',
     },
     {
       name: 'Janelle',
-      age: 40,
       dream: t('warriorsList.janelle.dream'),
       story: t('warriorsList.janelle.story'),
       image: '/janelle-home.jpg',
     },
     {
       name: 'Jeanelle',
-      age: 37,
       dream: t('warriorsList.jeanelle.dream'),
       story: t('warriorsList.jeanelle.story'),
       image: '/jeanelle-home.jpg',
@@ -260,7 +257,7 @@ export default function HomePageClient() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-2xl font-bold text-neutral-900 mb-2">
-                    {warrior.name}, {warrior.age}
+                    {warrior.name}
                   </h3>
                   <p className="text-brand-600 font-semibold mb-3">{warrior.dream}</p>
                   <p className="text-neutral-600 leading-relaxed">{warrior.story}</p>
