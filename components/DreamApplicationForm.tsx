@@ -40,7 +40,7 @@ const COPY = {
     title: 'Tell us about the dream waiting for you',
     subtitle:
       'A calm, secure space to share who you are, verify eligibility and describe the non-medical wish that would bring you joy.',
-    privacyPromise: 'Your medical document is encrypted and never published.',
+    privacyPromise: 'Your documents stay private and are never published.',
     saveTime: 'Allow about 10 minutes. This form cannot be saved as a draft.',
     steps: ['Eligibility', 'About you', 'Diagnosis', 'Your dream', 'Consent'],
     stepLabel: 'Step',
@@ -136,11 +136,11 @@ const COPY = {
     healthConsent:
       'I explicitly consent to TCW processing my cancer-related information and diagnosis evidence to assess and administer this application. I understand that I may withdraw consent for future processing, although TCW may then be unable to continue my application.',
     retention:
-      'Medical evidence is restricted to authorised reviewers and scheduled for deletion within 90 days after the application or completed grant is closed, unless it must be retained for a dispute or legal obligation.',
+      'Medical evidence and ID documents are restricted to authorised reviewers and kept only as long as needed for assessment, administration or a legal obligation.',
     previous: 'Back',
     next: 'Continue',
     submit: 'Securely submit application',
-    submitting: 'Encrypting and securely uploading',
+    submitting: 'Securely uploading',
     uploadProgress: 'Secure upload',
     genericRequired: 'This field is required.',
     moreDetail: 'Please provide a little more detail.',
@@ -169,7 +169,7 @@ const COPY = {
     title: 'Povestește-ne despre visul care te așteaptă',
     subtitle:
       'Un spațiu calm și sigur în care ne poți spune cine ești, îți poți confirma eligibilitatea și poți descrie dorința non-medicală care ți-ar aduce bucurie.',
-    privacyPromise: 'Documentul medical este criptat și nu este publicat niciodată.',
+    privacyPromise: 'Documentele tale rămân private și nu sunt publicate niciodată.',
     saveTime: 'Rezervă aproximativ 10 minute. Formularul nu poate fi salvat ca ciornă.',
     steps: ['Eligibilitate', 'Despre tine', 'Diagnostic', 'Visul tău', 'Acorduri'],
     stepLabel: 'Pasul',
@@ -265,7 +265,7 @@ const COPY = {
     healthConsent:
       'Îmi exprim consimțământul explicit ca TCW să prelucreze informațiile mele despre cancer și dovada diagnosticului pentru evaluarea și administrarea acestei cereri. Înțeleg că pot retrage consimțământul pentru prelucrările viitoare, însă TCW poate să nu mai poată continua evaluarea.',
     retention:
-      'Dovada medicală este accesibilă numai persoanelor autorizate și este programată pentru ștergere în maximum 90 de zile după închiderea cererii sau a grantului finalizat, cu excepția unei contestații sau obligații legale.',
+      'Dovada medicală și documentul de identitate sunt accesibile numai persoanelor autorizate și sunt păstrate doar atât timp cât este necesar pentru evaluare, administrare sau o obligație legală.',
     previous: 'Înapoi',
     next: 'Continuă',
     submit: 'Trimite cererea în siguranță',
@@ -298,7 +298,7 @@ const COPY = {
     title: 'Cuéntanos sobre el sueño que te espera',
     subtitle:
       'Un espacio tranquilo y seguro para compartir quién eres, verificar tu elegibilidad y describir el deseo no médico que te devolvería alegría.',
-    privacyPromise: 'Tu documento médico está cifrado y nunca se publica.',
+    privacyPromise: 'Tus documentos permanecen privados y nunca se publican.',
     saveTime: 'Reserva unos 10 minutos. El formulario no puede guardarse como borrador.',
     steps: ['Elegibilidad', 'Sobre ti', 'Diagnóstico', 'Tu sueño', 'Consentimiento'],
     stepLabel: 'Paso',
@@ -394,7 +394,7 @@ const COPY = {
     healthConsent:
       'Consiento explícitamente que TCW trate mi información relacionada con el cáncer y la prueba del diagnóstico para evaluar y gestionar esta solicitud. Entiendo que puedo retirar el consentimiento para el tratamiento futuro, aunque TCW podría no poder continuar la solicitud.',
     retention:
-      'El justificante médico está restringido a revisores autorizados y se programa para su eliminación en un plazo de 90 días después del cierre de la solicitud o ayuda, salvo que deba conservarse por una disputa u obligación legal.',
+      'El justificante médico y el documento de identidad están restringidos a revisores autorizados y se conservan solo mientras sean necesarios para la evaluación, administración o una obligación legal.',
     previous: 'Atrás',
     next: 'Continuar',
     submit: 'Enviar la solicitud de forma segura',
