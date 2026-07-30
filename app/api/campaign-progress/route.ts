@@ -36,8 +36,8 @@ export async function GET(request: NextRequest) {
       },
       {headers: NO_CACHE_HEADERS},
     );
-  } catch (error) {
-    console.error('Unable to load campaign progress:', error);
+  } catch {
+    console.error('Unable to load campaign progress.');
     return NextResponse.json(
       {error: 'Unable to load campaign progress.'},
       {status: 500, headers: NO_CACHE_HEADERS},
