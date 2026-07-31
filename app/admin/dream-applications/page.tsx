@@ -1,5 +1,6 @@
 import AdminDreamApplications from '@/components/admin/AdminDreamApplications';
 import DreamApplicantEmailEnhancer from '@/components/admin/DreamApplicantEmailEnhancer';
+import DreamBoardDecisionLinkEnhancer from '@/components/admin/DreamBoardDecisionLinkEnhancer';
 import DreamBoardReviewEmailEnhancer from '@/components/admin/DreamBoardReviewEmailEnhancer';
 import DreamContractEnhancer from '@/components/admin/DreamContractEnhancer';
 import DreamContractTemplateEnhancer from '@/components/admin/DreamContractTemplateEnhancer';
@@ -16,6 +17,7 @@ export default function DreamApplicationsAdminPage() {
       <DreamStatusSummaryEnhancer />
       <DreamApplicantEmailEnhancer />
       <DreamBoardReviewEmailEnhancer />
+      <DreamBoardDecisionLinkEnhancer />
       <DreamContractEnhancer />
       <DreamContractTemplateEnhancer />
     </>
