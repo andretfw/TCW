@@ -3,7 +3,9 @@ import 'server-only';
 import {decryptJson, encryptJson} from '@/lib/dream-applications/crypto';
 
 const COOKIE_NAME = 'tcw_connect_session';
-const SESSION_TTL_SECONDS = 12 * 60 * 60;
+const COOKIE_PATH = '/api/connect';
+const LEGACY_COOKIE_PATH = '/api/connect/portal';
+const SESSION_TTL_SECONDS = 30 * 24 * 60 * 60;
 
 interface ConnectSession {
   v: 1;
@@ -25,6 +27,14 @@ function readCookie(request: Request, name: string): string | undefined {
   return undefined;
 }
 
+function cookieSecurity(): string {
+  return process.env.NODE_ENV === 'production' ? '; Secure' : '';
+}
+
+function expiredCookie(path: string): string {
+  return `${COOKIE_NAME}=; Path=${path}; HttpOnly; SameSite=Strict; Max-Age=0${cookieSecurity()}`;
+}
+
 export function createConnectSessionCookie(profileId: string): string {
   const session: ConnectSession = {
     v: 1,
@@ -33,8 +43,11 @@ export function createConnectSessionCookie(profileId: string): string {
       Date.now() + SESSION_TTL_SECONDS * 1000,
     ).toISOString(),
   };
-  const secure = process.env.NODE_ENV === 'production' ? '; Secure' : '';
-  return `${COOKIE_NAME}=${encodeURIComponent(encryptJson(session))}; Path=/api/connect/portal; HttpOnly; SameSite=Strict; Max-Age=${SESSION_TTL_SECONDS}${secure}`;
+  return `${COOKIE_NAME}=${encodeURIComponent(encryptJson(session))}; Path=${COOKIE_PATH}; HttpOnly; SameSite=Strict; Max-Age=${SESSION_TTL_SECONDS}${cookieSecurity()}`;
+}
+
+export function clearConnectSessionCookies(): string[] {
+  return [expiredCookie(COOKIE_PATH), expiredCookie(LEGACY_COOKIE_PATH)];
 }
 
 export function connectSessionProfileId(request: Request): string | null {

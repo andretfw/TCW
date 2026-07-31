@@ -1,10 +1,38 @@
 import {assertSameOrigin, DreamAuthorizationError} from '@/lib/dream-applications/security';
 import {cleanText, privateJson} from '@/lib/connect/security';
-import {createConnectSessionCookie} from '@/lib/connect/session';
-import {getConnectProfileByToken} from '@/lib/connect/store';
+import {
+  clearConnectSessionCookies,
+  connectSessionProfileId,
+  createConnectSessionCookie,
+} from '@/lib/connect/session';
+import {getConnectProfile, getConnectProfileByToken} from '@/lib/connect/store';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+
+function sessionHeaders(sessionCookie?: string): Headers {
+  const headers = new Headers();
+  for (const cookie of clearConnectSessionCookies()) {
+    headers.append('Set-Cookie', cookie);
+  }
+  if (sessionCookie) headers.append('Set-Cookie', sessionCookie);
+  return headers;
+}
+
+export async function GET(request: Request): Promise<Response> {
+  const profileId = connectSessionProfileId(request);
+  if (!profileId) return privateJson({authenticated: false});
+
+  const profile = await getConnectProfile(profileId);
+  if (!profile || profile.status === 'closed') {
+    return privateJson(
+      {authenticated: false},
+      {headers: sessionHeaders()},
+    );
+  }
+
+  return privateJson({authenticated: true});
+}
 
 export async function POST(request: Request): Promise<Response> {
   try {
@@ -22,11 +50,7 @@ export async function POST(request: Request): Promise<Response> {
 
     return privateJson(
       {ok: true},
-      {
-        headers: {
-          'Set-Cookie': createConnectSessionCookie(profile.id),
-        },
-      },
+      {headers: sessionHeaders(createConnectSessionCookie(profile.id))},
     );
   } catch (error) {
     if (error instanceof DreamAuthorizationError) {
@@ -36,5 +60,20 @@ export async function POST(request: Request): Promise<Response> {
       {error: 'This private TCW Connect link is invalid or unavailable.'},
       {status: 401},
     );
+  }
+}
+
+export async function DELETE(request: Request): Promise<Response> {
+  try {
+    assertSameOrigin(request);
+    return privateJson(
+      {ok: true},
+      {headers: sessionHeaders()},
+    );
+  } catch (error) {
+    if (error instanceof DreamAuthorizationError) {
+      return privateJson({error: error.message}, {status: error.status});
+    }
+    return privateJson({error: 'Could not log out.'}, {status: 400});
   }
 }
