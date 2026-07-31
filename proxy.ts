@@ -30,6 +30,11 @@ const intlMiddleware = createMiddleware({
     '/support-dream': {es: '/apoya-un-sueno', en: '/support-a-dream', ro: '/sustine-un-vis'},
     '/warriors': {es: '/guerreros', en: '/warriors', ro: '/luptatori'},
     '/connect-survivor': {es: '/conecta-con-un-superviviente', en: '/connect-with-a-survivor', ro: '/conecteaza-te-cu-un-supravietuitor'},
+    '/connect-survivor/manage': {
+      es: '/conecta-con-un-superviviente/mi-conexion',
+      en: '/connect-with-a-survivor/my-connection',
+      ro: '/conecteaza-te-cu-un-supravietuitor/conexiunea-mea',
+    },
     '/dream-application': {es: '/solicitud-sueno', en: '/dream-support-application', ro: '/cerere-sprijin-vis'},
     '/share-journey': {es: '/comparte-tu-historia', en: '/share-your-journey', ro: '/impartaseste-ti-povestea'},
     '/warrior-mood-boost': {es: '/animo-para-guerreros', en: '/warrior-mood-boost', ro: '/doza-de-incurajare'},
