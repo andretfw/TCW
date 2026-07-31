@@ -1,10 +1,29 @@
 import {assertSameOrigin, DreamAuthorizationError} from '@/lib/dream-applications/security';
 import {cleanText, privateJson} from '@/lib/connect/security';
-import {createConnectSessionCookie} from '@/lib/connect/session';
-import {getConnectProfileByToken} from '@/lib/connect/store';
+import {
+  clearConnectSessionCookie,
+  connectSessionProfileId,
+  createConnectSessionCookie,
+} from '@/lib/connect/session';
+import {getConnectProfile, getConnectProfileByToken} from '@/lib/connect/store';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+
+export async function GET(request: Request): Promise<Response> {
+  const profileId = connectSessionProfileId(request);
+  if (!profileId) return privateJson({authenticated: false});
+
+  const profile = await getConnectProfile(profileId);
+  if (!profile || profile.status === 'closed') {
+    return privateJson(
+      {authenticated: false},
+      {headers: {'Set-Cookie': clearConnectSessionCookie()}},
+    );
+  }
+
+  return privateJson({authenticated: true});
+}
 
 export async function POST(request: Request): Promise<Response> {
   try {
@@ -36,5 +55,20 @@ export async function POST(request: Request): Promise<Response> {
       {error: 'This private TCW Connect link is invalid or unavailable.'},
       {status: 401},
     );
+  }
+}
+
+export async function DELETE(request: Request): Promise<Response> {
+  try {
+    assertSameOrigin(request);
+    return privateJson(
+      {ok: true},
+      {headers: {'Set-Cookie': clearConnectSessionCookie()}},
+    );
+  } catch (error) {
+    if (error instanceof DreamAuthorizationError) {
+      return privateJson({error: error.message}, {status: error.status});
+    }
+    return privateJson({error: 'Could not log out.'}, {status: 400});
   }
 }
