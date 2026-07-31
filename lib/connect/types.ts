@@ -132,6 +132,8 @@ export interface MatchProposal {
   survivorAcceptedAt?: string;
   warriorAcceptedAt?: string;
   declinedBy?: ConnectRole;
+  reminderCount?: number;
+  lastReminderAt?: string;
   createdAt: string;
   updatedAt: string;
   expiresAt: string;
@@ -162,6 +164,8 @@ export interface ConnectConnection {
   status: ConnectionStatus;
   meeting?: ConnectMeeting;
   schedulingError?: string;
+  firstCheckInSentAt?: string;
+  monthCheckInSentAt?: string;
   createdAt: string;
   updatedAt: string;
   endedAt?: string;
