@@ -133,10 +133,10 @@ export function rankSurvivors(
   survivors: ConnectProfile[],
   proposals: MatchProposal[],
 ): Array<{survivor: ConnectProfile; score: MatchScore}> {
+  // Once either person has declined a pairing, do not surface the same two
+  // people again. This makes a decline final and avoids repeated pressure.
   const unavailablePairs = new Set(
-    proposals
-      .filter((proposal) => !['declined', 'expired'].includes(proposal.status))
-      .map((proposal) => `${proposal.survivorId}:${proposal.warriorId}`),
+    proposals.map((proposal) => `${proposal.survivorId}:${proposal.warriorId}`),
   );
 
   return survivors
