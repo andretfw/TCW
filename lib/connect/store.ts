@@ -60,12 +60,13 @@ async function readEncrypted<T>(key: string): Promise<T | null> {
 
 async function listEncrypted<T>(prefix: string): Promise<T[]> {
   const listed = await connectStore().list({prefix});
-  const records = await Promise.all(
-    listed.blobs
-      .filter((blob) => blob.key.endsWith('.json'))
-      .map((blob) => readEncrypted<T>(blob.key)),
-  );
-  return records.filter((record): record is T => Boolean(record));
+  const records: T[] = [];
+  for (const blob of listed.blobs) {
+    if (!blob.key.endsWith('.json')) continue;
+    const record = await readEncrypted<T>(blob.key);
+    if (record !== null) records.push(record as T);
+  }
+  return records;
 }
 
 async function mutateEncrypted<TRecord, TResult>(
