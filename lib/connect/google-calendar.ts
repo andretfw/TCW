@@ -127,9 +127,10 @@ export async function createConnectMeeting(input: {
     'Google Calendar could not create the TCW Connect meeting.',
   );
   if (!event.id) throw new Error('Google Calendar did not return an event ID.');
+  const eventId = event.id;
 
   if (!meetingUrl(event)) {
-    event = await getCreatedEvent(accessToken, event.id);
+    event = await getCreatedEvent(accessToken, eventId);
   }
 
   const meetUrl = meetingUrl(event);
@@ -138,7 +139,7 @@ export async function createConnectMeeting(input: {
   }
 
   return {
-    eventId: event.id,
+    eventId,
     startsAt: input.startsAt,
     endsAt: input.endsAt,
     meetUrl,
