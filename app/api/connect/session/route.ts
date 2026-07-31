@@ -1,7 +1,7 @@
 import {assertSameOrigin, DreamAuthorizationError} from '@/lib/dream-applications/security';
 import {cleanText, privateJson} from '@/lib/connect/security';
 import {
-  clearConnectSessionCookie,
+  clearConnectSessionCookies,
   connectSessionProfileId,
   createConnectSessionCookie,
 } from '@/lib/connect/session';
@@ -9,6 +9,15 @@ import {getConnectProfile, getConnectProfileByToken} from '@/lib/connect/store';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+
+function sessionHeaders(sessionCookie?: string): Headers {
+  const headers = new Headers();
+  for (const cookie of clearConnectSessionCookies()) {
+    headers.append('Set-Cookie', cookie);
+  }
+  if (sessionCookie) headers.append('Set-Cookie', sessionCookie);
+  return headers;
+}
 
 export async function GET(request: Request): Promise<Response> {
   const profileId = connectSessionProfileId(request);
@@ -18,7 +27,7 @@ export async function GET(request: Request): Promise<Response> {
   if (!profile || profile.status === 'closed') {
     return privateJson(
       {authenticated: false},
-      {headers: {'Set-Cookie': clearConnectSessionCookie()}},
+      {headers: sessionHeaders()},
     );
   }
 
@@ -41,11 +50,7 @@ export async function POST(request: Request): Promise<Response> {
 
     return privateJson(
       {ok: true},
-      {
-        headers: {
-          'Set-Cookie': createConnectSessionCookie(profile.id),
-        },
-      },
+      {headers: sessionHeaders(createConnectSessionCookie(profile.id))},
     );
   } catch (error) {
     if (error instanceof DreamAuthorizationError) {
@@ -63,7 +68,7 @@ export async function DELETE(request: Request): Promise<Response> {
     assertSameOrigin(request);
     return privateJson(
       {ok: true},
-      {headers: {'Set-Cookie': clearConnectSessionCookie()}},
+      {headers: sessionHeaders()},
     );
   } catch (error) {
     if (error instanceof DreamAuthorizationError) {
