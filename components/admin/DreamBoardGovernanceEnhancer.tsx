@@ -82,7 +82,7 @@ export default function DreamBoardGovernanceEnhancer({
 
   useEffect(() => {
     correctVotingCopy();
-    void loadGovernance();
+    const initialLoad = window.setTimeout(() => void loadGovernance(), 0);
 
     const observer = new MutationObserver(() => correctVotingCopy());
     observer.observe(document.body, {childList: true, subtree: true});
@@ -101,6 +101,7 @@ export default function DreamBoardGovernanceEnhancer({
     }, 10_000);
 
     return () => {
+      window.clearTimeout(initialLoad);
       observer.disconnect();
       document.removeEventListener('click', refreshAfterVote, true);
       window.clearInterval(interval);
