@@ -1,10 +1,8 @@
 import {randomBytes, randomUUID} from 'node:crypto';
 
 import {assertSameOrigin, DreamAuthorizationError} from '@/lib/dream-applications/security';
-import {sendConnectExceptionAlert, sendConnectWelcomeEmail} from '@/lib/connect/email';
+import {sendConnectExceptionAlert} from '@/lib/connect/email';
 import {cleanText, createPortalToken, normalizeEmail, privateJson} from '@/lib/connect/security';
-import {createAutomaticMatchesForProfile} from '@/lib/connect/service';
-import {createAutomaticMatchesForSurvivor} from '@/lib/connect/survivor-matching';
 import {
   enforceConnectRateLimit,
   listConnectProfiles,
@@ -31,6 +29,7 @@ import {
   type ConnectRole,
   type MentorGenderPreference,
 } from '@/lib/connect/types';
+import {sendConnectVerificationEmail} from '@/lib/connect/verification-email';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -122,7 +121,7 @@ export async function POST(request: Request): Promise<Response> {
       profile.email === email && profile.role === role && profile.status !== 'closed'
     ));
     if (existing) {
-      await sendConnectWelcomeEmail(existing).catch(() => undefined);
+      await sendConnectVerificationEmail(existing).catch(() => undefined);
       return privateJson({ok: true, alreadyRegistered: true}, {status: 202});
     }
 
@@ -152,7 +151,7 @@ export async function POST(request: Request): Promise<Response> {
       portalToken: createPortalToken(),
       role,
       locale,
-      status: 'active',
+      status: 'pending-verification',
       firstName: cleanText(body.firstName, {min: 1, max: 60, required: true}),
       email,
       country: cleanText(body.country, {min: 2, max: 80, required: true}),
@@ -187,23 +186,12 @@ export async function POST(request: Request): Promise<Response> {
     };
 
     await saveConnectProfile(profile);
-    const matching = role === 'survivor'
-      ? createAutomaticMatchesForSurvivor(profile.id)
-      : createAutomaticMatchesForProfile(profile.id);
-    const [emailResult, matchResult] = await Promise.allSettled([
-      sendConnectWelcomeEmail(profile),
-      matching,
-    ]);
-    if (emailResult.status === 'rejected') {
+    try {
+      await sendConnectVerificationEmail(profile);
+    } catch {
       await sendConnectExceptionAlert({
         reference: profile.reference,
-        reason: 'WELCOME_EMAIL_FAILED',
-      }).catch(() => undefined);
-    }
-    if (matchResult.status === 'rejected') {
-      await sendConnectExceptionAlert({
-        reference: profile.reference,
-        reason: 'AUTOMATIC_MATCHING_FAILED',
+        reason: 'VERIFICATION_EMAIL_FAILED',
       }).catch(() => undefined);
     }
 
