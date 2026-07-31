@@ -4,6 +4,7 @@ import {assertSameOrigin, DreamAuthorizationError} from '@/lib/dream-application
 import {sendConnectExceptionAlert, sendConnectWelcomeEmail} from '@/lib/connect/email';
 import {cleanText, createPortalToken, normalizeEmail, privateJson} from '@/lib/connect/security';
 import {createAutomaticMatchesForProfile} from '@/lib/connect/service';
+import {createAutomaticMatchesForSurvivor} from '@/lib/connect/survivor-matching';
 import {
   enforceConnectRateLimit,
   listConnectProfiles,
@@ -141,8 +142,9 @@ export async function POST(request: Request): Promise<Response> {
     }
 
     const now = new Date().toISOString();
+    const requestedCapacity = Math.trunc(Number(body.maxConnections) || 1);
     const maxConnections = role === 'survivor'
-      ? Math.min(3, Math.max(1, Number(body.maxConnections) || 1))
+      ? Math.min(3, Math.max(1, requestedCapacity))
       : 1;
     const profile: ConnectProfile = {
       id: randomUUID(),
@@ -185,9 +187,12 @@ export async function POST(request: Request): Promise<Response> {
     };
 
     await saveConnectProfile(profile);
+    const matching = role === 'survivor'
+      ? createAutomaticMatchesForSurvivor(profile.id)
+      : createAutomaticMatchesForProfile(profile.id);
     const [emailResult, matchResult] = await Promise.allSettled([
       sendConnectWelcomeEmail(profile),
-      createAutomaticMatchesForProfile(profile.id),
+      matching,
     ]);
     if (emailResult.status === 'rejected') {
       await sendConnectExceptionAlert({
