@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto';
+import {randomUUID} from 'node:crypto';
 
 import {
   assertSameOrigin,
@@ -7,12 +7,8 @@ import {
   requireConfiguredDreamBoard,
   requireDreamBoardMember,
 } from '@/lib/dream-applications/security';
+import {mutateDreamApplication} from '@/lib/dream-applications/store';
 import {
-  mutateDreamApplication,
-  retentionDateFrom,
-} from '@/lib/dream-applications/store';
-import {
-  DREAM_BOARD_APPROVAL_THRESHOLD,
   DREAM_BOARD_DECISIONS,
   type DreamApplicationFile,
   type DreamApplicationRecord,
@@ -65,8 +61,7 @@ export async function POST(
     }
 
     const decision = body.decision as DreamBoardDecision;
-    const now = new Date();
-    const nowIso = now.toISOString();
+    const nowIso = new Date().toISOString();
     const mutation = await mutateDreamApplication(id, (application) => {
       if (application.status === 'draft') {
         throw new DreamVoteError('Application not found.', 404);
@@ -76,7 +71,9 @@ export async function POST(
       }
 
       const votes = application.boardVotes || [];
-      const existingIndex = votes.findIndex((vote) => vote.voterEmail === reviewer.email);
+      const existingIndex = votes.findIndex(
+        (vote) => vote.voterEmail === reviewer.email,
+      );
       if (existingIndex >= 0) {
         const existing = votes[existingIndex];
         votes[existingIndex] = {
@@ -105,28 +102,23 @@ export async function POST(
       const validVotes = votes.filter((vote) => boardEmails.includes(vote.voterEmail));
       const approvals = validVotes.filter((vote) => vote.decision === 'approve').length;
       const rejections = validVotes.filter((vote) => vote.decision === 'reject').length;
-      let finalStatus: 'approved' | 'declined' | undefined;
-
-      if (approvals >= DREAM_BOARD_APPROVAL_THRESHOLD) finalStatus = 'approved';
-      if (rejections >= DREAM_BOARD_APPROVAL_THRESHOLD) finalStatus = 'declined';
-
-      if (finalStatus) {
-        application.history.push({
-          id: randomUUID(),
-          type: 'status_changed',
-          fromStatus: 'board_review',
-          toStatus: finalStatus,
-          actor: 'board-majority',
-          createdAt: nowIso,
-        });
-        application.status = finalStatus;
-        application.retentionDeleteAt = finalStatus === 'declined'
-          ? retentionDateFrom(now)
-          : undefined;
-      }
+      const totalVotes = validVotes.length;
+      const majorityDecision = approvals === rejections
+        ? undefined
+        : approvals > rejections
+          ? 'approve'
+          : 'reject';
 
       application.updatedAt = nowIso;
-      return {approvals, rejections, finalStatus};
+      return {
+        approvals,
+        rejections,
+        totalVotes,
+        totalBoardMembers: boardEmails.length,
+        allVotesReceived: totalVotes === boardEmails.length,
+        majorityDecision,
+        canFinalize: totalVotes >= 2 && Boolean(majorityDecision),
+      };
     });
 
     if (!mutation) {

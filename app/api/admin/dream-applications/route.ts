@@ -1,9 +1,10 @@
-import { randomUUID } from 'node:crypto';
+import {randomUUID} from 'node:crypto';
 
 import {
   assertSameOrigin,
   DreamAuthorizationError,
   privateJson,
+  requireConfiguredDreamBoard,
   requireDreamAdmin,
   requireDreamReviewerContext,
 } from '@/lib/dream-applications/security';
@@ -24,10 +25,13 @@ import type {
   DreamApplicationFile,
   DreamApplicationRecord,
   DreamApplicationStatus,
+  DreamBoardDecision,
 } from '@/lib/dream-applications/types';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+
+const MIN_BOARD_FINALIZATION_VOTES = 2;
 
 class DreamAdminUpdateError extends Error {
   constructor(
@@ -92,6 +96,7 @@ export async function PATCH(request: Request): Promise<Response> {
       applicationId?: string;
       status?: unknown;
       reviewerNote?: unknown;
+      finalizeBoardDecision?: unknown;
     };
     if (!body.applicationId) {
       return privateJson({error: 'Application ID is required.'}, {status: 400});
@@ -101,11 +106,28 @@ export async function PATCH(request: Request): Promise<Response> {
       ? undefined
       : validateDreamStatus(body.status);
     const note = validateReviewerNote(body.reviewerNote);
+    const finalizeBoardDecision = body.finalizeBoardDecision === true;
     if (requestedStatus === 'draft') {
       return privateJson({error: 'A submitted application cannot return to draft.'}, {status: 400});
     }
     if (requestedStatus && !reviewer.isAdmin) {
-      throw new DreamAuthorizationError('Only the TCW administrator can change workflow status.', 403);
+      throw new DreamAuthorizationError(
+        'Only the TCW administrator can change workflow status.',
+        403,
+      );
+    }
+
+    const boardEmails = finalizeBoardDecision
+      ? requireConfiguredDreamBoard()
+      : undefined;
+    if (
+      finalizeBoardDecision &&
+      (!requestedStatus || !['approved', 'declined'].includes(requestedStatus))
+    ) {
+      throw new DreamAdminUpdateError(
+        'A final Board decision must be Approved or Declined.',
+        400,
+      );
     }
 
     const now = new Date();
@@ -115,12 +137,71 @@ export async function PATCH(request: Request): Promise<Response> {
       if (application.status === 'draft') {
         throw new DreamAdminUpdateError('Application not found.', 404);
       }
+      if (!reviewer.isAdmin && application.status !== 'board_review') {
+        throw new DreamAuthorizationError(
+          'Board review is closed for this application.',
+          403,
+        );
+      }
 
       const nextStatus = requestedStatus || application.status;
       const enteredBoardReview = nextStatus === 'board_review' && application.status !== 'board_review';
       if (enteredBoardReview) {
         throw new DreamAdminUpdateError(
           'Preview and confirm the board review email before moving this application.',
+          409,
+        );
+      }
+
+      const completesBoardReview = application.status === 'board_review'
+        && (nextStatus === 'approved' || nextStatus === 'declined');
+      if (completesBoardReview) {
+        if (!finalizeBoardDecision || !boardEmails) {
+          throw new DreamAdminUpdateError(
+            'Use the Board final-decision controls to approve or decline this application.',
+            409,
+          );
+        }
+        if (!boardEmails.includes(reviewer.email)) {
+          throw new DreamAdminUpdateError(
+            'The Dream administrator must also be one of the three configured board members.',
+            409,
+          );
+        }
+
+        const validVotes = (application.boardVotes || []).filter((vote) => (
+          boardEmails.includes(vote.voterEmail)
+        ));
+        const approvals = validVotes.filter((vote) => vote.decision === 'approve').length;
+        const rejections = validVotes.filter((vote) => vote.decision === 'reject').length;
+        if (validVotes.length < MIN_BOARD_FINALIZATION_VOTES) {
+          throw new DreamAdminUpdateError(
+            'At least two Board votes are required before the administrator can finalize the decision.',
+            409,
+          );
+        }
+        if (approvals === rejections) {
+          throw new DreamAdminUpdateError(
+            'The available Board votes are tied. The third member must vote before finalization.',
+            409,
+          );
+        }
+
+        const majorityDecision: DreamBoardDecision = approvals > rejections
+          ? 'approve'
+          : 'reject';
+        const requestedDecision: DreamBoardDecision = nextStatus === 'approved'
+          ? 'approve'
+          : 'reject';
+        if (requestedDecision !== majorityDecision) {
+          throw new DreamAdminUpdateError(
+            `The final decision must follow the current Board majority: ${majorityDecision === 'approve' ? 'Approve' : 'Reject'}.`,
+            409,
+          );
+        }
+      } else if (finalizeBoardDecision) {
+        throw new DreamAdminUpdateError(
+          'Only an application currently in Board review can be finalized.',
           409,
         );
       }
