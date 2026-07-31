@@ -97,7 +97,7 @@ export function connectPortalUrl(profile: ConnectProfile): string {
     portalPath(profile.locale),
     process.env.NEXT_PUBLIC_SITE_URL || DEFAULT_SITE_URL,
   );
-  url.searchParams.set('token', profile.portalToken);
+  url.hash = new URLSearchParams({token: profile.portalToken}).toString();
   return url.toString();
 }
 
