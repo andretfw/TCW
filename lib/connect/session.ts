@@ -4,6 +4,7 @@ import {decryptJson, encryptJson} from '@/lib/dream-applications/crypto';
 
 const COOKIE_NAME = 'tcw_connect_session';
 const COOKIE_PATH = '/api/connect';
+const LEGACY_COOKIE_PATH = '/api/connect/portal';
 const SESSION_TTL_SECONDS = 30 * 24 * 60 * 60;
 
 interface ConnectSession {
@@ -30,6 +31,10 @@ function cookieSecurity(): string {
   return process.env.NODE_ENV === 'production' ? '; Secure' : '';
 }
 
+function expiredCookie(path: string): string {
+  return `${COOKIE_NAME}=; Path=${path}; HttpOnly; SameSite=Strict; Max-Age=0${cookieSecurity()}`;
+}
+
 export function createConnectSessionCookie(profileId: string): string {
   const session: ConnectSession = {
     v: 1,
@@ -41,8 +46,8 @@ export function createConnectSessionCookie(profileId: string): string {
   return `${COOKIE_NAME}=${encodeURIComponent(encryptJson(session))}; Path=${COOKIE_PATH}; HttpOnly; SameSite=Strict; Max-Age=${SESSION_TTL_SECONDS}${cookieSecurity()}`;
 }
 
-export function clearConnectSessionCookie(): string {
-  return `${COOKIE_NAME}=; Path=${COOKIE_PATH}; HttpOnly; SameSite=Strict; Max-Age=0${cookieSecurity()}`;
+export function clearConnectSessionCookies(): string[] {
+  return [expiredCookie(COOKIE_PATH), expiredCookie(LEGACY_COOKIE_PATH)];
 }
 
 export function connectSessionProfileId(request: Request): string | null {
