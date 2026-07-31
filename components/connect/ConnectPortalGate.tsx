@@ -1,24 +1,35 @@
 'use client';
 
 import {useEffect, useState} from 'react';
+import {LoaderCircle, LogOut} from 'lucide-react';
 
+import ConnectLogin from './ConnectLogin';
 import ConnectPortal from './ConnectPortal';
 
 const TOKEN_STORAGE_KEY = 'tcw_connect_private_portal_token';
 
 type Locale = 'en' | 'ro' | 'es';
+type GateStatus = 'checking' | 'authenticated' | 'signed-out';
+
+const LOGOUT_COPY: Record<Locale, string> = {
+  en: 'Log out',
+  ro: 'Deconectare',
+  es: 'Cerrar sesión',
+};
 
 function sessionMarker(): string {
   return `tcw-session-${crypto.randomUUID()}`;
 }
 
 export default function ConnectPortalGate({locale}: {locale: Locale}) {
-  const [ready, setReady] = useState(false);
+  const [status, setStatus] = useState<GateStatus>('checking');
+  const [loggingOut, setLoggingOut] = useState(false);
 
   useEffect(() => {
     let active = true;
 
     async function prepareSession() {
+      let authenticated = false;
       const fragment = window.location.hash.startsWith('#')
         ? window.location.hash.slice(1)
         : window.location.hash;
@@ -31,20 +42,37 @@ export default function ConnectPortalGate({locale}: {locale: Locale}) {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({token: privateToken}),
           });
-          if (!response.ok) throw new Error('INVALID_PRIVATE_LINK');
-
-          window.sessionStorage.setItem(TOKEN_STORAGE_KEY, sessionMarker());
+          authenticated = response.ok;
+        } catch {
+          authenticated = false;
+        } finally {
           window.history.replaceState(
             null,
             '',
             `${window.location.pathname}${window.location.search}`,
           );
-        } catch {
-          window.sessionStorage.removeItem(TOKEN_STORAGE_KEY);
         }
       }
 
-      if (active) setReady(true);
+      if (!authenticated) {
+        try {
+          const response = await fetch('/api/connect/session', {cache: 'no-store'});
+          const payload = await response.json().catch(() => ({})) as {
+            authenticated?: boolean;
+          };
+          authenticated = response.ok && payload.authenticated === true;
+        } catch {
+          authenticated = false;
+        }
+      }
+
+      if (authenticated) {
+        window.sessionStorage.setItem(TOKEN_STORAGE_KEY, sessionMarker());
+      } else {
+        window.sessionStorage.removeItem(TOKEN_STORAGE_KEY);
+      }
+
+      if (active) setStatus(authenticated ? 'authenticated' : 'signed-out');
     }
 
     void prepareSession();
@@ -53,13 +81,45 @@ export default function ConnectPortalGate({locale}: {locale: Locale}) {
     };
   }, []);
 
-  if (!ready) {
+  async function logout() {
+    if (loggingOut) return;
+    setLoggingOut(true);
+    try {
+      await fetch('/api/connect/session', {method: 'DELETE'});
+    } finally {
+      window.sessionStorage.removeItem(TOKEN_STORAGE_KEY);
+      setStatus('signed-out');
+      setLoggingOut(false);
+    }
+  }
+
+  if (status === 'checking') {
     return (
       <main className="flex min-h-screen items-center justify-center bg-[#faf9ff] px-4 pt-20">
-        <p className="font-bold text-neutral-700">TCW Connect…</p>
+        <div className="text-center">
+          <LoaderCircle className="mx-auto h-9 w-9 animate-spin text-indigo-700" />
+          <p className="mt-4 font-bold text-neutral-700">TCW Connect…</p>
+        </div>
       </main>
     );
   }
 
-  return <ConnectPortal locale={locale} />;
+  if (status === 'signed-out') {
+    return <ConnectLogin locale={locale} />;
+  }
+
+  return (
+    <>
+      <button
+        type="button"
+        disabled={loggingOut}
+        onClick={() => void logout()}
+        className="fixed right-4 top-24 z-50 flex items-center gap-2 rounded-full border border-white/30 bg-indigo-950/90 px-4 py-2 text-sm font-black text-white shadow-lg backdrop-blur hover:bg-indigo-900 disabled:opacity-60"
+      >
+        {loggingOut ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
+        {LOGOUT_COPY[locale]}
+      </button>
+      <ConnectPortal locale={locale} />
+    </>
+  );
 }
