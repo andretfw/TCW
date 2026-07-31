@@ -13,6 +13,8 @@ const eslintConfig = defineConfig([
     files: [
       'components/CampaignGoalReachedNotice.tsx',
       'components/CookieBanner.tsx',
+      'components/connect/ConnectPortal.tsx',
+      'components/connect/ConnectPortalGate.tsx',
     ],
     rules: {
       'react-hooks/set-state-in-effect': 'off',

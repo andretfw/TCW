@@ -1,10 +1,10 @@
 import 'server-only';
 
-import { randomBytes } from 'node:crypto';
+import {randomBytes} from 'node:crypto';
 
-import { getStore } from '@netlify/blobs';
+import {getStore} from '@netlify/blobs';
 
-import { decryptJson, encryptJson } from './crypto';
+import {decryptJson, encryptJson} from './crypto';
 
 const STORE_NAME = 'tcw-dream-applications';
 const CONNECTION_KEY = 'config/google-drive.json';
@@ -18,12 +18,14 @@ const DEFAULT_ACCOUNT_EMAIL = 'tcw@tutticancerwarriors.org';
 
 export const GOOGLE_DRIVE_FILE_SCOPE = 'https://www.googleapis.com/auth/drive.file';
 export const GOOGLE_GMAIL_SEND_SCOPE = 'https://www.googleapis.com/auth/gmail.send';
+export const GOOGLE_CALENDAR_EVENTS_SCOPE = 'https://www.googleapis.com/auth/calendar.events';
 
 const OAUTH_SCOPES = [
   'openid',
   'email',
   GOOGLE_DRIVE_FILE_SCOPE,
   GOOGLE_GMAIL_SEND_SCOPE,
+  GOOGLE_CALENDAR_EVENTS_SCOPE,
 ] as const;
 
 interface GoogleDriveConnection {
@@ -202,6 +204,7 @@ export async function getGoogleDriveConnectionStatus(): Promise<{
   connectedAt?: string;
   folderConfigured: boolean;
   emailSendingConfigured: boolean;
+  calendarSchedulingConfigured: boolean;
 }> {
   const connection = await getGoogleDriveConnection();
   return {
@@ -210,6 +213,7 @@ export async function getGoogleDriveConnectionStatus(): Promise<{
     connectedAt: connection?.connectedAt,
     folderConfigured: Boolean(process.env.GOOGLE_DRIVE_UPLOAD_FOLDER_ID?.trim()),
     emailSendingConfigured: hasGrantedScope(connection, GOOGLE_GMAIL_SEND_SCOPE),
+    calendarSchedulingConfigured: hasGrantedScope(connection, GOOGLE_CALENDAR_EVENTS_SCOPE),
   };
 }
 
