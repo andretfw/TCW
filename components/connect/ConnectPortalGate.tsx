@@ -8,25 +8,49 @@ const TOKEN_STORAGE_KEY = 'tcw_connect_private_portal_token';
 
 type Locale = 'en' | 'ro' | 'es';
 
+function sessionMarker(): string {
+  return `tcw-session-${crypto.randomUUID()}`;
+}
+
 export default function ConnectPortalGate({locale}: {locale: Locale}) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const fragment = window.location.hash.startsWith('#')
-      ? window.location.hash.slice(1)
-      : window.location.hash;
-    const token = new URLSearchParams(fragment).get('token');
+    let active = true;
 
-    if (token) {
-      window.sessionStorage.setItem(TOKEN_STORAGE_KEY, token);
-      window.history.replaceState(
-        null,
-        '',
-        `${window.location.pathname}${window.location.search}`,
-      );
+    async function prepareSession() {
+      const fragment = window.location.hash.startsWith('#')
+        ? window.location.hash.slice(1)
+        : window.location.hash;
+      const privateToken = new URLSearchParams(fragment).get('token');
+
+      if (privateToken) {
+        try {
+          const response = await fetch('/api/connect/session', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({token: privateToken}),
+          });
+          if (!response.ok) throw new Error('INVALID_PRIVATE_LINK');
+
+          window.sessionStorage.setItem(TOKEN_STORAGE_KEY, sessionMarker());
+          window.history.replaceState(
+            null,
+            '',
+            `${window.location.pathname}${window.location.search}`,
+          );
+        } catch {
+          window.sessionStorage.removeItem(TOKEN_STORAGE_KEY);
+        }
+      }
+
+      if (active) setReady(true);
     }
 
-    setReady(true);
+    void prepareSession();
+    return () => {
+      active = false;
+    };
   }, []);
 
   if (!ready) {
