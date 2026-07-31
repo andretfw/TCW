@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import CampaignGoalReachedNotice from '@/components/CampaignGoalReachedNotice';
 import {localizedPath, type SiteLocale} from '@/lib/routes';
+import DreamCampaignDeepLinks from './DreamCampaignDeepLinks';
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'https://tutticancerwarriors.org';
@@ -141,6 +142,7 @@ export default async function SupportDreamLayout({
         }}
       />
       <CampaignGoalReachedNotice />
+      <DreamCampaignDeepLinks />
       {children}
     </>
   );
