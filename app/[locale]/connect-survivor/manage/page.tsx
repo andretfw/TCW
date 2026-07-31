@@ -1,7 +1,7 @@
 import {Suspense} from 'react';
 import type {Metadata} from 'next';
 
-import ConnectPortal from '@/components/connect/ConnectPortal';
+import ConnectPortalGate from '@/components/connect/ConnectPortalGate';
 
 export const metadata: Metadata = {
   title: 'TCW Connect',
@@ -29,7 +29,7 @@ export default async function ConnectPortalPage({
         </main>
       )}
     >
-      <ConnectPortal locale={locale} />
+      <ConnectPortalGate locale={locale} />
     </Suspense>
   );
 }
