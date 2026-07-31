@@ -5,6 +5,7 @@ export const CONNECT_ROLES = ['survivor', 'warrior'] as const;
 export type ConnectRole = (typeof CONNECT_ROLES)[number];
 
 export const CONNECT_PROFILE_STATUSES = [
+  'pending-verification',
   'active',
   'paused',
   'matched',
