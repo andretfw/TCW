@@ -45,11 +45,12 @@ export default function DreamBoardDecisionLinkEnhancer() {
   }, [host]);
 
   useEffect(() => {
-    synchronize();
+    const initialSync = window.setTimeout(synchronize, 0);
     const observer = new MutationObserver(synchronize);
     observer.observe(document.body, {childList: true, subtree: true});
     const interval = window.setInterval(synchronize, 1000);
     return () => {
+      window.clearTimeout(initialSync);
       observer.disconnect();
       window.clearInterval(interval);
       host?.remove();
