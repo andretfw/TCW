@@ -1,6 +1,7 @@
 import {assertSameOrigin, DreamAuthorizationError} from '@/lib/dream-applications/security';
 import {sendConnectExceptionAlert} from '@/lib/connect/email';
 import {cleanText, privateJson} from '@/lib/connect/security';
+import {connectSessionProfileId} from '@/lib/connect/session';
 import {
   buildConnectPortalState,
   createAutomaticMatchesForProfile,
@@ -8,6 +9,7 @@ import {
   endConnectConnection,
 } from '@/lib/connect/service';
 import {
+  getConnectProfile,
   getConnectProfileByToken,
   mutateConnectProfile,
 } from '@/lib/connect/store';
@@ -30,10 +32,21 @@ const ACTIONS = [
 ] as const;
 type PortalAction = (typeof ACTIONS)[number];
 
-async function profileForToken(value: unknown): Promise<ConnectProfile> {
-  const token = cleanText(value, {min: 43, max: 43, required: true});
+async function profileForRequest(
+  request: Request,
+  fallbackToken?: unknown,
+): Promise<ConnectProfile> {
+  const sessionProfileId = connectSessionProfileId(request);
+  if (sessionProfileId) {
+    const sessionProfile = await getConnectProfile(sessionProfileId);
+    if (sessionProfile && sessionProfile.status !== 'closed') return sessionProfile;
+  }
+
+  const token = cleanText(fallbackToken, {min: 43, max: 43, required: true});
   const profile = await getConnectProfileByToken(token);
-  if (!profile) throw new Error('INVALID_PORTAL_LINK');
+  if (!profile || profile.status === 'closed') {
+    throw new Error('INVALID_PORTAL_LINK');
+  }
   return profile;
 }
 
@@ -70,7 +83,7 @@ export async function GET(request: Request): Promise<Response> {
   try {
     const url = new URL(request.url);
     const profile = await verifyAndActivateProfile(
-      await profileForToken(url.searchParams.get('token')),
+      await profileForRequest(request, url.searchParams.get('token')),
     );
     return privateJson(await buildConnectPortalState(profile));
   } catch {
@@ -86,7 +99,9 @@ export async function POST(request: Request): Promise<Response> {
     assertSameOrigin(request);
     const body = await request.json().catch(() => null) as Record<string, unknown> | null;
     if (!body) throw new Error('INVALID_REQUEST');
-    const profile = await verifyAndActivateProfile(await profileForToken(body.token));
+    const profile = await verifyAndActivateProfile(
+      await profileForRequest(request, body.token),
+    );
     const action = cleanText(body.action, {min: 3, max: 30, required: true}) as PortalAction;
     if (!ACTIONS.includes(action)) throw new Error('INVALID_ACTION');
 
@@ -106,7 +121,8 @@ export async function POST(request: Request): Promise<Response> {
       });
     }
 
-    const refreshed = await profileForToken(body.token);
+    const refreshed = await getConnectProfile(profile.id);
+    if (!refreshed) throw new Error('INVALID_PORTAL_LINK');
     return privateJson({ok: true, state: await buildConnectPortalState(refreshed)});
   } catch (error) {
     if (error instanceof DreamAuthorizationError) {
