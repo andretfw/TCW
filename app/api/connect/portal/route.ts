@@ -4,9 +4,9 @@ import {
   buildConnectPortalState,
   decideMatchProposal,
   endConnectConnection,
-  setConnectProfilePaused,
 } from '@/lib/connect/service';
 import {getConnectProfileByToken} from '@/lib/connect/store';
+import {setConnectProfilePausedWithSafeMatching} from '@/lib/connect/survivor-matching';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -57,7 +57,7 @@ export async function POST(request: Request): Promise<Response> {
         decision: action === 'accept-proposal' ? 'accept' : 'decline',
       });
     } else if (action === 'pause' || action === 'resume') {
-      await setConnectProfilePaused(profile, action === 'pause');
+      await setConnectProfilePausedWithSafeMatching(profile, action === 'pause');
     } else {
       await endConnectConnection({
         profile,
