@@ -151,7 +151,11 @@ function MentorReviewCard({
   const [experienceVerified, setExperienceVerified] = useState(false);
   const [method, setMethod] = useState<MentorVerificationMethod>('video-call');
   const [note, setNote] = useState('');
-  const reviewable = ['pending-review', 'review-rejected'].includes(mentor.status);
+  const reviewable = (
+    mentor.status !== 'closed' &&
+    mentor.status !== 'suspended' &&
+    mentor.mentorReview?.status !== 'approved'
+  );
 
   return (
     <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -300,7 +304,9 @@ export default function AdminConnectSafety() {
   }
 
   const pendingMentors = useMemo(() => data.mentors.filter((mentor) => (
-    ['pending-review', 'review-rejected'].includes(mentor.status)
+    mentor.status !== 'closed' &&
+    mentor.status !== 'suspended' &&
+    mentor.mentorReview?.status !== 'approved'
   )), [data.mentors]);
   const reviewedMentors = useMemo(() => data.mentors.filter((mentor) => !pendingMentors.includes(mentor)), [data.mentors, pendingMentors]);
   const openIncidents = data.incidents.filter((incident) => ['open', 'reviewing'].includes(incident.status)).length;
