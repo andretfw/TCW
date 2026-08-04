@@ -279,6 +279,18 @@ export async function decideMatchProposal(input: {
   if (!isSurvivor && !isWarrior) throw new Error('PROPOSAL_NOT_FOUND');
   if (new Date(proposal.expiresAt) <= new Date()) throw new Error('PROPOSAL_EXPIRED');
 
+  if (input.decision === 'decline') {
+    const updated = await mutateMatchProposal(proposal.id, (record) => {
+      if (!isProposalOpen(record)) throw new Error('PROPOSAL_NOT_ACTIVE');
+      record.status = 'declined';
+      record.declinedBy = input.profile.role;
+      record.updatedAt = new Date().toISOString();
+    });
+    if (!updated) throw new Error('PROPOSAL_NOT_FOUND');
+    await createAutomaticMatchesForProfile(proposal.warriorId);
+    return;
+  }
+
   const [currentSurvivor, currentWarrior] = await Promise.all([
     getConnectProfile(proposal.survivorId),
     getConnectProfile(proposal.warriorId),
@@ -293,21 +305,8 @@ export async function decideMatchProposal(input: {
   ) {
     throw new Error('PROPOSAL_NOT_ACTIVE');
   }
-
-  if (input.decision === 'accept' && !input.safetyConfirmed) {
+  if (!input.safetyConfirmed) {
     throw new Error('SAFETY_CONFIRMATION_REQUIRED');
-  }
-
-  if (input.decision === 'decline') {
-    const updated = await mutateMatchProposal(proposal.id, (record) => {
-      if (!isProposalOpen(record)) throw new Error('PROPOSAL_NOT_ACTIVE');
-      record.status = 'declined';
-      record.declinedBy = input.profile.role;
-      record.updatedAt = new Date().toISOString();
-    });
-    if (!updated) throw new Error('PROPOSAL_NOT_FOUND');
-    await createAutomaticMatchesForProfile(proposal.warriorId);
-    return;
   }
 
   if (isSurvivor) {
