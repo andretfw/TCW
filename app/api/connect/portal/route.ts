@@ -1,6 +1,10 @@
 import {assertSameOrigin, DreamAuthorizationError} from '@/lib/dream-applications/security';
-import {sendConnectExceptionAlert} from '@/lib/connect/email';
+import {
+  sendConnectExceptionAlert,
+  sendMentorReviewPendingEmail,
+} from '@/lib/connect/email';
 import {cleanText, privateJson} from '@/lib/connect/security';
+import {reportAndBlock} from '@/lib/connect/safeguarding';
 import {connectSessionProfileId} from '@/lib/connect/session';
 import {
   buildConnectPortalState,
@@ -17,7 +21,11 @@ import {
   createAutomaticMatchesForSurvivor,
   setConnectProfilePausedWithSafeMatching,
 } from '@/lib/connect/survivor-matching';
-import type {ConnectProfile} from '@/lib/connect/types';
+import {
+  CONNECT_INCIDENT_CATEGORIES,
+  type ConnectIncidentCategory,
+  type ConnectProfile,
+} from '@/lib/connect/types';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -29,6 +37,7 @@ const ACTIONS = [
   'resume',
   'end',
   'end-rematch',
+  'report-block',
 ] as const;
 type PortalAction = (typeof ACTIONS)[number];
 
@@ -53,26 +62,43 @@ async function profileForRequest(
 async function verifyAndActivateProfile(profile: ConnectProfile): Promise<ConnectProfile> {
   if (profile.status !== 'pending-verification') return profile;
 
-  const activatedAt = new Date().toISOString();
+  const verifiedAt = new Date().toISOString();
   const mutation = await mutateConnectProfile(profile.id, (record) => {
     if (record.status !== 'pending-verification') return false;
-    record.status = 'active';
-    record.updatedAt = activatedAt;
+    record.emailVerifiedAt = verifiedAt;
+    if (record.role === 'survivor') {
+      record.status = 'pending-review';
+      record.mentorReview = {
+        status: 'pending',
+        identityVerified: false,
+        survivorExperienceVerified: false,
+      };
+    } else {
+      record.status = 'active';
+    }
+    record.updatedAt = verifiedAt;
     return true;
   });
   const activated = mutation?.record || profile;
 
   if (mutation?.result) {
-    const matching = activated.role === 'survivor'
-      ? createAutomaticMatchesForSurvivor(activated.id)
-      : createAutomaticMatchesForProfile(activated.id);
-    try {
-      await matching;
-    } catch {
-      await sendConnectExceptionAlert({
-        reference: activated.reference,
-        reason: 'POST_VERIFICATION_MATCHING_FAILED',
-      }).catch(() => undefined);
+    if (activated.role === 'survivor') {
+      await Promise.allSettled([
+        sendMentorReviewPendingEmail(activated),
+        sendConnectExceptionAlert({
+          reference: activated.reference,
+          reason: 'MENTOR_REVIEW_REQUIRED',
+        }),
+      ]);
+    } else {
+      try {
+        await createAutomaticMatchesForProfile(activated.id);
+      } catch {
+        await sendConnectExceptionAlert({
+          reference: activated.reference,
+          reason: 'POST_VERIFICATION_MATCHING_FAILED',
+        }).catch(() => undefined);
+      }
     }
   }
 
@@ -110,6 +136,23 @@ export async function POST(request: Request): Promise<Response> {
         profile,
         proposalId: cleanText(body.proposalId, {min: 20, max: 80, required: true}),
         decision: action === 'accept-proposal' ? 'accept' : 'decline',
+        safetyConfirmed: action === 'accept-proposal' && body.safetyConfirmed === true,
+      });
+    } else if (action === 'report-block') {
+      const category = cleanText(body.category, {min: 3, max: 40, required: true});
+      if (!CONNECT_INCIDENT_CATEGORIES.includes(category as ConnectIncidentCategory)) {
+        throw new Error('INVALID_REPORT_CATEGORY');
+      }
+      await reportAndBlock({
+        reporter: profile,
+        proposalId: body.proposalId
+          ? cleanText(body.proposalId, {min: 20, max: 80, required: true})
+          : undefined,
+        connectionId: body.connectionId
+          ? cleanText(body.connectionId, {min: 20, max: 80, required: true})
+          : undefined,
+        category: category as ConnectIncidentCategory,
+        details: cleanText(body.details, {max: 1_000}) || undefined,
       });
     } else if (action === 'pause' || action === 'resume') {
       await setConnectProfilePausedWithSafeMatching(profile, action === 'pause');
