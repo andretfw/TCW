@@ -226,6 +226,59 @@ export async function sendMeetingScheduledEmail(
   });
 }
 
+const MENTOR_REVIEW_COPY: Record<ConnectLocale, {
+  pendingSubject: string;
+  pendingBody: (name: string, url: string) => string;
+  rejectedSubject: string;
+  rejectedBody: (name: string, url: string) => string;
+}> = {
+  en: {
+    pendingSubject: 'Your TCW Connect mentor profile is under review',
+    pendingBody: (name, url) => `Hi ${name},\n\nYour email is confirmed. Before a survivor mentor can enter matching, TCW verifies identity and lived cancer experience. The team may contact you using this email.\n\nYou can check your private status here:\n${url}\n\nTutti Cancer Warriors`,
+    rejectedSubject: 'Update about your TCW Connect mentor application',
+    rejectedBody: (name, url) => `Hi ${name},\n\nTCW could not approve this mentor profile for matching. Your profile remains private and no contact details have been shared.\n\nYour private status page:\n${url}\n\nTutti Cancer Warriors`,
+  },
+  ro: {
+    pendingSubject: 'Profilul tău de mentor TCW Connect este în verificare',
+    pendingBody: (name, url) => `Bună, ${name},\n\nAdresa de email este confirmată. Înainte ca un mentor supraviețuitor să intre în sistemul de potrivire, TCW verifică identitatea și experiența oncologică. Echipa te poate contacta la această adresă.\n\nPoți verifica statusul privat aici:\n${url}\n\nTutti Cancer Warriors`,
+    rejectedSubject: 'Actualizare privind cererea ta de mentor TCW Connect',
+    rejectedBody: (name, url) => `Bună, ${name},\n\nTCW nu a putut aproba acest profil de mentor pentru potrivire. Profilul rămâne privat și nicio dată de contact nu a fost transmisă.\n\nPagina ta privată:\n${url}\n\nTutti Cancer Warriors`,
+  },
+  es: {
+    pendingSubject: 'Tu perfil de mentor de TCW Connect está en revisión',
+    pendingBody: (name, url) => `Hola, ${name}:\n\nTu correo está confirmado. Antes de que un mentor superviviente entre en el sistema, TCW verifica su identidad y experiencia con el cáncer. El equipo puede contactarte en este correo.\n\nConsulta tu estado privado aquí:\n${url}\n\nTutti Cancer Warriors`,
+    rejectedSubject: 'Actualización sobre tu solicitud de mentor de TCW Connect',
+    rejectedBody: (name, url) => `Hola, ${name}:\n\nTCW no pudo aprobar este perfil de mentor. El perfil sigue privado y no se compartieron datos de contacto.\n\nTu página privada:\n${url}\n\nTutti Cancer Warriors`,
+  },
+};
+
+export async function sendMentorReviewPendingEmail(
+  profile: ConnectProfile,
+): Promise<void> {
+  const copy = MENTOR_REVIEW_COPY[profile.locale];
+  await sendConnectEmail({
+    to: profile.email,
+    subject: copy.pendingSubject,
+    body: copy.pendingBody(profile.firstName, connectPortalUrl(profile)),
+  });
+}
+
+export async function sendMentorReviewDecisionEmail(
+  profile: ConnectProfile,
+  approved: boolean,
+): Promise<void> {
+  if (approved) {
+    await sendConnectWelcomeEmail(profile);
+    return;
+  }
+  const copy = MENTOR_REVIEW_COPY[profile.locale];
+  await sendConnectEmail({
+    to: profile.email,
+    subject: copy.rejectedSubject,
+    body: copy.rejectedBody(profile.firstName, connectPortalUrl(profile)),
+  });
+}
+
 export async function sendConnectExceptionAlert(input: {
   reference: string;
   reason: string;
