@@ -34,7 +34,8 @@ type PortalAction =
   | 'resume'
   | 'end'
   | 'end-rematch'
-  | 'report-block';
+  | 'report-block'
+  | 'select-meeting-time';
 
 const TOKEN_STORAGE_KEY = 'tcw_connect_private_portal_token';
 
@@ -75,7 +76,17 @@ const COPY = {
     connectionTitle: 'Your TCW Connect connection',
     meetScheduled: 'Your first conversation is scheduled',
     scheduling: 'TCW is arranging your first conversation.',
-    schedulingHelp: 'The system could not find or create a shared meeting automatically. TCW has been notified and will handle this exception.',
+    schedulingHelp: 'The system could not find shared meeting options. TCW has been notified and will handle this exception.',
+    chooseTimeTitle: 'Choose your first conversation',
+    chooseTimeIntro: 'These three 45-minute options work for both availability windows. Google Meet is created only when you both confirm the same time.',
+    yourChoice: 'Your choice',
+    theirChoice: 'Their choice',
+    selectTime: 'Choose this time',
+    waitingForTheirChoice: 'Your choice is saved. Waiting for the other person.',
+    theirChoiceReady: 'The other person has chosen a time. Confirm the same option or choose another.',
+    choicesDiffer: 'You chose different times. Choose the option marked “Their choice” to agree, or wait for them to change.',
+    creatingMeet: 'You both confirmed this time. Creating the private Google Meet…',
+    retryScheduling: 'Google Meet could not be created. Choose the agreed time again to retry.',
     joinMeet: 'Join Google Meet',
     calendar: 'Open calendar event',
     end: 'End this connection',
@@ -153,7 +164,17 @@ const COPY = {
     connectionTitle: 'Conexiunea ta TCW Connect',
     meetScheduled: 'Prima conversație este programată',
     scheduling: 'TCW programează prima conversație.',
-    schedulingHelp: 'Sistemul nu a putut găsi sau crea automat o întâlnire comună. TCW a fost notificat și va gestiona această excepție.',
+    schedulingHelp: 'Sistemul nu a putut găsi opțiuni comune pentru întâlnire. TCW a fost notificat și va gestiona această excepție.',
+    chooseTimeTitle: 'Alege prima conversație',
+    chooseTimeIntro: 'Aceste trei opțiuni de câte 45 de minute se potrivesc disponibilității amândurora. Google Meet este creat numai când confirmați amândoi același interval.',
+    yourChoice: 'Alegerea ta',
+    theirChoice: 'Alegerea celeilalte persoane',
+    selectTime: 'Alege acest interval',
+    waitingForTheirChoice: 'Alegerea ta este salvată. Așteptăm răspunsul celeilalte persoane.',
+    theirChoiceReady: 'Cealaltă persoană a ales un interval. Confirmă aceeași opțiune sau alege alta.',
+    choicesDiffer: 'Ați ales intervale diferite. Alege opțiunea marcată „Alegerea celeilalte persoane” pentru a confirma același interval sau așteaptă schimbarea alegerii.',
+    creatingMeet: 'Ați confirmat amândoi același interval. Creăm Google Meet-ul privat…',
+    retryScheduling: 'Google Meet nu a putut fi creat. Alege din nou intervalul comun pentru a reîncerca.',
     joinMeet: 'Intră pe Google Meet',
     calendar: 'Deschide evenimentul din calendar',
     end: 'Încheie conexiunea',
@@ -231,7 +252,17 @@ const COPY = {
     connectionTitle: 'Tu conexión de TCW Connect',
     meetScheduled: 'Tu primera conversación está programada',
     scheduling: 'TCW está organizando la primera conversación.',
-    schedulingHelp: 'El sistema no pudo encontrar o crear automáticamente un horario común. TCW ha sido notificado y gestionará esta excepción.',
+    schedulingHelp: 'El sistema no pudo encontrar opciones comunes para la reunión. TCW ha sido notificado y gestionará esta excepción.',
+    chooseTimeTitle: 'Elige la primera conversación',
+    chooseTimeIntro: 'Estas tres opciones de 45 minutos encajan con la disponibilidad de ambas personas. Google Meet se crea solo cuando ambas confirman el mismo horario.',
+    yourChoice: 'Tu elección',
+    theirChoice: 'Su elección',
+    selectTime: 'Elegir este horario',
+    waitingForTheirChoice: 'Tu elección está guardada. Esperamos la respuesta de la otra persona.',
+    theirChoiceReady: 'La otra persona eligió un horario. Confirma la misma opción o elige otra.',
+    choicesDiffer: 'Habéis elegido horarios diferentes. Elige la opción marcada “Su elección” para coincidir o espera a que cambie.',
+    creatingMeet: 'Ambas personas confirmasteis el mismo horario. Estamos creando el Google Meet privado…',
+    retryScheduling: 'No se pudo crear Google Meet. Elige de nuevo el horario acordado para reintentarlo.',
     joinMeet: 'Unirse a Google Meet',
     calendar: 'Abrir evento del calendario',
     end: 'Finalizar esta conexión',
@@ -286,6 +317,21 @@ function statusLabel(
   if (status === 'suspended') return text.suspended;
   if (status === 'closed') return text.closed;
   return text.active;
+}
+
+function formatMeetingDate(
+  value: string,
+  timezone: string,
+  locale: Locale,
+): string {
+  return new Intl.DateTimeFormat(
+    locale === 'ro' ? 'ro-RO' : locale === 'es' ? 'es-ES' : 'en-GB',
+    {
+      dateStyle: 'full',
+      timeStyle: 'short',
+      timeZone: timezone,
+    },
+  ).format(new Date(value));
 }
 
 function ProfileDetails({
@@ -433,14 +479,11 @@ export default function ConnectPortal({locale}: {locale: Locale}) {
 
   const meetingDate = useMemo(() => {
     if (!state?.connection?.meeting) return '';
-    return new Intl.DateTimeFormat(
-      locale === 'ro' ? 'ro-RO' : locale === 'es' ? 'es-ES' : 'en-GB',
-      {
-        dateStyle: 'full',
-        timeStyle: 'short',
-        timeZone: state.profile.timezone,
-      },
-    ).format(new Date(state.connection.meeting.startsAt));
+    return formatMeetingDate(
+      state.connection.meeting.startsAt,
+      state.profile.timezone,
+      locale,
+    );
   }, [locale, state]);
 
   if (status === 'loading') {
@@ -610,11 +653,111 @@ export default function ConnectPortal({locale}: {locale: Locale}) {
                   )}
                 </div>
               </div>
+            ) : state.connection.schedulingOptions?.length ? (
+              <div className="mt-7 rounded-2xl border border-indigo-200 bg-indigo-50 p-5 md:p-6">
+                <p className="flex items-center gap-2 text-lg font-black text-indigo-950">
+                  <CalendarDays className="h-5 w-5" /> {text.chooseTimeTitle}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-indigo-900">
+                  {text.chooseTimeIntro}
+                </p>
+                <div className="mt-5 grid gap-3">
+                  {state.connection.schedulingOptions.map((option) => {
+                    const mine = state.connection?.selectedOptionId === option.id;
+                    const theirs =
+                      state.connection?.counterpartSelectedOptionId === option.id;
+                    return (
+                      <button
+                        key={option.id}
+                        type="button"
+                        aria-pressed={mine}
+                        disabled={
+                          Boolean(busy) ||
+                          Boolean(state.connection?.schedulingInProgress)
+                        }
+                        onClick={() => void act('select-meeting-time', {
+                          connectionId: state.connection?.id || '',
+                          optionId: option.id,
+                        })}
+                        className={`rounded-2xl border-2 p-4 text-left transition disabled:cursor-wait disabled:opacity-70 ${
+                          mine
+                            ? 'border-indigo-700 bg-white shadow-md'
+                            : 'border-white bg-white/80 hover:border-indigo-300'
+                        }`}
+                      >
+                        <span className="block font-black text-neutral-900">
+                          {formatMeetingDate(
+                            option.startsAt,
+                            state.profile.timezone,
+                            locale,
+                          )}
+                        </span>
+                        <span className="mt-2 flex flex-wrap gap-2">
+                          {mine && (
+                            <span className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-black text-indigo-800">
+                              {text.yourChoice}
+                            </span>
+                          )}
+                          {theirs && (
+                            <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-black text-purple-800">
+                              {text.theirChoice}
+                            </span>
+                          )}
+                          {!mine && (
+                            <span className="text-xs font-bold text-indigo-700">
+                              {text.selectTime}
+                            </span>
+                          )}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+                {state.connection.schedulingInProgress && (
+                  <p className="mt-4 flex items-start gap-2 rounded-xl bg-white p-4 font-bold text-indigo-900">
+                    <LoaderCircle className="mt-0.5 h-5 w-5 shrink-0 animate-spin" />
+                    {text.creatingMeet}
+                  </p>
+                )}
+                {!state.connection.schedulingInProgress &&
+                  state.connection.schedulingError && (
+                    <p className="mt-4 flex items-start gap-2 rounded-xl border border-amber-200 bg-amber-50 p-4 font-bold text-amber-900">
+                      <CircleAlert className="mt-0.5 h-5 w-5 shrink-0" />
+                      {text.retryScheduling}
+                    </p>
+                  )}
+                {!state.connection.schedulingInProgress &&
+                  !state.connection.schedulingError &&
+                  state.connection.selectedOptionId &&
+                  state.connection.counterpartSelectedOptionId &&
+                  state.connection.selectedOptionId !==
+                    state.connection.counterpartSelectedOptionId && (
+                    <p className="mt-4 rounded-xl bg-amber-50 p-4 text-sm font-bold text-amber-900">
+                      {text.choicesDiffer}
+                    </p>
+                  )}
+                {!state.connection.schedulingInProgress &&
+                  !state.connection.schedulingError &&
+                  state.connection.selectedOptionId &&
+                  !state.connection.counterpartSelectedOptionId && (
+                    <p className="mt-4 rounded-xl bg-white p-4 text-sm font-bold text-indigo-900">
+                      {text.waitingForTheirChoice}
+                    </p>
+                  )}
+                {!state.connection.schedulingInProgress &&
+                  !state.connection.schedulingError &&
+                  !state.connection.selectedOptionId &&
+                  state.connection.counterpartSelectedOptionId && (
+                    <p className="mt-4 rounded-xl bg-white p-4 text-sm font-bold text-indigo-900">
+                      {text.theirChoiceReady}
+                    </p>
+                  )}
+              </div>
             ) : (
-              <div className={`mt-7 rounded-2xl p-5 ${state.connection.schedulingError ? 'border border-amber-200 bg-amber-50' : 'bg-indigo-50'}`}>
+              <div className="mt-7 rounded-2xl border border-amber-200 bg-amber-50 p-5">
                 <p className="flex items-start gap-2 font-bold text-neutral-800">
-                  {state.connection.schedulingError ? <CircleAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-700" /> : <LoaderCircle className="mt-0.5 h-5 w-5 shrink-0 animate-spin text-indigo-700" />}
-                  {state.connection.schedulingError ? text.schedulingHelp : text.scheduling}
+                  <CircleAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-700" />
+                  {text.schedulingHelp}
                 </p>
               </div>
             )}
