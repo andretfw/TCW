@@ -8,7 +8,12 @@ import {
   findDonationByTransactionIds,
   recordVerifiedDonation,
 } from '@/lib/donation-tracking';
+import {
+  verifyCryptoDonationIntent,
+  type CryptoDonationIntent,
+} from '@/lib/crypto-donation-intent';
 
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const ETH_KRAKEN_ADDRESS = '0x54b9694cebc596d8c712ab225347343e2a7bd7e6';
@@ -19,6 +24,7 @@ const TRANSFER_TOPIC =
 const BITCOIN_TRANSACTION_HASH_PATTERN = /^[a-fA-F0-9]{64}$/;
 const EVM_TRANSACTION_HASH_PATTERN = /^0x[a-fA-F0-9]{64}$/;
 const EXTERNAL_REQUEST_TIMEOUT_MS = 10_000;
+const INTENT_TRANSACTION_CLOCK_SKEW_MS = 2 * 60 * 1000;
 
 type EvmNetwork = 'ethereum' | 'base';
 type EvmAsset = 'eth' | 'usdc';
@@ -156,13 +162,30 @@ async function getKrakenEurRate(asset: CryptoAsset) {
   return rate;
 }
 
-function ensureCampaignStart(transactionTimeMs: number, startedAt: string) {
+function ensureTransactionWindow(
+  transactionTimeMs: number,
+  startedAt: string,
+  intentIssuedAt: number,
+) {
   if (transactionTimeMs < new Date(startedAt).getTime()) {
     throw new Error('This transaction predates the campaign.');
   }
+
+  if (
+    transactionTimeMs <
+    intentIssuedAt - INTENT_TRANSACTION_CLOCK_SKEW_MS
+  ) {
+    throw new Error(
+      'This transaction predates this donation session. Copy the TCW address from the intended dream before sending.',
+    );
+  }
 }
 
-async function verifyBitcoin(txHash: string, startedAt: string) {
+async function verifyBitcoin(
+  txHash: string,
+  startedAt: string,
+  intentIssuedAt: number,
+) {
   if (!BITCOIN_TRANSACTION_HASH_PATTERN.test(txHash)) {
     throw new Error('Invalid Bitcoin transaction hash.');
   }
@@ -183,7 +206,11 @@ async function verifyBitcoin(txHash: string, startedAt: string) {
     throw new Error('Bitcoin transaction is not confirmed yet.');
   }
 
-  ensureCampaignStart(Number(tx.status.block_time) * 1000, startedAt);
+  ensureTransactionWindow(
+    Number(tx.status.block_time) * 1000,
+    startedAt,
+    intentIssuedAt,
+  );
 
   const satoshis = (tx.vout || []).reduce((total: number, output: any) => {
     return output.scriptpubkey_address === BTC_ADDRESS
@@ -204,6 +231,7 @@ async function verifyEvmTransaction(
   asset: EvmAsset,
   destination: Destination,
   startedAt: string,
+  intentIssuedAt: number,
 ) {
   const tx = await evmRpc(network, 'eth_getTransactionByHash', [txHash]);
   const receipt = await evmRpc(network, 'eth_getTransactionReceipt', [txHash]);
@@ -222,7 +250,11 @@ async function verifyEvmTransaction(
   if (!block?.timestamp) {
     throw new Error('Unable to confirm the transaction time.');
   }
-  ensureCampaignStart(Number(BigInt(block.timestamp)) * 1000, startedAt);
+  ensureTransactionWindow(
+    Number(BigInt(block.timestamp)) * 1000,
+    startedAt,
+    intentIssuedAt,
+  );
 
   const target =
     destination === 'metamask' ? ETH_METAMASK_ADDRESS : ETH_KRAKEN_ADDRESS;
@@ -272,6 +304,7 @@ async function verifyOnSelectedOrDetectedNetwork(
   destination: Destination,
   startedAt: string,
   requestedNetwork: string,
+  intentIssuedAt: number,
 ) {
   const networks: EvmNetwork[] =
     requestedNetwork === 'ethereum' || requestedNetwork === 'base'
@@ -288,6 +321,7 @@ async function verifyOnSelectedOrDetectedNetwork(
         asset,
         destination,
         startedAt,
+        intentIssuedAt,
       );
       return {amountOriginal, network};
     } catch (error) {
@@ -305,20 +339,70 @@ async function verifyOnSelectedOrDetectedNetwork(
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const campaignId = String(body.campaignId || '');
-    const asset = String(body.asset || '').toLowerCase();
+    const requestedCampaignId = String(body.campaignId || '');
+    const requestedAsset = String(body.asset || '').toLowerCase();
+    const requestedDestination = String(body.destination || '').toLowerCase();
+    const intentToken = String(body.intentToken || '');
     const txHash = String(body.txHash || '').trim();
-    const destination: Destination =
-      body.destination === 'metamask' ? 'metamask' : 'kraken';
     const requestedNetwork = String(body.network || '').toLowerCase();
 
-    if (!isCampaignId(campaignId)) {
-      return NextResponse.json({error: 'Invalid campaign.'}, {status: 400});
-    }
-    if (!['btc', 'eth', 'usdc'].includes(asset)) {
+    if (!intentToken) {
       return NextResponse.json(
-        {error: 'Unsupported crypto asset.'},
+        {
+          error:
+            'Copy the TCW address from the intended dream before verifying.',
+          code: 'intent_required',
+        },
         {status: 400},
+      );
+    }
+
+    let intent: CryptoDonationIntent;
+    try {
+      intent = verifyCryptoDonationIntent(intentToken);
+    } catch (intentError) {
+      return NextResponse.json(
+        {
+          error:
+            intentError instanceof Error
+              ? intentError.message
+              : 'Invalid crypto donation session.',
+          code: 'intent_invalid',
+        },
+        {status: 400},
+      );
+    }
+
+    const campaignId = intent.campaignId;
+    const asset = intent.asset;
+    const destination: Destination = intent.destination;
+
+    if (
+      !isCampaignId(requestedCampaignId) ||
+      requestedCampaignId !== campaignId
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            'This crypto donation session belongs to another campaign.',
+          code: 'campaign_mismatch',
+          campaignId,
+        },
+        {status: 409},
+      );
+    }
+    if (
+      requestedAsset !== asset ||
+      (asset !== 'btc' && requestedDestination !== destination)
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            'The asset or destination does not match this donation session. Copy the address again.',
+          code: 'intent_mismatch',
+          campaignId,
+        },
+        {status: 409},
       );
     }
     if (!txHash) {
@@ -359,7 +443,11 @@ export async function POST(request: NextRequest) {
     let network: 'bitcoin' | EvmNetwork;
 
     if (typedAsset === 'btc') {
-      amountOriginal = await verifyBitcoin(normalizedHash, campaign.startedAt);
+      amountOriginal = await verifyBitcoin(
+        normalizedHash,
+        campaign.startedAt,
+        intent.issuedAt,
+      );
       network = 'bitcoin';
     } else {
       const verified = await verifyOnSelectedOrDetectedNetwork(
@@ -368,6 +456,7 @@ export async function POST(request: NextRequest) {
         destination,
         campaign.startedAt,
         requestedNetwork,
+        intent.issuedAt,
       );
       amountOriginal = verified.amountOriginal;
       network = verified.network;
