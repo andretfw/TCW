@@ -35,7 +35,7 @@ const COPY = {
     how: 'How it works',
     steps: [
       ['Create a private profile', 'We collect only the information needed for matching.'],
-      ['Confirm your email', 'Matching starts only after you open your private email link.'],
+      ['Confirm your email', 'Warriors enter matching after confirmation. Survivor mentors are reviewed by TCW before matching.'],
       ['Meet after mutual consent', 'Both people accept before TCW creates a Google Meet.'],
     ],
     formTitle: 'Create your private TCW Connect profile',
@@ -49,9 +49,11 @@ const COPY = {
     consentContact: 'I consent to my email being shared with the matched person only after we both accept.',
     consentMeeting: 'I consent to TCW automatically scheduling a private Google Meet from our shared availability.',
     consentRules: 'I am 18 or older and agree to the peer-support rules. I understand this is not medical care, therapy or an emergency service.',
+    consentSafety: 'I understand I can report and block at any time. A report immediately stops contact, suspends the reported profile for TCW review and cancels future meetings.',
     submit: 'Join TCW Connect', submitting: 'Creating your private profile…',
     successTitle: 'Check your email to activate your profile.',
     successText: 'We sent you a private TCW Connect link. Matching begins only after you open it and confirm control of the email address.',
+    successMentorText: 'We sent you a private link to confirm your email. After confirmation, TCW will verify your identity and survivor experience before your profile can enter matching.',
     reference: 'Reference', formError: 'Complete every required field and choose at least one option in each section.', serverError: 'We could not create the profile. Check the form and try again.',
     policy: 'Read the peer-support policy', privacy: 'Health information is encrypted and never displayed in a public directory.',
   },
@@ -67,7 +69,7 @@ const COPY = {
     how: 'Cum funcționează',
     steps: [
       ['Creezi un profil privat', 'Colectăm doar informațiile necesare pentru potrivire.'],
-      ['Confirmi adresa de email', 'Potrivirea începe numai după ce deschizi linkul privat primit.'],
+      ['Confirmi adresa de email', 'Luptătorii intră în potrivire după confirmare. Mentorii sunt verificați de TCW înainte.'],
       ['Vă întâlniți după acceptul reciproc', 'Ambele persoane acceptă înainte ca TCW să creeze un Google Meet.'],
     ],
     formTitle: 'Creează profilul tău privat TCW Connect',
@@ -81,9 +83,11 @@ const COPY = {
     consentContact: 'Consimt ca adresa mea de email să fie transmisă persoanei potrivite numai după ce acceptăm amândoi.',
     consentMeeting: 'Consimt ca TCW să programeze automat un Google Meet privat din disponibilitatea noastră comună.',
     consentRules: 'Am cel puțin 18 ani și accept regulile programului. Înțeleg că acesta nu este serviciu medical, terapie sau serviciu de urgență.',
+    consentSafety: 'Înțeleg că pot raporta și bloca oricând. O sesizare oprește imediat contactul, suspendă profilul raportat pentru verificare și anulează întâlnirile viitoare.',
     submit: 'Înscrie-te în TCW Connect', submitting: 'Creăm profilul tău privat…',
     successTitle: 'Verifică emailul pentru a activa profilul.',
     successText: 'Ți-am trimis un link privat TCW Connect. Potrivirea începe numai după ce îl deschizi și confirmi că adresa de email îți aparține.',
+    successMentorText: 'Ți-am trimis un link privat pentru confirmarea emailului. După confirmare, TCW va verifica identitatea și experiența oncologică înainte ca profilul să intre în potrivire.',
     reference: 'Referință', formError: 'Completează toate câmpurile obligatorii și alege cel puțin o opțiune în fiecare secțiune.', serverError: 'Profilul nu a putut fi creat. Verifică formularul și încearcă din nou.',
     policy: 'Citește politica de sprijin între persoane', privacy: 'Informațiile despre sănătate sunt criptate și nu apar niciodată într-un director public.',
   },
@@ -99,7 +103,7 @@ const COPY = {
     how: 'Cómo funciona',
     steps: [
       ['Crea un perfil privado', 'Solo recogemos la información necesaria para encontrar una coincidencia.'],
-      ['Confirma tu correo', 'Las coincidencias comienzan solo después de abrir el enlace privado.'],
+      ['Confirma tu correo', 'Las personas con cáncer entran tras confirmar. TCW revisa a los mentores antes.'],
       ['Reuníos con consentimiento mutuo', 'Ambas personas aceptan antes de que TCW cree un Google Meet.'],
     ],
     formTitle: 'Crea tu perfil privado de TCW Connect',
@@ -113,9 +117,11 @@ const COPY = {
     consentContact: 'Acepto que mi correo se comparta con la persona asignada solo después de que ambos aceptemos.',
     consentMeeting: 'Acepto que TCW programe automáticamente un Google Meet privado según nuestra disponibilidad común.',
     consentRules: 'Tengo 18 años o más y acepto las reglas. Entiendo que no es atención médica, terapia ni un servicio de emergencia.',
+    consentSafety: 'Entiendo que puedo reportar y bloquear en cualquier momento. Un reporte detiene el contacto, suspende el perfil para revisión y cancela las reuniones futuras.',
     submit: 'Unirme a TCW Connect', submitting: 'Creando tu perfil privado…',
     successTitle: 'Revisa tu correo para activar el perfil.',
     successText: 'Te enviamos un enlace privado de TCW Connect. Las coincidencias comienzan solo después de abrirlo y confirmar que controlas esa dirección.',
+    successMentorText: 'Te enviamos un enlace privado para confirmar tu correo. Después, TCW verificará tu identidad y experiencia antes de que el perfil entre en el sistema.',
     reference: 'Referencia', formError: 'Completa todos los campos obligatorios y elige al menos una opción en cada sección.', serverError: 'No pudimos crear el perfil. Revisa el formulario e inténtalo de nuevo.',
     policy: 'Leer la política de apoyo entre pares', privacy: 'Tu información de salud está cifrada y nunca aparece en un directorio público.',
   },
@@ -286,6 +292,7 @@ export default function ConnectApplication() {
             limitedProfileSharing: data.has('consentAutomated'),
             mutualContactSharing: data.has('consentContact'),
             automatedMeetingScheduling: data.has('consentMeeting'),
+            safetyAndReporting: data.has('consentSafety'),
             programRules: data.has('consentRules'),
           },
         }),
@@ -389,7 +396,7 @@ export default function ConnectApplication() {
 
               <fieldset className="space-y-3 border-t border-neutral-100 pt-8"><legend className="text-xl font-black text-neutral-900">{text.consent}</legend>
                 {([
-                  ['consentHealth', text.consentHealth], ['consentAutomated', text.consentAutomated], ['consentContact', text.consentContact], ['consentMeeting', text.consentMeeting], ['consentRules', text.consentRules],
+                  ['consentHealth', text.consentHealth], ['consentAutomated', text.consentAutomated], ['consentContact', text.consentContact], ['consentMeeting', text.consentMeeting], ['consentSafety', text.consentSafety], ['consentRules', text.consentRules],
                 ] as const).map(([name, wording]) => <label key={name} className="flex items-start gap-3 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-4 text-sm leading-relaxed text-neutral-700"><input type="checkbox" name={name} required className="mt-1 h-4 w-4 shrink-0 accent-indigo-600" />{wording}</label>)}
               </fieldset>
 
@@ -401,7 +408,7 @@ export default function ConnectApplication() {
         )}
 
         {status === 'success' && (
-          <section className="mx-auto max-w-2xl rounded-[2rem] border border-emerald-200 bg-white p-10 text-center shadow-xl"><CheckCircle2 className="mx-auto h-16 w-16 rounded-full bg-emerald-100 p-3 text-emerald-700" /><h2 className="mt-6 text-3xl font-black text-neutral-900">{text.successTitle}</h2><p className="mx-auto mt-4 max-w-xl leading-relaxed text-neutral-600">{text.successText}</p>{message && <p className="mt-5 rounded-xl bg-neutral-50 px-4 py-3 font-black text-neutral-700">{text.reference}: {message}</p>}</section>
+          <section className="mx-auto max-w-2xl rounded-[2rem] border border-emerald-200 bg-white p-10 text-center shadow-xl"><CheckCircle2 className="mx-auto h-16 w-16 rounded-full bg-emerald-100 p-3 text-emerald-700" /><h2 className="mt-6 text-3xl font-black text-neutral-900">{text.successTitle}</h2><p className="mx-auto mt-4 max-w-xl leading-relaxed text-neutral-600">{role === 'survivor' ? text.successMentorText : text.successText}</p>{message && <p className="mt-5 rounded-xl bg-neutral-50 px-4 py-3 font-black text-neutral-700">{text.reference}: {message}</p>}</section>
         )}
       </div>
     </main>
