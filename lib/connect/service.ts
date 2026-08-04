@@ -92,6 +92,7 @@ async function proposeBestSurvivor(
   const survivors = profiles.filter((profile) => (
     profile.role === 'survivor' &&
     profile.status === 'active' &&
+    profile.mentorReview?.status === 'approved' &&
     profile.activeConnections + survivorReservedCapacity(profile.id, proposals)
       < profile.maxConnections
   ));
@@ -129,6 +130,9 @@ export async function createAutomaticMatchesForProfile(
 ): Promise<number> {
   const profile = await getConnectProfile(profileId);
   if (!profile || profile.status !== 'active') return 0;
+  if (profile.role === 'survivor' && profile.mentorReview?.status !== 'approved') {
+    return 0;
+  }
 
   const profiles = await listConnectProfiles();
   let proposals = await listMatchProposals();
@@ -274,6 +278,21 @@ export async function decideMatchProposal(input: {
     && proposal.warriorId === input.profile.id;
   if (!isSurvivor && !isWarrior) throw new Error('PROPOSAL_NOT_FOUND');
   if (new Date(proposal.expiresAt) <= new Date()) throw new Error('PROPOSAL_EXPIRED');
+
+  const [currentSurvivor, currentWarrior] = await Promise.all([
+    getConnectProfile(proposal.survivorId),
+    getConnectProfile(proposal.warriorId),
+  ]);
+  if (!currentSurvivor || !currentWarrior) {
+    throw new Error('CONNECT_PROFILE_NOT_FOUND');
+  }
+  if (
+    currentSurvivor.mentorReview?.status !== 'approved' ||
+    !['active', 'matched'].includes(currentSurvivor.status) ||
+    currentWarrior.status !== 'active'
+  ) {
+    throw new Error('PROPOSAL_NOT_ACTIVE');
+  }
 
   if (input.decision === 'accept' && !input.safetyConfirmed) {
     throw new Error('SAFETY_CONFIRMATION_REQUIRED');
