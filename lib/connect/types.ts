@@ -106,6 +106,14 @@ export interface ConnectConsent {
   acceptedAt: string;
 }
 
+export interface ConnectMeetingReservation {
+  connectionId: string;
+  claimId: string;
+  startsAt: string;
+  endsAt: string;
+  createdAt: string;
+}
+
 export interface ConnectProfile {
   id: string;
   reference: string;
@@ -135,6 +143,7 @@ export interface ConnectProfile {
   mentorReview?: MentorReview;
   suspendedAt?: string;
   suspensionIncidentId?: string;
+  meetingReservations?: ConnectMeetingReservation[];
   consent: ConnectConsent;
   createdAt: string;
   updatedAt: string;
@@ -188,6 +197,23 @@ export interface ConnectMeeting {
   createdAt: string;
 }
 
+export interface ConnectSchedulingOption {
+  id: string;
+  startsAt: string;
+  endsAt: string;
+}
+
+export interface ConnectSchedulingSelection {
+  optionId: string;
+  selectedAt: string;
+}
+
+export interface ConnectSchedulingClaim {
+  id: string;
+  optionId: string;
+  claimedAt: string;
+}
+
 export interface ConnectConnection {
   id: string;
   proposalId: string;
@@ -195,6 +221,9 @@ export interface ConnectConnection {
   warriorId: string;
   status: ConnectionStatus;
   meeting?: ConnectMeeting;
+  schedulingOptions?: ConnectSchedulingOption[];
+  schedulingSelections?: Partial<Record<ConnectRole, ConnectSchedulingSelection>>;
+  schedulingClaim?: ConnectSchedulingClaim;
   schedulingError?: string;
   firstCheckInSentAt?: string;
   monthCheckInSentAt?: string;
@@ -294,6 +323,10 @@ export interface ConnectPortalState {
     status: ConnectionStatus;
     counterpart: PublicConnectProfile;
     meeting?: ConnectMeeting;
+    schedulingOptions?: ConnectSchedulingOption[];
+    selectedOptionId?: string;
+    counterpartSelectedOptionId?: string;
+    schedulingInProgress?: boolean;
     schedulingError?: boolean;
   };
 }
