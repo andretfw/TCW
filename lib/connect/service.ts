@@ -9,7 +9,7 @@ import {
   sendMeetingScheduledEmail,
   sendWarriorDecisionEmail,
 } from './email';
-import {createConnectMeeting} from './google-calendar';
+import {cancelConnectMeeting, createConnectMeeting} from './google-calendar';
 import {
   findNextCommonMeetingSlot,
   rankSurvivors,
@@ -263,6 +263,7 @@ export async function decideMatchProposal(input: {
   profile: ConnectProfile;
   proposalId: string;
   decision: 'accept' | 'decline';
+  safetyConfirmed?: boolean;
 }): Promise<void> {
   const proposal = await getMatchProposal(input.proposalId);
   if (!proposal) throw new Error('PROPOSAL_NOT_FOUND');
@@ -273,6 +274,10 @@ export async function decideMatchProposal(input: {
     && proposal.warriorId === input.profile.id;
   if (!isSurvivor && !isWarrior) throw new Error('PROPOSAL_NOT_FOUND');
   if (new Date(proposal.expiresAt) <= new Date()) throw new Error('PROPOSAL_EXPIRED');
+
+  if (input.decision === 'accept' && !input.safetyConfirmed) {
+    throw new Error('SAFETY_CONFIRMATION_REQUIRED');
+  }
 
   if (input.decision === 'decline') {
     const updated = await mutateMatchProposal(proposal.id, (record) => {
@@ -293,6 +298,7 @@ export async function decideMatchProposal(input: {
       const now = new Date().toISOString();
       record.status = 'pending-warrior';
       record.survivorAcceptedAt = now;
+      record.survivorSafetyConfirmedAt = now;
       record.updatedAt = now;
     });
     if (!updated) throw new Error('PROPOSAL_NOT_FOUND');
@@ -313,6 +319,7 @@ export async function decideMatchProposal(input: {
     const now = new Date().toISOString();
     record.status = 'accepted';
     record.warriorAcceptedAt = now;
+    record.warriorSafetyConfirmedAt = now;
     record.updatedAt = now;
   });
   if (!updated) throw new Error('PROPOSAL_NOT_FOUND');
@@ -324,7 +331,12 @@ export async function setConnectProfilePaused(
   paused: boolean,
 ): Promise<void> {
   await mutateConnectProfile(profile.id, (record) => {
-    if (record.status === 'closed') throw new Error('PROFILE_CLOSED');
+    if (!['active', 'paused'].includes(record.status)) {
+      throw new Error('PROFILE_NOT_MANAGEABLE');
+    }
+    if (record.role === 'survivor' && record.mentorReview?.status !== 'approved') {
+      throw new Error('MENTOR_APPROVAL_REQUIRED');
+    }
     if (record.activeConnections > 0 && paused) {
       throw new Error('ACTIVE_CONNECTION_EXISTS');
     }
@@ -352,10 +364,18 @@ export async function endConnectConnection(input: {
   if (!survivor || !warrior) throw new Error('CONNECT_PROFILE_NOT_FOUND');
 
   const now = new Date().toISOString();
+  if (connection.meeting) {
+    try {
+      await cancelConnectMeeting(connection.meeting.eventId);
+    } catch {
+      await safeExceptionAlert(input.profile.reference, 'CALENDAR_CANCELLATION_FAILED');
+    }
+  }
   await mutateConnectConnection(connection.id, (record) => {
     record.status = 'ended';
     record.endedAt = now;
     record.endedBy = input.profile.role;
+    record.endedReason = 'participant-ended';
     record.updatedAt = now;
   });
   await Promise.all([
