@@ -73,6 +73,7 @@ async function inspectPath(pathname) {
       finalPath: currentUrl.pathname,
       finalStatus: response.status,
       hops,
+      headers: response.headers,
       html,
     };
   }
@@ -80,7 +81,71 @@ async function inspectPath(pathname) {
   throw new Error(`more than ${MAX_REDIRECTS} redirects`);
 }
 
+
+function assertHeader(headers, name, expected) {
+  const actual = headers.get(name) || '';
+  if (actual !== expected) {
+    throw new Error(
+      `returned ${name}="${actual}" instead of "${expected}"`,
+    );
+  }
+}
+
+function assertSecurityHeaders(headers) {
+  const expected = {
+    'x-content-type-options': 'nosniff',
+    'referrer-policy': 'strict-origin-when-cross-origin',
+    'x-frame-options': 'SAMEORIGIN',
+    'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+    'strict-transport-security': 'max-age=31536000; includeSubDomains',
+  };
+  for (const [name, value] of Object.entries(expected)) {
+    assertHeader(headers, name, value);
+  }
+
+  const policy = headers.get('content-security-policy') || '';
+  const requiredDirectives = [
+    "default-src 'self'",
+    "base-uri 'self'",
+    "object-src 'none'",
+    "frame-ancestors 'self'",
+    "form-action 'self' https://www.paypal.com",
+    "script-src 'self' 'unsafe-inline'",
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data: blob: https:",
+    "font-src 'self' data:",
+    "connect-src 'self'",
+    "frame-src 'self' https:",
+    "media-src 'self' blob:",
+    "worker-src 'self' blob:",
+    "manifest-src 'self'",
+    'upgrade-insecure-requests',
+  ];
+  for (const directive of requiredDirectives) {
+    if (!policy.split(';').map((value) => value.trim()).includes(directive)) {
+      throw new Error(
+        `Content-Security-Policy is missing "${directive}"`,
+      );
+    }
+  }
+}
+
+function assertPrivateHeaders(headers) {
+  const cacheControl = headers.get('cache-control') || '';
+  if (!cacheControl.includes('no-store') || !cacheControl.includes('private')) {
+    throw new Error(
+      `returned Cache-Control="${cacheControl}" without private no-store protection`,
+    );
+  }
+  assertHeader(
+    headers,
+    'x-robots-tag',
+    'noindex, nofollow, noarchive',
+  );
+}
+
 function assertDocument(pathname, result) {
+  assertSecurityHeaders(result.headers);
   if (result.finalStatus !== 200) {
     throw new Error(`finished with HTTP ${result.finalStatus} at ${result.finalPath}`);
   }
@@ -319,6 +384,8 @@ async function main() {
     if (admin.finalStatus !== 200) {
       throw new Error(`finished with HTTP ${admin.finalStatus}`);
     }
+    assertSecurityHeaders(admin.headers);
+    assertPrivateHeaders(admin.headers);
     if (!admin.html.includes('Dream applications')) {
       throw new Error('rendered without the private review login');
     }
@@ -330,6 +397,8 @@ async function main() {
       `${BASE_URL}/api/admin/dream-applications`,
       {redirect: 'manual'},
     );
+    assertSecurityHeaders(unauthorisedApi.headers);
+    assertPrivateHeaders(unauthorisedApi.headers);
     if (unauthorisedApi.status !== 401) {
       throw new Error(
         `private API returned HTTP ${unauthorisedApi.status} without a reviewer session`,
@@ -365,3 +434,4 @@ try {
 } finally {
   server?.kill('SIGTERM');
 }
+
