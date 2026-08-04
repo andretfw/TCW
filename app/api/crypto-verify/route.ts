@@ -8,8 +8,12 @@ import {
   findDonationByTransactionIds,
   recordVerifiedDonation,
 } from '@/lib/donation-tracking';
-import {verifyCryptoDonationIntent} from '@/lib/crypto-donation-intent';
+import {
+  verifyCryptoDonationIntent,
+  type CryptoDonationIntent,
+} from '@/lib/crypto-donation-intent';
 
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const ETH_KRAKEN_ADDRESS = '0x54b9694cebc596d8c712ab225347343e2a7bd7e6';
@@ -353,7 +357,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    let intent;
+    let intent: CryptoDonationIntent;
     try {
       intent = verifyCryptoDonationIntent(intentToken);
     } catch (intentError) {
