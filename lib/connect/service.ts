@@ -11,9 +11,14 @@ import {
 } from './email';
 import {cancelConnectMeeting, createConnectMeeting} from './google-calendar';
 import {
-  findNextCommonMeetingSlot,
+  findNextCommonMeetingSlots,
   rankSurvivors,
 } from './matching';
+import {
+  schedulingClaimIsStale,
+  schedulingSlotsOverlap,
+  selectSchedulingOption,
+} from './scheduling';
 import {publicProfile} from './security';
 import {
   getConnectConnection,
@@ -32,10 +37,13 @@ import type {
   ConnectConnection,
   ConnectPortalState,
   ConnectProfile,
+  ConnectRole,
+  ConnectSchedulingOption,
   MatchProposal,
 } from './types';
 
 const PROPOSAL_TTL_DAYS = 7;
+const SCHEDULING_OPTION_COUNT = 3;
 
 function isProposalOpen(proposal: MatchProposal, now = new Date()): boolean {
   return (
@@ -175,44 +183,322 @@ async function connectionForProposal(
   return connections.find((connection) => connection.proposalId === proposalId) || null;
 }
 
-async function scheduleConnection(
+function createSchedulingOptions(
+  survivor: ConnectProfile,
+  warrior: ConnectProfile,
+  now = new Date(),
+): ConnectSchedulingOption[] {
+  const reserved = [
+    ...(survivor.meetingReservations || []),
+    ...(warrior.meetingReservations || []),
+  ].filter((reservation) => new Date(reservation.endsAt) > now);
+
+  return findNextCommonMeetingSlots(
+    survivor,
+    warrior,
+    now,
+    10,
+  )
+    .filter((slot) => (
+      !reserved.some((reservation) => schedulingSlotsOverlap(slot, reservation))
+    ))
+    .slice(0, SCHEDULING_OPTION_COUNT)
+    .map((slot) => ({id: randomUUID(), ...slot}));
+}
+
+async function ensureSchedulingOptions(
   connection: ConnectConnection,
   survivor: ConnectProfile,
   warrior: ConnectProfile,
 ): Promise<ConnectConnection> {
-  const slot = findNextCommonMeetingSlot(survivor, warrior);
-  if (!slot) {
-    const updated = await mutateConnectConnection(connection.id, (record) => {
-      record.status = 'needs-scheduling';
-      record.schedulingError = 'NO_SHARED_AVAILABILITY';
-      record.updatedAt = new Date().toISOString();
-    });
-    await safeExceptionAlert(warrior.reference, 'NO_SHARED_AVAILABILITY');
-    return updated?.record || connection;
+  if (
+    connection.meeting ||
+    connection.status === 'ended' ||
+    connection.schedulingError === 'NO_SHARED_AVAILABILITY'
+  ) {
+    return connection;
   }
 
+  const now = new Date();
+  const currentOptions = connection.schedulingOptions || [];
+  const hasFutureOption = currentOptions.some(
+    (option) => new Date(option.startsAt) > now,
+  );
+  const staleClaim = Boolean(
+    connection.schedulingClaim &&
+    schedulingClaimIsStale(connection.schedulingClaim, now),
+  );
+  const refreshForConflict =
+    connection.schedulingError === 'SCHEDULING_OPTION_CONFLICT';
+  if (hasFutureOption && !staleClaim && !refreshForConflict) return connection;
+
+  const nextOptions = hasFutureOption && !refreshForConflict
+    ? currentOptions
+    : createSchedulingOptions(survivor, warrior, now);
+  const updated = await mutateConnectConnection(connection.id, (record) => {
+    if (
+      record.meeting ||
+      record.status !== 'needs-scheduling' ||
+      record.schedulingError === 'NO_SHARED_AVAILABILITY'
+    ) {
+      return false;
+    }
+
+    const recordHasFutureOption = (record.schedulingOptions || []).some(
+      (option) => new Date(option.startsAt) > now,
+    );
+    const recordHasStaleClaim = Boolean(
+      record.schedulingClaim &&
+      schedulingClaimIsStale(record.schedulingClaim, now),
+    );
+    const recordNeedsConflictRefresh =
+      record.schedulingError === 'SCHEDULING_OPTION_CONFLICT';
+    if (record.schedulingClaim && !recordHasStaleClaim) return false;
+    if (
+      recordHasFutureOption &&
+      !recordHasStaleClaim &&
+      !recordNeedsConflictRefresh
+    ) {
+      return false;
+    }
+
+    record.schedulingClaim = undefined;
+    if (recordHasStaleClaim && recordHasFutureOption) {
+      record.schedulingError = 'CALENDAR_SCHEDULING_FAILED';
+    }
+    if (!recordHasFutureOption || recordNeedsConflictRefresh) {
+      record.schedulingOptions = nextOptions;
+      record.schedulingSelections = undefined;
+      record.schedulingError = nextOptions.length
+        ? undefined
+        : 'NO_SHARED_AVAILABILITY';
+    }
+    record.updatedAt = now.toISOString();
+    return true;
+  });
+
+  const prepared = updated?.record || connection;
+  if (updated?.result && !prepared.schedulingOptions?.length) {
+    await safeExceptionAlert(warrior.reference, 'NO_SHARED_AVAILABILITY');
+  }
+  return prepared;
+}
+
+async function storedMeetingConflicts(
+  connection: ConnectConnection,
+  option: ConnectSchedulingOption,
+): Promise<boolean> {
+  const connections = await listConnectConnections();
+  return connections.some((candidate) => (
+    candidate.id !== connection.id &&
+    candidate.status !== 'ended' &&
+    Boolean(candidate.meeting) &&
+    (
+      candidate.survivorId === connection.survivorId ||
+      candidate.survivorId === connection.warriorId ||
+      candidate.warriorId === connection.survivorId ||
+      candidate.warriorId === connection.warriorId
+    ) &&
+    schedulingSlotsOverlap(option, candidate.meeting!)
+  ));
+}
+
+async function reserveProfileMeeting(input: {
+  profileId: string;
+  connectionId: string;
+  claimId: string;
+  option: ConnectSchedulingOption;
+}): Promise<boolean> {
+  const now = new Date();
+  const updated = await mutateConnectProfile(input.profileId, (record) => {
+    const reservations = (record.meetingReservations || []).filter(
+      (reservation) => new Date(reservation.endsAt) > now,
+    );
+    const existing = reservations.some((reservation) => (
+      reservation.connectionId === input.connectionId &&
+      reservation.claimId === input.claimId
+    ));
+    if (existing) {
+      record.meetingReservations = reservations;
+      return true;
+    }
+    if (
+      reservations.some((reservation) =>
+        schedulingSlotsOverlap(input.option, reservation))
+    ) {
+      record.meetingReservations = reservations;
+      return false;
+    }
+
+    record.meetingReservations = [...reservations, {
+      connectionId: input.connectionId,
+      claimId: input.claimId,
+      startsAt: input.option.startsAt,
+      endsAt: input.option.endsAt,
+      createdAt: now.toISOString(),
+    }];
+    record.updatedAt = now.toISOString();
+    return true;
+  });
+  return Boolean(updated?.result);
+}
+
+async function releaseMeetingReservations(
+  profileIds: string[],
+  connectionId: string,
+  claimId?: string,
+): Promise<boolean> {
+  const results = await Promise.allSettled(profileIds.map((profileId) =>
+    mutateConnectProfile(profileId, (record) => {
+      const before = record.meetingReservations || [];
+      record.meetingReservations = before.filter((reservation) => !(
+        reservation.connectionId === connectionId &&
+        (!claimId || reservation.claimId === claimId)
+      ));
+      if (record.meetingReservations.length !== before.length) {
+        record.updatedAt = new Date().toISOString();
+      }
+    })));
+  return results.every((result) => result.status === 'fulfilled');
+}
+
+async function reserveMeetingForParticipants(
+  connection: ConnectConnection,
+  claimId: string,
+  option: ConnectSchedulingOption,
+): Promise<boolean> {
+  const survivorReserved = await reserveProfileMeeting({
+    profileId: connection.survivorId,
+    connectionId: connection.id,
+    claimId,
+    option,
+  });
+  if (!survivorReserved) return false;
+
   try {
-    const meeting = await createConnectMeeting({survivor, warrior, ...slot});
+    const warriorReserved = await reserveProfileMeeting({
+      profileId: connection.warriorId,
+      connectionId: connection.id,
+      claimId,
+      option,
+    });
+    if (warriorReserved) return true;
+  } catch (error) {
+    await releaseMeetingReservations(
+      [connection.survivorId],
+      connection.id,
+      claimId,
+    );
+    throw error;
+  }
+
+  await releaseMeetingReservations(
+    [connection.survivorId],
+    connection.id,
+    claimId,
+  );
+  return false;
+}
+
+async function markSchedulingOptionConflict(
+  connectionId: string,
+  claimId: string,
+): Promise<void> {
+  await mutateConnectConnection(connectionId, (record) => {
+    if (record.schedulingClaim?.id !== claimId) return;
+    record.schedulingClaim = undefined;
+    record.schedulingSelections = undefined;
+    record.schedulingError = 'SCHEDULING_OPTION_CONFLICT';
+    record.updatedAt = new Date().toISOString();
+  });
+}
+
+async function createMeetingForClaim(
+  connection: ConnectConnection,
+  survivor: ConnectProfile,
+  warrior: ConnectProfile,
+): Promise<void> {
+  const claim = connection.schedulingClaim;
+  const option = connection.schedulingOptions?.find(
+    (candidate) => candidate.id === claim?.optionId,
+  );
+  if (!claim || !option) throw new Error('SCHEDULING_CLAIM_INVALID');
+
+  let meeting: Awaited<ReturnType<typeof createConnectMeeting>> | undefined;
+  let reservationsHeld = false;
+  try {
+    if (
+      !['active', 'matched'].includes(survivor.status) ||
+      !['active', 'matched'].includes(warrior.status)
+    ) {
+      throw new Error('CONNECTION_NOT_SCHEDULABLE');
+    }
+
+    if (
+      await storedMeetingConflicts(connection, option) ||
+      !await reserveMeetingForParticipants(connection, claim.id, option)
+    ) {
+      await markSchedulingOptionConflict(connection.id, claim.id);
+      return;
+    }
+    reservationsHeld = true;
+
+    const createdMeeting = await createConnectMeeting({
+      survivor,
+      warrior,
+      ...option,
+    });
+    meeting = createdMeeting;
     const updated = await mutateConnectConnection(connection.id, (record) => {
+      if (
+        record.status !== 'needs-scheduling' ||
+        record.schedulingClaim?.id !== claim.id
+      ) {
+        throw new Error('SCHEDULING_CLAIM_LOST');
+      }
       record.status = 'scheduled';
-      record.meeting = meeting;
+      record.meeting = createdMeeting;
+      record.schedulingClaim = undefined;
       record.schedulingError = undefined;
       record.updatedAt = new Date().toISOString();
     });
-    const scheduled = updated?.record || {...connection, status: 'scheduled' as const, meeting};
+    if (!updated) throw new Error('CONNECTION_NOT_FOUND');
+
     await Promise.allSettled([
-      sendMeetingScheduledEmail(survivor, warrior, scheduled),
-      sendMeetingScheduledEmail(warrior, survivor, scheduled),
+      sendMeetingScheduledEmail(survivor, warrior, updated.record),
+      sendMeetingScheduledEmail(warrior, survivor, updated.record),
     ]);
-    return scheduled;
   } catch {
-    const updated = await mutateConnectConnection(connection.id, (record) => {
-      record.status = 'needs-scheduling';
-      record.schedulingError = 'CALENDAR_SCHEDULING_FAILED';
-      record.updatedAt = new Date().toISOString();
-    });
+    if (meeting) {
+      try {
+        await cancelConnectMeeting(meeting.eventId);
+      } catch {
+        await safeExceptionAlert(warrior.reference, 'ORPHAN_MEETING_CANCELLATION_FAILED');
+      }
+    }
+    if (reservationsHeld) {
+      const released = await releaseMeetingReservations(
+        [connection.survivorId, connection.warriorId],
+        connection.id,
+        claim.id,
+      );
+      if (!released) {
+        await safeExceptionAlert(
+          warrior.reference,
+          'MEETING_RESERVATION_RELEASE_FAILED',
+        );
+      }
+    }
+    await mutateConnectConnection(connection.id, (record) => {
+      if (record.schedulingClaim?.id === claim.id) {
+        record.schedulingClaim = undefined;
+      }
+      if (record.status === 'needs-scheduling') {
+        record.schedulingError = 'CALENDAR_SCHEDULING_FAILED';
+        record.updatedAt = new Date().toISOString();
+      }
+    }).catch(() => undefined);
     await safeExceptionAlert(warrior.reference, 'CALENDAR_SCHEDULING_FAILED');
-    return updated?.record || connection;
   }
 }
 
@@ -229,12 +515,17 @@ async function createAcceptedConnection(
   if (!survivor || !warrior) throw new Error('CONNECT_PROFILE_NOT_FOUND');
 
   const now = new Date().toISOString();
+  const schedulingOptions = createSchedulingOptions(survivor, warrior);
   const connection: ConnectConnection = {
     id: randomUUID(),
     proposalId: proposal.id,
     survivorId: survivor.id,
     warriorId: warrior.id,
     status: 'needs-scheduling',
+    schedulingOptions,
+    schedulingError: schedulingOptions.length
+      ? undefined
+      : 'NO_SHARED_AVAILABILITY',
     createdAt: now,
     updatedAt: now,
   };
@@ -259,8 +550,49 @@ async function createAcceptedConnection(
     sendConnectionConfirmedEmail(survivor, warrior),
     sendConnectionConfirmedEmail(warrior, survivor),
   ]);
+  if (!schedulingOptions.length) {
+    await safeExceptionAlert(warrior.reference, 'NO_SHARED_AVAILABILITY');
+  }
 
-  return scheduleConnection(connection, survivor, warrior);
+  return connection;
+}
+
+export async function chooseConnectMeetingTime(input: {
+  profile: ConnectProfile;
+  connectionId: string;
+  optionId: string;
+}): Promise<void> {
+  const connection = await getConnectConnection(input.connectionId);
+  if (!connection || connection.status === 'ended') {
+    throw new Error('CONNECTION_NOT_FOUND');
+  }
+
+  const role: ConnectRole | undefined = connection.survivorId === input.profile.id
+    ? 'survivor'
+    : connection.warriorId === input.profile.id
+      ? 'warrior'
+      : undefined;
+  if (!role || !['active', 'matched'].includes(input.profile.status)) {
+    throw new Error('CONNECTION_NOT_FOUND');
+  }
+
+  const selected = await mutateConnectConnection(connection.id, (record) =>
+    selectSchedulingOption(
+      record,
+      role,
+      input.optionId,
+      randomUUID(),
+      new Date(),
+    ));
+  if (!selected) throw new Error('CONNECTION_NOT_FOUND');
+  if (!selected.result.shouldCreateMeeting || !selected.result.claim) return;
+
+  const [survivor, warrior] = await Promise.all([
+    getConnectProfile(selected.record.survivorId),
+    getConnectProfile(selected.record.warriorId),
+  ]);
+  if (!survivor || !warrior) throw new Error('CONNECT_PROFILE_NOT_FOUND');
+  await createMeetingForClaim(selected.record, survivor, warrior);
 }
 
 export async function decideMatchProposal(input: {
@@ -382,28 +714,38 @@ export async function endConnectConnection(input: {
   if (!survivor || !warrior) throw new Error('CONNECT_PROFILE_NOT_FOUND');
 
   const now = new Date().toISOString();
-  if (connection.meeting) {
-    try {
-      await cancelConnectMeeting(connection.meeting.eventId);
-    } catch {
-      await safeExceptionAlert(input.profile.reference, 'CALENDAR_CANCELLATION_FAILED');
-    }
-  }
-  await mutateConnectConnection(connection.id, (record) => {
+  const ended = await mutateConnectConnection(connection.id, (record) => {
+    if (record.status === 'ended') throw new Error('CONNECTION_NOT_FOUND');
     record.status = 'ended';
+    record.schedulingClaim = undefined;
     record.endedAt = now;
     record.endedBy = input.profile.role;
     record.endedReason = 'participant-ended';
     record.updatedAt = now;
+    return record.meeting?.eventId;
   });
+  if (!ended) throw new Error('CONNECTION_NOT_FOUND');
+  if (ended.result) {
+    try {
+      await cancelConnectMeeting(ended.result);
+    } catch {
+      await safeExceptionAlert(input.profile.reference, 'CALENDAR_CANCELLATION_FAILED');
+    }
+  }
   await Promise.all([
     mutateConnectProfile(survivor.id, (record) => {
       record.activeConnections = Math.max(0, record.activeConnections - 1);
+      record.meetingReservations = (record.meetingReservations || []).filter(
+        (reservation) => reservation.connectionId !== connection.id,
+      );
       record.status = 'active';
       record.updatedAt = now;
     }),
     mutateConnectProfile(warrior.id, (record) => {
       record.activeConnections = 0;
+      record.meetingReservations = (record.meetingReservations || []).filter(
+        (reservation) => reservation.connectionId !== connection.id,
+      );
       record.status = input.rematch ? 'active' : 'paused';
       record.updatedAt = now;
     }),
@@ -420,7 +762,7 @@ export async function buildConnectPortalState(
     listConnectConnections(),
   ]);
 
-  const activeConnection = connections
+  let activeConnection = connections
     .filter((connection) => (
       connection.status !== 'ended' &&
       (connection.survivorId === profile.id || connection.warriorId === profile.id)
@@ -434,11 +776,24 @@ export async function buildConnectPortalState(
       : activeConnection.survivorId;
     const counterpart = await getConnectProfile(counterpartId);
     if (counterpart) {
+      const survivor = profile.role === 'survivor' ? profile : counterpart;
+      const warrior = profile.role === 'warrior' ? profile : counterpart;
+      activeConnection = await ensureSchedulingOptions(
+        activeConnection,
+        survivor,
+        warrior,
+      );
       connectionState = {
         id: activeConnection.id,
         status: activeConnection.status,
         counterpart: publicProfile(counterpart),
         meeting: activeConnection.meeting,
+        schedulingOptions: activeConnection.schedulingOptions,
+        selectedOptionId:
+          activeConnection.schedulingSelections?.[profile.role]?.optionId,
+        counterpartSelectedOptionId:
+          activeConnection.schedulingSelections?.[counterpart.role]?.optionId,
+        schedulingInProgress: Boolean(activeConnection.schedulingClaim),
         schedulingError: Boolean(activeConnection.schedulingError),
       };
     }
