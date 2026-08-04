@@ -7,6 +7,7 @@ import {decryptJson, encryptJson, hashRateLimitIdentifier} from '@/lib/dream-app
 import {hashPortalToken, portalTokensMatch} from './security';
 import type {
   ConnectConnection,
+  ConnectIncident,
   ConnectProfile,
   MatchProposal,
 } from './types';
@@ -15,6 +16,7 @@ const STORE_NAME = 'tcw-connect';
 const PROFILE_PREFIX = 'profiles/';
 const PROPOSAL_PREFIX = 'proposals/';
 const CONNECTION_PREFIX = 'connections/';
+const INCIDENT_PREFIX = 'incidents/';
 const TOKEN_PREFIX = 'token-index/';
 const RATE_PREFIX = 'rate/';
 const CONDITIONAL_WRITE_ATTEMPTS = 5;
@@ -44,6 +46,10 @@ function proposalKey(id: string) {
 
 function connectionKey(id: string) {
   return `${CONNECTION_PREFIX}${id}.json`;
+}
+
+function incidentKey(id: string) {
+  return `${INCIDENT_PREFIX}${id}.json`;
 }
 
 function tokenIndexKey(tokenHash: string) {
@@ -117,6 +123,15 @@ function connectionMetadata(connection: ConnectConnection) {
     kind: 'connect-connection',
     status: connection.status,
     updatedAt: connection.updatedAt,
+  };
+}
+
+function incidentMetadata(incident: ConnectIncident) {
+  return {
+    kind: 'connect-incident',
+    status: incident.status,
+    updatedAt: incident.updatedAt,
+    createdAt: incident.createdAt,
   };
 }
 
@@ -215,6 +230,31 @@ export async function mutateConnectConnection<TResult>(
   mutate: (connection: ConnectConnection) => TResult | Promise<TResult>,
 ) {
   return mutateEncrypted(connectionKey(id), mutate, connectionMetadata);
+}
+
+export async function saveConnectIncident(
+  incident: ConnectIncident,
+): Promise<void> {
+  await connectStore().set(incidentKey(incident.id), encryptJson(incident), {
+    metadata: incidentMetadata(incident),
+  });
+}
+
+export async function getConnectIncident(
+  id: string,
+): Promise<ConnectIncident | null> {
+  return readEncrypted<ConnectIncident>(incidentKey(id));
+}
+
+export async function listConnectIncidents(): Promise<ConnectIncident[]> {
+  return listEncrypted<ConnectIncident>(INCIDENT_PREFIX);
+}
+
+export async function mutateConnectIncident<TResult>(
+  id: string,
+  mutate: (incident: ConnectIncident) => TResult | Promise<TResult>,
+) {
+  return mutateEncrypted(incidentKey(id), mutate, incidentMetadata);
 }
 
 export async function enforceConnectRateLimit(identifier: string): Promise<void> {
