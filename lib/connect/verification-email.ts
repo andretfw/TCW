@@ -22,9 +22,16 @@ export async function sendConnectVerificationEmail(
   profile: ConnectProfile,
 ): Promise<void> {
   const copy = COPY[profile.locale];
+  const mentorNote = profile.role === 'survivor'
+    ? {
+        en: '\n\nAfter email confirmation, your mentor profile will remain private while TCW verifies your identity and survivor experience. Matching begins only after approval.',
+        ro: '\n\nDupă confirmarea emailului, profilul de mentor rămâne privat cât timp TCW verifică identitatea și experiența oncologică. Potrivirea începe numai după aprobare.',
+        es: '\n\nDespués de confirmar el correo, tu perfil de mentor seguirá privado mientras TCW verifica tu identidad y experiencia. Las coincidencias comienzan solo tras la aprobación.',
+      }[profile.locale]
+    : '';
   await sendConnectEmail({
     to: profile.email,
     subject: copy.subject,
-    body: copy.body(profile.firstName, connectPortalUrl(profile)),
+    body: `${copy.body(profile.firstName, connectPortalUrl(profile))}${mentorNote}`,
   });
 }

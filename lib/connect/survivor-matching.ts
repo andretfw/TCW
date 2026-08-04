@@ -66,7 +66,8 @@ export async function createAutomaticMatchesForSurvivor(
   if (
     !survivor ||
     survivor.role !== 'survivor' ||
-    survivor.status !== 'active'
+    survivor.status !== 'active' ||
+    survivor.mentorReview?.status !== 'approved'
   ) {
     return 0;
   }
@@ -141,7 +142,12 @@ export async function setConnectProfilePausedWithSafeMatching(
   paused: boolean,
 ): Promise<void> {
   await mutateConnectProfile(profile.id, (record) => {
-    if (record.status === 'closed') throw new Error('PROFILE_CLOSED');
+    if (!['active', 'paused'].includes(record.status)) {
+      throw new Error('PROFILE_NOT_MANAGEABLE');
+    }
+    if (record.role === 'survivor' && record.mentorReview?.status !== 'approved') {
+      throw new Error('MENTOR_APPROVAL_REQUIRED');
+    }
     if (record.activeConnections > 0 && paused) {
       throw new Error('ACTIVE_CONNECTION_EXISTS');
     }

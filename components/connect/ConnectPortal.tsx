@@ -9,6 +9,7 @@ import {
   Clock3,
   HeartHandshake,
   LoaderCircle,
+  Flag,
   LogOut,
   PauseCircle,
   PlayCircle,
@@ -32,7 +33,8 @@ type PortalAction =
   | 'pause'
   | 'resume'
   | 'end'
-  | 'end-rematch';
+  | 'end-rematch'
+  | 'report-block';
 
 const TOKEN_STORAGE_KEY = 'tcw_connect_private_portal_token';
 
@@ -49,12 +51,26 @@ const COPY = {
     paused: 'Profile paused',
     matched: 'Connected',
     closed: 'Profile closed',
+    pendingReview: 'Pending TCW review',
+    reviewRejected: 'Mentor profile not approved',
+    suspended: 'Profile suspended for safety review',
+    pendingReviewTitle: 'Your mentor profile is being reviewed',
+    pendingReviewText: 'Your email is confirmed. TCW must verify your identity and survivor experience before your profile can enter automated matching.',
+    reviewRejectedTitle: 'This mentor profile was not approved',
+    reviewRejectedText: 'Your profile remains private and cannot enter matching. TCW will contact you if more information is needed.',
+    suspendedTitle: 'This profile is temporarily suspended',
+    suspendedText: 'Contact and matching are paused while TCW reviews a safeguarding concern. Future meetings linked to the connection have been cancelled.',
     matchTitle: 'We found a possible connection',
     matchIntro: 'Only a limited profile is shown. Contact details remain private until both people accept.',
     compatibility: 'compatibility',
     why: 'Why this match may work',
     accept: 'Accept this connection',
     decline: 'Not this match',
+    safetyConfirm: 'I have read the safety rules and agree that contact details may be shared only after both people accept.',
+    report: 'Report and block',
+    reportPrompt: 'Briefly tell TCW what happened. Do not include unnecessary medical details.',
+    reportConfirm: 'Report and block this person? Contact will stop immediately, the profile will be suspended for TCW review and future meetings will be cancelled.',
+    reportSuccess: 'Your report was sent privately. Contact has stopped and TCW will review it.',
     accepting: 'Saving your decision…',
     connectionTitle: 'Your TCW Connect connection',
     meetScheduled: 'Your first conversation is scheduled',
@@ -113,12 +129,26 @@ const COPY = {
     paused: 'Profil pus pe pauză',
     matched: 'Conectat',
     closed: 'Profil închis',
+    pendingReview: 'În verificare la TCW',
+    reviewRejected: 'Profil de mentor neaprobat',
+    suspended: 'Profil suspendat pentru verificare',
+    pendingReviewTitle: 'Profilul tău de mentor este în verificare',
+    pendingReviewText: 'Adresa de email este confirmată. TCW trebuie să verifice identitatea și experiența oncologică înainte ca profilul să intre în potrivirea automată.',
+    reviewRejectedTitle: 'Acest profil de mentor nu a fost aprobat',
+    reviewRejectedText: 'Profilul rămâne privat și nu poate intra în sistemul de potrivire. TCW te va contacta dacă sunt necesare informații suplimentare.',
+    suspendedTitle: 'Acest profil este suspendat temporar',
+    suspendedText: 'Contactul și potrivirea sunt oprite cât timp TCW verifică o sesizare de siguranță. Întâlnirile viitoare ale conexiunii au fost anulate.',
     matchTitle: 'Am găsit o posibilă conexiune',
     matchIntro: 'Este afișat doar un profil limitat. Datele de contact rămân private până când ambele persoane acceptă.',
     compatibility: 'compatibilitate',
     why: 'De ce această potrivire poate funcționa',
     accept: 'Acceptă această conexiune',
     decline: 'Nu această potrivire',
+    safetyConfirm: 'Am citit regulile de siguranță și accept ca datele de contact să fie transmise numai după ce acceptăm amândoi.',
+    report: 'Raportează și blochează',
+    reportPrompt: 'Spune pe scurt echipei TCW ce s-a întâmplat. Nu include detalii medicale care nu sunt necesare.',
+    reportConfirm: 'Raportezi și blochezi această persoană? Contactul se oprește imediat, profilul va fi suspendat pentru verificare, iar întâlnirile viitoare vor fi anulate.',
+    reportSuccess: 'Sesizarea a fost trimisă privat. Contactul s-a oprit, iar TCW o va verifica.',
     accepting: 'Salvăm decizia…',
     connectionTitle: 'Conexiunea ta TCW Connect',
     meetScheduled: 'Prima conversație este programată',
@@ -177,12 +207,26 @@ const COPY = {
     paused: 'Perfil en pausa',
     matched: 'Conectado',
     closed: 'Perfil cerrado',
+    pendingReview: 'Pendiente de revisión de TCW',
+    reviewRejected: 'Perfil de mentor no aprobado',
+    suspended: 'Perfil suspendido para revisión',
+    pendingReviewTitle: 'Tu perfil de mentor está en revisión',
+    pendingReviewText: 'Tu correo está confirmado. TCW debe verificar tu identidad y experiencia antes de que el perfil entre en el sistema automático.',
+    reviewRejectedTitle: 'Este perfil de mentor no fue aprobado',
+    reviewRejectedText: 'El perfil sigue privado y no puede entrar en las coincidencias. TCW te contactará si necesita más información.',
+    suspendedTitle: 'Este perfil está suspendido temporalmente',
+    suspendedText: 'El contacto y las coincidencias están pausados mientras TCW revisa una cuestión de seguridad. Se cancelaron las reuniones futuras de la conexión.',
     matchTitle: 'Encontramos una posible conexión',
     matchIntro: 'Solo se muestra un perfil limitado. Los datos de contacto siguen privados hasta que ambas personas acepten.',
     compatibility: 'compatibilidad',
     why: 'Por qué esta coincidencia puede funcionar',
     accept: 'Aceptar esta conexión',
     decline: 'No esta coincidencia',
+    safetyConfirm: 'He leído las reglas de seguridad y acepto que los datos de contacto se compartan solo después de que ambos aceptemos.',
+    report: 'Reportar y bloquear',
+    reportPrompt: 'Cuenta brevemente a TCW qué ocurrió. No incluyas detalles médicos innecesarios.',
+    reportConfirm: '¿Reportar y bloquear a esta persona? El contacto terminará inmediatamente, el perfil quedará suspendido para revisión y se cancelarán las reuniones futuras.',
+    reportSuccess: 'Tu reporte se envió de forma privada. El contacto terminó y TCW lo revisará.',
     accepting: 'Guardando tu decisión…',
     connectionTitle: 'Tu conexión de TCW Connect',
     meetScheduled: 'Tu primera conversación está programada',
@@ -235,8 +279,11 @@ function statusLabel(
   status: ConnectPortalState['profile']['status'],
   text: (typeof COPY)[Locale],
 ): string {
+  if (status === 'pending-review') return text.pendingReview;
+  if (status === 'review-rejected') return text.reviewRejected;
   if (status === 'paused') return text.paused;
   if (status === 'matched') return text.matched;
+  if (status === 'suspended') return text.suspended;
   if (status === 'closed') return text.closed;
   return text.active;
 }
@@ -297,6 +344,8 @@ export default function ConnectPortal({locale}: {locale: Locale}) {
   const [status, setStatus] = useState<'loading' | 'ready' | 'invalid'>('loading');
   const [busy, setBusy] = useState<PortalAction>();
   const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
+  const [safetyConfirmed, setSafetyConfirmed] = useState(false);
 
   useEffect(() => {
     const queryToken = searchParams.get('token') || '';
@@ -335,7 +384,7 @@ export default function ConnectPortal({locale}: {locale: Locale}) {
     if (token) void load(token);
   }, [load, token]);
 
-  async function act(action: PortalAction, payload: Record<string, string> = {}) {
+  async function act(action: PortalAction, payload: Record<string, unknown> = {}) {
     if (!token || busy) return;
     if (action === 'decline-proposal' && !window.confirm(text.confirmDecline)) return;
     if (action === 'end' && !window.confirm(text.confirmEnd)) return;
@@ -343,6 +392,7 @@ export default function ConnectPortal({locale}: {locale: Locale}) {
 
     setBusy(action);
     setError('');
+    setNotice('');
     try {
       const response = await fetch('/api/connect/portal', {
         method: 'POST',
@@ -357,12 +407,29 @@ export default function ConnectPortal({locale}: {locale: Locale}) {
         throw new Error(result.error || text.error);
       }
       setState(result.state);
+      if (action === 'report-block') setNotice(text.reportSuccess);
+      if (action === 'accept-proposal') setSafetyConfirmed(false);
     } catch (actionError) {
       setError(actionError instanceof Error ? actionError.message : text.error);
     } finally {
       setBusy(undefined);
     }
   }
+
+  async function reportTarget(payload: {proposalId?: string; connectionId?: string}) {
+    const details = window.prompt(text.reportPrompt);
+    if (details === null) return;
+    if (!window.confirm(text.reportConfirm)) return;
+    await act('report-block', {
+      ...payload,
+      category: 'safety-concern',
+      details,
+    });
+  }
+
+  useEffect(() => {
+    setSafetyConfirmed(false);
+  }, [state?.proposal?.id]);
 
   const meetingDate = useMemo(() => {
     if (!state?.connection?.meeting) return '';
@@ -399,6 +466,14 @@ export default function ConnectPortal({locale}: {locale: Locale}) {
     );
   }
 
+  const restrictedState = state.profile.status === 'pending-review'
+    ? {title: text.pendingReviewTitle, body: text.pendingReviewText}
+    : state.profile.status === 'review-rejected'
+      ? {title: text.reviewRejectedTitle, body: text.reviewRejectedText}
+      : state.profile.status === 'suspended'
+        ? {title: text.suspendedTitle, body: text.suspendedText}
+        : null;
+
   return (
     <main className="min-h-screen bg-[#faf9ff] pb-20 pt-20">
       <section className="bg-gradient-to-br from-indigo-950 via-indigo-800 to-purple-700 py-16 text-white">
@@ -426,6 +501,11 @@ export default function ConnectPortal({locale}: {locale: Locale}) {
         {error && (
           <p role="alert" className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 p-4 font-bold text-red-700">
             <CircleAlert className="mt-0.5 h-5 w-5 shrink-0" /> {error}
+          </p>
+        )}
+        {notice && (
+          <p role="status" className="flex items-start gap-2 rounded-xl border border-emerald-200 bg-emerald-50 p-4 font-bold text-emerald-800">
+            <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0" /> {notice}
           </p>
         )}
 
@@ -456,11 +536,15 @@ export default function ConnectPortal({locale}: {locale: Locale}) {
               </div>
             </div>
 
-            <div className="mt-7 grid gap-3 sm:grid-cols-2">
+            <label className="mt-7 flex items-start gap-3 rounded-2xl border border-indigo-200 bg-indigo-50 p-4 text-sm font-bold leading-relaxed text-indigo-950">
+              <input type="checkbox" checked={safetyConfirmed} onChange={(event) => setSafetyConfirmed(event.target.checked)} className="mt-0.5 h-4 w-4 shrink-0 accent-indigo-700" />
+              {text.safetyConfirm}
+            </label>
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
               <button
                 type="button"
-                disabled={Boolean(busy)}
-                onClick={() => void act('accept-proposal', {proposalId: state.proposal?.id || ''})}
+                disabled={Boolean(busy) || !safetyConfirmed}
+                onClick={() => void act('accept-proposal', {proposalId: state.proposal?.id || '', safetyConfirmed: true})}
                 className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-4 font-black text-white hover:bg-emerald-700 disabled:opacity-50"
               >
                 {busy === 'accept-proposal' ? <LoaderCircle className="h-5 w-5 animate-spin" /> : <CheckCircle2 className="h-5 w-5" />}
@@ -473,6 +557,14 @@ export default function ConnectPortal({locale}: {locale: Locale}) {
                 className="flex items-center justify-center gap-2 rounded-xl border border-neutral-300 px-5 py-4 font-black text-neutral-700 hover:border-red-300 hover:bg-red-50 hover:text-red-700 disabled:opacity-50"
               >
                 <XCircle className="h-5 w-5" /> {text.decline}
+              </button>
+              <button
+                type="button"
+                disabled={Boolean(busy)}
+                onClick={() => void reportTarget({proposalId: state.proposal?.id || ''})}
+                className="flex items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 px-5 py-4 font-black text-red-800 hover:bg-red-100 disabled:opacity-50"
+              >
+                <Flag className="h-5 w-5" /> {text.report}
               </button>
             </div>
           </section>
@@ -527,7 +619,7 @@ export default function ConnectPortal({locale}: {locale: Locale}) {
               </div>
             )}
 
-            <div className="mt-7 grid gap-3 sm:grid-cols-2">
+            <div className="mt-7 grid gap-3 sm:grid-cols-3">
               <button
                 type="button"
                 disabled={Boolean(busy)}
@@ -544,13 +636,27 @@ export default function ConnectPortal({locale}: {locale: Locale}) {
               >
                 <RefreshCw className="h-5 w-5" /> {text.endRematch}
               </button>
+              <button
+                type="button"
+                disabled={Boolean(busy)}
+                onClick={() => void reportTarget({connectionId: state.connection?.id || ''})}
+                className="flex items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 px-5 py-3 font-black text-red-800 hover:bg-red-100 disabled:opacity-50"
+              >
+                <Flag className="h-5 w-5" /> {text.report}
+              </button>
             </div>
           </section>
         )}
 
         {!state.proposal && !state.connection && (
           <section className="rounded-[2rem] border border-indigo-100 bg-white p-9 text-center shadow-lg">
-            {state.profile.status === 'paused' ? (
+            {restrictedState ? (
+              <>
+                <ShieldCheck className="mx-auto h-14 w-14 text-indigo-600" />
+                <h2 className="mt-5 text-3xl font-black text-neutral-900">{restrictedState.title}</h2>
+                <p className="mx-auto mt-3 max-w-xl text-neutral-600">{restrictedState.body}</p>
+              </>
+            ) : state.profile.status === 'paused' ? (
               <>
                 <PauseCircle className="mx-auto h-14 w-14 text-neutral-500" />
                 <h2 className="mt-5 text-3xl font-black text-neutral-900">{text.pausedTitle}</h2>

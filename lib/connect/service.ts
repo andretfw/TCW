@@ -9,7 +9,7 @@ import {
   sendMeetingScheduledEmail,
   sendWarriorDecisionEmail,
 } from './email';
-import {createConnectMeeting} from './google-calendar';
+import {cancelConnectMeeting, createConnectMeeting} from './google-calendar';
 import {
   findNextCommonMeetingSlot,
   rankSurvivors,
@@ -92,6 +92,7 @@ async function proposeBestSurvivor(
   const survivors = profiles.filter((profile) => (
     profile.role === 'survivor' &&
     profile.status === 'active' &&
+    profile.mentorReview?.status === 'approved' &&
     profile.activeConnections + survivorReservedCapacity(profile.id, proposals)
       < profile.maxConnections
   ));
@@ -129,6 +130,9 @@ export async function createAutomaticMatchesForProfile(
 ): Promise<number> {
   const profile = await getConnectProfile(profileId);
   if (!profile || profile.status !== 'active') return 0;
+  if (profile.role === 'survivor' && profile.mentorReview?.status !== 'approved') {
+    return 0;
+  }
 
   const profiles = await listConnectProfiles();
   let proposals = await listMatchProposals();
@@ -263,6 +267,7 @@ export async function decideMatchProposal(input: {
   profile: ConnectProfile;
   proposalId: string;
   decision: 'accept' | 'decline';
+  safetyConfirmed?: boolean;
 }): Promise<void> {
   const proposal = await getMatchProposal(input.proposalId);
   if (!proposal) throw new Error('PROPOSAL_NOT_FOUND');
@@ -286,6 +291,24 @@ export async function decideMatchProposal(input: {
     return;
   }
 
+  const [currentSurvivor, currentWarrior] = await Promise.all([
+    getConnectProfile(proposal.survivorId),
+    getConnectProfile(proposal.warriorId),
+  ]);
+  if (!currentSurvivor || !currentWarrior) {
+    throw new Error('CONNECT_PROFILE_NOT_FOUND');
+  }
+  if (
+    currentSurvivor.mentorReview?.status !== 'approved' ||
+    !['active', 'matched'].includes(currentSurvivor.status) ||
+    currentWarrior.status !== 'active'
+  ) {
+    throw new Error('PROPOSAL_NOT_ACTIVE');
+  }
+  if (!input.safetyConfirmed) {
+    throw new Error('SAFETY_CONFIRMATION_REQUIRED');
+  }
+
   if (isSurvivor) {
     if (proposal.status !== 'pending-survivor') throw new Error('PROPOSAL_NOT_ACTIVE');
     const updated = await mutateMatchProposal(proposal.id, (record) => {
@@ -293,6 +316,7 @@ export async function decideMatchProposal(input: {
       const now = new Date().toISOString();
       record.status = 'pending-warrior';
       record.survivorAcceptedAt = now;
+      record.survivorSafetyConfirmedAt = now;
       record.updatedAt = now;
     });
     if (!updated) throw new Error('PROPOSAL_NOT_FOUND');
@@ -313,6 +337,7 @@ export async function decideMatchProposal(input: {
     const now = new Date().toISOString();
     record.status = 'accepted';
     record.warriorAcceptedAt = now;
+    record.warriorSafetyConfirmedAt = now;
     record.updatedAt = now;
   });
   if (!updated) throw new Error('PROPOSAL_NOT_FOUND');
@@ -324,7 +349,12 @@ export async function setConnectProfilePaused(
   paused: boolean,
 ): Promise<void> {
   await mutateConnectProfile(profile.id, (record) => {
-    if (record.status === 'closed') throw new Error('PROFILE_CLOSED');
+    if (!['active', 'paused'].includes(record.status)) {
+      throw new Error('PROFILE_NOT_MANAGEABLE');
+    }
+    if (record.role === 'survivor' && record.mentorReview?.status !== 'approved') {
+      throw new Error('MENTOR_APPROVAL_REQUIRED');
+    }
     if (record.activeConnections > 0 && paused) {
       throw new Error('ACTIVE_CONNECTION_EXISTS');
     }
@@ -352,10 +382,18 @@ export async function endConnectConnection(input: {
   if (!survivor || !warrior) throw new Error('CONNECT_PROFILE_NOT_FOUND');
 
   const now = new Date().toISOString();
+  if (connection.meeting) {
+    try {
+      await cancelConnectMeeting(connection.meeting.eventId);
+    } catch {
+      await safeExceptionAlert(input.profile.reference, 'CALENDAR_CANCELLATION_FAILED');
+    }
+  }
   await mutateConnectConnection(connection.id, (record) => {
     record.status = 'ended';
     record.endedAt = now;
     record.endedBy = input.profile.role;
+    record.endedReason = 'participant-ended';
     record.updatedAt = now;
   });
   await Promise.all([

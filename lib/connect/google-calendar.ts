@@ -147,3 +147,24 @@ export async function createConnectMeeting(input: {
     createdAt: new Date().toISOString(),
   };
 }
+
+
+export async function cancelConnectMeeting(eventId: string): Promise<void> {
+  const accessToken = await getGoogleWorkspaceAccessToken(
+    GOOGLE_CALENDAR_EVENTS_SCOPE,
+  );
+  const url = new URL(
+    `${CALENDAR_EVENTS_URL}/${encodeURIComponent(eventId)}`,
+  );
+  url.searchParams.set('sendUpdates', 'all');
+  const response = await fetch(url, {
+    method: 'DELETE',
+    headers: {Authorization: `Bearer ${accessToken}`},
+    cache: 'no-store',
+    signal: AbortSignal.timeout(15_000),
+  });
+  if (response.status === 404 || response.status === 410) return;
+  if (!response.ok) {
+    throw new Error(`Google Calendar could not cancel event ${eventId}.`);
+  }
+}
