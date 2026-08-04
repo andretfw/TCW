@@ -15,16 +15,16 @@ function loadTypeScriptModule(path) {
     },
     fileName: path,
   }).outputText;
-  const module = {exports: {}};
+  const sandboxModule = {exports: {}};
   vm.runInNewContext(output, {
-    module,
-    exports: module.exports,
+    module: sandboxModule,
+    exports: sandboxModule.exports,
     require(specifier) {
       throw new Error(`Unexpected runtime import in ${path}: ${specifier}`);
     },
     console,
   });
-  return module.exports;
+  return sandboxModule.exports;
 }
 
 function requireText(path, text, explanation) {
