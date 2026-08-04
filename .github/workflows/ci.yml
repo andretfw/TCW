@@ -49,5 +49,8 @@ jobs:
       - name: TCW Connect safeguarding regression check
         run: node scripts/check-connect-safeguards.mjs
 
+      - name: TCW Connect confirmed scheduling check
+        run: node scripts/check-connect-scheduling.mjs
+
       - name: Route and security smoke test
         run: npm run smoke:routes
