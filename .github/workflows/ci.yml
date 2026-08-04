@@ -46,5 +46,8 @@ jobs:
       - name: Diagnosis support CTA regression check
         run: node scripts/check-diagnosis-support-link.mjs
 
+      - name: TCW Connect safeguarding regression check
+        run: node scripts/check-connect-safeguards.mjs
+
       - name: Route and security smoke test
         run: npm run smoke:routes
