@@ -94,6 +94,7 @@ function consentAccepted(value: unknown): boolean {
     'limitedProfileSharing',
     'mutualContactSharing',
     'automatedMeetingScheduling',
+    'safetyAndReporting',
     'programRules',
   ].every((field) => consent[field] === true);
 }
@@ -178,6 +179,7 @@ export async function POST(request: Request): Promise<Response> {
         limitedProfileSharing: true,
         mutualContactSharing: true,
         automatedMeetingScheduling: true,
+        safetyAndReporting: true,
         programRules: true,
         acceptedAt: now,
       },
