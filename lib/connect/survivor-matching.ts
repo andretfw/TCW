@@ -66,7 +66,8 @@ export async function createAutomaticMatchesForSurvivor(
   if (
     !survivor ||
     survivor.role !== 'survivor' ||
-    survivor.status !== 'active'
+    survivor.status !== 'active' ||
+    survivor.mentorReview?.status !== 'approved'
   ) {
     return 0;
   }
