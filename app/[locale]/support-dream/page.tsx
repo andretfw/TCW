@@ -489,10 +489,14 @@ export default function SupportDreamPage() {
       const intentToken = String(result.intentToken || '');
 
       if (!response.ok || !intentToken) {
-        throw new Error(result.error || text.intentFailed);
+        throw new Error('INTENT_FAILED');
       }
 
-      await navigator.clipboard.writeText(cryptoAddress);
+      try {
+        await navigator.clipboard.writeText(cryptoAddress);
+      } catch {
+        throw new Error('COPY_FAILED');
+      }
 
       const lock: CryptoDonationLock = {
         campaignId: selectedCampaign.id,
@@ -513,9 +517,9 @@ export default function SupportDreamPage() {
       setLockedDonation(null);
       setVerificationState('error');
       setVerificationMessage(
-        error instanceof Error && error.message !== text.intentFailed
-          ? error.message
-          : text.copyFailed,
+        error instanceof Error && error.message === 'COPY_FAILED'
+          ? text.copyFailed
+          : text.intentFailed,
       );
     }
   };
@@ -622,11 +626,21 @@ export default function SupportDreamPage() {
 
         if (
           result.code === 'intent_required' ||
-          result.code === 'intent_invalid' ||
-          result.code === 'intent_mismatch'
+          result.code === 'intent_invalid'
         ) {
           clearCryptoDonationLock();
           setLockedDonation(null);
+          setVerificationState('error');
+          setVerificationMessage(text.copyFirst);
+          return;
+        }
+
+        if (result.code === 'intent_mismatch') {
+          clearCryptoDonationLock();
+          setLockedDonation(null);
+          setVerificationState('error');
+          setVerificationMessage(text.selectionChanged);
+          return;
         }
 
         throw new Error(result.error || 'Unable to verify donation.');
