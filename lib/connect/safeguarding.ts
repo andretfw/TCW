@@ -88,7 +88,12 @@ export async function rejectMentor(input: {
   const now = new Date().toISOString();
   const mutation = await mutateConnectProfile(input.profileId, (profile) => {
     if (profile.role !== 'survivor') throw new Error('MENTOR_NOT_FOUND');
-    if (!['pending-review', 'review-rejected'].includes(profile.status)) {
+    if (
+      profile.status === 'closed' ||
+      profile.status === 'suspended' ||
+      profile.activeConnections > 0 ||
+      profile.mentorReview?.status === 'approved'
+    ) {
       throw new Error('MENTOR_NOT_REVIEWABLE');
     }
     profile.mentorReview = {
@@ -103,6 +108,19 @@ export async function rejectMentor(input: {
     profile.updatedAt = now;
   });
   if (!mutation) throw new Error('MENTOR_NOT_FOUND');
+
+  const proposals = await listMatchProposals();
+  for (const proposal of proposals.filter((item) => (
+    item.survivorId === mutation.record.id &&
+    ['pending-survivor', 'pending-warrior'].includes(item.status)
+  ))) {
+    await mutateMatchProposal(proposal.id, (record) => {
+      if (!['pending-survivor', 'pending-warrior'].includes(record.status)) return;
+      record.status = 'cancelled';
+      record.updatedAt = now;
+    });
+  }
+
   await sendMentorReviewDecisionEmail(mutation.record, false).catch(() => (
     alert(mutation.record.reference, 'MENTOR_REVIEW_EMAIL_FAILED')
   ));
