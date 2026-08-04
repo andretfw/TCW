@@ -43,8 +43,13 @@ requireText(
 );
 requireText(
   'lib/connect/safeguarding.ts',
-  'await cancelConnectMeeting(connection.meeting.eventId)',
-  'safeguarding blocks must cancel linked calendar meetings',
+  'return record.meeting?.eventId',
+  'safeguarding must capture the event from the conditionally ended record',
+);
+requireText(
+  'lib/connect/safeguarding.ts',
+  'await cancelConnectMeeting(ended.result)',
+  'safeguarding blocks must cancel the event after ending the connection',
 );
 requireText(
   'lib/connect/safeguarding.ts',
