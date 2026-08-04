@@ -101,6 +101,10 @@ export function createCryptoDonationIntent(input: {
 export function verifyCryptoDonationIntent(
   token: string,
 ): CryptoDonationIntent {
+  if (token.length < 80 || token.length > 2_048) {
+    throw new Error('Invalid crypto donation session.');
+  }
+
   const [encodedPayload, providedSignature, ...extra] = token.split('.');
 
   if (!encodedPayload || !providedSignature || extra.length > 0) {
