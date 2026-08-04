@@ -30,6 +30,7 @@ type CryptoDonationLock = {
   asset: CryptoAsset;
   destination: Destination;
   createdAt: number;
+  intentToken: string;
 };
 
 const PAYPAL_BUTTON_ID = '6JXEDTNATW3PS';
@@ -87,6 +88,7 @@ const copy = {
     selectionChanged:
       'The asset or destination changed. Copy the address again before verifying.',
     copyFailed: 'Unable to copy the address. Please try again.',
+    intentFailed: 'Unable to securely link this donation. Please try again.',
     campaigns: {
       peacefulWeekend: {
         title: 'Fund a Weekend of Peace for a Grandmother Facing Cancer',
@@ -153,6 +155,7 @@ const copy = {
     selectionChanged:
       'Moneda sau destinația s-a schimbat. Copiază din nou adresa înainte de verificare.',
     copyFailed: 'Adresa nu a putut fi copiată. Încearcă din nou.',
+    intentFailed: 'Donația nu a putut fi asociată în siguranță. Încearcă din nou.',
     campaigns: {
       peacefulWeekend: {
         title: 'Oferă un weekend de liniște unei bunici care înfruntă cancerul',
@@ -219,6 +222,7 @@ const copy = {
     selectionChanged:
       'El activo o el destino cambió. Copia de nuevo la dirección antes de verificar.',
     copyFailed: 'No se pudo copiar la dirección. Inténtalo de nuevo.',
+    intentFailed: 'No se pudo vincular la donación de forma segura. Inténtalo de nuevo.',
     campaigns: {
       peacefulWeekend: {
         title: 'Regala un fin de semana de paz a una abuela que enfrenta el cáncer',
@@ -289,7 +293,9 @@ function readCryptoDonationLock(): CryptoDonationLock | null {
       Date.now() - createdAt > CRYPTO_DONATION_LOCK_MAX_AGE_MS ||
       !isCampaignId(parsed.campaignId) ||
       !isCryptoAsset(parsed.asset) ||
-      !isDestination(parsed.destination)
+      !isDestination(parsed.destination) ||
+      typeof parsed.intentToken !== 'string' ||
+      parsed.intentToken.length < 40
     ) {
       window.sessionStorage.removeItem(CRYPTO_DONATION_LOCK_KEY);
       return null;
@@ -300,6 +306,7 @@ function readCryptoDonationLock(): CryptoDonationLock | null {
       asset: parsed.asset,
       destination: parsed.destination,
       createdAt,
+      intentToken: parsed.intentToken,
     };
   } catch {
     window.sessionStorage.removeItem(CRYPTO_DONATION_LOCK_KEY);
@@ -464,26 +471,52 @@ export default function SupportDreamPage() {
       return;
     }
 
-    const lock: CryptoDonationLock = {
-      campaignId: selectedCampaign.id,
-      asset,
-      destination,
-      createdAt: Date.now(),
-    };
-
-    writeCryptoDonationLock(lock);
-    setLockedDonation(lock);
+    setVerificationState('loading');
+    setVerificationMessage('');
     setSuggestedCampaignKey(null);
 
     try {
+      const response = await fetch('/api/crypto-intent', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          campaignId: selectedCampaign.id,
+          asset,
+          destination,
+        }),
+      });
+      const result = await response.json();
+      const intentToken = String(result.intentToken || '');
+
+      if (!response.ok || !intentToken) {
+        throw new Error(result.error || text.intentFailed);
+      }
+
       await navigator.clipboard.writeText(cryptoAddress);
+
+      const lock: CryptoDonationLock = {
+        campaignId: selectedCampaign.id,
+        asset,
+        destination,
+        createdAt: Number(result.issuedAt || Date.now()),
+        intentToken,
+      };
+
+      writeCryptoDonationLock(lock);
+      setLockedDonation(lock);
       setVerificationState('success');
       setVerificationMessage(
         formatCampaignMessage(text.addressLinked, selectedCampaignText.title),
       );
-    } catch {
+    } catch (error) {
+      clearCryptoDonationLock();
+      setLockedDonation(null);
       setVerificationState('error');
-      setVerificationMessage(text.copyFailed);
+      setVerificationMessage(
+        error instanceof Error && error.message !== text.intentFailed
+          ? error.message
+          : text.copyFailed,
+      );
     }
   };
 
@@ -561,6 +594,7 @@ export default function SupportDreamPage() {
           asset,
           destination,
           txHash,
+          intentToken: activeLock.intentToken,
         }),
       });
       const result = await response.json();
@@ -584,6 +618,15 @@ export default function SupportDreamPage() {
             ),
           );
           return;
+        }
+
+        if (
+          result.code === 'intent_required' ||
+          result.code === 'intent_invalid' ||
+          result.code === 'intent_mismatch'
+        ) {
+          clearCryptoDonationLock();
+          setLockedDonation(null);
         }
 
         throw new Error(result.error || 'Unable to verify donation.');
