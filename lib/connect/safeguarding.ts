@@ -10,6 +10,7 @@ import {
 import {cancelConnectMeeting} from './google-calendar';
 import {createAutomaticMatchesForProfile} from './service';
 import {
+  getConnectIncident,
   getConnectProfile,
   getMatchProposal,
   listConnectConnections,
@@ -49,7 +50,11 @@ export async function approveMentor(input: {
   const now = new Date().toISOString();
   const mutation = await mutateConnectProfile(input.profileId, (profile) => {
     if (profile.role !== 'survivor') throw new Error('MENTOR_NOT_FOUND');
-    if (!['pending-review', 'review-rejected'].includes(profile.status)) {
+    if (
+      profile.status === 'closed' ||
+      profile.status === 'suspended' ||
+      profile.mentorReview?.status === 'approved'
+    ) {
       throw new Error('MENTOR_NOT_REVIEWABLE');
     }
     profile.mentorReview = {
@@ -61,7 +66,7 @@ export async function approveMentor(input: {
       reviewedBy: input.reviewer,
       note: input.note,
     };
-    profile.status = 'active';
+    profile.status = profile.activeConnections > 0 ? 'matched' : 'active';
     profile.suspendedAt = undefined;
     profile.suspensionIncidentId = undefined;
     profile.updatedAt = now;
@@ -277,34 +282,44 @@ export async function reviewIncident(input: {
   note?: string;
   profileAction?: 'keep-suspended' | 'reinstate' | 'close';
 }): Promise<ConnectIncident> {
+  const incident = await getConnectIncident(input.incidentId);
+  if (!incident) throw new Error('INCIDENT_NOT_FOUND');
+
+  const profile = input.profileAction && input.profileAction !== 'keep-suspended'
+    ? await getConnectProfile(incident.reportedProfileId)
+    : null;
+  if (input.profileAction && input.profileAction !== 'keep-suspended' && !profile) {
+    throw new Error('PROFILE_NOT_FOUND');
+  }
+  if (
+    input.profileAction === 'reinstate' &&
+    profile?.role === 'survivor' &&
+    profile.mentorReview?.status !== 'approved'
+  ) {
+    throw new Error('MENTOR_APPROVAL_REQUIRED');
+  }
+
   const now = new Date().toISOString();
-  const incidentMutation = await mutateConnectIncident(input.incidentId, (incident) => {
-    incident.status = input.status;
-    incident.reviewedAt = now;
-    incident.reviewedBy = input.reviewer;
-    incident.reviewNote = input.note;
-    incident.history.push({
+  const incidentMutation = await mutateConnectIncident(input.incidentId, (record) => {
+    record.status = input.status;
+    record.reviewedAt = now;
+    record.reviewedBy = input.reviewer;
+    record.reviewNote = input.note;
+    record.history.push({
       id: randomUUID(),
       action: `review-${input.status}`,
       actor: input.reviewer,
       note: input.note,
       createdAt: now,
     });
-    incident.updatedAt = now;
+    record.updatedAt = now;
   });
   if (!incidentMutation) throw new Error('INCIDENT_NOT_FOUND');
 
-  if (input.profileAction && input.profileAction !== 'keep-suspended') {
-    const profile = await getConnectProfile(incidentMutation.record.reportedProfileId);
-    if (!profile) throw new Error('PROFILE_NOT_FOUND');
-
-    let nextStatus: ConnectProfileStatus = 'closed';
-    if (input.profileAction === 'reinstate') {
-      if (profile.role === 'survivor' && profile.mentorReview?.status !== 'approved') {
-        throw new Error('MENTOR_APPROVAL_REQUIRED');
-      }
-      nextStatus = 'active';
-    }
+  if (profile && input.profileAction && input.profileAction !== 'keep-suspended') {
+    const nextStatus: ConnectProfileStatus = input.profileAction === 'reinstate'
+      ? 'active'
+      : 'closed';
     await mutateConnectProfile(profile.id, (record) => {
       record.status = nextStatus;
       record.suspendedAt = undefined;
