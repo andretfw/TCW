@@ -6,12 +6,34 @@ export type ConnectRole = (typeof CONNECT_ROLES)[number];
 
 export const CONNECT_PROFILE_STATUSES = [
   'pending-verification',
+  'pending-review',
+  'review-rejected',
   'active',
   'paused',
   'matched',
+  'suspended',
   'closed',
 ] as const;
 export type ConnectProfileStatus = (typeof CONNECT_PROFILE_STATUSES)[number];
+
+export const MENTOR_VERIFICATION_METHODS = [
+  'video-call',
+  'document-review',
+  'trusted-referral',
+  'other',
+] as const;
+export type MentorVerificationMethod =
+  (typeof MENTOR_VERIFICATION_METHODS)[number];
+
+export interface MentorReview {
+  status: 'pending' | 'approved' | 'rejected';
+  identityVerified: boolean;
+  survivorExperienceVerified: boolean;
+  verificationMethod?: MentorVerificationMethod;
+  reviewedAt?: string;
+  reviewedBy?: string;
+  note?: string;
+}
 
 export const AGE_RANGES = [
   '18-24',
@@ -69,7 +91,7 @@ export const DAY_PERIODS = ['morning', 'afternoon', 'evening'] as const;
 export type DayPeriod = (typeof DAY_PERIODS)[number];
 export type AvailabilityKey = `${Weekday}-${DayPeriod}`;
 
-export const CONNECT_CONSENT_VERSION = '2026-07-31-v1';
+export const CONNECT_CONSENT_VERSION = '2026-08-04-v2';
 
 export interface ConnectConsent {
   version: typeof CONNECT_CONSENT_VERSION;
@@ -79,6 +101,7 @@ export interface ConnectConsent {
   limitedProfileSharing: true;
   mutualContactSharing: true;
   automatedMeetingScheduling: true;
+  safetyAndReporting: true;
   programRules: true;
   acceptedAt: string;
 }
@@ -108,6 +131,10 @@ export interface ConnectProfile {
   mentorGenderPreference?: MentorGenderPreference;
   maxConnections: number;
   activeConnections: number;
+  emailVerifiedAt?: string;
+  mentorReview?: MentorReview;
+  suspendedAt?: string;
+  suspensionIncidentId?: string;
   consent: ConnectConsent;
   createdAt: string;
   updatedAt: string;
@@ -119,6 +146,7 @@ export const MATCH_PROPOSAL_STATUSES = [
   'accepted',
   'declined',
   'expired',
+  'cancelled',
 ] as const;
 export type MatchProposalStatus =
   (typeof MATCH_PROPOSAL_STATUSES)[number];
@@ -132,7 +160,10 @@ export interface MatchProposal {
   status: MatchProposalStatus;
   survivorAcceptedAt?: string;
   warriorAcceptedAt?: string;
+  survivorSafetyConfirmedAt?: string;
+  warriorSafetyConfirmedAt?: string;
   declinedBy?: ConnectRole;
+  cancelledForIncidentId?: string;
   reminderCount?: number;
   lastReminderAt?: string;
   createdAt: string;
@@ -171,6 +202,59 @@ export interface ConnectConnection {
   updatedAt: string;
   endedAt?: string;
   endedBy?: ConnectRole;
+  endedReason?: 'participant-ended' | 'safety-block';
+  incidentId?: string;
+}
+
+export const CONNECT_INCIDENT_CATEGORIES = [
+  'safety-concern',
+  'harassment',
+  'medical-advice',
+  'money-request',
+  'privacy',
+  'identity',
+  'other',
+] as const;
+export type ConnectIncidentCategory =
+  (typeof CONNECT_INCIDENT_CATEGORIES)[number];
+
+export const CONNECT_INCIDENT_STATUSES = [
+  'open',
+  'reviewing',
+  'resolved',
+  'dismissed',
+] as const;
+export type ConnectIncidentStatus =
+  (typeof CONNECT_INCIDENT_STATUSES)[number];
+
+export interface ConnectIncidentHistoryEvent {
+  id: string;
+  action: string;
+  actor: string;
+  note?: string;
+  createdAt: string;
+}
+
+export interface ConnectIncident {
+  id: string;
+  reference: string;
+  reporterProfileId: string;
+  reportedProfileId: string;
+  reporterPreviousStatus: ConnectProfileStatus;
+  reportedPreviousStatus: ConnectProfileStatus;
+  sourceProposalId?: string;
+  sourceConnectionId?: string;
+  category: ConnectIncidentCategory;
+  details?: string;
+  status: ConnectIncidentStatus;
+  affectedConnectionIds: string[];
+  meetingCancellationFailures: string[];
+  history: ConnectIncidentHistoryEvent[];
+  reviewedAt?: string;
+  reviewedBy?: string;
+  reviewNote?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface PublicConnectProfile {
