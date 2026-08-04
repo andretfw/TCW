@@ -229,27 +229,33 @@ export async function reportAndBlock(input: {
     );
     if (otherId) affectedCounterparts.add(otherId);
 
-    if (connection.meeting) {
-      try {
-        await cancelConnectMeeting(connection.meeting.eventId);
-      } catch {
-        incident.meetingCancellationFailures.push(connection.id);
-      }
-    }
-    await mutateConnectConnection(connection.id, (record) => {
-      if (record.status === 'ended') return;
+    const ended = await mutateConnectConnection(connection.id, (record) => {
+      if (record.status === 'ended') return undefined;
       record.status = 'ended';
+      record.schedulingClaim = undefined;
       record.endedAt = now;
       record.endedBy = input.reporter.role;
       record.endedReason = 'safety-block';
       record.incidentId = incident.id;
       record.updatedAt = now;
+      return record.meeting?.eventId;
     });
+    if (ended?.result) {
+      try {
+        await cancelConnectMeeting(ended.result);
+      } catch {
+        incident.meetingCancellationFailures.push(connection.id);
+      }
+    }
   }
 
   for (const profile of allProfiles.filter((item) => affectedCounterparts.has(item.id))) {
     await mutateConnectProfile(profile.id, (record) => {
       record.activeConnections = Math.max(0, record.activeConnections - 1);
+      record.meetingReservations = (record.meetingReservations || []).filter(
+        (reservation) =>
+          !incident.affectedConnectionIds.includes(reservation.connectionId),
+      );
       if (record.status !== 'closed' && record.status !== 'suspended') {
         record.status = 'paused';
       }
@@ -260,12 +266,20 @@ export async function reportAndBlock(input: {
   await mutateConnectProfile(reported.id, (record) => {
     record.status = 'suspended';
     record.activeConnections = 0;
+    record.meetingReservations = (record.meetingReservations || []).filter(
+      (reservation) =>
+        !incident.affectedConnectionIds.includes(reservation.connectionId),
+    );
     record.suspendedAt = now;
     record.suspensionIncidentId = incident.id;
     record.updatedAt = now;
   });
   if (input.reporter.id !== reported.id) {
     await mutateConnectProfile(input.reporter.id, (record) => {
+      record.meetingReservations = (record.meetingReservations || []).filter(
+        (reservation) =>
+          !incident.affectedConnectionIds.includes(reservation.connectionId),
+      );
       if (record.status !== 'closed' && record.status !== 'suspended') {
         record.status = 'paused';
       }

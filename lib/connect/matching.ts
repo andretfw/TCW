@@ -10,6 +10,7 @@ const MIN_MATCH_SCORE = 60;
 const MEETING_DURATION_MINUTES = 45;
 const EARLIEST_MEETING_HOURS = 48;
 const LATEST_MEETING_DAYS = 30;
+const MIN_OPTION_SPACING_HOURS = 12;
 
 const WEEKDAY_BY_SHORT_NAME: Record<string, Weekday> = {
   Mon: 'mon',
@@ -213,26 +214,64 @@ function nextHalfHour(date: Date): Date {
   return next;
 }
 
-export function findNextCommonMeetingSlot(
+export interface ConnectMeetingSlot {
+  startsAt: string;
+  endsAt: string;
+}
+
+export function findNextCommonMeetingSlots(
   survivor: ConnectProfile,
   warrior: ConnectProfile,
   now = new Date(),
-): {startsAt: string; endsAt: string} | null {
+  limit = 3,
+): ConnectMeetingSlot[] {
   const earliest = nextHalfHour(
     new Date(now.getTime() + EARLIEST_MEETING_HOURS * 60 * 60 * 1000),
   );
-  const latest = new Date(now.getTime() + LATEST_MEETING_DAYS * 24 * 60 * 60 * 1000);
+  const latest = new Date(
+    now.getTime() + LATEST_MEETING_DAYS * 24 * 60 * 60 * 1000,
+  );
+  const boundedLimit = Math.max(1, Math.min(10, Math.floor(limit)));
+  const minimumSpacingMs = MIN_OPTION_SPACING_HOURS * 60 * 60 * 1000;
+  const slots: ConnectMeetingSlot[] = [];
 
   for (
     let cursor = earliest;
     cursor <= latest;
     cursor = new Date(cursor.getTime() + 30 * 60 * 1000)
   ) {
-    const end = new Date(cursor.getTime() + MEETING_DURATION_MINUTES * 60 * 1000);
-    if (profileAvailable(survivor, cursor, end) && profileAvailable(warrior, cursor, end)) {
-      return {startsAt: cursor.toISOString(), endsAt: end.toISOString()};
+    const end = new Date(
+      cursor.getTime() + MEETING_DURATION_MINUTES * 60 * 1000,
+    );
+    if (
+      !profileAvailable(survivor, cursor, end) ||
+      !profileAvailable(warrior, cursor, end)
+    ) {
+      continue;
     }
+
+    const previous = slots[slots.length - 1];
+    if (
+      previous &&
+      cursor.getTime() - new Date(previous.startsAt).getTime() < minimumSpacingMs
+    ) {
+      continue;
+    }
+
+    slots.push({
+      startsAt: cursor.toISOString(),
+      endsAt: end.toISOString(),
+    });
+    if (slots.length >= boundedLimit) return slots;
   }
 
-  return null;
+  return slots;
+}
+
+export function findNextCommonMeetingSlot(
+  survivor: ConnectProfile,
+  warrior: ConnectProfile,
+  now = new Date(),
+): ConnectMeetingSlot | null {
+  return findNextCommonMeetingSlots(survivor, warrior, now, 1)[0] || null;
 }

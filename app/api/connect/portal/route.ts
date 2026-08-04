@@ -8,6 +8,7 @@ import {reportAndBlock} from '@/lib/connect/safeguarding';
 import {connectSessionProfileId} from '@/lib/connect/session';
 import {
   buildConnectPortalState,
+  chooseConnectMeetingTime,
   createAutomaticMatchesForProfile,
   decideMatchProposal,
   endConnectConnection,
@@ -38,6 +39,7 @@ const ACTIONS = [
   'end',
   'end-rematch',
   'report-block',
+  'select-meeting-time',
 ] as const;
 type PortalAction = (typeof ACTIONS)[number];
 
@@ -153,6 +155,15 @@ export async function POST(request: Request): Promise<Response> {
           : undefined,
         category: category as ConnectIncidentCategory,
         details: cleanText(body.details, {max: 1_000}) || undefined,
+      });
+    } else if (action === 'select-meeting-time') {
+      await chooseConnectMeetingTime({
+        profile,
+        connectionId: cleanText(
+          body.connectionId,
+          {min: 20, max: 80, required: true},
+        ),
+        optionId: cleanText(body.optionId, {min: 20, max: 80, required: true}),
       });
     } else if (action === 'pause' || action === 'resume') {
       await setConnectProfilePausedWithSafeMatching(profile, action === 'pause');
