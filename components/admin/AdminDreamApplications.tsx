@@ -400,6 +400,7 @@ export default function AdminDreamApplications() {
   }
 
   async function signOut() {
+    await fetch('/api/admin/security/session', {method: 'DELETE'}).catch(() => undefined);
     await logout();
     setUser(null);
     setApplications([]);
