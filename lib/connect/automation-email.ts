@@ -1,6 +1,6 @@
 import 'server-only';
 
-import {connectPortalUrl, sendConnectEmail} from './email';
+import {connectAccessPortalUrl, sendConnectEmail} from './email';
 import type {ConnectProfile} from './types';
 
 const COPY = {
@@ -31,7 +31,7 @@ export async function sendConnectProposalReminder(
   await sendConnectEmail({
     to: profile.email,
     subject: copy.reminderSubject,
-    body: copy.reminderBody(profile.firstName, connectPortalUrl(profile)),
+    body: copy.reminderBody(profile.firstName, await connectAccessPortalUrl(profile)),
   });
 }
 
@@ -47,7 +47,7 @@ export async function sendConnectCheckIn(input: {
     body: copy.checkInBody(
       input.profile.firstName,
       input.counterpart.firstName,
-      connectPortalUrl(input.profile),
+      await connectAccessPortalUrl(input.profile),
       input.month,
     ),
   });

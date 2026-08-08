@@ -245,6 +245,7 @@ export default function DreamBoardReview({applicationId}: {applicationId: string
   }
 
   async function signOut() {
+    await fetch('/api/admin/security/session', {method: 'DELETE'}).catch(() => undefined);
     await logout();
     setUser(null);
     setApplication(undefined);

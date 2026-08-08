@@ -282,6 +282,7 @@ export default function AdminConnectSafety() {
   }
 
   async function signOut() {
+    await fetch('/api/admin/security/session', {method: 'DELETE'}).catch(() => undefined);
     await logout();
     setUser(null);
     setData({mentors: [], incidents: []});

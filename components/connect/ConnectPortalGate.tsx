@@ -17,6 +17,12 @@ const LOGOUT_COPY: Record<Locale, string> = {
   es: 'Cerrar sesión',
 };
 
+const LOGOUT_ALL_COPY: Record<Locale, string> = {
+  en: 'Log out all devices',
+  ro: 'Deconectează toate dispozitivele',
+  es: 'Cerrar sesión en todos los dispositivos',
+};
+
 function sessionMarker(): string {
   return `tcw-session-${crypto.randomUUID()}`;
 }
@@ -81,11 +87,15 @@ export default function ConnectPortalGate({locale}: {locale: Locale}) {
     };
   }, []);
 
-  async function logout() {
+  async function logout(allDevices = false) {
     if (loggingOut) return;
     setLoggingOut(true);
     try {
-      await fetch('/api/connect/session', {method: 'DELETE'});
+      await fetch('/api/connect/session', {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({allDevices}),
+      });
     } finally {
       window.sessionStorage.removeItem(TOKEN_STORAGE_KEY);
       setStatus('signed-out');
@@ -110,15 +120,25 @@ export default function ConnectPortalGate({locale}: {locale: Locale}) {
 
   return (
     <>
-      <button
-        type="button"
-        disabled={loggingOut}
-        onClick={() => void logout()}
-        className="fixed right-4 top-24 z-50 flex items-center gap-2 rounded-full border border-white/30 bg-indigo-950/90 px-4 py-2 text-sm font-black text-white shadow-lg backdrop-blur hover:bg-indigo-900 disabled:opacity-60"
-      >
-        {loggingOut ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
-        {LOGOUT_COPY[locale]}
-      </button>
+      <div className="fixed right-4 top-24 z-50 flex flex-col items-end gap-2">
+        <button
+          type="button"
+          disabled={loggingOut}
+          onClick={() => void logout(false)}
+          className="flex items-center gap-2 rounded-full border border-white/30 bg-indigo-950/90 px-4 py-2 text-sm font-black text-white shadow-lg backdrop-blur hover:bg-indigo-900 disabled:opacity-60"
+        >
+          {loggingOut ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <LogOut className="h-4 w-4" />}
+          {LOGOUT_COPY[locale]}
+        </button>
+        <button
+          type="button"
+          disabled={loggingOut}
+          onClick={() => void logout(true)}
+          className="rounded-full border border-indigo-200 bg-white/95 px-4 py-2 text-xs font-black text-indigo-950 shadow-lg backdrop-blur hover:bg-indigo-50 disabled:opacity-60"
+        >
+          {LOGOUT_ALL_COPY[locale]}
+        </button>
+      </div>
       <ConnectPortal locale={locale} />
     </>
   );

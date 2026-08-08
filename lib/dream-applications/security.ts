@@ -2,6 +2,11 @@ import 'server-only';
 
 import { getUser, type User } from '@netlify/identity';
 
+import {
+  hasReviewerSecuritySession,
+  revokeAllReviewerSecuritySessions,
+} from './reviewer-session';
+
 const DEFAULT_ADMIN_EMAIL = 'tcw@tutticancerwarriors.org';
 const BOARD_SIZE = 3;
 
@@ -69,23 +74,30 @@ export function assertSameOrigin(request: Request): void {
   }
 }
 
-export async function requireDreamReviewerContext(): Promise<DreamReviewerContext> {
+export async function requireDreamReviewerIdentityContext(): Promise<DreamReviewerContext> {
   const user = await getUser();
   if (!user) throw new DreamAuthorizationError('Authentication required.', 401);
 
   const email = user.email?.trim().toLowerCase();
   if (!email) throw new DreamAuthorizationError('A verified email address is required.', 403);
 
-  const roles = user.roles || [];
   const isAdmin = dreamAdminEmails().includes(email);
   const isBoardMember = dreamBoardEmails().includes(email);
-  const hasLegacyReviewerRole = roles.includes('dream-reviewer');
 
-  if (!isAdmin && !isBoardMember && !hasLegacyReviewerRole) {
+  if (!isAdmin && !isBoardMember) {
+    await revokeAllReviewerSecuritySessions(email).catch(() => undefined);
     throw new DreamAuthorizationError('Reviewer access required.', 403);
   }
 
   return {user, email, isAdmin, isBoardMember};
+}
+
+export async function requireDreamReviewerContext(): Promise<DreamReviewerContext> {
+  const context = await requireDreamReviewerIdentityContext();
+  if (!await hasReviewerSecuritySession(context.email)) {
+    throw new DreamAuthorizationError('Two-step verification required.', 403);
+  }
+  return context;
 }
 
 export async function requireDreamReviewer(): Promise<User> {
