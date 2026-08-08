@@ -1,12 +1,13 @@
 import 'server-only';
 
 import {connectPortalUrl, sendConnectEmail} from './email';
+import {createConnectAccessToken} from './session';
 import type {ConnectProfile} from './types';
 
 const COPY = {
   en: {
     subject: 'Your secure TCW Connect sign-in link',
-    body: (name: string, url: string) => `Hi ${name},\n\nUse the secure link below to access your TCW Connect profile, see your matching status and manage any connection or meeting:\n\n${url}\n\nThe link signs you in on this device. Do not forward it. If you did not request access, you can ignore this email.\n\nWith care,\nTutti Cancer Warriors`,
+    body: (name: string, url: string) => `Hi ${name},\n\nUse the secure link below to access your TCW Connect profile, see your matching status and manage any connection or meeting:\n\n${url}\n\nThe link is valid for 15 minutes, works once, and signs you in on this device. Do not forward it. If you did not request access, you can ignore this email.\n\nWith care,\nTutti Cancer Warriors`,
   },
   ro: {
     subject: 'Linkul tău securizat de acces TCW Connect',
@@ -20,9 +21,10 @@ const COPY = {
 
 export async function sendConnectAccessEmail(profile: ConnectProfile): Promise<void> {
   const copy = COPY[profile.locale];
+  const accessToken = await createConnectAccessToken(profile.id, {invalidatePrevious: true});
   await sendConnectEmail({
     to: profile.email,
     subject: copy.subject,
-    body: copy.body(profile.firstName, connectPortalUrl(profile)),
+    body: copy.body(profile.firstName, connectPortalUrl(profile, accessToken)),
   });
 }
