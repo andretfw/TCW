@@ -8,6 +8,7 @@ import {
   sendMentorReviewDecisionEmail,
 } from './email';
 import {cancelConnectMeeting} from './google-calendar';
+import {revokeAllConnectSessions} from './session';
 import {createAutomaticMatchesForProfile} from './service';
 import {
   getConnectIncident,
@@ -274,6 +275,7 @@ export async function reportAndBlock(input: {
     record.suspensionIncidentId = incident.id;
     record.updatedAt = now;
   });
+  await revokeAllConnectSessions(reported.id);
   if (input.reporter.id !== reported.id) {
     await mutateConnectProfile(input.reporter.id, (record) => {
       record.meetingReservations = (record.meetingReservations || []).filter(
@@ -362,6 +364,8 @@ export async function reviewIncident(input: {
       await createAutomaticMatchesForProfile(profile.id).catch(() => (
         alert(profile.reference, 'POST_REINSTATEMENT_MATCHING_FAILED')
       ));
+    } else {
+      await revokeAllConnectSessions(profile.id);
     }
   }
 
