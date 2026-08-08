@@ -313,3 +313,25 @@ export async function sendDreamBoardReminderEmail(input: {
     body: boardReminderBody(input.application.reference, boardReviewUrl(input.application.id)),
   });
 }
+
+export async function sendDreamSecurityCodeEmail(
+  recipient: string,
+  code: string,
+): Promise<void> {
+  if (!/^\d{6}$/.test(code)) throw new Error('Security code is invalid.');
+  const accessToken = await getGoogleWorkspaceAccessToken(GOOGLE_GMAIL_SEND_SCOPE);
+  const from = googleWorkspaceAccountEmail();
+  await sendGmailMessage(accessToken, from, {
+    to: recipient.trim().toLowerCase(),
+    subject: 'Your TCW secure sign-in code',
+    body: `Your TCW two-step security code is:
+
+${code}
+
+This code expires in 10 minutes and can be used only once.
+
+If you did not try to sign in to the private TCW dashboard, do not share this code and contact the TCW administrator.
+
+Tutti Cancer Warriors`,
+  });
+}
