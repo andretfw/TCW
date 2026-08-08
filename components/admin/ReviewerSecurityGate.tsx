@@ -150,12 +150,15 @@ export default function ReviewerSecurityGate({children}: {children: React.ReactN
 
   if (gate === 'checking') {
     return (
-      <main className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-950 px-5 text-white">
-        <div className="flex items-center gap-3 font-black">
-          <LoaderCircle className="h-6 w-6 animate-spin text-brand-300" />
-          Checking secure access
-        </div>
-      </main>
+      <>
+        {children}
+        <main className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-950 px-5 text-white">
+          <div className="flex items-center gap-3 font-black">
+            <LoaderCircle className="h-6 w-6 animate-spin text-brand-300" />
+            Checking secure access
+          </div>
+        </main>
+      </>
     );
   }
 
