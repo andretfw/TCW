@@ -6,6 +6,7 @@ import {
   googleWorkspaceAccountEmail,
 } from '@/lib/dream-applications/google-drive';
 
+import {createConnectAccessToken} from './session';
 import type {
   ConnectConnection,
   ConnectLocale,
@@ -92,13 +93,21 @@ function portalPath(locale: ConnectLocale): string {
   return '/en/connect-with-a-survivor/my-connection';
 }
 
-export function connectPortalUrl(profile: ConnectProfile): string {
+export function connectPortalUrl(
+  profile: ConnectProfile,
+  token: string = profile.portalToken,
+): string {
   const url = new URL(
     portalPath(profile.locale),
     process.env.NEXT_PUBLIC_SITE_URL || DEFAULT_SITE_URL,
   );
-  url.hash = new URLSearchParams({token: profile.portalToken}).toString();
+  url.hash = new URLSearchParams({token}).toString();
   return url.toString();
+}
+
+async function connectAccessPortalUrl(profile: ConnectProfile): Promise<string> {
+  const token = await createConnectAccessToken(profile.id);
+  return connectPortalUrl(profile, token);
 }
 
 function sanitizeHeader(value: string): string {
@@ -160,7 +169,7 @@ export async function sendConnectWelcomeEmail(profile: ConnectProfile): Promise<
   await sendConnectEmail({
     to: profile.email,
     subject: copy.welcomeSubject,
-    body: copy.welcomeBody(profile.firstName, connectPortalUrl(profile)),
+    body: copy.welcomeBody(profile.firstName, await connectAccessPortalUrl(profile)),
   });
 }
 
@@ -169,7 +178,7 @@ export async function sendMatchProposalEmail(profile: ConnectProfile): Promise<v
   await sendConnectEmail({
     to: profile.email,
     subject: copy.proposalSubject,
-    body: copy.proposalBody(profile.firstName, connectPortalUrl(profile)),
+    body: copy.proposalBody(profile.firstName, await connectAccessPortalUrl(profile)),
   });
 }
 
@@ -178,7 +187,7 @@ export async function sendWarriorDecisionEmail(profile: ConnectProfile): Promise
   await sendConnectEmail({
     to: profile.email,
     subject: copy.nextStepSubject,
-    body: copy.nextStepBody(profile.firstName, connectPortalUrl(profile)),
+    body: copy.nextStepBody(profile.firstName, await connectAccessPortalUrl(profile)),
   });
 }
 
@@ -193,7 +202,7 @@ export async function sendConnectionConfirmedEmail(
     body: copy.connectedBody(
       profile.firstName,
       counterpart.firstName,
-      connectPortalUrl(profile),
+      await connectAccessPortalUrl(profile),
     ),
   });
 }
@@ -221,7 +230,7 @@ export async function sendMeetingScheduledEmail(
       counterpart.firstName,
       startsAt,
       connection.meeting.meetUrl,
-      connectPortalUrl(profile),
+      await connectAccessPortalUrl(profile),
     ),
   });
 }
@@ -259,7 +268,7 @@ export async function sendMentorReviewPendingEmail(
   await sendConnectEmail({
     to: profile.email,
     subject: copy.pendingSubject,
-    body: copy.pendingBody(profile.firstName, connectPortalUrl(profile)),
+    body: copy.pendingBody(profile.firstName, await connectAccessPortalUrl(profile)),
   });
 }
 
@@ -275,7 +284,7 @@ export async function sendMentorReviewDecisionEmail(
   await sendConnectEmail({
     to: profile.email,
     subject: copy.rejectedSubject,
-    body: copy.rejectedBody(profile.firstName, connectPortalUrl(profile)),
+    body: copy.rejectedBody(profile.firstName, await connectAccessPortalUrl(profile)),
   });
 }
 
