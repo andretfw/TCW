@@ -47,7 +47,7 @@ async function profileForRequest(
   request: Request,
   fallbackToken?: unknown,
 ): Promise<ConnectProfile> {
-  const sessionProfileId = connectSessionProfileId(request);
+  const sessionProfileId = await connectSessionProfileId(request);
   if (sessionProfileId) {
     const sessionProfile = await getConnectProfile(sessionProfileId);
     if (sessionProfile && sessionProfile.status !== 'closed') return sessionProfile;
@@ -55,7 +55,7 @@ async function profileForRequest(
 
   const token = cleanText(fallbackToken, {min: 43, max: 43, required: true});
   const profile = await getConnectProfileByToken(token);
-  if (!profile || profile.status === 'closed') {
+  if (!profile || profile.status !== 'pending-verification') {
     throw new Error('INVALID_PORTAL_LINK');
   }
   return profile;
