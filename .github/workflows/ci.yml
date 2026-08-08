@@ -52,5 +52,8 @@ jobs:
       - name: TCW Connect confirmed scheduling check
         run: node scripts/check-connect-scheduling.mjs
 
+      - name: Authentication security regression check
+        run: node scripts/check-auth-security.mjs
+
       - name: Route and security smoke test
         run: npm run smoke:routes
