@@ -105,7 +105,7 @@ export function connectPortalUrl(
   return url.toString();
 }
 
-async function connectAccessPortalUrl(profile: ConnectProfile): Promise<string> {
+export async function connectAccessPortalUrl(profile: ConnectProfile): Promise<string> {
   const token = await createConnectAccessToken(profile.id);
   return connectPortalUrl(profile, token);
 }
