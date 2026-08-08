@@ -275,7 +275,9 @@ export async function reportAndBlock(input: {
     record.suspensionIncidentId = incident.id;
     record.updatedAt = now;
   });
-  await revokeAllConnectSessions(reported.id);
+  await revokeAllConnectSessions(reported.id).catch(() => (
+    alert(reported.reference, 'SESSION_REVOCATION_NEEDS_REVIEW')
+  ));
   if (input.reporter.id !== reported.id) {
     await mutateConnectProfile(input.reporter.id, (record) => {
       record.meetingReservations = (record.meetingReservations || []).filter(
@@ -365,7 +367,9 @@ export async function reviewIncident(input: {
         alert(profile.reference, 'POST_REINSTATEMENT_MATCHING_FAILED')
       ));
     } else {
-      await revokeAllConnectSessions(profile.id);
+      await revokeAllConnectSessions(profile.id).catch(() => (
+        alert(profile.reference, 'SESSION_REVOCATION_NEEDS_REVIEW')
+      ));
     }
   }
 
